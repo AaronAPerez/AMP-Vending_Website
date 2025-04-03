@@ -3,8 +3,7 @@ import React from 'react';
 import Card from '@/components/ui/Card';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import AdminLayout from '@/components/admin/AdminLayout';
-
+import AdminLayout from '../AdminLayout';
 
 export const metadata: Metadata = {
   title: 'Clients | AMP Vending Admin',
