@@ -1,5 +1,7 @@
+'use client';
+
 import * as TabsPrimitive from '@radix-ui/react-tabs'
-import { cn } from '@/lib/utils' // You'll need to create this utility
+import { cn } from '@/lib/utils'
 
 interface TabsProps {
   tabs: { value: string; label: string; content: React.ReactNode }[]

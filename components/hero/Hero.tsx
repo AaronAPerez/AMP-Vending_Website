@@ -3,14 +3,25 @@
 import Link from 'next/link';
 import Button from '../ui/Button';
 import Image from 'next/image';
+import { useState, useEffect } from 'react'
+ 
 
 /**
  * Hero section component for the landing page
  * Showcases the main value proposition of the vending machine solution
  */
 const Hero = () => {
+  const [isClient, setIsClient] = useState(false)
+ 
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+ 
+
+
   return (
     <section className="relative overflow-hidden min-h-[600px]" aria-labelledby="hero-heading">
+      <h1>{isClient ? 'This is never prerendered' : 'Prerendered'}</h1>
     {/* Background image with Next.js Image */}
     <div className="absolute inset-0 z-0">
       <Image
