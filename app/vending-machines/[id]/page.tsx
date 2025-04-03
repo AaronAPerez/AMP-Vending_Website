@@ -1,7 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import VendingMachineDetail from '@/components/VendingMachineDetail';
-import { VendingMachine } from '@/hooks/useVendingMachines';
+
 
 // Import the hook function directly for server component use
 import { machines } from '@/lib/vendingMachineData';
@@ -50,5 +49,6 @@ export async function generateStaticParams() {
  * Individual vending machine detail page component
  */
 export default function VendingMachineDetailPage({ params }: VendingMachineDetailPageProps) {
-  return <VendingMachineDetail machineId={params.machineId} />;
+  return ;
+  // return <VendingMachineDetail machineId={params.machineId} />;
 }

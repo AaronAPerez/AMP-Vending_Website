@@ -1,3 +1,5 @@
+'use client';
+
 import useVendingMachines from '@/hooks/useVendingMachines';
 import React, { JSX, useState } from 'react';
 import { Link } from 'react-router-dom';

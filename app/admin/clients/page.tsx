@@ -1,8 +1,9 @@
 import React from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
+
 import Card from '@/components/ui/Card';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import AdminLayout from '../AdminLayout';
 
 export const metadata: Metadata = {
   title: 'Clients | AMP Vending Admin',
@@ -116,7 +117,7 @@ const AdminClientsPage = () => {
       </div>
 
       {/* Filters and search */}
-      <Card className="mb-6" variant="outlined">
+      <Card className="mb-6 outlined">
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -179,3 +180,5 @@ const AdminClientsPage = () => {
             </AdminLayout>
   )
 };
+
+export default AdminClientsPage;
