@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from '../ui/Card';
-import Image from 'next/image';
 
 /**
  * WorkplaceBenefits section component that highlights the advantages 
@@ -156,7 +155,7 @@ const WorkplaceBenefits = () => {
           
           <div className="grid md:grid-cols-2 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="overflow-visible" variant="outlined">
+              <Card key={index} className="overflow-visible outlined">
                 <div className="relative">
                   {/* Quote mark decorative element */}
                   <div className="absolute -top-8 -left-2 text-6xl text-blue-200 font-serif">"</div>

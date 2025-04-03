@@ -49,7 +49,7 @@ const Hero = () => {
        {/* Background image with Next.js Image */}
      <div className="absolute inset-0 z-0">
      <Image
-      src="/images/vending-pic.jpg" // Ensure no spaces here
+      src="/images/vending-crop.jpg" // Ensure no spaces here
       alt="Vending Machine"
       width={1720}
       height={880} // You'll likely need to adjust the height as well

@@ -1,54 +1,26 @@
-import React from 'react';
 import { Metadata } from 'next';
+import VendingMachineDetail from '@/components/vending/VendingMachineDetail';
 
-
-// Import the hook function directly for server component use
-import { machines } from '@/lib/vendingMachineData';
-
-// Define types for route parameters
-interface VendingMachineDetailPageProps {
-  params: {
-    machineId: string;
-  };
+// Props type follows Next.js App Router pattern
+interface PageProps {
+  params: { id: string };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
-/**
- * Generate metadata for vending machine detail pages
- */
-export async function generateMetadata({ 
-  params 
-}: VendingMachineDetailPageProps): Promise<Metadata> {
-  // Find the machine by ID
-  const machine = machines.find(m => m.id === params.machineId);
+export default async function VendingMachineDetailPage({ params }: PageProps) {
+  const { id } = params;
   
-  // Default metadata if machine not found
-  if (!machine) {
-    return {
-      title: 'Vending Machine Not Found | AMP Design and Consulting',
-      description: 'The requested vending machine could not be found.'
-    };
-  }
+  // Note: Make this component async even if you don't need await 
+  // This helps Next.js understand the correct type signature
   
-  // Machine-specific metadata
+  return <VendingMachineDetail id={id} />;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = params;
+  
   return {
-    title: `${machine.name} | AMP Design and Consulting`,
-    description: machine.description,
+    title: `Vending Machine ${id} | AMP Vending`,
+    description: 'Detailed information about this vending machine model and its features',
   };
-}
-
-/**
- * Generate static paths for all vending machines
- */
-export async function generateStaticParams() {
-  return machines.map(machine => ({
-    machineId: machine.id,
-  }));
-}
-
-/**
- * Individual vending machine detail page component
- */
-export default function VendingMachineDetailPage({ params }: VendingMachineDetailPageProps) {
-  return ;
-  // return <VendingMachineDetail machineId={params.machineId} />;
 }

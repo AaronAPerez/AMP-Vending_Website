@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import FeatureItem from '../ui/FeatureItem';
 import Card from '../ui/Card';
 import Button from '../ui/Button';

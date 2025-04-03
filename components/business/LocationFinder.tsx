@@ -240,22 +240,32 @@ const LocationFinder = () => {
   };
   
   return (
-    <section className="py-16" id="location-finder">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section 
+      className="py-16 relative" 
+      style={{ 
+        backgroundImage: "url('/images/Map.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
+      }}
+    >
+      {/* Add a semi-transparent overlay to improve text readability */}
+      <div className="absolute inset-0 bg-opacity-50"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Strategic Location Finder
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Identify high-potential locations for your vending machine business based on our 
-            proven success criteria.
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+            Identify the perfect locations for your vending machines to maximize revenue and usage.
           </p>
         </div>
         
-        <div className="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+        <div className="rounded-lg shadow-md p-6 md:p-8">
           {!showResults ? (
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-6">
+              <h3 className="text-xl font-bold text-gray-300 mb-6">
                 Select the criteria that match your potential location:
               </h3>
               
@@ -297,7 +307,7 @@ const LocationFinder = () => {
                         </div>
                       </div>
                       <div className="ml-3">
-                        <p className="font-medium text-gray-900">{criterion.label}</p>
+                        <p className="font-medium text-black">{criterion.label}</p>
                         <p className="text-sm text-gray-600">{criterion.description}</p>
                       </div>
                     </div>
@@ -329,7 +339,7 @@ const LocationFinder = () => {
                     px-6 py-3 rounded-md font-medium border ${
                       selectedCriteria.length === 0
                         ? 'text-gray-400 border-gray-200 cursor-not-allowed'
-                        : 'text-gray-700 border-gray-300 hover:bg-gray-50'
+                        : 'text-gray-200 border-gray-300 hover:bg-gray-50'
                     }
                   `}
                 >
@@ -338,7 +348,7 @@ const LocationFinder = () => {
               </div>
               
               <div className="mt-6 text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-200">
                   {selectedCriteria.length}/10 criteria selected
                 </p>
               </div>
@@ -346,7 +356,7 @@ const LocationFinder = () => {
           ) : (
             <div>
               <div className="flex justify-between items-center mb-8">
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-300">
                   Recommended Locations
                 </h3>
                 <button
@@ -369,8 +379,8 @@ const LocationFinder = () => {
                         <div className="ml-6 flex-1">
                           <div className="flex justify-between items-start">
                             <div>
-                              <h4 className="text-lg font-bold text-gray-900">{location.name}</h4>
-                              <p className="text-gray-600">{location.description}</p>
+                              <h4 className="text-lg font-bold text-gray-300">{location.name}</h4>
+                              <p className="text-gray-200">{location.description}</p>
                             </div>
                             <div className="flex items-center bg-blue-100 text-blue-800 font-bold rounded-full px-3 py-1">
                               {location.matchScore}% Match
@@ -378,7 +388,7 @@ const LocationFinder = () => {
                           </div>
                           
                           <div className="mt-4">
-                            <p className="text-sm font-medium text-gray-700 mb-2">Matching Criteria:</p>
+                            <p className="text-sm font-medium text-gray-200 mb-2">Matching Criteria:</p>
                             <div className="flex flex-wrap gap-2">
                               {location.criteria
                                 .filter(criterion => selectedCriteria.includes(criterion))
@@ -403,7 +413,7 @@ const LocationFinder = () => {
                 </div>
               ) : (
                 <div className="text-center p-8 bg-gray-100 rounded-lg">
-                  <p className="text-gray-700 mb-4">No matching locations found. Try selecting different criteria.</p>
+                  <p className="text-gray-200 mb-4">No matching locations found. Try selecting different criteria.</p>
                   <button
                     type="button"
                     onClick={handleReset}
@@ -415,7 +425,7 @@ const LocationFinder = () => {
               )}
               
               <div className="mt-8 p-6 bg-blue-50 rounded-lg">
-                <h4 className="font-bold text-gray-900 mb-2">Next Steps:</h4>
+                <h4 className="font-bold text-gray-300 mb-2">Next Steps:</h4>
                 <ol className="list-decimal pl-5 space-y-2 text-gray-700">
                   <li>Conduct a site visit to your matched location type</li>
                   <li>Meet with the location manager to discuss your vending proposal</li>
@@ -429,7 +439,7 @@ const LocationFinder = () => {
         </div>
         
         <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-200 mb-4">
             Need help identifying the perfect location for your vending business?
           </p>
           {/* FIX: Changed from React Router Link to Next.js Link */}

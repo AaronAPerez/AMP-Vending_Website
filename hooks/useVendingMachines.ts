@@ -64,19 +64,19 @@ const useVendingMachines = () => {
   /**
    * Get a single machine by ID
    */
-  const getMachineById = useCallback((machineId: string) => {
-    return machines.find(machine => machine.id === machineId);
-  }, []);
+   const getMachineById = (id: string) => {
+    return machines.find(machine => machine.id === id) || null;
+  };
 
   return {
     machines,
+    getMachineById,
     machinesByCategory,
     selectedMachines,
     toggleMachineSelection,
     selectMachine,
     clearSelections,
     getMachinesByCategory,
-    getMachineById,
     isSelected: (machineId: string) => selectedMachines.some(m => m.id === machineId)
   };
 };
