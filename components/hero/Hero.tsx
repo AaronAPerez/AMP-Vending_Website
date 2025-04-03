@@ -1,7 +1,3 @@
-'use client';
-
-import Link from 'next/link';
-import Button from '../ui/Button';
 import Image from 'next/image';
 import { useState, useEffect, useMemo } from 'react'
  
@@ -45,30 +41,28 @@ const Hero = () => {
 
 
   return (
+    <div className='min-h-screen'>
     <section 
-      className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-24 lg:py-32" 
+      className="relative text-white py-20 lg:py-28" 
       aria-labelledby="hero-heading"
     >
        {/* Background image with Next.js Image */}
      <div className="absolute inset-0 z-0">
-       <Image
-        src="/images/Hero-Vending.jpg"
-        alt=""
-        fill
-        priority
-        quality={85}
-        sizes="100vw"
-        style={{ objectFit: 'cover', objectPosition: 'center' }}
-        aria-hidden="true"
-      />
+     <Image
+      src="/images/vending-pic.jpg" // Ensure no spaces here
+      alt="Vending Machine"
+      width={1720}
+      height={880} // You'll likely need to adjust the height as well
+     aria-hidden="true"
+      /> 
       {/* Overlay for better text visibility */}
       <div className="absolute inset-0 bg-blue-900/70 mix-blend-multiply"></div>
     </div>
 
       {/* Hero content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-8 sm:px-2 md:px-4 lg:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
+        
             <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               State-of-the-Art Vending Machines
             </h1>
@@ -89,29 +83,29 @@ const Hero = () => {
                 Get Started
               </a>
             </div>
-          </div>
+       
           
        {/* Main vending machine image */}
        <div className="relative">
             <div className="aspect-w-4 aspect-h-5 rounded-lg overflow-hidden shadow-2xl">
-              {/* Replace the placeholder with an actual vending machine image */}
+              {/* Replace the placeholder with an actual vending machine image*/} 
               <div className="relative w-full h-full">
                 <Image
-                  src="/images/vending-machine.jpg" // Path to your image in the public folder
+                  src="/images/vending.jpg" // Path to your image in the public folder
                   alt="Modern vending machine with touchscreen interface"
                   fill
                   style={{ objectFit: 'cover' }}
                   priority // Loads the image immediately as it's above the fold
                   className="rounded-lg"
                 />
-              </div>
             </div>
+        </div> 
 
               {/* Feature highlight bubbles */}
               <div className="absolute -top-4 -left-4 bg-yellow-400 text-blue-900 rounded-full px-4 py-2 font-bold shadow-lg">
                 5% Profit Sharing
               </div>
-              <div className="absolute -bottom-4 -right-4 bg-green-500 text-white rounded-full px-4 py-2 font-bold shadow-lg">
+              <div className="absolute -bottom-4 -right-0 mr-8 bg-green-500 text-white rounded-full px-4 py-2 font-bold shadow-lg">
                 Zero Upfront Cost
               </div>
             </div>
@@ -119,7 +113,7 @@ const Hero = () => {
         </div>
         
         {/* Key benefits summary */}
-        <section className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto px-8 sm:px-2 md:px-4 lg:px-6">
           {[
             {
               title: 'Advanced Features',
@@ -142,8 +136,9 @@ const Hero = () => {
               <p className="text-blue-100">{benefit.description}</p>
             </div>
           ))}
-        </section>
-    </section>
+          </section>
+          </section>
+        </div>
   );
 };
 
