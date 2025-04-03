@@ -1,6 +1,7 @@
 
+import AdminDashboard from '@/components/admin/AdminDashboard';
 import { Metadata } from 'next';
-import AdminDashboard from './AdminDashboard';
+
 
 export const metadata: Metadata = {
   title: 'Admin Dashboard | AMP Vending',
