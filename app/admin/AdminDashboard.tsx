@@ -1,7 +1,7 @@
 import React from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
 import Card from '@/components/ui/Card';
 import Link from 'next/link';
+import AdminLayout from './AdminLayout';
 
 /**
  * Admin Dashboard component displays key metrics and data for administrators
@@ -118,7 +118,7 @@ const AdminDashboard = () => {
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
         {stats.map((stat, index) => (
-          <Card key={index} className="overflow-hidden" variant="elevated">
+          <Card key={index} className="overflow-hidden">
             <div className="p-5">
               <div className="flex items-center justify-between">
                 <div className="text-sm font-medium text-gray-500">{stat.label}</div>
@@ -149,7 +149,7 @@ const AdminDashboard = () => {
               View all
             </Link>
           </div>
-          <Card variant="outlined">
+          <Card className="outlined">
             <ul className="divide-y divide-gray-200">
               {recentClients.map((client) => (
                 <li key={client.id} className="px-4 py-3 hover:bg-gray-50 transition-colors">
@@ -180,7 +180,7 @@ const AdminDashboard = () => {
               View all
             </Link>
           </div>
-          <Card variant="outlined">
+          <Card className="outlined">
             <ul className="divide-y divide-gray-200">
               {recentActivities.map((activity) => (
                 <li key={activity.id} className="px-4 py-3 hover:bg-gray-50 transition-colors">
@@ -220,7 +220,7 @@ const AdminDashboard = () => {
             </select>
           </div>
         </div>
-        <Card className="h-80 p-4 flex items-center justify-center" variant="elevated">
+        <Card className="h-80 p-4 flex items-center justify-center elevated">
           {/* Placeholder for chart - would be actual chart component in production */}
           <div className="text-center text-gray-500">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -269,7 +269,7 @@ const AdminDashboard = () => {
             }
           ].map((action, index) => (
             <Link key={index} href={action.link}>
-              <Card className="h-full hover:shadow-md transition-shadow cursor-pointer" variant="outlined">
+              <Card className="h-full hover:shadow-md transition-shadow cursor-pointer outlined">
                 <div className="p-5">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 mr-3 text-blue-600">
