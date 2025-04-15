@@ -4,6 +4,7 @@ import KoolMoreVendingShowcase from '@/components/sections/KoolMoreVendingShowca
 import { Metadata } from 'next';
 import HeroParallax from '@/components/hero/HeroParallax';
 import VendingSolution from '@/components/sections/VendingSolution';
+import ContactForm from '@/components/sections/ContactForm';
 
 
 // Define the metadata generation function with correct params
@@ -295,6 +296,10 @@ export default async function Home() {
         </div>
       </section>
 
+      <section id="contact-form">
+        <ContactForm/>
+      </section>
+
       {/* FAQ Section - Answer common questions */}
       {/* <section id="faq" className="py-16 bg-gradient-to-b from-[#000000] to-[#4d4d4d]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -343,7 +348,7 @@ export default async function Home() {
         </div>
       </section> */}
       {/* Testimonial Showcase */}
-      <section id="testimonials" className="py-16 bg-[#4d4d4d]">
+      {/* <section id="testimonials" className="py-16 bg-[#4d4d4d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
@@ -355,7 +360,7 @@ export default async function Home() {
           </div>
 
           <div className="relative bg-[#000000] rounded-xl shadow-xl p-10 max-w-4xl mx-auto border border-[#a4acac]">
-            {/* Quote marks decorative element */}
+          
             <div className="absolute top-6 left-8 text-6xl text-[#FD5A1E]/20">&quot;</div>
             <div className="absolute bottom-6 right-8 text-6xl text-[#FD5A1E]/20">&quot;</div>
 
@@ -380,7 +385,7 @@ export default async function Home() {
             <p className="text-[#F5F5F5]">Join 50+ happy workplaces enjoying our premium vending solutions</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
 
       {/* CTA Section - Final push to contact */}
