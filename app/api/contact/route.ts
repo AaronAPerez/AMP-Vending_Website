@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { contactFormSchema } from '@/lib/schema/contactFormSchema';
 import { emailService } from '@/lib/services/emailService';
+import { databaseService } from '@/lib/services/databaseService';
 
-/* API route handler for contact form submissions */
 export async function POST(req: NextRequest) {
   try {
-    // Add debugging
-    console.log("Email settings:", {
-      resendApiKey: process.env.RESEND_API_KEY ? "Present (not showing)" : "MISSING",
-      fromEmail: process.env.FROM_EMAIL || "Using default",
-      toEmail: process.env.TO_EMAIL || "Using default"
-    });
-    
-    // Validate configuration
+    // Validate configuration (existing code)
     const isConfigured = await emailService.verifyConnection();
     if (!isConfigured) {
       console.error('Email service is not properly configured');
@@ -22,16 +15,12 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    // Parse and validate request body
+    // Parse and validate request body (existing code)
     const body = await req.json();
-    console.log("Received form data:", body);
-    
-    // Validate with Zod schema
     const validationResult = contactFormSchema.safeParse(body);
     
     if (!validationResult.success) {
       // Return validation errors
-      console.error("Validation errors:", validationResult.error.format());
       return NextResponse.json(
         { 
           error: 'Invalid form data', 
@@ -41,10 +30,20 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    // Send email with validated data
+    // Save to database
+    try {
+      const saved = await databaseService.saveContactSubmission(validationResult.data);
+      if (!saved) {
+        console.warn('Failed to save submission to database, but will still send email');
+      }
+    } catch (dbError) {
+      console.error('Error saving to database:', dbError);
+      // Continue with email sending even if database save fails
+    }
+    
+    // Send email (existing code)
     try {
       await emailService.sendContactFormEmail(validationResult.data);
-      console.log("Email sent successfully");
     } catch (emailError) {
       console.error("Error sending email:", emailError);
       return NextResponse.json(
@@ -67,15 +66,4 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
-  });
 }
