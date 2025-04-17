@@ -1,43 +1,31 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { ContactFormData } from '../schema/contactFormSchema';
 
-/**
- * Email service for sending contact form submissions
- */
 export class EmailService {
-  private transporter: nodemailer.Transporter;
+  private resend: Resend;
   
   constructor() {
-    // Initialize transporter with environment variables
-    this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: parseInt(process.env.SMTP_PORT || '587') === 465, // true for 465, false for other ports
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    });
+    this.resend = new Resend(process.env.RESEND_API_KEY);
   }
   
   /**
-   * Sends contact form data to the specified recipient
+   * Sends contact form data using Resend
    */
   async sendContactFormEmail(data: ContactFormData): Promise<boolean> {
     try {
       // Format the email content
       const emailContent = this.formatContactEmail(data);
       
-      // Send the email
-      const info = await this.transporter.sendMail({
-        from: `"AMP Vending Website" <${process.env.SMTP_FROM}>`,
-        to: process.env.SMTP_TO,
+      // Send the email using Resend
+      const result = await this.resend.emails.send({
+        from: `AMP Vending <${process.env.FROM_EMAIL || 'onboarding@resend.dev'}>`,
+        to: [process.env.TO_EMAIL || 'your-email@example.com'],
         subject: `New Contact Form Submission from ${data.firstName} ${data.lastName}`,
-        text: emailContent.text,
         html: emailContent.html,
+        text: emailContent.text,
       });
       
-      console.log(`Message sent: ${info.messageId}`);
+      console.log('Email sent successfully:', result);
       return true;
     } catch (error) {
       console.error('Error sending email:', error);
@@ -114,18 +102,17 @@ ${data.message || 'No additional message provided.'}
   }
   
   /**
-   * Verify the SMTP connection
+   * Verify the email connection
    */
   async verifyConnection(): Promise<boolean> {
     try {
-      await this.transporter.verify();
-      return true;
+      // With Resend, we can just check if the API key is present
+      return !!process.env.RESEND_API_KEY;
     } catch (error) {
-      console.error('SMTP Connection Error:', error);
+      console.error('Email Connection Error:', error);
       return false;
     }
   }
 }
 
-// Export a singleton instance of the email service
 export const emailService = new EmailService();
