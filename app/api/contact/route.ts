@@ -1,22 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { contactFormSchema } from '@/lib/schema/contactFormSchema';
 import { emailService } from '@/lib/services/emailService';
-import { databaseService } from '@/lib/services/databaseService';
 
+/**
+ * API route handler for contact form submissions
+ */
 export async function POST(req: NextRequest) {
   try {
-    // Validate configuration (existing code)
-    const isConfigured = await emailService.verifyConnection();
-    if (!isConfigured) {
-      console.error('Email service is not properly configured');
+    // Validate SMTP configuration
+    const isSmtpConfigured = await emailService.verifyConnection();
+    if (!isSmtpConfigured) {
+      console.error('SMTP is not properly configured');
       return NextResponse.json(
         { error: 'Server configuration error. Please try again later.' }, 
         { status: 500 }
       );
     }
     
-    // Parse and validate request body (existing code)
+    // Parse and validate request body
     const body = await req.json();
+    
+    // Validate with Zod schema
     const validationResult = contactFormSchema.safeParse(body);
     
     if (!validationResult.success) {
@@ -30,27 +34,11 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    // Save to database
-    try {
-      const saved = await databaseService.saveContactSubmission(validationResult.data);
-      if (!saved) {
-        console.warn('Failed to save submission to database, but will still send email');
-      }
-    } catch (dbError) {
-      console.error('Error saving to database:', dbError);
-      // Continue with email sending even if database save fails
-    }
+    // Send email with validated data
+    await emailService.sendContactFormEmail(validationResult.data);
     
-    // Send email (existing code)
-    try {
-      await emailService.sendContactFormEmail(validationResult.data);
-    } catch (emailError) {
-      console.error("Error sending email:", emailError);
-      return NextResponse.json(
-        { error: 'Failed to send email. Please try again later.' }, 
-        { status: 500 }
-      );
-    }
+    // Optional: Save to database
+    // await saveContactToDatabase(validationResult.data);
     
     // Return success response
     return NextResponse.json(
@@ -66,4 +54,18 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+/**
+ * Handle OPTIONS requests for CORS preflight
+ */
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
 }
