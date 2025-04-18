@@ -8,18 +8,13 @@ export class EmailService {
     this.resend = new Resend(process.env.RESEND_API_KEY);
   }
   
-  /**
-   * Sends contact form data using Resend
-   */
   async sendContactFormEmail(data: ContactFormData): Promise<boolean> {
     try {
-      // Format the email content
       const emailContent = this.formatContactEmail(data);
       
-      // Send the email using Resend
       const result = await this.resend.emails.send({
-        from: `AMP Vending <${process.env.FROM_EMAIL || 'onboarding@resend.dev'}>`,
-        to: [process.env.TO_EMAIL || 'your-email@example.com'],
+        from: `AMP Vending <${process.env.FROM_EMAIL}>`,
+        to: [process.env.TO_EMAIL || 'default@example.com'],
         subject: `New Contact Form Submission from ${data.firstName} ${data.lastName}`,
         html: emailContent.html,
         text: emailContent.text,
