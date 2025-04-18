@@ -7,15 +7,16 @@ import VendingSolution from '@/components/sections/VendingSolution';
 import ContactForm from '@/components/sections/ContactForm';
 
 
-// Define the metadata generation function with correct params
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: `AMP Vending Solutions | Zero-Cost Workplace Vending Machines`,
-    description: `Enhance your workplace with premium vending machines at zero upfront cost. Earn 5% revenue share while providing employee refreshments.`,
-  };
-}
+// Define the metadata 
+export const metadata: Metadata = {
+  title: 'AMP Vending | Premium Vending Solutions',
+  description: 'Zero-cost vending machine solutions for workplaces with revenue sharing model.',
+};
+
+
 
 export default async function Home() {
+  
 
   return (
     <div className="overflow-hidden">

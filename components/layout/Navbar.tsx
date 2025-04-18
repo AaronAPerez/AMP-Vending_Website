@@ -18,7 +18,7 @@ const Navbar = () => {
       { label: 'Vending Machines', path: '/vending-machines' },
       // { label: 'About Us', path: '/about' },
       // { label: 'Proposal', path: '/proposal' },
-      // { label: 'Contact', path: '/contact' },
+      { label: 'Contact', path: '/contact' },
     ];
   
     // Handle scroll effect
