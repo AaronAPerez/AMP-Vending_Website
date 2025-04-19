@@ -25,6 +25,7 @@ export default async function Home() {
             <div className="absolute inset-0 bg-[#000000]/60 z-10" aria-hidden="true"></div>
         <HeroParallax />
       </section>
+      
       {/* Featured Vending Machine - Show what they're getting */}
       <section id="vending-machine-display">
         <VendingSolution />

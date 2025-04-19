@@ -1,8 +1,29 @@
 import Script from 'next/script';
-import ContactMap from '@/components/ContactMap';
 import { Metadata } from 'next';
 import ContactForm from '@/components/sections/ContactForm';
+import GoogleMapComponent from '@/components/GoogleMapComponent';
 
+
+// Dynamically import the map component to avoid SSR issues
+// const GoogleMapComponent = dynamic(() => import('@/components/GoogleMapComponent'), {
+//   ssr: false,
+//   loading: () => (
+//     <div className="bg-[#4d4d4d] h-[400px] flex items-center justify-center">
+//       <div className="text-center">
+//         <svg className="h-12 w-12 animate-spin text-[#FD5A1E] mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+//           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+//           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+//         </svg>
+//         <p className="text-[#F5F5F5]">Loading map...</p>
+//       </div>
+//     </div>
+//   )
+// });
+
+// export const metadata: Metadata = {
+//   title: 'Contact Us | AMP Vending',
+//   description: 'Get in touch with AMP Vending for personalized vending machine solutions for your workplace.',
+// };
 export const metadata: Metadata = {
   title: 'Contact Us | AMP Vending',
   description: 'Get in touch with AMP Vending for personalized vending machine solutions for your workplace.',
@@ -97,11 +118,11 @@ export default function ContactPage() {
         
         {/* Map Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-          <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">Find Us</h2>
-          <div className="rounded-lg overflow-hidden shadow-lg border border-[#a4acac]">
-            <ContactMap apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''} />
-          </div>
+        <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">Find Us</h2>
+        <div className="rounded-lg overflow-hidden shadow-lg border border-[#a4acac]">
+          <GoogleMapComponent apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''} />
         </div>
+      </div>
         
         {/* Additional Contact Information */}
         <div className="bg-[#4d4d4d] py-16 border-t border-[#a4acac]">
@@ -164,10 +185,9 @@ export default function ContactPage() {
           
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-[#4d4d4d] rounded-lg p-6 border border-[#a4acac]">
-              <h3 className="text-lg font-bold text-[#F5F5F5] mb-2">How does your zero-cost model work?</h3>
+              <h3 className="text-lg font-bold text-[#F5F5F5] mb-2">How can you offer machines at zero cost?</h3>
               <p className="text-[#A5ACAF]">
-                We provide vending machines at no upfront cost to you. We handle installation, 
-                stocking, and maintenance while sharing 5% of the gross revenue with your business.
+              Through our innovative business model, we&quot;re able to provide premium machines at no cost to qualified locations that meet our minimum traffic requirements.
               </p>
             </div>
             
@@ -226,6 +246,3 @@ export default function ContactPage() {
 }
 
 
-// Note: You'll need to create a map-marker.svg file in your public/images folder,
-// or you can use the default marker by removing the icon property from the Marker component.
-// Also, make sure to install @react-google-maps/api with: npm install @react-google-maps/api

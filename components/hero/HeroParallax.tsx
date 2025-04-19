@@ -158,7 +158,8 @@ const HeroParallax = () => {
         </h1>
         <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-md max-w-3xl mx-auto">
           Enhance your workplace with state-of-the-art vending machines offering 
-          50+ snack options and a 5% revenue share.
+          50+ snack options, and 
+          20+ beverage options.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
