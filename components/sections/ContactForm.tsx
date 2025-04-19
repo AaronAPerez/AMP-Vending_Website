@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { z } from 'zod';
+import { toast } from 'sonner';
 
 // Define the schema for form validation
 const contactFormSchema = z.object({
@@ -27,24 +28,20 @@ const contactFormSchema = z.object({
 // Define the type for our form data
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-/**
- * Contact Form component
- * Allows visitors to submit their information and vending machine interest
- */
+
 const ContactForm = () => {
   // Form state with react-hook-form
-  const { 
-    register, 
-    handleSubmit, 
-    formState: { errors, isSubmitting },
-    reset
-  } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, dirtyFields },
+    reset  } = useForm({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       preferredContact: 'email'
     }
   });
-  
+
   // State for form submission status
   const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -71,9 +68,9 @@ const ContactForm = () => {
   // Handle form submission
   const onSubmit = async (data: ContactFormData) => {
     try {
-      // Set status to submitting
-      setSubmissionStatus('idle');
-      
+      // Show loading toast
+      const loadingToast = toast.loading('Submitting your request...');
+
       // Send data to the API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -82,28 +79,34 @@ const ContactForm = () => {
         },
         body: JSON.stringify(data),
       });
-      
+
       // Parse the response
       const result = await response.json();
-      
+
+      // Dismiss the loading toast
+      toast.dismiss(loadingToast);
+
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to submit form');
+        // Show error toast
+        toast.error(result.error || 'Failed to submit form. Please try again.');
+        setSubmissionStatus('error');
+      } else {
+        // Show success toast
+        toast.success('Thank you! Your message has been sent successfully.');
+        setSubmissionStatus('success');
+        reset();
       }
-      
-      // Success! Clear form and show success message
-      setSubmissionStatus('success');
-      reset();
-      
+
       // After 5 seconds, reset the submission status
       setTimeout(() => {
         setSubmissionStatus('idle');
       }, 5000);
-      
+
     } catch (error) {
       console.error('Error submitting form:', error);
+      toast.error('Something went wrong. Please try again later.');
       setSubmissionStatus('error');
-      
-      // After 5 seconds, reset the error status
+
       setTimeout(() => {
         setSubmissionStatus('idle');
       }, 5000);
@@ -120,7 +123,7 @@ const ContactForm = () => {
             Tell us about your workplace, and we&apos;ll get back to you with a customized vending solution.
           </p>
         </div>
-        
+
         {/* Submission status messages */}
         {submissionStatus === 'success' && (
           <div className="mb-6 p-4 bg-green-500/20 border border-green-500 rounded-lg text-green-400">
@@ -128,17 +131,17 @@ const ContactForm = () => {
             <p>We&apos;ve received your information and will contact you shortly to discuss vending solutions for your workplace.</p>
           </div>
         )}
-        
+
         {submissionStatus === 'error' && (
           <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
             <p className="font-medium">Something went wrong.</p>
             <p>We couldn&apos;t process your submission. Please try again or contact us directly at info@ampvending.com</p>
           </div>
         )}
-        
+
         {/* Contact Form */}
-        <form 
-          onSubmit={handleSubmit(onSubmit)} 
+        <form
+          onSubmit={handleSubmit(onSubmit)}
           className="bg-[#4d4d4d] rounded-lg border border-[#a4acac] p-6 md:p-8 shadow-lg"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -148,7 +151,7 @@ const ContactForm = () => {
                 Personal Information
               </h2>
             </div>
-            
+
             {/* First Name */}
             <div>
               <label htmlFor="firstName" className="block text-[#F5F5F5] mb-1">
@@ -164,7 +167,7 @@ const ContactForm = () => {
                 <p className="mt-1 text-red-500 text-sm">{errors.firstName.message}</p>
               )}
             </div>
-            
+
             {/* Last Name */}
             <div>
               <label htmlFor="lastName" className="block text-[#F5F5F5] mb-1">
@@ -180,7 +183,7 @@ const ContactForm = () => {
                 <p className="mt-1 text-red-500 text-sm">{errors.lastName.message}</p>
               )}
             </div>
-            
+
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-[#F5F5F5] mb-1">
@@ -189,14 +192,16 @@ const ContactForm = () => {
               <input
                 id="email"
                 type="email"
-                className={`w-full rounded-md bg-[#000000] border ${errors.email ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
+                className={`w-full rounded-md bg-[#000000] border ${errors.email ? 'border-red-500' :
+                    dirtyFields.email && !errors.email ? 'border-green-500' : 'border-[#a4acac]'
+                  } px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
                 {...register('email')}
               />
               {errors.email && (
                 <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>
               )}
             </div>
-            
+
             {/* Phone */}
             <div>
               <label htmlFor="phone" className="block text-[#F5F5F5] mb-1">
@@ -212,7 +217,7 @@ const ContactForm = () => {
                 <p className="mt-1 text-red-500 text-sm">{errors.phone.message}</p>
               )}
             </div>
-            
+
             {/* Preferred Contact Method */}
             <div className="md:col-span-2">
               <label className="block text-[#F5F5F5] mb-1">
@@ -240,14 +245,14 @@ const ContactForm = () => {
                 </label>
               </div>
             </div>
-            
+
             {/* Company Information Section */}
             <div className="md:col-span-2 mt-4">
               <h2 className="text-xl font-semibold mb-4 text-[#F5F5F5] border-b border-[#a4acac] pb-2">
                 Company Information
               </h2>
             </div>
-            
+
             {/* Company Name */}
             <div>
               <label htmlFor="companyName" className="block text-[#F5F5F5] mb-1">
@@ -263,7 +268,7 @@ const ContactForm = () => {
                 <p className="mt-1 text-red-500 text-sm">{errors.companyName.message}</p>
               )}
             </div>
-            
+
             {/* Job Title */}
             <div>
               <label htmlFor="jobTitle" className="block text-[#F5F5F5] mb-1">
@@ -276,7 +281,7 @@ const ContactForm = () => {
                 {...register('jobTitle')}
               />
             </div>
-            
+
             {/* Employee Count */}
             <div>
               <label htmlFor="employeeCount" className="block text-[#F5F5F5] mb-1">
@@ -298,14 +303,14 @@ const ContactForm = () => {
                 <p className="mt-1 text-red-500 text-sm">{errors.employeeCount.message}</p>
               )}
             </div>
-            
+
             {/* Address Section */}
             <div className="md:col-span-2 mt-4">
               <h2 className="text-xl font-semibold mb-4 text-[#F5F5F5] border-b border-[#a4acac] pb-2">
                 Workplace Address
               </h2>
             </div>
-            
+
             {/* Street Address */}
             <div className="md:col-span-2">
               <label htmlFor="streetAddress" className="block text-[#F5F5F5] mb-1">
@@ -321,7 +326,7 @@ const ContactForm = () => {
                 <p className="mt-1 text-red-500 text-sm">{errors.streetAddress.message}</p>
               )}
             </div>
-            
+
             {/* City */}
             <div>
               <label htmlFor="city" className="block text-[#F5F5F5] mb-1">
@@ -337,7 +342,7 @@ const ContactForm = () => {
                 <p className="mt-1 text-red-500 text-sm">{errors.city.message}</p>
               )}
             </div>
-            
+
             {/* State */}
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -354,7 +359,7 @@ const ContactForm = () => {
                   <p className="mt-1 text-red-500 text-sm">{errors.state.message}</p>
                 )}
               </div>
-              
+
               {/* Zip Code */}
               <div>
                 <label htmlFor="zipCode" className="block text-[#F5F5F5] mb-1">
@@ -371,14 +376,14 @@ const ContactForm = () => {
                 )}
               </div>
             </div>
-            
+
             {/* Vending Machine Interest Section */}
             <div className="md:col-span-2 mt-4">
               <h2 className="text-xl font-semibold mb-4 text-[#F5F5F5] border-b border-[#a4acac] pb-2">
                 Vending Machine Interest
               </h2>
             </div>
-            
+
             {/* Machine Selection */}
             <div className="md:col-span-2">
               <label htmlFor="interestedMachine" className="block text-[#F5F5F5] mb-1">
@@ -403,7 +408,7 @@ const ContactForm = () => {
                 Not familiar with our options? Select &apos;Not sure&apos; and we&apos;ll provide recommendations.
               </p>
             </div>
-            
+
             {/* Additional Message */}
             <div className="md:col-span-2">
               <label htmlFor="message" className="block text-[#F5F5F5] mb-1">
@@ -417,7 +422,7 @@ const ContactForm = () => {
                 {...register('message')}
               ></textarea>
             </div>
-            
+
             {/* Submit Button */}
             <div className="md:col-span-2 mt-4">
               <button
@@ -428,7 +433,7 @@ const ContactForm = () => {
                 {isSubmitting ? 'Submitting...' : 'Submit Request'}
               </button>
             </div>
-            
+
             {/* Privacy Note */}
             <div className="md:col-span-2 mt-4 text-center text-[#A5ACAF] text-sm">
               By submitting this form, you agree to our{' '}
