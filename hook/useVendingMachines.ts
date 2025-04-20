@@ -3,22 +3,14 @@
 import { useState, useCallback } from 'react';
 import { machines, machinesByCategory, VendingMachine } from '@/lib/vendingMachineData';
 
-/**
- * Re-export the VendingMachine interface
- */
+/* Re-export the VendingMachine interface */
 export type { VendingMachine };
 
-/**
- * Custom hook for managing vending machine selection and data
- * This provides a reusable way to handle vending machine state across the application
- */
-const useVendingMachines = () => {
+export const useVendingMachines = () => {
   // State for selected machine(s)
   const [selectedMachines, setSelectedMachines] = useState<VendingMachine[]>([]);
 
-  /**
-   * Toggle selection of a machine
-   */
+  /* Toggle selection of a machine */
   const toggleMachineSelection = useCallback((machineId: string) => {
     setSelectedMachines(prev => {
       const isSelected = prev.some(machine => machine.id === machineId);
@@ -37,8 +29,7 @@ const useVendingMachines = () => {
     });
   }, []);
 
-  /**
-   * Select a single machine (replacing any other selections)
+  /* Select a single machine (replacing any other selections)
    */
   const selectMachine = useCallback((machineId: string) => {
     const machine = machines.find(m => m.id === machineId);
@@ -47,16 +38,12 @@ const useVendingMachines = () => {
     }
   }, []);
 
-  /**
-   * Clear all selected machines
-   */
+  /* Clear all selected machines */
   const clearSelections = useCallback(() => {
     setSelectedMachines([]);
   }, []);
 
-  /**
-   * Get machines by category
-   */
+  /* Get machines by category */
   const getMachinesByCategory = useCallback((category: 'snack' | 'beverage' | 'combo' | 'food') => {
     return machinesByCategory[category];
   }, []);

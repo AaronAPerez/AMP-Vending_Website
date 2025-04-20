@@ -163,11 +163,11 @@ const HeroParallax = () => {
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
-            href="/proposal"
+            href="/vending-machines"  
             className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
-            aria-label="View our vending machine proposal"
+            aria-label="View our vending machines"
           >
-            View Proposal
+            View Machines
           </Link>
           <Link
             href="/contact"

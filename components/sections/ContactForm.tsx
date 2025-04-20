@@ -117,12 +117,12 @@ const ContactForm = () => {
     <div className="bg-[#000000] text-[#F5F5F5]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Form Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold mb-2">Contact AMP Vending</h1>
-          <p className="text-[#A5ACAF] max-w-2xl mx-auto">
+        {/* <div className="text-center mb-10"> */}
+          {/* <h1 className="text-3xl font-bold mb-2">Contact AMP Vending</h1> */}
+          {/* <p className="text-[#A5ACAF] max-w-2xl mx-auto">
             Tell us about your workplace, and we&apos;ll get back to you with a customized vending solution.
-          </p>
-        </div>
+          </p> */}
+        {/* </div> */}
 
         {/* Submission status messages */}
         {submissionStatus === 'success' && (

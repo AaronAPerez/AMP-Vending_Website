@@ -65,7 +65,8 @@ export default function ContactPage() {
             "@type": "ContactPoint",
             "telephone": "+1-209-403-5450",
             "contactType": "customer service",
-            "email": "contact@aaronaperez.dev",
+            "email": "ampdesignandconsulting@gmail.com",
+            // "email": "contact@aaronaperez.dev",
             "areaServed": "US",
             "availableLanguage": "English"
           },
@@ -155,8 +156,15 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold text-[#F5F5F5] ml-4">Contact Info</h3>
                 </div>
                 <p className="text-[#A5ACAF]">
-                  Email: <a href="mailto:contact@aaronaperez.dev" className="text-[#FD5A1E] hover:underline">contact@aaronaperez.dev</a><br />
-                  Phone: <a href="tel:+12094035450" className="text-[#FD5A1E] hover:underline">(209) 403-5450</a>
+                  Email:<a href="mailto:contact@aaronaperez.dev" className="text-[#FD5A1E] hover:underline"
+                  > 
+                  <br></br>
+                  ampdesignandconsulting@gmail.com</a>
+                  {/* <a href="mailto:contact@aaronaperez.dev" className="text-[#FD5A1E] hover:underline">contact@aaronaperez.dev</a> */}
+                  <br />
+                  Phone: <a href="tel:+12094035450" className="text-[#FD5A1E] hover:underline">
+                    <br></br>
+                    (209) 403-5450</a>
                 </p>
               </div>
               
@@ -226,17 +234,17 @@ export default function ContactPage() {
             </p>
             <div className="inline-flex flex-wrap justify-center gap-4">
               <a 
-                href="/proposal" 
-                className="px-6 py-3 bg-[#FD5A1E] text-white rounded-lg font-medium shadow-md hover:bg-[#FD5A1E]/90 transition-colors"
+                href="/contact" 
+                className="px-6 py-3 bg-[#FD5A1E] text-white rounded-full font-medium shadow-md hover:bg-[#FD5A1E]/90 transition-colors"
               >
-                View Proposal
+                Contact Us
               </a>
-              <a 
+              {/* <a 
                 href="tel:+12094035450" 
                 className="px-6 py-3 bg-transparent border border-[#A5ACAF] text-[#F5F5F5] rounded-lg font-medium hover:bg-[#4d4d4d] transition-colors"
               >
                 Call Us Now
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

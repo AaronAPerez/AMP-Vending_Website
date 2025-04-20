@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import AMPVendingLogo from '../AMPVendingLogo';
+import Image from 'next/image';
 
 /* Footer includes navigation links, contact information, and copyright */
 const Footer = () => {
@@ -49,7 +49,14 @@ const Footer = () => {
           <div className="space-y-8 xl:col-span-1">
             <div className="flex items-center space-x-2">
               <Link href="/" className="flex items-center space-x-2" aria-label="AMP Vending - Home">
-                <AMPVendingLogo variant="horizontal" size="lg" />
+                <Image
+                  src="/images/logo/AMP_logo.png"
+                  alt="AMP Vending Logo"
+                  width={80}
+                  height={40}
+                  className="w-26 min-w-12 max-w-26 h-auto"
+                />
+                {/* <AMPVendingLogo variant="horizontal" size="lg" /> */}
               </Link>
             </div>
           </div>
@@ -107,8 +114,8 @@ const Footer = () => {
                     </a>
                   </p>
                   <p className="text-sm text-[#A5ACAF]">
-                    <a href="mailto:ampdesignandconsulting@gmail.com" className="hover:text-[#FD5A1E] transition-colors">
-                      ampdesignandconsulting@gmail.com
+                    <a href="mailto:ampdesignandconsulting@gmail.com" className="hover:text-[rgb(253,90,30)] transition-colors ">
+                      ampdesignandconsulting<br></br>@gmail.com
                     </a>
                   </p>
                   <p className="text-sm text-[#A5ACAF]">

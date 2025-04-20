@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
 import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
 import '../styles/globals.css'
@@ -8,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 import 'rsuite/dist/rsuite-no-reset.min.css';
+import Navigation from "@/components/layout/Navigation";
 
 
 export const metadata: Metadata = {
@@ -34,8 +34,9 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <Navbar />
-        <main className="min-h-screen mt-16" id="main">
+        {/* <Navbar /> */}
+        <Navigation />
+        <main className="min-h-screen" id="main">
           {/* <AuthProvider> */}
           {children}
           {/* </AuthProvider> */}
