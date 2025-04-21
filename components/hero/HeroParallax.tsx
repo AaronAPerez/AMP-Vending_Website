@@ -97,10 +97,10 @@ const HeroParallax = () => {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
       {/* Background overlay */}
-      <div className="absolute inset-0 bg-[#000000]/20 z-10" aria-hidden="true"></div>
+      <div className="absolute inset-0 bg-[#000000]/20 z-0" aria-hidden="true"></div>
       
       {/* Products grid with parallax effect */}
-      <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 p-4 z-0">
+      <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 p-2 z-0 bg-black/50">
         {products.map((product, index) => {
           // Calculate parallax offset based on index and scroll position
           const offset = Math.min(scrollY * 0.1 * (index % 6 + 1) * 0.2, 100);
@@ -109,7 +109,7 @@ const HeroParallax = () => {
           return (
             <div 
               key={index}
-              className="relative aspect-[3/4]fullrounded-fulloverflow-hidden"
+              className="relative aspect-[3/4]full rounded-lg overflow-hidden"
               style={{ 
                 transform: `translateY(${offset}px)`,
                 transition: 'transform 0.3s ease-out',

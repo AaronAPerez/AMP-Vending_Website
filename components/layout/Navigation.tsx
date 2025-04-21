@@ -98,8 +98,8 @@ const Navigation = () => {
                 src="/images/logo/AMP_logo.png"
                 alt="AMP Vending Logo"
                 width={80}
-                height={40}
-                className="w-26 min-w-12 max-w-26 h-auto"
+                height={80}
+                className="w-24 min-w-12 max-w-24 h-auto"
               />
             {/* <span className="ml-2 text-xl font-bold">
               </span> */}
