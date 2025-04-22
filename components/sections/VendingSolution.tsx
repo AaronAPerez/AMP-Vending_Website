@@ -319,13 +319,13 @@ const VendingSolution = () => {
                   <div className="flex flex-wrap gap-3">
                     <Link
                       href={`/vending-machines/${machine.id}`}
-                      className="bg-[#FD5A1E] hover:bg-[#FD5A1E]/90 text-[#F5F5F5] px-4 py-2 rounded-lg font-medium transition-colors shadow-md flex-grow text-center"
+                      className="bg-[#FD5A1E] hover:bg-[#FD5A1E]/90 text-[#F5F5F5] px-4 py-2 rounded-full font-medium transition-colors shadow-md flex-grow text-center"
                     >
                       View Details
                     </Link>
                     <button
                       onClick={() => toggleMachineSelection(machine.id)}
-                      className="bg-[#000000] border border-[#A5ACAF] hover:bg-[#4d4d4d] text-[#F5F5F5] px-4 py-2 rounded-lg font-medium transition-colors flex-grow"
+                      className="bg-[#000000] border border-[#A5ACAF] hover:bg-[#4d4d4d] text-[#F5F5F5] px-4 py-2 rounded-full font-medium transition-colors flex-grow"
                     >
                       Get Started
                     </button>

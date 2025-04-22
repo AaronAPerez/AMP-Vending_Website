@@ -72,7 +72,7 @@ export default async function Home() {
           <div className="text-center mt-12">
             <Link
               href="/contact"
-              className="px-6 py-3 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-lg shadow-lg hover:bg-[#FD5A1E]/90 transition-colors"
+              className="px-6 py-3 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#FD5A1E]/90 transition-colors"
             >
               Schedule Your Consultation
             </Link>
@@ -234,7 +234,7 @@ export default async function Home() {
           <div className="mt-10 text-center">
             <Link
               href="/proposal"
-              className="px-6 py-3 bg-[#FD5A1E] hover:bg-[#FD5A1E]/90 text-[#F5F5F5] font-medium rounded-lg inline-flex items-center transition-colors"
+              className="px-6 py-3 bg-[#FD5A1E] hover:bg-[#FD5A1E]/90 text-[#F5F5F5] font-medium rounded-full inline-flex items-center transition-colors"
             >
               See Our Complete Solution
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">

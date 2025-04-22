@@ -6,13 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
-/**
- * Enhanced KoolMoreVendingShowcase Component
- * 
- * A premium showcase for the KoolMore KM-VMRT-50-BR Vending Machine with
- * interactive features, image carousel, and product selection.
- * Implements accessibility-compliant Raiders-inspired color scheme.
- */
+
 const KoolMoreVendingShowcase = () => {
   // State for active feature and animations
   const [activeFeature, setActiveFeature] = useState('touchscreen');
@@ -591,13 +585,13 @@ const KoolMoreVendingShowcase = () => {
             <div className="mt-8 space-y-3">
               <Link
                 href="/contact"
-                className="block w-full bg-[#FD5A1E] hover:bg-[#FD5A1E]/90 text-[#F5F5F5] py-3 px-6 rounded-lg font-medium text-center shadow-lg transition-colors"
+                className="block w-full bg-[#FD5A1E] hover:bg-[#FD5A1E]/90 text-[#F5F5F5] py-3 px-6 rounded-full font-medium text-center shadow-lg transition-colors"
               >
                 Get a Quote
               </Link>
               <Link
                 href="/proposal"
-                className="block w-full bg-transparent hover:bg-[#4d4d4d] text-[#F5F5F5] py-3 px-6 rounded-lg font-medium text-center border border-[#A5ACAF] transition-colors"
+                className="block w-full bg-transparent hover:bg-[#4d4d4d] text-[#F5F5F5] py-3 px-6 rounded-full font-medium text-center border border-[#A5ACAF] transition-colors"
               >
                 View Proposal
               </Link>

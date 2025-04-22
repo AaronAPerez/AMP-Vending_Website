@@ -1,6 +1,4 @@
-import { resend } from "./resend";
-
-;
+import { resend } from "./lib/resend";
 
 async function removeDomain() {
   try {
