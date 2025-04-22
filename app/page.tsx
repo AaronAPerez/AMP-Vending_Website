@@ -20,12 +20,12 @@ export default async function Home() {
 
   return (
     <div className="overflow-hidden">
-          <section id="hero" className="relative min-h-screen bg-black/50">
+         <section id="hero" className="relative min-h-screen bg-black/50">
             {/* Background overlay */}
             <div className="absolute inset-0 bg-[#000000]/60 z-10" aria-hidden="true"></div>
         <HeroParallax />
-      </section>
-      
+      </section> 
+            
       {/* Featured Vending Machine - Show what they're getting */}
       <section id="vending-machine-display">
         <VendingSolution />

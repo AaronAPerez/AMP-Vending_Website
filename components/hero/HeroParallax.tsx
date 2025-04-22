@@ -95,7 +95,7 @@ const HeroParallax = () => {
 
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
+    <div className="relative h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
       {/* Background overlay */}
       <div className="absolute inset-0 bg-[#000000]/20 z-0" aria-hidden="true"></div>
       
