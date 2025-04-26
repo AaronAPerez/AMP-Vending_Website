@@ -10,11 +10,16 @@ export class EmailService {
   
   async sendContactFormEmail(data: ContactFormData): Promise<boolean> {
     try {
+      // Format the email content
       const emailContent = this.formatContactEmail(data);
       
+      // Split multiple recipient emails if present
+      const toEmails = (process.env.TO_EMAIL || '').split(',').map(email => email.trim());
+      
+      // Send the email using Resend
       const result = await this.resend.emails.send({
-        from: `AMP Vending <${process.env.FROM_EMAIL}>`,
-        to: [process.env.TO_EMAIL || 'default@example.com'],
+        from: `AMP Vending <${process.env.FROM_EMAIL || 'contact@ampvending.aaronaperez.dev'}>`,
+        to: toEmails,
         subject: `New Contact Form Submission from ${data.firstName} ${data.lastName}`,
         html: emailContent.html,
         text: emailContent.text,
