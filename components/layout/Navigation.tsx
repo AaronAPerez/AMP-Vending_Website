@@ -14,34 +14,73 @@ interface NavItem {
 }
 
 // Props for our Navigation component
-// interface NavigationProps {
-//   logo: string;
-//   altText: string;
-// }
+interface NavigationProps {
+  showCTA?: boolean;
+}
 
-const Navigation = () => {
+/**
+ * Navigation Component
+ * 
+ * Provides an updated navigation structure with improved organization
+ * and clearer user flows to key conversion pages.
+ */
+const Navigation: React.FC<NavigationProps> = ({
+  showCTA = true
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   
-  // Navigation items structure
+  // Enhanced navigation items structure
   const navItems: NavItem[] = [
     { name: 'Home', path: '/' },
-    { name: 'Vending Machines', path: '/vending-machines' },
-    // { name: 'Products', path: '/products' },
+    { 
+      name: 'Vending Machines', 
+      path: '/vending-machines',
+      children: [
+        { name: 'All Machines', path: '/vending-machines' },
+
+        { name: 'Compact Refrigerated', path: '/vending-machines/km-vmr-30-b' },
+        { name: 'Standard Refrigerated', path: '/vending-machines/km-vmr-40-b' },
+        { name: 'Non-Refrigerated Snack Machine', path: '/vending-machines/km-vmnt-50-b' },
+        { name: 'Premium Refrigerated Machine', path: '/vending-machines/km-vmrt-50-b' },
+      ]
+    },
     // { 
-    //   name: 'Benefits', 
-    //   path: '/benefits',
+    //   name: 'Solutions', 
+    //   path: '/solutions',
     //   children: [
-    //     { name: 'For Employees', path: '/benefits/employees' },
-    //     { name: 'For Management', path: '/benefits/management' },
-    //     { name: 'Revenue Generation', path: '/benefits/revenue' },
+    //     { name: 'Office Spaces', path: '/solutions/office-spaces' },
+    //     { name: 'Manufacturing', path: '/solutions/manufacturing' },
+    //     { name: 'Healthcare', path: '/solutions/healthcare' },
+    //     { name: 'Education', path: '/solutions/education' },
+    //     { name: 'Transportation', path: '/solutions/transportation' },
+    //     { name: 'Retail', path: '/solutions/retail' },
+    //     { name: 'Fitness Centers', path: '/solutions/fitness' }
     //   ]
     // },
-    // { name: 'Case Studies', path: '/case-studies' },
-    // { name: 'Contact', path: '/contact' },
-    // { name: 'Client Portal', path: '/client-portal', ariaLabel: 'Access client portal' }
+    // { 
+    //   name: 'Tools', 
+    //   path: '/tools',
+    //   children: [
+    //     { name: 'ROI Calculator', path: '/roi-calculator' },
+    //     { name: 'Product Selection Quiz', path: '/product-quiz' },
+    //     { name: 'Service Area Map', path: '/service-areas' },
+    //   ]
+    // },
+    // { 
+    //   name: 'About', 
+    //   path: '/about',
+    //   children: [
+    //     { name: 'Our Company', path: '/about' },
+    //     { name: 'Client Stories', path: '/testimonials' },
+    //     { name: 'Proposal Info', path: '/proposal' },
+    //     { name: 'FAQs', path: '/faq' },
+    //   ]
+    // },
+    { name: 'Proposal', path: '/proposal' },
+    { name: 'Contact', path: '/contact' }
   ];
 
   // Close menu when clicking outside
@@ -80,7 +119,7 @@ const Navigation = () => {
   };
 
   return (
-    <header className="bg-[#000000] text-[#F5F5F5]" role="banner">
+    <header className="bg-[#000000] text-[#F5F5F5] sticky top-0 z-50 border-b border-[#4d4d4d]" role="banner">
       {/* Skip to content link - only visible when focused */}
       <a 
         href="#main-content" 
@@ -94,15 +133,14 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center" aria-label="AMP Vending home page">
-          <Image
-                src="/images/logo/AMP_logo.png"
-                alt="AMP Vending Logo"
-                width={80}
-                height={80}
-                className="w-24 min-w-12 max-w-24 h-auto"
-              />
-            {/* <span className="ml-2 text-xl font-bold">
-              </span> */}
+            <Image
+              src="/images/logo/AMP_logo.png"
+              alt="AMP Vending Logo"
+              width={80}
+              height={40}
+              className="w-24 min-w-12 max-w-24 h-auto"
+              priority
+            />
           </Link>
           
           {/* Mobile menu button */}
@@ -140,17 +178,17 @@ const Navigation = () => {
           
           {/* Desktop navigation */}
           <nav 
-            className="hidden lg:flex items-center space-x-8" 
+            className="hidden lg:flex items-center space-x-6" 
             aria-label="Main navigation"
           >
             {navItems.map((item) => (
-              <div key={item.name} className="relative">
+              <div key={item.name} className="relative group">
                 {item.children ? (
                   // Items with dropdown
                   <div>
                     <button
                       className={`flex items-center text-[#F5F5F5] hover:text-[#FD5A1E] focus:outline-none focus:text-[#FD5A1E] ${
-                        pathname.startsWith(item.path) ? 'text-[#FD5A1E] font-medium' : ''
+                        pathname && pathname.startsWith(item.path) ? 'text-[#FD5A1E] font-medium' : ''
                       }`}
                       onMouseEnter={() => toggleSubmenu(item.name)}
                       onClick={() => toggleSubmenu(item.name)}
@@ -178,7 +216,7 @@ const Navigation = () => {
                     {activeSubmenu === item.name && (
                       <div
                         id={`submenu-${item.name}`}
-                        className="absolute z-10 mt-2 w-48 rounded-full shadow-lg bg-[#4d4d4d] ring-1 ring-[#A5ACAF] focus:outline-none"
+                        className="absolute z-10 mt-2 w-48 rounded-lg shadow-lg bg-[#4d4d4d] ring-1 ring-[#A5ACAF] focus:outline-none"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby={`${item.name.toLowerCase()}-button`}
@@ -217,13 +255,15 @@ const Navigation = () => {
             ))}
             
             {/* CTA Button */}
-            <Link
-              href="/contact"
-              className="bg-[#FD5A1E] text-[#F5F5F5] px-4 py-2 rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] transition-colors"
-              aria-label="Get a free consultation"
-            >
-              Contact Us
-            </Link>
+            {showCTA && (
+              <Link
+                href="/contact"
+                className="bg-[#FD5A1E] text-[#F5F5F5] px-5 py-2 rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] transition-colors"
+                aria-label="Schedule a free consultation"
+              >
+                Free Consultation
+              </Link>
+            )}
           </nav>
         </div>
         
@@ -231,7 +271,7 @@ const Navigation = () => {
         <div
           className={`${
             isOpen ? 'block' : 'hidden'
-          } lg:hidden absolute left-0 right-0 top-16 bg-[#000000] shadow-md z-20`}
+          } lg:hidden absolute left-0 right-0 top-16 bg-[#000000] shadow-md z-50 border-t border-[#4d4d4d]`}
           id="mobile-menu"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -240,8 +280,8 @@ const Navigation = () => {
                 {item.children ? (
                   <div>
                     <button
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-full text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E] ${
-                        pathname.startsWith(item.path) ? 'bg-[#4d4d4d] text-[#FD5A1E]' : ''
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E] ${
+                        pathname?.startsWith(item.path) ? 'bg-[#4d4d4d] text-[#FD5A1E]' : ''
                       }`}
                       onClick={() => toggleSubmenu(item.name)}
                       aria-expanded={activeSubmenu === item.name}
@@ -274,7 +314,7 @@ const Navigation = () => {
                           <Link
                             key={child.name}
                             href={child.path}
-                            className="block px-3 py-2 rounded-full text-sm text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E]"
+                            className="block px-3 py-2 rounded-lg text-sm text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E]"
                             aria-label={child.ariaLabel || child.name}
                             aria-current={pathname === child.path ? 'page' : undefined}
                           >
@@ -287,7 +327,7 @@ const Navigation = () => {
                 ) : (
                   <Link
                     href={item.path}
-                    className={`block px-3 py-2 rounded-full text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E] ${
+                    className={`block px-3 py-2 rounded-lg text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E] ${
                       pathname === item.path ? 'bg-[#4d4d4d] text-[#FD5A1E]' : ''
                     }`}
                     aria-label={item.ariaLabel || item.name}
@@ -300,15 +340,17 @@ const Navigation = () => {
             ))}
             
             {/* Mobile CTA Button */}
-            <div className="pt-2">
-              <Link
-                href="/contact"
-                className="block w-full text-center bg-[#FD5A1E] text-[#F5F5F5] px-4 py-2 rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] transition-colors"
-                aria-label="Get a free consultation"
-              >
-                Get a Quote
-              </Link>
-            </div>
+            {showCTA && (
+              <div className="pt-2">
+                <Link
+                  href="/contact"
+                  className="block w-full text-center bg-[#FD5A1E] text-[#F5F5F5] px-4 py-2 rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] transition-colors"
+                  aria-label="Schedule a free consultation"
+                >
+                  Free Consultation
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
