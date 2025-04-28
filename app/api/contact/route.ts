@@ -1,138 +1,82 @@
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextRequest, NextResponse } from 'next/server';
+import { contactFormSchema } from '@/lib/schema/contactFormSchema';
+import { emailService } from '@/lib/services/emailService';
+import { supabaseServer } from '@/lib/supabase';
 
-// Define expected request body type
-interface ContactFormData {
-  name: string;
-  email: string;
-  phone?: string;
-  message: string;
-  company?: string;
-  subject?: string;
-}
-
-// Create a transporter for sending emails
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
-// POST handler for contact form submissions
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    // Parse the request body
-    const formData: ContactFormData = await req.json();
-    
-    // Validate required fields
-    if (!formData.name || !formData.email || !formData.message) {
+    // Validate email configuration
+    const isEmailConfigured = await emailService.verifyConnection();
+    if (!isEmailConfigured) {
+      console.error('Email service is not properly configured');
       return NextResponse.json(
-        { error: 'Please fill in all required fields' },
+        { error: 'Server configuration error. Please try again later.' }, 
+        { status: 500 }
+      );
+    }
+    
+    // Parse and validate request body
+    const body = await req.json();
+    const validationResult = contactFormSchema.safeParse(body);
+    
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { 
+          error: 'Invalid form data', 
+          details: validationResult.error.format() 
+        }, 
         { status: 400 }
       );
     }
     
-    // Create email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER, // Destination email
-      subject: formData.subject || `New Contact from ${formData.name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${formData.name}</p>
-        <p><strong>Email:</strong> ${formData.email}</p>
-        ${formData.phone ? `<p><strong>Phone:</strong> ${formData.phone}</p>` : ''}
-        ${formData.company ? `<p><strong>Company:</strong> ${formData.company}</p>` : ''}
-        <h3>Message:</h3>
-        <p>${formData.message.replace(/\n/g, '<br>')}</p>
-      `,
-    };
+    // Save to database if Supabase is configured
+    if (supabaseServer) {
+      try {
+        const { error } = await supabaseServer
+          .from('contact_submissions')
+          .insert({
+            // Map form data to database fields
+            first_name: validationResult.data.firstName,
+            last_name: validationResult.data.lastName,
+            email: validationResult.data.email,
+            phone: validationResult.data.phone || null,
+            // Other fields...
+          });
+          
+        if (error) {
+          console.warn('Failed to save to database:', error);
+          // Continue with email sending even if database save fails
+        }
+      } catch (dbError) {
+        console.error('Database error:', dbError);
+        // Continue with email sending even if database save fails
+      }
+    } else {
+      console.log('Supabase not configured, skipping database save');
+    }
     
-    // Send the email
-    await transporter.sendMail(mailOptions);
+    // Send email
+    try {
+      await emailService.sendContactFormEmail(validationResult.data);
+    } catch (emailError) {
+      console.error("Error sending email:", emailError);
+      return NextResponse.json(
+        { error: 'Failed to send email. Please try again later.' }, 
+        { status: 500 }
+      );
+    }
     
     // Return success response
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Error processing contact form submission:', error);
-    
-    // Return error response
     return NextResponse.json(
-      { error: 'Failed to send message. Please try again.' },
+      { success: true, message: 'Form submitted successfully' }, 
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error processing contact form:', error);
+    
+    return NextResponse.json(
+      { error: 'Failed to process form submission. Please try again later.' }, 
       { status: 500 }
     );
   }
 }
-// import { NextRequest, NextResponse } from 'next/server';
-// import { contactFormSchema } from '@/lib/schema/contactFormSchema';
-// import { emailService } from '@/lib/services/emailService';
-
-// /**
-//  * API route handler for contact form submissions
-//  */
-// export async function POST(req: NextRequest) {
-//   try {
-//     // Validate SMTP configuration
-//     const isSmtpConfigured = await emailService.verifyConnection();
-//     if (!isSmtpConfigured) {
-//       console.error('SMTP is not properly configured');
-//       return NextResponse.json(
-//         { error: 'Server configuration error. Please try again later.' }, 
-//         { status: 500 }
-//       );
-//     }
-    
-//     // Parse and validate request body
-//     const body = await req.json();
-    
-//     // Validate with Zod schema
-//     const validationResult = contactFormSchema.safeParse(body);
-    
-//     if (!validationResult.success) {
-//       // Return validation errors
-//       return NextResponse.json(
-//         { 
-//           error: 'Invalid form data', 
-//           details: validationResult.error.format() 
-//         }, 
-//         { status: 400 }
-//       );
-//     }
-    
-//     // Send email with validated data
-//     await emailService.sendContactFormEmail(validationResult.data);
-    
-//     // Optional: Save to database
-//     // await saveContactToDatabase(validationResult.data);
-    
-//     // Return success response
-//     return NextResponse.json(
-//       { success: true, message: 'Form submitted successfully' }, 
-//       { status: 200 }
-//     );
-//   } catch (error) {
-//     console.error('Error processing contact form:', error);
-    
-//     // Return error response
-//     return NextResponse.json(
-//       { error: 'Failed to process form submission. Please try again later.' }, 
-//       { status: 500 }
-//     );
-//   }
-// }
-
-// /**
-//  * Handle OPTIONS requests for CORS preflight
-//  */
-// export async function OPTIONS() {
-//   return new NextResponse(null, {
-//     status: 204,
-//     headers: {
-//       'Access-Control-Allow-Origin': '*',
-//       'Access-Control-Allow-Methods': 'POST, OPTIONS',
-//       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-//     },
-//   });
-// }
