@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMP Vending Machine Background</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #4d4d4d;
+            color: #F5F5F5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Header styles */
+        header {
+            background-color: #000000;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #FD5A1E;
+        }
+        
+        header h1 {
+            color: #F5F5F5;
+        }
+        
+        header span {
+            color: #FD5A1E;
+        }
+        
+        /* Main content styles */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        /* Background viewer container */
+        .background-viewer {
+            position: relative;
+            width: 1080px;
+            height: 1920px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow: hidden;
+            margin: 0 auto;
+            background-color: #000000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Instructions */
+        .instructions {
+            background-color: #000000;
+            border: 1px solid #A5ACAF;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 1080px;
+            line-height: 1.6;
+        }
+        
+        .instructions h2 {
+            color: #FD5A1E;
+            margin-bottom: 1rem;
+        }
+        
+        .instructions ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .instructions code {
+            background-color: #333;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            background-color: #FD5A1E;
+            color: #F5F5F5;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e44d12;
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        /* Footer styles */
+        footer {
+            background-color: #000000;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #A5ACAF;
+        }
+        
+        /* Vending machine background styles */
+        .vending-background {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            overflow: hidden;
+        }
+        
+        /* Background pattern */
+        .bg-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image: linear-gradient(#a5acaf 1px, transparent 1px), linear-gradient(90deg, #a5acaf 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Company logo and information */
+        .company-info {
+            position: absolute;
+            inset-inline: 0;
+            top: 4%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .logo {
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            background-color: #000000;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #F5F5F5;
+        }
+        
+        .logo-highlight {
+            color: #FD5A1E;
+        }
+        
+        .website-url {
+            margin-top: 0.5rem;
+            font-size: 1.5rem;
+            color: #F5F5F5;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .website-url:hover {
+            color: #FD5A1E;
+        }
+        
+        /* Contact information and QR code */
+        .contact-container {
+            position: absolute;
+            inset-inline: 0;
+            bottom: 4%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .contact-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        /* QR Code */
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .qr-code {
+            width: 8rem;
+            height: 8rem;
+            background-color: #FFFFFF;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .qr-label {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #A5ACAF;
+        }
+        
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-header {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-title {
+            color: #FD5A1E;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+        
+        .contact-subtitle {
+            color: #F5F5F5;
+        }
+        
+        .contact-links a {
+            display: block;
+            color: #F5F5F5;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-links a:hover {
+            color: #FD5A1E;
+        }
+        
+        /* Benefits section */
+        .benefits {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .benefits-content {
+            max-width: 32rem;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .benefits-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FD5A1E;
+            margin-bottom: 0.5rem;
+        }
+        
+        .benefits-list {
+            color: #F5F5F5;
+            opacity: 0.6;
+        }
+        
+        .benefits-list li {
+            margin-top: 0.25rem;
+            list-style-type: none;
+        }
+
+        @media (max-width: 1200px) {
+            .background-viewer {
+                width: 540px;
+                height: 960px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .background-viewer {
+                width: 320px;
+                height: 568px;
+            }
+            
+            .instructions {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>AMP</span> Vending Machine Background Viewer</h1>
+    </header>
+    
+    <main>
+        <div class="background-viewer">
+            <!-- Vending Machine Background Start -->
+            <div class="vending-background">
+                <!-- Background pattern -->
+                <div class="bg-pattern" aria-hidden="true"></div>
+                
+                <!-- Company logo and information -->
+                <div class="company-info">
+                    <div class="logo">
+                        <div class="logo-text">
+                            <span class="logo-highlight">AMP</span> VENDING
+                        </div>
+                    </div>
+                    
+                    <a 
+                        href="https://www.ampvendingmachines.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="website-url"
+                        aria-label="Visit AMP Vending Machines website"
+                    >
+                        www.ampvendingmachines.com
+                    </a>
+                </div>
+                
+                <!-- Contact information and QR code -->
+                <div class="contact-container">
+                    <div class="contact-content">
+                        <!-- QR Code -->
+                        <div class="qr-container">
+                            <div class="qr-code">
+                                <img src="/api/placeholder/200/200" alt="QR Code to AMP Vending Machines website" width="128" height="128">
+                            </div>
+                            <span class="qr-label">Scan for website</span>
+                        </div>
+                        
+                        <!-- Contact Info -->
+                        <div class="contact-info">
+                            <div class="contact-header">
+                                <h2 class="contact-title">Questions or Feedback?</h2>
+                                <p class="contact-subtitle">We'd love to hear from you!</p>
+                            </div>
+                            <div class="contact-links">
+                                <a 
+                                    href="tel:2094035450" 
+                                    aria-label="Call AMP Vending at 209-403-5450"
+                                >
+                                    (209) 403-5450
+                                </a>
+                                <a 
+                                    href="mailto:ampdesignandconsulting@gmail.com" 
+                                    aria-label="Email AMP Vending"
+                                >
+                                    ampdesignandconsulting@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vending machine benefits -->
+                <div class="benefits">
+                    <div class="benefits-content">
+                        <h2 class="benefits-title">Modern Vending Solutions</h2>
+                        <ul class="benefits-list">
+                            <li>• 21.5" Interactive Touchscreen</li>
+                            <li>• Tap-to-Pay Technology</li>
+                            <li>• Zero Cost Installation & Maintenance</li>
+                            <li>• Customizable Selection of 50+ Products</li>
+                            <li>• Employee & Customer Satisfaction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Vending Machine Background End -->
+        </div>
+        
+        <div class="btn-container">
+            <button class="btn" id="save-btn">Save as Image</button>
+            <a href="#" class="btn" id="download-link" download="amp-vending-background.png" style="display: none;">Download Image</a>
+        </div>
+        
+        <div class="instructions">
+            <h2>How to Use This Background</h2>
+            <p>This page displays the vending machine background in a responsive viewer. You can:</p>
+            <ul>
+                <li><strong>View the design</strong> - See how the background will look on your vending machine screen</li>
+                <li><strong>Save as Image</strong> - Click the button above to create a downloadable image</li>
+                <li><strong>Upload to Vending Machine</strong> - After downloading, transfer to USB drive for upload</li>
+            </ul>
+            
+            <h2>Uploading to Your KoolMore Vending Machine</h2>
+            <ol>
+                <li>Create a folder named <code>KMFolder</code> on your USB drive</li>
+                <li>Inside that folder, create another folder named <code>ImageGoods</code></li>
+                <li>Copy the downloaded image into the <code>ImageGoods</code> folder</li>
+                <li>Insert the USB drive into the vending machine's USB port</li>
+                <li>Access the Android system menu and use the "Backup ads from flash driver" option</li>
+                <li>Restart the machine to apply the changes</li>
+            </ol>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 AMP Vending. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js">
+        // Function to capture the background as an image
+        document.getElementById('save-btn').addEventListener('click', function() {
+  html2canvas(document.querySelector('.vending-background')).then(canvas => {
+    document.getElementById('save-btn').style.display = 'none';
+    document.getElementById('download-link').style.display = 'inline-block';
+    document.getElementById('download-link').href = canvas.toDataURL('image/png');
+  });
+});
+    </script>
+</body>
+</html>
