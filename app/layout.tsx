@@ -34,7 +34,6 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        {/* <Navbar /> */}
         <Navigation />
         <main className="min-h-screen" id="main">
           {/* <AuthProvider> */}
