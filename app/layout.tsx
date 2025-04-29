@@ -35,13 +35,15 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <Navigation/>
+        <Navigation />
+        {/* <Navigation/> */}
         <main className="min-h-screen" id="main-content">
           {/* <AuthProvider> */}
           {children}
           {/* </AuthProvider> */}
           <Analytics />
         </main>
+        {/* <Footer /> */}
         <Footer />
       </body>
     </html>

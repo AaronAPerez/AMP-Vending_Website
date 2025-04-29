@@ -80,7 +80,7 @@ const Navigation: React.FC<NavigationProps> = ({
     //   ]
     // },
     { name: 'Proposal', path: '/proposal' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Contact Us', path: '/contact' }
   ];
 
   // Close menu when clicking outside
@@ -314,7 +314,7 @@ const Navigation: React.FC<NavigationProps> = ({
                           <Link
                             key={child.name}
                             href={child.path}
-                            className="block px-3 py-2 rounded-lg text-sm text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E]"
+                            className="block px-3 py-2 rounded-lg text-sm text-[#F5F5F5] hover:bg-[#303030] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E]"
                             aria-label={child.ariaLabel || child.name}
                             aria-current={pathname === child.path ? 'page' : undefined}
                           >

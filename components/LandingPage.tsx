@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ServiceAreaMapPreview from '@/components/previews/ServiceAreaMapPreview';
 import KoolMoreVendingShowcase from '@/components/machines/KoolMoreVendingShowcase';
-import ContactFormSection from '@/components/sections/ContactFormSection';
+import ContactForm from './sections/ContactForm';
 
 // Define types for snack/beverage items
 interface ProductItem {
@@ -160,7 +160,7 @@ const LandingPage = () => {
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg"
           >
             Premium Workplace Vending <br /> 
-            <span className="text-[#FD5A1E]">Zero Cost to You</span>
+            <span className="text-[#FD5A1E]">at $0 Zero Cost to You.</span>
           </h1>
           <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-md max-w-3xl mx-auto">
             Enhance your workplace with state-of-the-art vending machines offering 
@@ -179,7 +179,7 @@ const LandingPage = () => {
               className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
               aria-label="Contact us about vending machines"
             >
-              Contact Us
+              View Proposal
             </Link>
           </div>
         </motion.div>
@@ -708,7 +708,8 @@ const LandingPage = () => {
         className="py-16 bg-[#4d4d4d]"
         aria-labelledby="contact-heading"
       >
-        <ContactFormSection/>
+        <ContactForm/>
+        {/* <ContactFormSection/> */}
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-black rounded-xl shadow-xl overflow-hidden md:flex">
             <div className="md:w-1/2 p-8 md:p-12">
