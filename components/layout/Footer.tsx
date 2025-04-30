@@ -34,6 +34,7 @@ const Footer = () => {
         { label: 'Location Finder', href: '/contact#locations' },
         { label: 'Product Catalog', href: '/vending-machines#products' },
         { label: 'FAQ', href: '/about#faq' },
+        { label: 'Feedback', href: '/feedback#faq' },
       ]
     }
   ];

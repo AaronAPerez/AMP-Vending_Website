@@ -13,25 +13,14 @@ interface NavItem {
   children?: NavItem[];
 }
 
-// Props for our Navigation component
-interface NavigationProps {
-  showCTA?: boolean;
-}
 
-/**
- * Navigation Component
- * 
- * Provides an updated navigation structure with improved organization
- * and clearer user flows to key conversion pages.
- */
-const Navigation: React.FC<NavigationProps> = ({
-  showCTA = true
-}) => {
+const Navigation = ({ showCTA = true }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   
+
   // Enhanced navigation items structure
   const navItems: NavItem[] = [
     { name: 'Home', path: '/' },
@@ -40,15 +29,12 @@ const Navigation: React.FC<NavigationProps> = ({
       path: '/vending-machines',
       children: [
         { name: 'All Machines', path: '/vending-machines' },
-
         { name: 'Compact Refrigerated', path: '/vending-machines/km-vmr-30-b' },
         { name: 'Standard Refrigerated', path: '/vending-machines/km-vmr-40-b' },
         { name: 'Non-Refrigerated Snack Machine', path: '/vending-machines/km-vmnt-50-b' },
         { name: 'Premium Refrigerated Machine', path: '/vending-machines/km-vmrt-50-b' },
       ]
     },
-
-   
     // { 
     //   name: 'Solutions', 
     //   path: '/solutions',
@@ -82,7 +68,13 @@ const Navigation: React.FC<NavigationProps> = ({
     //   ]
     // },
     { name: 'Proposal', path: '/proposal' },
-    { name: 'Contact', path: '/contact' }
+    // Add the Feedback link here
+    { 
+      name: 'Feedback', 
+      path: '/feedback',
+      ariaLabel: 'Share your feedback about our vending machines'
+    }
+    // { name: 'Contact', path: '/contact' }
   ];
 
   // Close menu when clicking outside
@@ -120,6 +112,8 @@ const Navigation: React.FC<NavigationProps> = ({
     setActiveSubmenu(activeSubmenu === name ? null : name);
   };
 
+
+
   return (
     <header className="bg-[#000000] text-[#F5F5F5] sticky top-0 z-50 border-b border-[#4d4d4d]" role="banner">
       {/* Skip to content link - only visible when focused */}
@@ -143,9 +137,9 @@ const Navigation: React.FC<NavigationProps> = ({
               className="w-24 min-w-12 max-w-24 h-auto"
               priority
             />
-          </Link>
+           </Link> 
           
-          {/* Mobile menu button */}
+            {/* Mobile menu button */}
           <button
             type="button"
             className="lg:hidden inline-flex items-center justify-center p-2 rounded-full text-[#F5F5F5] hover:text-[#FD5A1E] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#FD5A1E]"
@@ -241,15 +235,21 @@ const Navigation: React.FC<NavigationProps> = ({
                     )}
                   </div>
                 ) : (
-                  // Regular nav items
+                  // nav items w/ feedback link
                   <Link
                     href={item.path}
                     className={`text-[#F5F5F5] hover:text-[#FD5A1E] focus:outline-none focus:text-[#FD5A1E] ${
                       pathname === item.path ? 'text-[#FD5A1E] font-medium border-b-2 border-[#FD5A1E]' : ''
-                    }`}
+                    } ${item.name === 'Feedback' ? 'flex items-center' : ''}`}
                     aria-label={item.ariaLabel || item.name}
                     aria-current={pathname === item.path ? 'page' : undefined}
                   >
+                    {/* Add icon only for Feedback link */}
+                    {item.name === 'Feedback' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                      </svg>
+                    )}
                     {item.name}
                   </Link>
                 )}
@@ -331,10 +331,16 @@ const Navigation: React.FC<NavigationProps> = ({
                     href={item.path}
                     className={`block px-3 py-2 rounded-lg text-[#F5F5F5] hover:bg-[#4d4d4d] hover:text-[#FD5A1E] focus:outline-none focus:bg-[#4d4d4d] focus:text-[#FD5A1E] ${
                       pathname === item.path ? 'bg-[#4d4d4d] text-[#FD5A1E]' : ''
-                    }`}
+                    } ${item.name === 'Feedback' ? 'flex items-center' : ''}`}
                     aria-label={item.ariaLabel || item.name}
                     aria-current={pathname === item.path ? 'page' : undefined}
                   >
+                    {/* Add icon only for Feedback link in mobile view */}
+                    {item.name === 'Feedback' && (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                      </svg>
+                    )}
                     {item.name}
                   </Link>
                 )}
