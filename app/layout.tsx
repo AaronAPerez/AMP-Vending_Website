@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react"
-import { Inter } from 'next/font/google';
 import '../styles/globals.css'
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 import 'rsuite/dist/rsuite-no-reset.min.css';
 import Navigation from "@/components/layout/Navigation";
+import FeedbackWidget from "@/components/FeedbackWidget";
 
 
 export const metadata: Metadata = {
@@ -23,14 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased`}>
+      <body>
         {/* Toaster component */}
         <Toaster
           position="top-right"
         />
         {/* Skip to main content link for accessibility */}
         <a href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-emerald-600 focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-orange-600 focus:text-white"
         >
           Skip to main content
         </a>
@@ -42,6 +41,7 @@ export default function RootLayout({
           <Analytics />
         </main>
         <Footer />
+        <FeedbackWidget/>
       </body>
     </html>
   );
