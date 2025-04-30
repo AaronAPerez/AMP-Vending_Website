@@ -196,8 +196,7 @@ const RelatedMachines: React.FC<{ machines: VendingMachineProps['relatedMachines
           href={`/vending-machines/${machine.id}`}
           className="bg-[#4d4d4d] rounded-lg overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all block"
         >
-          <div className="relative aspect-[4/3]
-          min-h-[600px]">
+          <div className="relative aspect-[4/3]">
             <Image 
               src={machine.image} 
               alt={machine.name}

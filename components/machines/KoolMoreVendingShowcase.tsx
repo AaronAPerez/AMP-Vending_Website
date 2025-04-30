@@ -94,16 +94,16 @@ const KoolMoreVendingShowcase = () => {
           {vendingMachines.map((machine) => (
             <div 
               key={machine.id}
-              className="bg-black rounded-xl overflow-hidden border border-[#a4acac] 
+              className="rounded-xl overflow-hidden border border-[#a4acac] 
                         hover:border-[#FD5A1E] transition-all flex flex-col h-full"
             >
               {/* Machine Image */}
-              <div className="relative h-100 bg-black">
+              <div className="relative h-100 md:h-90">
                 {/* Fallback display if image isn't available */}
                 <div className="absolute inset-0 flex items-center justify-center bg-[#000000] text-[#A5ACAF]">
                   {machine.model}
                 </div>
-                {/* Machine images */}
+                {/* Actual image would go here */}
                 <Image 
                   src={machine.image} 
                   alt={`${machine.name} - ${machine.model}`}

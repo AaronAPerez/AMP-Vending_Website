@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import "/styles/globals.css";
-import React from "react";
+import "./globals.css";
 import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
 import '../styles/globals.css'
@@ -36,14 +35,12 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Navigation />
-        {/* <Navigation/> */}
-        <main className="min-h-screen" id="main-content">
+        <main className="min-h-screen" id="main">
           {/* <AuthProvider> */}
           {children}
           {/* </AuthProvider> */}
           <Analytics />
         </main>
-        {/* <Footer /> */}
         <Footer />
       </body>
     </html>
