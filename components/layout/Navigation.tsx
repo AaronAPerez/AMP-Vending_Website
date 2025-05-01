@@ -81,8 +81,8 @@ const Navigation: React.FC<NavigationProps> = ({
     //     { name: 'FAQs', path: '/faq' },
     //   ]
     // },
-    { name: 'Proposal', path: '/proposal' },
-    { name: 'Contact', path: '/contact' }
+    // { name: 'Proposal', path: '/proposal' },
+    { name: 'Contact', path: '/feedback' }
   ];
 
   // Close menu when clicking outside

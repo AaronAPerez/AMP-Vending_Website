@@ -867,12 +867,12 @@ const LandingPage = () => {
             >
               Get Started
             </Link>
-            <Link
+            {/* <Link
               href="/proposal"
               className="px-8 py-4 border-2 border-white text-white font-medium rounded-full hover:bg-black transition-colors"
             >
               View Proposal
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>

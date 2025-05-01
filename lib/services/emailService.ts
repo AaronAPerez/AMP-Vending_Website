@@ -262,7 +262,7 @@ AMP Vending Team
    */
   async verifyConnection(): Promise<boolean> {
     try {
-      // With Resend, we can just check if the API key is present
+      // With Resend, check if the API key is present
       return !!process.env.RESEND_API_KEY;
     } catch (error) {
       console.error('Email Connection Error:', error);
