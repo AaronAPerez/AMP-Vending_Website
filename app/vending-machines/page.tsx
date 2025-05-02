@@ -1,5 +1,7 @@
-import VendingMachinesPage from '@/components/VendingMachinesPage';
+
+import VendingMachinesPage from '@/components/vending-machines/VendingMachinesPage';
+import DynamicMachineDetailPage from './[id]/page';
 
 export default function VendingMachines() {
-  return <VendingMachinesPage />;
+  return <DynamicMachineDetailPage/>;
 };

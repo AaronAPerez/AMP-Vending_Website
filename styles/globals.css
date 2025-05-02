@@ -1,0 +1,228 @@
+/* Import Tailwind CSS directives */
+/* @tailwind base;
+@tailwind components; */
+@tailwind utilities;
+
+/* Custom variables based on the color palette */
+:root {
+  /* Primary colors */
+  --color-primary-black: #000000;
+  --color-silver: #A5ACAF;
+  --color-orange: #FD5A1E;
+  --color-whitesmoke: #F5F5F5;
+  --color-dark-gray: #4d4d4d;
+  --color-edward-gray: #a4acac;
+  --color-santas-gray: #a4a4ac;
+  
+  /* Hero Highlight variables */
+  --highlight-radius: 650px;
+  --highlight-color-orange: rgba(253, 90, 30, 0.15);
+  --highlight-color-silver: rgba(165, 172, 175, 0.1);
+}
+
+/* Set default body styles */
+body {
+  @apply bg-[#000000] text-[#F5F5F5];
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, 
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Base styles overrides */
+@layer base {
+  /* Improve focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-[#FD5A1E] ring-offset-2 ring-offset-[#000000];
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-[#F5F5F5];
+  }
+  
+  /* Links */
+  a {
+    @apply text-[#FD5A1E] hover:underline focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-[#000000];
+  }
+  
+  /* Container adjustments */
+  .container {
+    @apply px-4 mx-auto;
+  }
+}
+
+/* Component styles */
+@layer components {
+  /* Hero Highlight component styles */
+  .hero-highlight {
+    @apply relative overflow-hidden rounded-xl border border-[#4d4d4d] bg-[#000000];
+  }
+  
+  .hero-highlight-glow {
+    @apply pointer-events-none absolute -inset-px opacity-0 transition duration-300;
+  }
+  
+  .hero-highlight:hover .hero-highlight-glow {
+    @apply opacity-100;
+  }
+  
+  /* Feature Item styles */
+  .feature-item {
+    @apply p-4 rounded-lg mb-3;
+  }
+  
+  .feature-item-icon {
+    @apply p-2 rounded-full;
+  }
+  
+  .feature-item-title {
+    @apply ml-3 font-bold;
+  }
+  
+  .feature-item-description {
+    @apply text-[#A5ACAF] text-sm;
+  }
+  
+  /* Before/After card styles */
+  .comparison-card {
+    @apply flex flex-col h-full;
+  }
+  
+  .comparison-card-header {
+    @apply p-5;
+  }
+  
+  .comparison-card-image {
+    @apply rounded-lg overflow-hidden mb-4 border;
+  }
+  
+  .comparison-card-content {
+    @apply flex-grow p-5 bg-[#000000]/50;
+  }
+  
+  /* Button styles */
+  .btn {
+    @apply px-6 py-3 rounded-full font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply bg-[#FD5A1E] text-[#F5F5F5] hover:bg-[#FD5A1E]/90 focus:ring-[#FD5A1E];
+  }
+  
+  .btn-secondary {
+    @apply border border-[#A5ACAF] text-[#F5F5F5] hover:bg-[#4d4d4d] focus:ring-[#A5ACAF];
+  }
+  
+  /* Enhanced environment highlight section */
+  .enhanced-environment {
+    @apply relative overflow-hidden rounded-xl bg-[#000000] border border-[#FD5A1E]/20 p-6 mb-10;
+  }
+  
+  .enhanced-environment-pattern {
+    @apply absolute inset-0 bg-[#FD5A1E]/5;
+  }
+  
+  .enhanced-environment-content {
+    @apply relative z-10;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  /* Dot pattern backgrounds */
+  .bg-dots-orange {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='1.5' fill='%23FD5A1E' fill-opacity='0.2'/%3E%3C/svg%3E");
+    background-size: 30px 30px;
+  }
+  
+  .bg-dots-silver {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='1.5' fill='%23A5ACAF' fill-opacity='0.2'/%3E%3C/svg%3E");
+    background-size: 30px 30px;
+  }
+  
+  .bg-grid {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H20V20H0V0Z' fill='none' stroke='%23A5ACAF' stroke-width='0.2'/%3E%3C/svg%3E");
+    background-size: 20px 20px;
+  }
+  
+  /* Text gradient */
+  .text-gradient-orange {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-[#FD5A1E] to-[#FD5A1E]/70;
+  }
+}
+
+/* Animations for the comparison components */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideInFromBottom 0.5s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s infinite;
+}
+
+/* Framer Motion helper classes */
+.framer-highlight {
+  --x: 50%;
+  --y: 50%;
+}
+
+/* Media query adjustments */
+@media (max-width: 768px) {
+  .hero-highlight {
+    @apply border-[#4d4d4d]/50;
+  }
+  
+  .enhanced-environment {
+    @apply p-4;
+  }
+}
+
+/* Accessibility helpers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus-visible:not(.sr-only) {
+  @apply outline-none ring-2 ring-[#FD5A1E] ring-offset-2 ring-offset-[#000000];
+}

@@ -1,14 +1,26 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { machines, machinesByCategory, VendingMachine } from '@/lib/vendingMachineData';
+import vendingMachineData, { 
+  MachineData, 
+  getAllVendingMachines, 
+  getVendingMachineById,
+  getVendingMachinesByCategory 
+} from '@/lib/data/vendingMachineData';
 
-/* Re-export the VendingMachine interface */
-export type { VendingMachine };
+/* Re-export the MachineData interface */
+export type { MachineData };
 
+/**
+ * Custom hook for managing vending machine data and selection
+ * Compatible with the vendingMachineData structure
+ */
 export const useVendingMachines = () => {
+  // Get all machines once
+  const allMachines = getAllVendingMachines();
+  
   // State for selected machine(s)
-  const [selectedMachines, setSelectedMachines] = useState<VendingMachine[]>([]);
+  const [selectedMachines, setSelectedMachines] = useState<MachineData[]>([]);
 
   /* Toggle selection of a machine */
   const toggleMachineSelection = useCallback((machineId: string) => {
@@ -20,7 +32,7 @@ export const useVendingMachines = () => {
         return prev.filter(machine => machine.id !== machineId);
       } else {
         // If not selected, add it
-        const machineToAdd = machines.find(machine => machine.id === machineId);
+        const machineToAdd = getVendingMachineById(machineId);
         if (machineToAdd) {
           return [...prev, machineToAdd];
         }
@@ -29,10 +41,9 @@ export const useVendingMachines = () => {
     });
   }, []);
 
-  /* Select a single machine (replacing any other selections)
-   */
+  /* Select a single machine (replacing any other selections) */
   const selectMachine = useCallback((machineId: string) => {
-    const machine = machines.find(m => m.id === machineId);
+    const machine = getVendingMachineById(machineId);
     if (machine) {
       setSelectedMachines([machine]);
     }
@@ -43,28 +54,40 @@ export const useVendingMachines = () => {
     setSelectedMachines([]);
   }, []);
 
-  /* Get machines by category */
+  /**
+   * Get machines by category
+   * Mapping the original categories to our new structure
+   */
   const getMachinesByCategory = useCallback((category: 'snack' | 'beverage' | 'combo' | 'food') => {
-    return machinesByCategory[category];
-  }, []);
+    // Map the old categories to our new structure
+    switch (category) {
+      case 'snack':
+        return getVendingMachinesByCategory('non-refrigerated');
+      case 'beverage':
+      case 'food':
+      case 'combo':
+        return getVendingMachinesByCategory('refrigerated');
+      default:
+        return allMachines;
+    }
+  }, [allMachines]);
 
   /**
-   * Get a single machine by ID
+   * Check if a machine is selected
    */
-   const getMachineById = (id: string) => {
-    return machines.find(machine => machine.id === id) || null;
-  };
+  const isSelected = useCallback((machineId: string) => {
+    return selectedMachines.some(m => m.id === machineId);
+  }, [selectedMachines]);
 
   return {
-    machines,
-    getMachineById,
-    machinesByCategory,
+    machines: allMachines,
+    getMachineById: getVendingMachineById,
     selectedMachines,
     toggleMachineSelection,
     selectMachine,
     clearSelections,
     getMachinesByCategory,
-    isSelected: (machineId: string) => selectedMachines.some(m => m.id === machineId)
+    isSelected
   };
 };
 

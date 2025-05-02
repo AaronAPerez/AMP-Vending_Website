@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import VendingMachineDetailPage from '@/components/VendingMachineDetailPage';
+import DynamicMachineDetailPage from '../../app/vending-machines/[id]/page';
 
 /**
  * Page component for the KM-VMRT-50-B Premium Refrigerated Machine
@@ -196,7 +196,7 @@ const PremiumRefrigeratedMachinePage = () => {
   };
 
   return (
-    <VendingMachineDetailPage machine={machineData} />
+    <DynamicMachineDetailPage />
   );
 };
 
