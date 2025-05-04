@@ -1,105 +1,34 @@
 'use client';
-  
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import ServiceAreaMapPreview from '@/components/previews/ServiceAreaMapPreview';
-import KoolMoreVendingShowcase from '@/components/machines/KoolMoreVendingShowcase';
 import ContactFormSection from '@/components/sections/ContactForm';
 
-// Define types for snack/beverage items
-interface ProductItem {
-  title: string;
-  image: string;
-  category: string;
-}
 
 
 const LandingPage = () => {
   // State for animation control
-  const [isVisible, setIsVisible] = useState(false);
-  
+  const [, setIsVisible] = useState(false);
+
   // Animation effect on component mount
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   // Product items to display in the parallax grid
-  const products: ProductItem[] = [
-    {
-      title: "Coke",
-      image: "/images/beverages/coke.jpg",
-      category: "Beverage"
-    },
-    {
-      title: "Red Bull",
-      image: "/images/beverages/RedBull.jpg",
-      category: "Energy Drink"
-    },
-    {
-      title: "Lays Chips",
-      image: "/images/snacks/lays.jpg", 
-      category: "Snack"
-    },
-    {
-      title: "Doritos",
-      image: "/images/snacks/doritos.jpg",
-      category: "Snack"
-    },
-    {
-      title: "Monster",
-      image: "/images/beverages/monster.jpg",
-      category: "Energy Drink"
-    },
-    {
-      title: "Just Water",
-      image: "/images/beverages/justwater.jpg",
-      category: "Beverage"
-    },
-    {
-      title: "M&Ms",
-      image: "/images/snacks/mms.jpg",
-      category: "Candy"
-    },
-    {
-      title: "Snickers",
-      image: "/images/snacks/snickers.jpg",
-      category: "Candy"
-    },
-    {
-      title: "Gatorade",
-      image: "/images/beverages/gatorade.jpg",
-      category: "Sports Drink"
-    },
-    {
-      title: "Cheetos",
-      image: "/images/snacks/cheetos.jpg",
-      category: "Snack"
-    },
-    {
-      title: "Skittles",
-      image: "/images/snacks/skittles.jpg",
-      category: "Candy"
-    },
-    {
-      title: "Dr Pepper",
-      image: "/images/beverages/drpepper.jpg",
-      category: "Beverage"
-    },
-  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#000000] text-white">
       {/* Hero Section */}
-      <section 
+      {/* <section 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         aria-labelledby="hero-heading"
       >
-        {/* Background Overlay */}
+        {/* Background Overlay 
         <div className="absolute inset-0 bg-[#000000]/60 z-10" aria-hidden="true"></div>
         
-        {/* Products Grid Background */}
+        {/* Products Grid Background 
         <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 p-2 z-0">
           {products.map((product, index) => {
             // Calculate parallax offset based on index
@@ -115,14 +44,14 @@ const LandingPage = () => {
                 }}
                 aria-hidden="true"
               >
-                {/* Fallback for images */}
+                {/* Fallback for images 
                 <div className="absolute inset-0 bg-[#4d4d4d] flex items-center justify-center">
                   <div className="text-[#A5ACAF] text-xs">
                     {product.title}
                   </div>
                 </div>
                 
-                {/* Product image */}
+                {/* Product image 
                 <div className="absolute inset-0">
                   <Image 
                     src={product.image} 
@@ -137,7 +66,7 @@ const LandingPage = () => {
                   />
                 </div>
 
-                {/* Category badge */}
+                {/* Category badge 
                 <div className="absolute top-2 left-2 z-20">
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#FD5A1E] text-[#F5F5F5]">
                     {product.category}
@@ -148,7 +77,7 @@ const LandingPage = () => {
           })}
         </div>
         
-        {/* Hero Content - using motion for animation */}
+        {/* Hero Content - using motion for animation 
         <motion.div 
           className="relative z-20 text-center px-4 max-w-5xl"
           initial={{ opacity: 0, y: 20 }}
@@ -184,18 +113,18 @@ const LandingPage = () => {
           </div>
         </motion.div>
         
-        {/* Scroll indicator */}
+        {/* Scroll indicator *
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
           <svg className="w-6 h-6 text-[#F5F5F5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
-      </section>
+      </section> */}
 
-      
+
 
       {/* Key Benefits Section */}
-      <section 
+      {/* <section 
         className="py-16 bg-[#000000]"
         aria-labelledby="benefits-heading"
       >
@@ -213,7 +142,7 @@ const LandingPage = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Benefit 1 */}
+            {/* Benefit 1 
             <motion.div 
               className="bg-[#4d4d4d] rounded-xl p-8 border border-[#a4acac] hover:border-[#FD5A1E] transition-all"
               initial={{ opacity: 0, y: 20 }}
@@ -232,7 +161,7 @@ const LandingPage = () => {
               </p>
             </motion.div>
 
-            {/* Benefit 2 */}
+            {/* Benefit 2 
             <motion.div 
               className="bg-[#4d4d4d] rounded-xl p-8 border border-[#a4acac] hover:border-[#FD5A1E] transition-all"
               initial={{ opacity: 0, y: 20 }}
@@ -251,7 +180,7 @@ const LandingPage = () => {
               </p>
             </motion.div>
 
-            {/* Benefit 3 */}
+            {/* Benefit 3 
             <motion.div 
               className="bg-[#4d4d4d] rounded-xl p-8 border border-[#a4acac] hover:border-[#FD5A1E] transition-all"
               initial={{ opacity: 0, y: 20 }}
@@ -271,10 +200,10 @@ const LandingPage = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Vending Machine Showcase Section */}
-      <KoolMoreVendingShowcase />
+      {/* <KoolMoreVendingShowcase /> */}
 
 
       {/* Products Showcase Section */}
@@ -575,11 +504,11 @@ const LandingPage = () => {
         </div>
       </section>
 
-        {/* Service Area Map Preview */}
-        <section id="service-area-preview" className="py-16 bg-[#000000]">
+      {/* Service Area Map Preview */}
+      {/* <section id="service-area-preview" className="py-16 bg-[#000000]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Service Area Map Preview Component */}
+            {/* Service Area Map Preview Component 
             <div className="order-2 md:order-1">
               <ServiceAreaMapPreview className="shadow-lg" />
             </div>
@@ -595,7 +524,7 @@ const LandingPage = () => {
                 AMP Vending provides premium vending services throughout Modesto, Stockton, Merced, and surrounding areas in Central California.
               </p>
 
-              {/* Service areas list */}
+              {/* Service areas list 
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start">
                   <svg className="h-6 w-6 text-[#FD5A1E] mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -624,7 +553,7 @@ const LandingPage = () => {
                   </span>
                 </li>
               </ul>
-              {/* Call to action */}
+              {/* Call to action 
               <Link
                 href="/service-areas"
                 className="inline-flex items-center px-6 py-3 bg-[#FD5A1E] text-[#F5F5F5] rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors font-medium"
@@ -637,7 +566,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </section >
+      </section > */}
 
       {/* FAQ Section */}
       <section
@@ -710,18 +639,18 @@ const LandingPage = () => {
         className="py-16"
         aria-labelledby="contact-heading"
       >
-              <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
-              Get In Touch
-            </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
-              Contact AMP Vending
-            </h1>
-            <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
-              Have questions about our vending solutions? We&apos;re here to help. Fill out the form below and our team will get back to you soon.
-            </p>
-          </div>
-        <ContactFormSection/>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
+            Get In Touch
+          </span>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
+            Contact AMP Vending
+          </h1>
+          <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+            Have questions about our vending solutions? We&apos;re here to help. Fill out the form below and our team will get back to you soon.
+          </p>
+        </div>
+        <ContactFormSection />
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-black rounded-xl shadow-xl overflow-hidden md:flex">
             <div className="md:w-1/2 p-8 md:p-12">

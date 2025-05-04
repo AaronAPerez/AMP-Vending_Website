@@ -48,6 +48,16 @@ body {
   background-color: gray/10;
 }
 
+.no-visible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+ 
+.no-visible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom utilities */
 @layer utilities {
   .text-gradient {
@@ -401,4 +411,8 @@ gmpx-place-picker {
 
 .feedback-list::-webkit-scrollbar-thumb:hover {
   background: #A5ACAF;
+}
+
+img {
+  background-color: #000000;
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react"
-import '../styles/globals.css'
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import 'rsuite/dist/rsuite-no-reset.min.css';

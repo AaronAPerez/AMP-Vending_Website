@@ -124,7 +124,7 @@ const HeroParallax = () => {
                 </div>
               </div>
               
-              {/* This would be replaced with actual images */}
+              {/* Background images */}
               <div className="absolute inset-0">
                 <Image 
                   src={product.image} 
@@ -153,10 +153,10 @@ const HeroParallax = () => {
       {/* Hero content */}
       <div className="relative z-20 text-center px-4 max-w-5xl">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg">
-          Workplace Vending Solutions <br /> 
-          <span className="text-[#FD5A1E]">Zero Upfront Cost</span>
+        Premium Workplace Vending<br /> 
+          <span className="text-[#FD5A1E]">at Zero Cost  to you</span>
         </h1>
-        <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-md max-w-3xl mx-auto">
+        <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-lg max-w-3xl mx-auto">
           Enhance your workplace with state-of-the-art vending machines offering 
           50+ snack options, and 
           20+ beverage options.

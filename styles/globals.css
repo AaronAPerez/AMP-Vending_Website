@@ -276,3 +276,11 @@ input, textarea, select {
     @apply bg-background text-foreground;
   }
 }
+
+Image {
+  height: 100%;
+  width: 100%;
+  inset: 0px;
+  color: black;
+  background-color: black;
+}
