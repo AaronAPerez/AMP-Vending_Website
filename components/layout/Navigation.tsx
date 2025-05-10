@@ -138,9 +138,9 @@ const Navigation: React.FC<NavigationProps> = ({
             <Image
               src="/images/logo/AMP_logo.png"
               alt="AMP Vending Logo"
-              width={80}
-              height={40}
-              className="w-24 min-w-12 max-w-24 h-auto"
+              width={60}
+              height={20}
+              className="w-22 min-w-12 max-w-22 h-auto"
               priority
             />
           </Link>
