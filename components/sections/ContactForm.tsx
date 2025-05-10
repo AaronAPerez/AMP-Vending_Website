@@ -1,449 +1,279 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
-import { z } from 'zod';
-import { toast } from 'sonner';
+import { useState, FormEvent } from 'react';
+import { toast } from 'sonner'; // Assuming you use Sonner for toast notifications
 
-// Define the schema for form validation
-const contactFormSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().optional(),
-  companyName: z.string().min(1, 'Company name is required'),
-  jobTitle: z.string().optional(),
-  employeeCount: z.string().min(1, 'Employee count is required'),
-  streetAddress: z.string().min(1, 'Street address is required'),
-  city: z.string().min(1, 'City is required'),
-  state: z.string().min(1, 'State is required'),
-  zipCode: z.string().regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code'),
-  interestedMachine: z.string().min(1, 'Please select a vending machine'),
-  message: z.string().optional(),
-  preferredContact: z.enum(['email', 'phone']).default('email'),
-});
+interface ContactFormProps {
+  /**
+   * Optional CSS classes to apply to the form container
+   */
+  className?: string;
+}
 
-// Define the type for our form data
-type ContactFormData = z.infer<typeof contactFormSchema>;
-
-
-const ContactForm = () => {
-  // Form state with react-hook-form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting, dirtyFields },
-    reset  } = useForm({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      preferredContact: 'email'
-    }
+/**
+ * Contact Form Component
+ * 
+ * A responsive, accessible form for the homepage that sends data to the server
+ * and triggers an automatic email reply to the user
+ */
+const ContactForm = ({ className = '' }: ContactFormProps) => {
+  // Form state
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    companyName: '',
+    message: '',
   });
-
-  // State for form submission status
-  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  // Available vending machine options
-  const vendingMachines = [
-    { id: 'km-vmrt-50-br', name: 'KoolMore KM-VMRT-50-BR (Refrigerated Combo)' },
-    { id: 'km-vmnt-50-b', name: 'KoolMore KM-VMNT-50-B (Snack Machine)' },
-    { id: 'ams-35-snack', name: 'AMS 35 Snack Machine' },
-    { id: 'royal-650-beverage', name: 'Royal 650 Beverage Machine' },
-    { id: 'ams-combi-39', name: 'AMS Combi 39 Machine' },
-    { id: 'unsure', name: 'Not sure - I need recommendations' }
-  ];
-
-  // Employee count ranges
-  const employeeCountRanges = [
-    '1-10',
-    '11-50',
-    '51-100',
-    '101-250',
-    '251-500',
-    '500+'
-  ];
-
-  // Handle form submission
-  const onSubmit = async (data: ContactFormData) => {
+  
+  // Loading state for form submission
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Form submission handler
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!formData.firstName || !formData.email || !formData.companyName) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+    
+    // Start submission
+    setIsSubmitting(true);
+    
     try {
+      // Prepare the data to match the expected format in your API route
+      const submissionData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName || '', // Handle empty lastName
+        email: formData.email,
+        phone: '', // Not in this simple form, but required by the schema
+        companyName: formData.companyName,
+        jobTitle: '', // Not in this simple form, but required by the schema
+        employeeCount: '1-10', // Default value since not in this form
+        streetAddress: '', // Not in this simple form, but required by the schema
+        city: '', // Not in this simple form, but required by the schema
+        state: '', // Not in this simple form, but required by the schema
+        zipCode: '95354', // Default to Modesto zip code
+        interestedMachine: 'unsure', // Default to "not sure" option
+        message: formData.message,
+        preferredContact: 'email', // Default to email
+      };
+      
       // Show loading toast
-      const loadingToast = toast.loading('Submitting your request...');
-
-      // Send data to the API endpoint
+      const loadingToast = toast.loading('Sending your message...');
+      
+      // Send data to the API route
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(submissionData),
       });
-
+      
       // Parse the response
       const result = await response.json();
-
-      // Dismiss the loading toast
+      
+      // Dismiss loading toast
       toast.dismiss(loadingToast);
-
+      
       if (!response.ok) {
-        // Show error toast
-        toast.error(result.error || 'Failed to submit form. Please try again.');
-        setSubmissionStatus('error');
+        // Show error message
+        toast.error(result.error || 'Failed to send message. Please try again.');
       } else {
-        // Show success toast
-        toast.success('Thank you! Your message has been sent successfully.');
-        setSubmissionStatus('success');
-        reset();
+        // Show success message
+        toast.success('Thank you! Your message has been sent. Check your email for confirmation.');
+        
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          companyName: '',
+          message: '',
+        });
       }
-
-      // After 5 seconds, reset the submission status
-      setTimeout(() => {
-        setSubmissionStatus('idle');
-      }, 5000);
-
     } catch (error) {
       console.error('Error submitting form:', error);
       toast.error('Something went wrong. Please try again later.');
-      setSubmissionStatus('error');
-
-      setTimeout(() => {
-        setSubmissionStatus('idle');
-      }, 5000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
-
+  
+  // Input change handler
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+  
+  // Split name input handler (handles first/last name in a single field)
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fullName = e.target.value;
+    const nameParts = fullName.split(' ');
+    
+    if (nameParts.length > 1) {
+      // If there's a space, assume first name and last name
+      const firstName = nameParts[0];
+      const lastName = nameParts.slice(1).join(' ');
+      
+      setFormData(prev => ({
+        ...prev,
+        firstName,
+        lastName
+      }));
+    } else {
+      // Otherwise, just set the first name
+      setFormData(prev => ({
+        ...prev,
+        firstName: fullName,
+        lastName: ''
+      }));
+    }
+  };
+  
   return (
-    <div className="bg-[#000000] text-[#F5F5F5]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Form Header */}
-        {/* <div className="text-center mb-10"> */}
-          {/* <h1 className="text-3xl font-bold mb-2">Contact AMP Vending</h1> */}
-          {/* <p className="text-[#A5ACAF] max-w-2xl mx-auto">
-            Tell us about your workplace, and we&apos;ll get back to you with a customized vending solution.
-          </p> */}
-        {/* </div> */}
-
-        {/* Submission status messages */}
-        {submissionStatus === 'success' && (
-          <div className="mb-6 p-4 bg-green-500/20 border border-green-500 rounded-lg text-green-400">
-            <p className="font-medium">Thank you for your interest!</p>
-            <p>We&apos;ve received your information and will contact you shortly to discuss vending solutions for your workplace.</p>
-          </div>
-        )}
-
-        {submissionStatus === 'error' && (
-          <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
-            <p className="font-medium">Something went wrong.</p>
-            <p>We couldn&apos;t process your submission. Please try again or contact us directly at info@ampvending.com</p>
-          </div>
-        )}
-
-        {/* Contact Form */}
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="bg-[#4d4d4d] rounded-lg border border-[#a4acac] p-6 md:p-8 shadow-lg"
+    <div className={`bg-black rounded-xl shadow-xl overflow-hidden md:flex ${className}`}>
+      <div className="md:w-1/2 p-8 md:p-12">
+        <h2
+          id="contact-heading"
+          className="text-2xl md:text-3xl font-bold text-white mb-4"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Personal Information Section */}
-            <div className="md:col-span-2">
-              <h2 className="text-xl font-semibold mb-4 text-[#F5F5F5] border-b border-[#a4acac] pb-2">
-                Personal Information
-              </h2>
-            </div>
+          Ready to Enhance Your Workplace?
+        </h2>
+        <p className="text-[#A5ACAF] mb-6">
+          Fill out the form and our team will get back to you within 24 hours to discuss your vending needs.
+        </p>
+      
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="name" className="block text-white text-sm font-medium mb-1">
+              Full Name <span className="text-[#FD5A1E]">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={`${formData.firstName} ${formData.lastName}`.trim()}
+              onChange={handleNameChange}
+              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
+              placeholder="Your name"
+              aria-required="true"
+              required
+            />
+          </div>
 
-            {/* First Name */}
+          <div>
+            <label htmlFor="email" className="block text-white text-sm font-medium mb-1">
+              Email Address <span className="text-[#FD5A1E]">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
+              placeholder="you@company.com"
+              aria-required="true"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="companyName" className="block text-white text-sm font-medium mb-1">
+              Company Name <span className="text-[#FD5A1E]">*</span>
+            </label>
+            <input
+              type="text"
+              id="companyName"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
+              placeholder="Your company"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="message" className="block text-white text-sm font-medium mb-1">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={4}
+              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
+              placeholder="Tell us about your location and needs"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full md:w-auto px-6 py-3 bg-[#FD5A1E] text-white font-medium rounded-lg hover:bg-[#FD5A1E]/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+            aria-busy={isSubmitting}
+          >
+            {isSubmitting ? 'Sending...' : 'Request Information'}
+          </button>
+        </form>
+      </div>
+
+      <div className="md:w-1/2 bg-gradient-to-br from-[#FD5A1E]/20 to-black relative p-8 md:p-12 flex flex-col justify-center">
+        <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
+
+        <div className="space-y-4">
+          <div className="flex items-start">
+            <div className="flex-shrink-0 h-6 w-6 text-[#FD5A1E] mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+            </div>
             <div>
-              <label htmlFor="firstName" className="block text-[#F5F5F5] mb-1">
-                First Name <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <input
-                id="firstName"
-                type="text"
-                className={`w-full rounded-md bg-[#000000] border ${errors.firstName ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('firstName')}
-              />
-              {errors.firstName && (
-                <p className="mt-1 text-red-500 text-sm">{errors.firstName.message}</p>
-              )}
-            </div>
-
-            {/* Last Name */}
-            <div>
-              <label htmlFor="lastName" className="block text-[#F5F5F5] mb-1">
-                Last Name <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <input
-                id="lastName"
-                type="text"
-                className={`w-full rounded-md bg-[#000000] border ${errors.lastName ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('lastName')}
-              />
-              {errors.lastName && (
-                <p className="mt-1 text-red-500 text-sm">{errors.lastName.message}</p>
-              )}
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-[#F5F5F5] mb-1">
-                Email <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <input
-                id="email"
-                type="email"
-                className={`w-full rounded-md bg-[#000000] border ${errors.email ? 'border-red-500' :
-                    dirtyFields.email && !errors.email ? 'border-green-500' : 'border-[#a4acac]'
-                  } px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('email')}
-              />
-              {errors.email && (
-                <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>
-              )}
-            </div>
-
-            {/* Phone */}
-            <div>
-              <label htmlFor="phone" className="block text-[#F5F5F5] mb-1">
-                Phone Number
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                className={`w-full rounded-md bg-[#000000] border ${errors.phone ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('phone')}
-              />
-              {errors.phone && (
-                <p className="mt-1 text-red-500 text-sm">{errors.phone.message}</p>
-              )}
-            </div>
-
-            {/* Preferred Contact Method */}
-            <div className="md:col-span-2">
-              <label className="block text-[#F5F5F5] mb-1">
-                Preferred Contact Method
-              </label>
-              <div className="flex space-x-4 mt-2">
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    value="email"
-                    className="text-[#FD5A1E] focus:ring-[#FD5A1E]"
-                    {...register('preferredContact')}
-                    defaultChecked
-                  />
-                  <span className="ml-2 text-[#F5F5F5]">Email</span>
-                </label>
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    value="phone"
-                    className="text-[#FD5A1E] focus:ring-[#FD5A1E]"
-                    {...register('preferredContact')}
-                  />
-                  <span className="ml-2 text-[#F5F5F5]">Phone</span>
-                </label>
-              </div>
-            </div>
-
-            {/* Company Information Section */}
-            <div className="md:col-span-2 mt-4">
-              <h2 className="text-xl font-semibold mb-4 text-[#F5F5F5] border-b border-[#a4acac] pb-2">
-                Company Information
-              </h2>
-            </div>
-
-            {/* Company Name */}
-            <div>
-              <label htmlFor="companyName" className="block text-[#F5F5F5] mb-1">
-                Company Name <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <input
-                id="companyName"
-                type="text"
-                className={`w-full rounded-md bg-[#000000] border ${errors.companyName ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('companyName')}
-              />
-              {errors.companyName && (
-                <p className="mt-1 text-red-500 text-sm">{errors.companyName.message}</p>
-              )}
-            </div>
-
-            {/* Job Title */}
-            <div>
-              <label htmlFor="jobTitle" className="block text-[#F5F5F5] mb-1">
-                Your Job Title
-              </label>
-              <input
-                id="jobTitle"
-                type="text"
-                className="w-full rounded-md bg-[#000000] border border-[#a4acac] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]"
-                {...register('jobTitle')}
-              />
-            </div>
-
-            {/* Employee Count */}
-            <div>
-              <label htmlFor="employeeCount" className="block text-[#F5F5F5] mb-1">
-                Number of Employees <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <select
-                id="employeeCount"
-                className={`w-full rounded-md bg-[#000000] border ${errors.employeeCount ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('employeeCount')}
-              >
-                <option value="">Select range</option>
-                {employeeCountRanges.map(range => (
-                  <option key={range} value={range}>
-                    {range}
-                  </option>
-                ))}
-              </select>
-              {errors.employeeCount && (
-                <p className="mt-1 text-red-500 text-sm">{errors.employeeCount.message}</p>
-              )}
-            </div>
-
-            {/* Address Section */}
-            <div className="md:col-span-2 mt-4">
-              <h2 className="text-xl font-semibold mb-4 text-[#F5F5F5] border-b border-[#a4acac] pb-2">
-                Workplace Address
-              </h2>
-            </div>
-
-            {/* Street Address */}
-            <div className="md:col-span-2">
-              <label htmlFor="streetAddress" className="block text-[#F5F5F5] mb-1">
-                Street Address <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <input
-                id="streetAddress"
-                type="text"
-                className={`w-full rounded-md bg-[#000000] border ${errors.streetAddress ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('streetAddress')}
-              />
-              {errors.streetAddress && (
-                <p className="mt-1 text-red-500 text-sm">{errors.streetAddress.message}</p>
-              )}
-            </div>
-
-            {/* City */}
-            <div>
-              <label htmlFor="city" className="block text-[#F5F5F5] mb-1">
-                City <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <input
-                id="city"
-                type="text"
-                className={`w-full rounded-md bg-[#000000] border ${errors.city ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('city')}
-              />
-              {errors.city && (
-                <p className="mt-1 text-red-500 text-sm">{errors.city.message}</p>
-              )}
-            </div>
-
-            {/* State */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="state" className="block text-[#F5F5F5] mb-1">
-                  State <span className="text-[#FD5A1E]">*</span>
-                </label>
-                <input
-                  id="state"
-                  type="text"
-                  className={`w-full rounded-md bg-[#000000] border ${errors.state ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                  {...register('state')}
-                />
-                {errors.state && (
-                  <p className="mt-1 text-red-500 text-sm">{errors.state.message}</p>
-                )}
-              </div>
-
-              {/* Zip Code */}
-              <div>
-                <label htmlFor="zipCode" className="block text-[#F5F5F5] mb-1">
-                  ZIP Code <span className="text-[#FD5A1E]">*</span>
-                </label>
-                <input
-                  id="zipCode"
-                  type="text"
-                  className={`w-full rounded-md bg-[#000000] border ${errors.zipCode ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                  {...register('zipCode')}
-                />
-                {errors.zipCode && (
-                  <p className="mt-1 text-red-500 text-sm">{errors.zipCode.message}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Vending Machine Interest Section */}
-            <div className="md:col-span-2 mt-4">
-              <h2 className="text-xl font-semibold mb-4 text-[#F5F5F5] border-b border-[#a4acac] pb-2">
-                Vending Machine Interest
-              </h2>
-            </div>
-
-            {/* Machine Selection */}
-            <div className="md:col-span-2">
-              <label htmlFor="interestedMachine" className="block text-[#F5F5F5] mb-1">
-                Which vending machine are you interested in? <span className="text-[#FD5A1E]">*</span>
-              </label>
-              <select
-                id="interestedMachine"
-                className={`w-full rounded-md bg-[#000000] border ${errors.interestedMachine ? 'border-red-500' : 'border-[#a4acac]'} px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]`}
-                {...register('interestedMachine')}
-              >
-                <option value="">Select a vending machine</option>
-                {vendingMachines.map(machine => (
-                  <option key={machine.id} value={machine.id}>
-                    {machine.name}
-                  </option>
-                ))}
-              </select>
-              {errors.interestedMachine && (
-                <p className="mt-1 text-red-500 text-sm">{errors.interestedMachine.message}</p>
-              )}
-              <p className="mt-2 text-[#A5ACAF] text-sm">
-                Not familiar with our options? Select &apos;Not sure&apos; and we&apos;ll provide recommendations.
-              </p>
-            </div>
-
-            {/* Additional Message */}
-            <div className="md:col-span-2">
-              <label htmlFor="message" className="block text-[#F5F5F5] mb-1">
-                Additional Information
-              </label>
-              <textarea
-                id="message"
-                rows={4}
-                className="w-full rounded-md bg-[#000000] border border-[#a4acac] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E]"
-                placeholder="Tell us about any specific requirements or questions you have..."
-                {...register('message')}
-              ></textarea>
-            </div>
-
-            {/* Submit Button */}
-            <div className="md:col-span-2 mt-4">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-3 px-6 bg-[#FD5A1E] text-[#F5F5F5] rounded-full font-medium hover:bg-[#FD5A1E]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Request'}
-              </button>
-            </div>
-
-            {/* Privacy Note */}
-            <div className="md:col-span-2 mt-4 text-center text-[#A5ACAF] text-sm">
-              By submitting this form, you agree to our{' '}
-              <Link href="/privacy-policy" className="text-[#FD5A1E] hover:underline">
-                Privacy Policy
-              </Link>.
-              We&apos;ll use your information only to respond to your inquiry.
+              <p className="text-white font-medium">Phone</p>
+              <a href="tel:+12094035450" className="text-[#A5ACAF] hover:text-[#FD5A1E]">(209) 403-5450</a>
             </div>
           </div>
-        </form>
+
+          <div className="flex items-start">
+            <div className="flex-shrink-0 h-6 w-6 text-[#FD5A1E] mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-white font-medium">Email</p>
+              <a href="mailto:ampdesignandconsulting@gmail.com" className="text-[#A5ACAF] hover:text-[#FD5A1E]">ampdesignandconsulting@gmail.com</a>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <div className="flex-shrink-0 h-6 w-6 text-[#FD5A1E] mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-white font-medium">Location</p>
+              <p className="text-[#A5ACAF]">Modesto, CA 95354</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <h3 className="text-xl font-bold text-white mb-4">Business Hours</h3>
+          <p className="text-[#A5ACAF]">
+            Monday - Friday: 9AM - 5PM<br />
+            Saturday - Sunday: Closed
+          </p>
+          <p className="text-[#FD5A1E] mt-2">24/7 Customer Support Available</p>
+        </div>
       </div>
     </div>
   );

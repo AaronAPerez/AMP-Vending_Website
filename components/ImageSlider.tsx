@@ -10,9 +10,9 @@ const ImageSlider = () => {
   // Placeholder for machine images
   const images = [
     { id: 1, alt: "Front view of vending machine", src: "/images/machines/premium_combo.png" },
-    { id: 2, alt: "Side view of vending machine", src: "/placeholder-2.jpg" },
-    { id: 3, alt: "Touchscreen interface close-up", src: "/placeholder-3.jpg" },
-    { id: 4, alt: "Payment system close-up", src: "/placeholder-4.jpg" },
+    { id: 2, alt: "Side view of vending machine", src: "/images/machines/combo-inside.jpg" },
+    { id: 3, alt: "Touchscreen interface close-up", src: "/images/machines/TouchScreen.png" },
+    { id: 4, alt: "Payment system close-up", src: "/images/vending-machines/payment-system.jpg" },
   ];
   
   return (

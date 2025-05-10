@@ -90,3 +90,4 @@ export const CardFooter = ({
 
 // Default export for backwards compatibility
 export default Card;
+

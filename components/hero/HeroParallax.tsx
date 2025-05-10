@@ -52,6 +52,11 @@ const HeroParallax = () => {
       category: "Snack"
     },
     {
+      title: "Pop Tarts",
+      image: "/images/products/poptarts.jpg",
+      category: "Snack"
+    },
+    {
       title: "Monster",
       image: "/images/beverages/monster.jpg",
       category: "Energy Drink"
@@ -67,13 +72,28 @@ const HeroParallax = () => {
       category: "Candy"
     },
     {
+      title: "Starburst",
+      image: "/images/products/starburst.jpg",
+      category: "Candy"
+    },
+    {
       title: "Snickers",
       image: "/images/snacks/snickers.jpg",
       category: "Candy"
     },
     {
+      title: "KitKat",
+      image: "/images/products/kitkat.jpg",
+      category: "Candy"
+    },
+    {
+      title: "3 Musketeers",
+      image: "/images/products/threemusketeers.jpg",
+      category: "Candy"
+    },
+    {
       title: "Gatorade",
-      image: "/images/beverages/gatorade.jpg",
+      image: "/images/products/gatorade.jpg",
       category: "Sports Drink"
     },
     {
@@ -87,6 +107,16 @@ const HeroParallax = () => {
       category: "Snack"
     },
     {
+      title: "Orange Crush",
+      image: "/images/products/orangecrush.jpg",
+      category: "Beverage"
+    },
+    {
+      title: "Mountain Dew",
+      image: "/images/products/mountaindew.jpg",
+      category: "Beverage"
+    },
+    {
       title: "Dr Pepper",
       image: "/images/beverages/drpepper.jpg",
       category: "Beverage"
@@ -95,9 +125,9 @@ const HeroParallax = () => {
 
 
   return (
-    <div className="relative h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
       {/* Background overlay */}
-      <div className="absolute inset-0 bg-[#000000]/20 z-0" aria-hidden="true"></div>
+      <div className="absolute inset-0 bg-[#000000]/20 z-10" aria-hidden="true"></div>
       
       {/* Products grid with parallax effect */}
       <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 p-2 z-0 bg-black/50">
@@ -125,7 +155,7 @@ const HeroParallax = () => {
               </div>
               
               {/* Background images */}
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 z-0">
                 <Image 
                   src={product.image} 
                   alt={product.title}
@@ -151,10 +181,10 @@ const HeroParallax = () => {
       </div>
       
       {/* Hero content */}
-      <div className="relative z-20 text-center px-4 max-w-5xl">
+      <div className="relative z-20 text-center px-4 max-w-5xl mb-18">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg">
         Premium Workplace Vending<br /> 
-          <span className="text-[#FD5A1E]">at Zero Cost  to you</span>
+          <span className="text-[#FD5A1E]">at Zero Cost to You</span>
         </h1>
         <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-lg max-w-3xl mx-auto">
           Enhance your workplace with state-of-the-art vending machines offering 
@@ -164,9 +194,10 @@ const HeroParallax = () => {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/vending-machines"  
-            className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
+            className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-color"
             aria-label="View our vending machines"
           >
+            
             View Machines
           </Link>
           <Link

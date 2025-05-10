@@ -74,9 +74,10 @@ const WorkplaceCard: React.FC<WorkplaceCardProps> = ({
               <Image 
                 src={imageSrc || "/images/before-vending-machine.jpg"} 
                 alt={imageAlt}
-                fill
+                width={500}
+                height={300}
+                className="object-cover w-full h-48"
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover" 
                 priority={highlighted} // Prioritize loading the "after" image
               />
             </div>

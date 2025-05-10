@@ -1,5 +1,5 @@
 import React from 'react';
-import useHeroHighlight from '@/hook/useHeroHighlight';
+import useHeroHighlight from '@/hooks/useHeroHighlight';
 import { motion } from 'framer-motion';
 
 interface HeroHighlightProps {

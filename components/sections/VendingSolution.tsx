@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import useVendingMachines from '@/hook/useVendingMachines';
+import useVendingMachines from '@/hooks/useVendingMachines';
 
 
 

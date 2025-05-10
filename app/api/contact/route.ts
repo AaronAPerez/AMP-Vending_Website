@@ -3,6 +3,10 @@ import { contactFormSchema } from '@/lib/schema/contactFormSchema';
 import { emailService } from '@/lib/services/emailService';
 import { supabaseServer } from '@/lib/supabase';
 
+/**
+ * API route handler for contact form submissions
+ * Processes form data, saves to database (if configured), and sends emails
+ */
 export async function POST(req: NextRequest) {
   try {
     // Validate email configuration
@@ -40,7 +44,20 @@ export async function POST(req: NextRequest) {
             last_name: validationResult.data.lastName,
             email: validationResult.data.email,
             phone: validationResult.data.phone || null,
-            // Other fields...
+            company_name: validationResult.data.companyName,
+            job_title: validationResult.data.jobTitle || null,
+            employee_count: validationResult.data.employeeCount,
+            address: validationResult.data.streetAddress,
+            city: validationResult.data.city,
+            state: validationResult.data.state,
+            zip_code: validationResult.data.zipCode,
+            interested_machine: validationResult.data.interestedMachine,
+            message: validationResult.data.message || null,
+            preferred_contact: validationResult.data.preferredContact,
+            status: 'new',
+            created_at: new Date().toISOString(),
+            ip_address: req.headers.get('x-forwarded-for') || null,
+            user_agent: req.headers.get('user-agent') || null
           });
           
         if (error) {
@@ -55,7 +72,7 @@ export async function POST(req: NextRequest) {
       console.log('Supabase not configured, skipping database save');
     }
     
-    // Send email
+    // Send email (now sends both admin notification and user confirmation)
     try {
       await emailService.sendContactFormEmail(validationResult.data);
     } catch (emailError) {

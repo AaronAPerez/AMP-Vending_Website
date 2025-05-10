@@ -1,5 +1,3 @@
-// In components/comparison/BeforeAfterSlider.tsx
-// Fix unused variable and convert img to Image
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
