@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 
 interface ServiceAreaMapPreviewProps {
@@ -8,6 +8,16 @@ interface ServiceAreaMapPreviewProps {
   className?: string;
 }
 
+interface ServiceLocation {
+  name: string;
+  lat: number;
+  lng: number;
+  radius: number;
+}
+
+/**
+ * A standalone map preview component that displays AMP Vending's service areas
+ */
 export default function ServiceAreaMapPreview({
   apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   className = ''
@@ -19,8 +29,8 @@ export default function ServiceAreaMapPreview({
   const [error, setError] = useState<string | null>(null);
 
   // Hardcoded service area locations for Central California
-  // Using hardcoded values to avoid import issues
-  const serviceLocations = [
+  // Using useMemo to maintain stable reference across renders
+  const serviceLocations = useMemo<ServiceLocation[]>(() => [
     {
       name: 'Modesto',
       lat: 37.6390972,
@@ -39,7 +49,7 @@ export default function ServiceAreaMapPreview({
       lng: -120.4829677,
       radius: 35
     }
-  ];
+  ], []); // Empty dependency array since these values never change
 
   // Initialize the map (use useCallback to make it stable)
   const initMap = useCallback(() => {
@@ -105,7 +115,7 @@ export default function ServiceAreaMapPreview({
       
       // Add circles and markers for each location
       serviceLocations.forEach((location) => {
-        // Create circle for service area (remove unused assignment)
+        // Create circle for service area (directly use without assignment)
         new google.maps.Circle({
           strokeColor: '#FD5A1E',
           strokeOpacity: 0.8,
@@ -170,7 +180,7 @@ export default function ServiceAreaMapPreview({
       setError('Error initializing map. Please try again later.');
       setIsLoading(false);
     }
-  }, []); 
+  }, [serviceLocations]); // Now serviceLocations is a stable reference
 
   // Load Google Maps API
   useEffect(() => {

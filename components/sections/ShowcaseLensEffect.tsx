@@ -21,39 +21,39 @@ interface VendingMachine {
  * LensEffectImage Component
  * Creates a magnifying lens effect on hover over an image
  */
-const LensEffectImage = ({
-  src,
-  alt,
-  className
-}: {
-  src: string;
-  alt: string;
+const LensEffectImage = ({ 
+  src, 
+  alt, 
+  className 
+}: { 
+  src: string; 
+  alt: string; 
   className?: string;
 }) => {
-  const [, setPosition] = useState({ x: 0, y: 0 });
-  const [, setShowLens] = useState(false);
-  const [, setCursorPosition] = useState({ x: 0, y: 0 });
-
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [showLens, setShowLens] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  
   const imageRef = useRef<HTMLDivElement>(null);
 
   // Calculate lens position based on mouse movement
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (imageRef.current) {
       const { left, top, width, height } = imageRef.current.getBoundingClientRect();
-
+      
       // Calculate cursor position relative to image
       const x = ((e.clientX - left) / width) * 100;
       const y = ((e.clientY - top) / height) * 100;
-
+      
       setPosition({ x, y });
       setCursorPosition({ x: e.clientX - left, y: e.clientY - top });
     }
   };
 
   return (
-    <div
+    <div 
       ref={imageRef}
-      className={`relative w-full h-full overflow-hidden bg-[#000000] ${className || ''}`}
+      className={`relative w-full h-full overflow-hidden ${className || ''}`}
       onMouseEnter={() => setShowLens(true)}
       onMouseLeave={() => setShowLens(false)}
       onMouseMove={handleMouseMove}
@@ -62,46 +62,44 @@ const LensEffectImage = ({
       <div className="absolute inset-0 flex items-center justify-center bg-[#000000] text-[#A5ACAF]">
         {alt}
       </div>
-
+      
       {/* Base image */}
-      <Image
-        src={src}
+      <Image 
+        src={src} 
         alt={alt}
-        quality={100}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-        className="object-cover bg-black"
+        className="object-cover"
       />
-
+      
       {/* Lens effect overlay */}
-      {/* {showLens && (
-        <div
+      {showLens && (
+        <div 
           className="absolute w-full h-full top-0 left-0 pointer-events-none"
           style={{
             backgroundImage: `url(${src})`,
             backgroundPosition: `${position.x}% ${position.y}%`,
             backgroundSize: '200%',
             backgroundRepeat: 'no-repeat',
-            opacity: 1, // Change from 0.8 to 1 for full opacity
-            mixBlendMode: 'normal', // Change from 'hard-light' to 'normal'
-            filter: 'contrast(1.2) brightness(1.1)', // Enhance contrast slightly
+            opacity: 0.8,
+            mixBlendMode: 'hard-light',
+            filter: 'contrast(1.1)',
             clipPath: `circle(80px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
           }}
         />
-      )} */}
-
+      )}
+      
       {/* Lens circle indicator */}
-      {/* {showLens && (
-        <div
-          className="absolute pointer-events-none border-2 border-[#FD5A1E] rounded-full w-40 h-40 -mt-20 -ml-20"
+      {showLens && (
+        <div 
+          className="absolute pointer-events-none border-2 border-[#FD5A1E]/60 rounded-full w-40 h-40 -mt-20 -ml-20 backdrop-blur-sm"
           style={{
             top: `${cursorPosition.y}px`,
             left: `${cursorPosition.x}px`,
-            boxShadow: '0 0 15px rgba(253, 90, 30, 0.4)',
-            background: 'transparent', // Ensure no background color
+            boxShadow: '0 0 15px rgba(253, 90, 30, 0.3)',
           }}
         />
-      )} */}
+      )}
     </div>
   );
 };
@@ -112,7 +110,7 @@ const LensEffectImage = ({
  */
 const ShowcaseLensEffect = () => {
   const [activeSection, setActiveSection] = useState('all');
-
+  
   // Array of available premium vending machines
   const vendingMachines: VendingMachine[] = [
     {
@@ -190,53 +188,57 @@ const ShowcaseLensEffect = () => {
   ];
 
   // Filter the machines based on active section
-  const filteredMachines = activeSection === 'all'
-    ? vendingMachines
+  const filteredMachines = activeSection === 'all' 
+    ? vendingMachines 
     : vendingMachines.filter(machine => {
-      if (activeSection === 'refrigerated') {
-        return machine.id.includes('vmr');
-      }
-      return !machine.id.includes('vmr');
-    });
+        if (activeSection === 'refrigerated') {
+          return machine.id.includes('vmr');
+        }
+        return !machine.id.includes('vmr');
+      });
 
   return (
+    <section className="bg-[#000000]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        {/* <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
             Premium Vending <span className="text-[#FD5A1E]">Solutions</span>
           </h2>
           <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
-            Explore our range of state-of-the-art vending machines featuring advanced technology
+            Explore our range of state-of-the-art vending machines featuring advanced technology 
             and customizable options for your workplace needs.
           </p>
-        </div>
+        </div> */}
 
         {/* Category Filter Buttons */}
         <div className="flex justify-center gap-3 mb-10">
           <button
             onClick={() => setActiveSection('all')}
-            className={`px-4 py-2 rounded-full text-sm transition-colors ${activeSection === 'all'
-              ? 'bg-[#FD5A1E] text-[#F5F5F5]'
-              : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
-              }`}
+            className={`px-4 py-2 rounded-full text-sm transition-colors ${
+              activeSection === 'all'
+                ? 'bg-[#FD5A1E] text-[#F5F5F5]'
+                : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
+            }`}
           >
             All Machines
           </button>
           <button
             onClick={() => setActiveSection('refrigerated')}
-            className={`px-4 py-2 rounded-full text-sm transition-colors ${activeSection === 'refrigerated'
-              ? 'bg-[#FD5A1E] text-[#F5F5F5]'
-              : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
-              }`}
+            className={`px-4 py-2 rounded-full text-sm transition-colors ${
+              activeSection === 'refrigerated'
+                ? 'bg-[#FD5A1E] text-[#F5F5F5]'
+                : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
+            }`}
           >
             Refrigerated
           </button>
           <button
             onClick={() => setActiveSection('non-refrigerated')}
-            className={`px-4 py-2 rounded-full text-sm transition-colors ${activeSection === 'non-refrigerated'
-              ? 'bg-[#FD5A1E] text-[#F5F5F5]'
-              : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
-              }`}
+            className={`px-4 py-2 rounded-full text-sm transition-colors ${
+              activeSection === 'non-refrigerated'
+                ? 'bg-[#FD5A1E] text-[#F5F5F5]'
+                : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
+            }`}
           >
             Non-Refrigerated
           </button>
@@ -245,7 +247,7 @@ const ShowcaseLensEffect = () => {
         {/* Amazon-inspired product grid with lens effect */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredMachines.map((machine) => (
-            <div
+            <div 
               key={machine.id}
               className="rounded-xl overflow-hidden border border-[#a4acac] 
                         hover:border-[#FD5A1E] hover:shadow-lg hover:shadow-[#FD5A1E]/10 
@@ -254,41 +256,41 @@ const ShowcaseLensEffect = () => {
               {/* Image with lens effect container */}
               <div className="relative h-72 overflow-hidden">
                 {/* Lens effect image */}
-                <LensEffectImage
-                  src={machine.image}
-                  alt={`${machine.name} - ${machine.model}`}
+                <LensEffectImage 
+                  src={machine.image} 
+                  alt={`${machine.name} - ${machine.model}`} 
                 />
-
+                
                 {/* "Zero Cost" badge */}
                 <div className="absolute top-3 right-3 bg-[#FD5A1E] text-[#F5F5F5] px-3 py-1 rounded-full text-xs font-medium z-10">
                   Zero Cost
                 </div>
-
+                
                 {/* Model label */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
                   <div className="text-xs font-medium text-[#A5ACAF]">{machine.model}</div>
                 </div>
               </div>
-
+              
               {/* Content */}
               <div className="flex-1 p-6 flex flex-col">
                 <h3 className="text-lg font-bold text-[#F5F5F5] mb-1 group-hover:text-[#FD5A1E] transition-colors">
                   {machine.name}
                 </h3>
-
+                
                 {/* Rating stars simulation */}
-                {/* <div className="flex items-center mb-2">
+                <div className="flex items-center mb-2">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-4 h-4 text-[#FD5A1E]" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                   <span className="text-xs text-[#A5ACAF] ml-1">(Premium Model)</span>
-                </div> */}
-
+                </div>
+                
                 {/* Short description */}
                 <p className="text-[#A5ACAF] text-sm mb-4 line-clamp-2">{machine.description}</p>
-
+                
                 {/* Key features with advanced styling */}
                 <div className="mb-4">
                   <h4 className="text-[#A5ACAF] text-xs uppercase tracking-wider mb-2 font-medium">Key Features</h4>
@@ -302,11 +304,11 @@ const ShowcaseLensEffect = () => {
                       </li>
                     ))}
                   </ul>
-
+                  
                   {/* "More features" indicator */}
                   <p className="text-xs text-[#FD5A1E] mt-1 ml-6 italic">+{machine.features.length - 3} more features</p>
                 </div>
-
+                
                 {/* Dimensions spec */}
                 <div className="bg-[#000000]/50 rounded p-2 text-xs mb-3">
                   <div className="flex justify-between">
@@ -314,22 +316,22 @@ const ShowcaseLensEffect = () => {
                     <span className="text-[#F5F5F5] font-medium">{machine.dimensions}</span>
                   </div>
                 </div>
-
+                
                 {/* Best for banner */}
                 <div className="bg-[#FD5A1E]/10 border border-[#FD5A1E]/30 p-2 rounded mb-4 text-xs">
                   <p className="text-[#F5F5F5]"><span className="font-medium">Best for:</span> {machine.best}</p>
                 </div>
-
+                
                 {/* CTA Buttons */}
                 <div className="mt-auto space-y-2">
-                  <Link
+                  <Link 
                     href={`/vending-machines/${machine.id}`}
                     className="block py-2 px-4 bg-[#FD5A1E] text-[#F5F5F5] rounded-lg text-center font-medium 
                               hover:bg-[#FD5A1E]/90 transition-colors"
                   >
                     View Details
                   </Link>
-                  <Link
+                  <Link 
                     href="/contact"
                     className="block py-2 px-4 bg-[#000000] text-[#F5F5F5] border border-[#a4acac] rounded-lg text-center text-sm
                               hover:bg-[#4d4d4d] transition-colors"
@@ -341,7 +343,7 @@ const ShowcaseLensEffect = () => {
             </div>
           ))}
         </div>
-
+        
         {/* Zero Cost Promise Banner */}
         <div className="mt-16 bg-gradient-to-r from-[#FD5A1E]/20 to-[#000000] rounded-xl p-6 border border-[#FD5A1E]">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -355,7 +357,7 @@ const ShowcaseLensEffect = () => {
               <div>
                 <h3 className="text-2xl font-bold text-[#F5F5F5] mb-2">Zero Cost Vending Solutions</h3>
                 <p className="text-[#A5ACAF]">
-                  All our premium machines are installed at <span className="text-[#FD5A1E] font-medium">absolutely no cost</span> to qualified locations.
+                  All our premium machines are installed at <span className="text-[#FD5A1E] font-medium">absolutely no cost</span> to qualified locations. 
                   We handle everything from maintenance to restocking, leaving you free to enjoy the benefits.
                 </p>
               </div>
@@ -369,7 +371,7 @@ const ShowcaseLensEffect = () => {
             </Link>
           </div>
         </div>
-
+        
         {/* Key Benefits Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Benefit 1: Maintenance-Free */}
@@ -387,7 +389,7 @@ const ShowcaseLensEffect = () => {
               We handle all servicing, cleaning, and repairs. Our team monitors machines remotely and proactively addresses any issues before they affect performance.
             </p>
           </div>
-
+          
           {/* Benefit 2: Latest Technology */}
           <div className="bg-[#4d4d4d]/20 rounded-xl p-6 border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
             <div className="flex items-center mb-4">
@@ -402,7 +404,7 @@ const ShowcaseLensEffect = () => {
               Premium 21.5&quot; touchscreen interfaces and advanced payment systems including tap-to-pay make purchasing quick and convenient for everyone.
             </p>
           </div>
-
+          
           {/* Benefit 3: Customizable Selection */}
           <div className="bg-[#4d4d4d]/20 rounded-xl p-6 border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
             <div className="flex items-center mb-4">
@@ -418,7 +420,7 @@ const ShowcaseLensEffect = () => {
             </p>
           </div>
         </div>
-
+        
         {/* View All Machines Link */}
         <div className="mt-12 text-center">
           <Link
@@ -433,6 +435,7 @@ const ShowcaseLensEffect = () => {
           </Link>
         </div>
       </div>
+    </section>
   );
 };
 

@@ -42,9 +42,10 @@ const WorkplaceCard = ({
                         <Image
                             src={imageSrc}
                             alt={imageAlt}
-                            width={280}
+                            width={100}
                             height={100}
-                            className="object-cover h-58 mx-auto"
+                            quality={100}
+                            className="object-cover w-100 h-80 mx-auto"
                             sizes="(max-width: 400px) 100vw, 50vw"
                         />
                     </div>

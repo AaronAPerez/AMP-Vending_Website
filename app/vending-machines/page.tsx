@@ -5,6 +5,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getAllVendingMachines, getVendingMachinesByCategory, MachineData } from '@/lib/data/vendingMachineData';
 import { Loading } from '@/components/ui/Loading';
+import { usePathname } from 'next/navigation';
+import ShowcaseLensEffect from '@/components/sections/ShowcaseLensEffect';
+import CTASection from '@/components/sections/CTASection';
+
+
+// Types for our navigation sidebar
+interface SidebarItem {
+  name: string;
+  path: string;
+  model?: string;
+}
 
 /**
  * VendingMachinesPage Component
@@ -16,7 +27,36 @@ const VendingMachinesPage = () => {
   const [machines, setMachines] = useState<MachineData[]>([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
+  const pathname = usePathname();
+    
+    // Data for sidebar navigation
+    const sidebarItems: SidebarItem[] = [
+      { name: 'All Vending Machines', path: '/vending-machines' },
+      { 
+        name: 'Premium Refrigerated Machine', 
+        path: '/vending-machines/km-vmrt-50-b',
+        model: 'KM-VMRT-50-B'
+      },
+      { 
+        name: 'Standard Refrigerated Machine', 
+        path: '/vending-machines/km-vmr-40-b',
+        model: 'KM-VMR-40-B'
+      },
+      { 
+        name: 'Compact Refrigerated Machine', 
+        path: '/vending-machines/km-vmr-30-b',
+        model: 'KM-VMR-30-B'
+      },
+      { 
+        name: 'Non-Refrigerated Snack Machine', 
+        path: '/vending-machines/km-vmnt-50-b',
+        model: 'KM-VMNT-50-B'
+      }
+    ];
   
+    // Check if the current page is the main vending machines page
+    const isMainVendingPage = pathname === '/vending-machines';
+
   // Load machines on component mount
   useEffect(() => {
     setIsLoading(true);
@@ -43,8 +83,26 @@ const VendingMachinesPage = () => {
 
   return (
     <div className="min-h-screen bg-[#000000]">
+       {/* Breadcrumb Navigation */}
+       <div className="bg-[#000000]/50 border-b border-[#4d4d4d]">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center text-sm text-[#A5ACAF]">
+          <Link href="/" className="hover:text-[#FD5A1E]">Home</Link>
+          <span className="mx-2">/</span>
+          {isMainVendingPage ? (
+            <span className="text-[#F5F5F5]">Vending Machines</span>
+          ) : (
+            <>
+              <Link href="/vending-machines" className="hover:text-[#FD5A1E]">Vending Machines</Link>
+              <span className="mx-2">/</span>
+              <span className="text-[#F5F5F5]">
+                {sidebarItems.find(item => item.path === pathname)?.name || 'Machine Details'}
+              </span>
+            </>
+          )}
+        </div>
+      </div>
       {/* Header */}
-      <section className="py-12 bg-gradient-to-b from-[#000000] to-[#000000]/80">
+      <section className="pt-12 bg-gradient-to-b from-[#000000] to-[#000000]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
             Premium Vending <span className="text-[#FD5A1E]">Machines</span>
@@ -92,6 +150,7 @@ const VendingMachinesPage = () => {
       
       {/* Machines Grid */}
       <section className="py-8 pb-16">
+        <ShowcaseLensEffect/>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {machines.length === 0 ? (
             <div className="text-center py-12">
@@ -164,29 +223,7 @@ const VendingMachinesPage = () => {
       
       {/* CTA Section */}
       <section className="py-12 bg-gradient-to-r from-[#000000] to-[#4d4d4d]/30 border-t border-[#4d4d4d]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#000000] p-8 rounded-xl border border-[#FD5A1E] shadow-xl">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="md:w-3/4 mb-6 md:mb-0 md:pr-8">
-                <h2 className="text-2xl font-bold text-[#F5F5F5] mb-2">
-                  Ready to Enhance Your Workplace?
-                </h2>
-                <p className="text-[#A5ACAF]">
-                  Contact us today to discuss which vending machine is best suited for your location.
-                  Our team will provide a free consultation and site assessment.
-                </p>
-              </div>
-              <div className="md:w-1/4 flex justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-block px-6 py-3 bg-[#FD5A1E] text-[#F5F5F5] rounded-full font-medium hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+     <CTASection/>
       </section>
     </div>
   );

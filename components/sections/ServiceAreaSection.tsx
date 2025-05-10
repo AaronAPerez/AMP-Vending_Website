@@ -1,10 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { MapPin, Clock, Shield, DollarSign, ChevronRight } from 'lucide-react';
 
 /**
  * ServiceAreaSection Component
  * Displays the company's service area with visual map and location information
+ * Updated styling to match site-wide visual enhancements
  */
 const ServiceAreaSection = () => {
   // List of service areas - you can modify this based on your actual coverage
@@ -32,24 +35,47 @@ const ServiceAreaSection = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
-          Our Service Area
+      {/* Section Header */}
+      <motion.div 
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <span className="inline-block px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-4">
+          Service Coverage
         </span>
         <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
-          Serving Central California
+          Serving <span className="text-[#FD5A1E]">Central California</span>
         </h2>
-        <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+        <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
           AMP Vending provides premium vending solutions throughout Central California. 
           Our service area includes Modesto and surrounding communities.
         </p>
-      </div>
+      </motion.div>
       
-      <div className="grid md:grid-cols-2 gap-8 items-center">
-        {/* Service Area Map */}
-        <div className="bg-[#4d4d4d]/20 rounded-xl overflow-hidden border border-[#a4acac] shadow-lg h-[400px] relative">
-          {/* Static map image - replace with your actual map image */}
-          <div className="absolute inset-0">
+      {/* Map and Service Areas */}
+      <div className="grid md:grid-cols-2 gap-8 items-stretch mb-16">
+        {/* Service Area Map Card */}
+        <motion.div 
+          className="bg-[#111111] rounded-xl overflow-hidden border border-[#333333] shadow-lg"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Card Header */}
+          <div className="p-6 border-b border-[#333333] flex items-center">
+            <div className="bg-[#FD5A1E]/10 p-2 rounded-full mr-3">
+              <MapPin size={20} className="text-[#FD5A1E]" />
+            </div>
+            <h3 className="text-xl font-bold text-[#F5F5F5]">
+              Coverage Map
+            </h3>
+          </div>
+          
+          {/* Map Container */}
+          <div className="relative h-[300px]">
+            {/* Static map image */}
             <Image 
               src="/images/central-california-map.jpg" 
               alt="Central California service area map" 
@@ -57,149 +83,233 @@ const ServiceAreaSection = () => {
               className="object-cover"
               priority
             />
-            {/* Fallback if image doesn't load */}
-            <div className="absolute inset-0 flex items-center justify-center bg-[#000000]/70 text-[#F5F5F5]">
-              Central California Service Area
+            
+            {/* Map Overlay with radial gradient */}
+            <div className="absolute inset-0 bg-gradient-radial from-transparent to-[#000000]/60"></div>
+            
+            {/* Modesto Location Pin */}
+            <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              {/* Pulsing Pin */}
+              <div className="relative">
+                <div className="absolute w-6 h-6 bg-[#FD5A1E] rounded-full left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 animate-pulse"></div>
+                <div className="absolute w-12 h-12 bg-[#FD5A1E]/30 rounded-full left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 animate-ping"></div>
+                <div className="absolute w-20 h-20 bg-[#FD5A1E]/10 rounded-full left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
+                
+                {/* City Label */}
+                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 translate-y-6 z-30 bg-[#000000]/80 text-white px-3 py-1 rounded-full text-sm whitespace-nowrap">
+                  Modesto, CA
+                </div>
+              </div>
+            </div>
+            
+            {/* Information Footer */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#000000] to-transparent p-4">
+              <p className="text-[#F5F5F5] text-sm">
+                Based in Modesto, CA with service throughout Central California
+              </p>
             </div>
           </div>
           
-          {/* Map overlay with location pin */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative">
-              {/* Modesto marker/pin */}
-              <div className="absolute w-6 h-6 bg-[#FD5A1E] rounded-full -ml-3 -mt-3 animate-pulse">
-                <div className="absolute inset-0 bg-[#FD5A1E] rounded-full animate-ping opacity-75"></div>
-              </div>
-              
-              {/* Pulse effect */}
-              <div className="absolute w-16 h-16 -ml-8 -mt-8 rounded-full border-2 border-[#FD5A1E] opacity-60"></div>
-              <div className="absolute w-24 h-24 -ml-12 -mt-12 rounded-full border border-[#FD5A1E] opacity-40"></div>
-              
-              {/* City label */}
-              <div className="absolute -ml-[30px] mt-4 bg-[#000000]/80 text-[#F5F5F5] px-2 py-1 rounded text-sm whitespace-nowrap">
-                Modesto, CA
-              </div>
+          {/* Map Legend */}
+          <div className="p-4 bg-[#0a0a0a] border-t border-[#333333] flex justify-between items-center text-xs text-[#A5ACAF]">
+            <div className="flex items-center">
+              <span className="w-3 h-3 rounded-full bg-[#FD5A1E] inline-block mr-2"></span>
+              <span>Headquarters</span>
             </div>
+            <div className="flex items-center">
+              <span className="w-3 h-3 rounded-full bg-[#FD5A1E]/30 inline-block mr-2"></span>
+              <span>Service Coverage</span>
+            </div>
+            <Link href="/contact" className="text-[#FD5A1E] hover:underline flex items-center">
+              <span>Full Coverage Details</span>
+              <ChevronRight size={14} className="ml-1" />
+            </Link>
           </div>
-          
-          {/* Map information overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#000000] to-transparent p-4">
-            <p className="text-[#F5F5F5] text-sm">
-              Based in Modesto, CA, serving all of Central California
+        </motion.div>
+        
+        {/* Service Locations Card */}
+        <motion.div 
+          className="bg-[#111111] rounded-xl overflow-hidden border border-[#333333] shadow-lg flex flex-col"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Card Header */}
+          <div className="p-6 border-b border-[#333333]">
+            <h3 className="text-xl font-bold text-[#F5F5F5] flex items-center">
+              <MapPin size={20} className="text-[#FD5A1E] mr-2" />
+              Areas We Serve
+            </h3>
+            <p className="text-[#A5ACAF] mt-2">
+              Our zero-cost vending machines are available throughout these Central California locations:
             </p>
           </div>
-        </div>
-        
-        {/* Service Areas List */}
-        <div className="bg-[#4d4d4d]/20 rounded-xl p-6 border border-[#a4acac] shadow-lg">
-          <h3 className="text-xl font-bold text-[#F5F5F5] mb-4 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FD5A1E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            Areas We Serve
-          </h3>
           
-          <p className="text-[#A5ACAF] mb-6">
-            Our zero-cost vending machines are available throughout these Central California locations:
-          </p>
-          
-          <div className="grid grid-cols-2 gap-4">
-            {columns.map((column, columnIndex) => (
-              <ul key={columnIndex} className="space-y-3">
-                {column.map((city) => (
-                  <li key={city.name} className="flex items-center">
-                    <span 
-                      className={`w-2 h-2 rounded-full mr-2 ${city.isPrimary ? 'bg-[#FD5A1E]' : 'bg-[#A5ACAF]'}`}
-                    ></span>
-                    <span 
-                      className={city.isPrimary ? 'text-[#F5F5F5] font-medium' : 'text-[#A5ACAF]'}
-                    >
-                      {city.name}
-                    </span>
-                    {city.isPrimary && (
-                      <span className="ml-2 text-xs text-[#FD5A1E]">(Headquarters)</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ))}
+          {/* Cities List */}
+          <div className="p-6 flex-grow">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+              {columns.map((column, columnIndex) => (
+                <div key={columnIndex} className="space-y-3">
+                  {column.map((city) => (
+                    <div key={city.name} className="flex items-center group">
+                      <div className={`w-2 h-2 rounded-full mr-3 ${
+                        city.isPrimary ? 'bg-[#FD5A1E]' : 'bg-[#A5ACAF]/50'
+                      } group-hover:scale-125 transition-transform`}></div>
+                      <span className={`${
+                        city.isPrimary 
+                          ? 'text-[#F5F5F5] font-medium' 
+                          : 'text-[#A5ACAF]'
+                      } group-hover:text-[#F5F5F5] transition-colors`}>
+                        {city.name}
+                      </span>
+                      {city.isPrimary && (
+                        <span className="ml-2 text-xs text-[#FD5A1E] px-2 py-0.5 bg-[#FD5A1E]/10 rounded-full">
+                          HQ
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
           
-          <div className="mt-8 pt-6 border-t border-[#a4acac]">
+          {/* Card Footer */}
+          <div className="mt-auto p-6 border-t border-[#333333] bg-[#0a0a0a]">
             <p className="text-[#A5ACAF] text-sm mb-4">
-              Don't see your location? We're continuously expanding our service area.
+              Don&apos;t see your location? We&apos;re continuously expanding our service area.
             </p>
             <Link 
               href="/contact" 
-              className="inline-flex items-center text-[#FD5A1E] hover:text-[#F5F5F5] transition-colors"
+              className="inline-flex items-center text-[#FD5A1E] hover:underline"
             >
               Check availability in your area
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              <ChevronRight size={16} className="ml-1" />
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
       
-      {/* Additional Service Information */}
-      <div className="mt-12 grid md:grid-cols-3 gap-6">
-        <div className="bg-[#4d4d4d]/10 p-5 rounded-lg border border-[#4d4d4d] hover:border-[#FD5A1E] transition-colors">
-          <div className="flex items-center mb-3">
-            <div className="p-2 bg-[#FD5A1E]/10 rounded-full mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FD5A1E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-[#F5F5F5]">Fast Response Times</h3>
-          </div>
-          <p className="text-[#A5ACAF] text-sm">
-            We provide prompt service throughout our coverage area with technicians ready to respond quickly to maintenance needs.
-          </p>
-        </div>
+      {/* Service Highlights */}
+      <motion.div 
+        className="bg-[#0a0a0a] rounded-xl border border-[#333333] p-8 mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+      >
+        <h3 className="text-xl font-bold text-[#F5F5F5] mb-6 text-center">
+          Premium Service Throughout Our Coverage Area
+        </h3>
         
-        <div className="bg-[#4d4d4d]/10 p-5 rounded-lg border border-[#4d4d4d] hover:border-[#FD5A1E] transition-colors">
-          <div className="flex items-center mb-3">
-            <div className="p-2 bg-[#FD5A1E]/10 rounded-full mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FD5A1E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Fast Response Card */}
+          <div className="bg-[#111111] p-6 rounded-lg border border-[#333333] hover:border-[#FD5A1E] transition-all">
+            <div className="flex items-center mb-4">
+              <div className="bg-[#FD5A1E]/10 p-3 rounded-full">
+                <Clock size={20} className="text-[#FD5A1E]" />
+              </div>
+              <h4 className="text-lg font-bold text-[#F5F5F5] ml-3">Fast Response Times</h4>
             </div>
-            <h3 className="text-lg font-bold text-[#F5F5F5]">Premium Service Guarantee</h3>
+            <p className="text-[#A5ACAF]">
+              We provide prompt service throughout our coverage area with technicians ready to respond quickly to maintenance needs.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start">
+                <svg className="h-5 w-5 text-[#FD5A1E] mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-[#A5ACAF] text-sm">24-hour response for urgent issues</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="h-5 w-5 text-[#FD5A1E] mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-[#A5ACAF] text-sm">Regular maintenance visits</span>
+              </li>
+            </ul>
           </div>
-          <p className="text-[#A5ACAF] text-sm">
-            All locations receive the same high-quality service and zero-cost vending machines with our maintenance guarantee.
-          </p>
-        </div>
-        
-        <div className="bg-[#4d4d4d]/10 p-5 rounded-lg border border-[#4d4d4d] hover:border-[#FD5A1E] transition-colors">
-          <div className="flex items-center mb-3">
-            <div className="p-2 bg-[#FD5A1E]/10 rounded-full mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FD5A1E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-              </svg>
+          
+          {/* Premium Service Card */}
+          <div className="bg-[#111111] p-6 rounded-lg border border-[#333333] hover:border-[#FD5A1E] transition-all">
+            <div className="flex items-center mb-4">
+              <div className="bg-[#FD5A1E]/10 p-3 rounded-full">
+                <Shield size={20} className="text-[#FD5A1E]" />
+              </div>
+              <h4 className="text-lg font-bold text-[#F5F5F5] ml-3">Premium Service Guarantee</h4>
             </div>
-            <h3 className="text-lg font-bold text-[#F5F5F5]">Consistent Pricing</h3>
+            <p className="text-[#A5ACAF]">
+              All locations receive the same high-quality service and zero-cost vending machines with our maintenance guarantee.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start">
+                <svg className="h-5 w-5 text-[#FD5A1E] mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-[#A5ACAF] text-sm">Guaranteed maintenance coverage</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="h-5 w-5 text-[#FD5A1E] mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-[#A5ACAF] text-sm">Regularly scheduled quality checks</span>
+              </li>
+            </ul>
           </div>
-          <p className="text-[#A5ACAF] text-sm">
-            We maintain consistent product pricing across all service areas with no additional fees based on location.
-          </p>
+          
+          {/* Consistent Pricing Card */}
+          <div className="bg-[#111111] p-6 rounded-lg border border-[#333333] hover:border-[#FD5A1E] transition-all">
+            <div className="flex items-center mb-4">
+              <div className="bg-[#FD5A1E]/10 p-3 rounded-full">
+                <DollarSign size={20} className="text-[#FD5A1E]" />
+              </div>
+              <h4 className="text-lg font-bold text-[#F5F5F5] ml-3">Consistent Pricing</h4>
+            </div>
+            <p className="text-[#A5ACAF]">
+              We maintain consistent product pricing across all service areas with no additional fees based on location.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start">
+                <svg className="h-5 w-5 text-[#FD5A1E] mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-[#A5ACAF] text-sm">No location surcharges</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="h-5 w-5 text-[#FD5A1E] mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-[#A5ACAF] text-sm">Standardized product selection</span>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </motion.div>
       
       {/* Call to Action */}
-      <div className="mt-12 text-center">
+      <motion.div 
+        className="bg-gradient-to-r from-[#FD5A1E]/20 to-transparent rounded-xl p-8 border border-[#FD5A1E]/30 text-center mb-8"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+      >
+        <h3 className="text-2xl font-bold text-[#F5F5F5] mb-4">
+          Interested in Premium Vending for Your Location?
+        </h3>
+        <p className="text-[#A5ACAF] max-w-2xl mx-auto mb-8">
+          Contact us today to check availability in your area and learn how our zero-cost 
+          vending solutions can enhance your workplace experience.
+        </p>
+        
         <Link 
           href="/contact" 
-          className="inline-flex items-center px-6 py-3 bg-[#FD5A1E] text-[#F5F5F5] rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] shadow-lg"
+          className="inline-flex items-center px-8 py-4 bg-[#FD5A1E] text-white font-medium rounded-full shadow-lg hover:bg-[#FD5A1E]/90 transition-colors"
         >
           Check Service Availability
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 };

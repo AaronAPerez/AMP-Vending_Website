@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { toast } from 'sonner'; // Assuming you use Sonner for toast notifications
-
+import { toast } from 'sonner';
+interface ZodFieldError {
+  _errors: string[];
+}
 interface ContactFormProps {
-  /**
-   * Optional CSS classes to apply to the form container
-   */
   className?: string;
 }
 
@@ -14,7 +13,7 @@ interface ContactFormProps {
  * Contact Form Component
  * 
  * A responsive, accessible form for the homepage that sends data to the server
- * and triggers an automatic email reply to the user
+ * and triggers an automatic email reply
  */
 const ContactForm = ({ className = '' }: ContactFormProps) => {
   // Form state
@@ -22,9 +21,13 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     companyName: '',
     message: '',
   });
+
+  // Form validation errors
+  const [errors, setErrors] = useState<Record<string, string>>({});
   
   // Loading state for form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,8 +36,38 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    // Clear previous errors
+    setErrors({});
+    
     // Basic validation
-    if (!formData.firstName || !formData.email || !formData.companyName) {
+    let hasErrors = false;
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.firstName) {
+      newErrors.firstName = 'First name is required';
+      hasErrors = true;
+    }
+    
+    if (!formData.lastName) {
+      newErrors.lastName = 'Last name is required';
+      hasErrors = true;
+    }
+    
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+      hasErrors = true;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Invalid email address';
+      hasErrors = true;
+    }
+    
+    if (!formData.companyName) {
+      newErrors.companyName = 'Company name is required';
+      hasErrors = true;
+    }
+    
+    if (hasErrors) {
+      setErrors(newErrors);
       toast.error('Please fill in all required fields');
       return;
     }
@@ -46,18 +79,18 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
       // Prepare the data to match the expected format in your API route
       const submissionData = {
         firstName: formData.firstName,
-        lastName: formData.lastName || '', // Handle empty lastName
+        lastName: formData.lastName,
         email: formData.email,
-        phone: '', // Not in this simple form, but required by the schema
+        phone: formData.phone || '',
         companyName: formData.companyName,
-        jobTitle: '', // Not in this simple form, but required by the schema
-        employeeCount: '1-10', // Default value since not in this form
-        streetAddress: '', // Not in this simple form, but required by the schema
-        city: '', // Not in this simple form, but required by the schema
-        state: '', // Not in this simple form, but required by the schema
-        zipCode: '95354', // Default to Modesto zip code
+        jobTitle: '',
+        employeeCount: '1-10', // Default value for simplified form
+        streetAddress: '4120 Dale Rd', // Default address for simplified form
+        city: 'Modesto', // Default city for simplified form
+        state: 'CA', // Default state for simplified form
+        zipCode: '95354', // Default ZIP for simplified form
         interestedMachine: 'unsure', // Default to "not sure" option
-        message: formData.message,
+        message: formData.message || '',
         preferredContact: 'email', // Default to email
       };
       
@@ -82,7 +115,20 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
       if (!response.ok) {
         // Show error message
         toast.error(result.error || 'Failed to send message. Please try again.');
-      } else {
+        
+    if (result.details) {
+      // Set validation errors from the server response
+      const serverErrors: Record<string, string> = {};
+          Object.entries(result.details).forEach(([key, value]: [string, unknown]) => {
+              // Type assertion to tell TypeScript what structure to expect
+              const fieldError = value as ZodFieldError;
+              if (fieldError && fieldError._errors && fieldError._errors[0]) {
+                serverErrors[key] = fieldError._errors[0];
+              }
+            });
+            setErrors(serverErrors);
+          }
+        } else {
         // Show success message
         toast.success('Thank you! Your message has been sent. Check your email for confirmation.');
         
@@ -91,6 +137,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
           firstName: '',
           lastName: '',
           email: '',
+          phone: '',
           companyName: '',
           message: '',
         });
@@ -107,66 +154,83 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-  
-  // Split name input handler (handles first/last name in a single field)
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fullName = e.target.value;
-    const nameParts = fullName.split(' ');
     
-    if (nameParts.length > 1) {
-      // If there's a space, assume first name and last name
-      const firstName = nameParts[0];
-      const lastName = nameParts.slice(1).join(' ');
-      
-      setFormData(prev => ({
-        ...prev,
-        firstName,
-        lastName
-      }));
-    } else {
-      // Otherwise, just set the first name
-      setFormData(prev => ({
-        ...prev,
-        firstName: fullName,
-        lastName: ''
-      }));
+    // Clear error when field is edited
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
   };
   
   return (
     <div className={`bg-black rounded-xl shadow-xl overflow-hidden md:flex ${className}`}>
       <div className="md:w-1/2 p-8 md:p-12">
+        {/* Left-aligned heading */}
         <h2
           id="contact-heading"
-          className="text-2xl md:text-3xl font-bold text-white mb-4"
+          className="text-2xl md:text-3xl font-bold text-white mb-4 text-left"
         >
           Ready to Enhance Your Workplace?
         </h2>
-        <p className="text-[#A5ACAF] mb-6">
+        <p className="text-[#A5ACAF] mb-6 text-left">
           Fill out the form and our team will get back to you within 24 hours to discuss your vending needs.
         </p>
       
         <form className="space-y-4" onSubmit={handleSubmit}>
+          {/* First Name */}
           <div>
-            <label htmlFor="name" className="block text-white text-sm font-medium mb-1">
-              Full Name <span className="text-[#FD5A1E]">*</span>
+            <label htmlFor="firstName" className="block text-white text-sm font-medium mb-1 text-left">
+              First Name <span className="text-[#FD5A1E]">*</span>
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
-              value={`${formData.firstName} ${formData.lastName}`.trim()}
-              onChange={handleNameChange}
-              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
-              placeholder="Your name"
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              className={`w-full px-4 py-2 bg-[#4d4d4d] border ${
+                errors.firstName ? 'border-red-500' : 'border-[#a4acac]'
+              } rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white`}
+              placeholder="Your first name"
               aria-required="true"
+              aria-invalid={!!errors.firstName}
               required
             />
+            {errors.firstName && (
+              <p className="mt-1 text-red-500 text-sm text-left">{errors.firstName}</p>
+            )}
           </div>
 
+          {/* Last Name */}
           <div>
-            <label htmlFor="email" className="block text-white text-sm font-medium mb-1">
+            <label htmlFor="lastName" className="block text-white text-sm font-medium mb-1 text-left">
+              Last Name <span className="text-[#FD5A1E]">*</span>
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              className={`w-full px-4 py-2 bg-[#4d4d4d] border ${
+                errors.lastName ? 'border-red-500' : 'border-[#a4acac]'
+              } rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white`}
+              placeholder="Your last name"
+              aria-required="true"
+              aria-invalid={!!errors.lastName}
+              required
+            />
+            {errors.lastName && (
+              <p className="mt-1 text-red-500 text-sm text-left">{errors.lastName}</p>
+            )}
+          </div>
+
+          {/* Email */}
+          <div>
+            <label htmlFor="email" className="block text-white text-sm font-medium mb-1 text-left">
               Email Address <span className="text-[#FD5A1E]">*</span>
             </label>
             <input
@@ -175,15 +239,38 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
+              className={`w-full px-4 py-2 bg-[#4d4d4d] border ${
+                errors.email ? 'border-red-500' : 'border-[#a4acac]'
+              } rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white`}
               placeholder="you@company.com"
               aria-required="true"
+              aria-invalid={!!errors.email}
               required
+            />
+            {errors.email && (
+              <p className="mt-1 text-red-500 text-sm text-left">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Phone (Optional) */}
+          <div>
+            <label htmlFor="phone" className="block text-white text-sm font-medium mb-1 text-left">
+              Phone Number <span className="text-[#A5ACAF]">(Optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
+              placeholder="(123) 456-7890"
             />
           </div>
 
+          {/* Company Name */}
           <div>
-            <label htmlFor="companyName" className="block text-white text-sm font-medium mb-1">
+            <label htmlFor="companyName" className="block text-white text-sm font-medium mb-1 text-left">
               Company Name <span className="text-[#FD5A1E]">*</span>
             </label>
             <input
@@ -192,15 +279,23 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               name="companyName"
               value={formData.companyName}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-[#4d4d4d] border border-[#a4acac] rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white"
+              className={`w-full px-4 py-2 bg-[#4d4d4d] border ${
+                errors.companyName ? 'border-red-500' : 'border-[#a4acac]'
+              } rounded-lg focus:ring-[#FD5A1E] focus:border-[#FD5A1E] text-white`}
               placeholder="Your company"
+              aria-required="true"
+              aria-invalid={!!errors.companyName}
               required
             />
+            {errors.companyName && (
+              <p className="mt-1 text-red-500 text-sm text-left">{errors.companyName}</p>
+            )}
           </div>
 
+          {/* Message (Optional) */}
           <div>
-            <label htmlFor="message" className="block text-white text-sm font-medium mb-1">
-              Message
+            <label htmlFor="message" className="block text-white text-sm font-medium mb-1 text-left">
+              Message <span className="text-[#A5ACAF]">(Optional)</span>
             </label>
             <textarea
               id="message"
@@ -213,19 +308,23 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
             ></textarea>
           </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full md:w-auto px-6 py-3 bg-[#FD5A1E] text-white font-medium rounded-lg hover:bg-[#FD5A1E]/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
-            aria-busy={isSubmitting}
-          >
-            {isSubmitting ? 'Sending...' : 'Request Information'}
-          </button>
+          {/* Submit Button - Left aligned container with button */}
+          <div className="text-left">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="px-6 py-3 bg-[#FD5A1E] text-white font-medium rounded-lg hover:bg-[#FD5A1E]/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+              aria-busy={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Request Information'}
+            </button>
+          </div>
         </form>
       </div>
 
-      <div className="md:w-1/2 bg-gradient-to-br from-[#FD5A1E]/20 to-black relative p-8 md:p-12 flex flex-col justify-center">
-        <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
+      <div className="md:w-1/2 bg-gradient-to-br from-[#FD5A1E]/20 to-black relative p-8 md:p-12 flex flex-col justify-center text-left">
+        {/* Left-aligned heading */}
+        <h3 className="text-xl font-bold text-white mb-8 text-left">Contact Information</h3>
 
         <div className="space-y-4">
           <div className="flex items-start">
@@ -266,13 +365,14 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
           </div>
         </div>
 
-        <div className="mt-8">
-          <h3 className="text-xl font-bold text-white mb-4">Business Hours</h3>
+        <div className="mt-10">
+          {/* Left-aligned heading */}
+          <h3 className="text-xl font-bold text-white mb-4 text-left">Business Hours</h3>
           <p className="text-[#A5ACAF]">
-            Monday - Friday: 9AM - 5PM<br />
-            Saturday - Sunday: Closed
+            Monday - Friday: 8AM - 8PM<br />
+            Saturday - Sunday: 8AM - 8PM
           </p>
-          <p className="text-[#FD5A1E] mt-2">24/7 Customer Support Available</p>
+          {/* <p className="text-[#FD5A1E] mt-2">24/7 Customer Support Available</p> */}
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-// components/comparison/FeatureComparison.tsx
 import React from 'react';
 
 /**

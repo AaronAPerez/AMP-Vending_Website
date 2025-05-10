@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import { HeroHighlight } from '../ui/hero-highlight';
 import FeatureItem from './FeatureItem';
 import { FeatureItem as FeatureItemType } from '@/lib/compareData';
+import Image from 'next/image';
 
 // Define component props interface
 interface WorkplaceCardProps {
@@ -36,6 +36,11 @@ interface WorkplaceCardProps {
    * @default false
    */
   highlighted?: boolean;
+
+
+beforeFeatures?: []; 
+
+afterFeatures?: { id: number; iconName: string; title: string; description: string; }[];
 }
 
 /**
@@ -46,11 +51,10 @@ interface WorkplaceCardProps {
  */
 const WorkplaceCard: React.FC<WorkplaceCardProps> = ({
   title,
-  imageSrc,
   imageAlt,
   description,
   features,
-  highlighted = false
+  highlighted = false,
 }) => {
   // Define style variations based on highlighted state
   const styles = {
@@ -71,13 +75,12 @@ const WorkplaceCard: React.FC<WorkplaceCardProps> = ({
           <div className={styles.imageBorder}>
             {/* Use Next.js Image component for better performance */}
             <div className="relative w-full h-48">
-              <Image 
-                src={imageSrc || "/images/before-vending-machine.jpg"} 
+              <Image
+                src="/images/before-modesto-left.png"
                 alt={imageAlt}
-                width={500}
-                height={300}
-                className="object-cover w-full h-48"
+                fill
                 sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover" 
                 priority={highlighted} // Prioritize loading the "after" image
               />
             </div>

@@ -3,8 +3,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { MachineData } from '../../lib/data/vendingMachineData';
 import React, { useState, useEffect } from 'react';
-import { LensEffectImage } from '@/components/ui/LensEffectImage';
 import { AnimatePresence } from 'framer-motion';
+import CTASection from "../sections/CTASection";
 
 interface VendingMachineDetailPageProps {
   machine: MachineData;
@@ -153,7 +153,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                   {/* Main Image Gallery with Lens Effect */}
                   <div className="bg-[#4d4d4d]/20 p-6 rounded-xl border border-[#a4acac]">
                     {/* Large Main Image */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg mb-4 transition-all duration-300 hover:shadow-lg hover:shadow-[#FD5A1E]/20">
+                    <div className="relative aspect-[1/1] w-full overflow-hidden rounded-lg mb-4 transition-all duration-300 hover:shadow-lg hover:shadow-[#FD5A1E]/20">
                       <div
                         className="absolute top-4 right-4 bg-[#000000]/70 text-[#F5F5F5] px-3 py-1 rounded-full text-xs z-20 flex items-center cursor-pointer"
                         onClick={() => setShowLensEffect(!showLensEffect)}
@@ -161,7 +161,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                         aria-pressed={showLensEffect}
                         aria-label={showLensEffect ? "Disable zoom effect" : "Enable zoom effect"}
                       >
-                        {showLensEffect ? (
+                        {/* {showLensEffect ? (
                           <>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                               <path d="M5 8a1 1 0 011-1h1V6a1 1 0 012 0v1h1a1 1 0 110 2H9v1a1 1 0 11-2 0V9H6a1 1 0 01-1-1z" />
@@ -179,7 +179,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                         )}
                       </div>
 
-                      {/* Use our lens effect component if enabled, otherwise use regular Image */}
+                      {/* Use our lens effect component if enabled, otherwise use regular Image 
                       {showLensEffect ? (
                         <LensEffectImage
                           src={machine.images[activeImage].src}
@@ -188,20 +188,22 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                           lensSize={180}
                         />
                       ) : (
-                        <>
+                        <> */}
+                      </div>
                           <div className="absolute inset-0 flex items-center justify-center bg-[#000000]/80 text-[#A5ACAF] z-0">
                             {machine.images[activeImage].alt}
                           </div>
                           <Image
                             src={machine.images[activeImage].src}
                             alt={machine.images[activeImage].alt}
+                            quality={100}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 60vw"
                             className="object-contain z-10"
                             priority
                           />
-                        </>
-                      )}
+                        {/* </> */}
+            
 
                       {/* Previous/Next Buttons */}
                       <button
@@ -561,12 +563,12 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                       </Link>
                     </div>
                   </div>
-
+{/* 
                   <div className="bg-[#4d4d4d]/20 p-6 rounded-xl border border-[#a4acac]">
                     <h3 className="text-lg font-bold text-white mb-3">Customer Success Story</h3>
                     <div className="bg-[#000000]/40 p-4 rounded-lg mb-4">
                       <p className="italic text-[#A5ACAF]">
-                        "Our staff loves having access to fresh options right in our break room. The touchscreen interface and cashless payment options make it incredibly convenient, and we've seen a boost in workplace satisfaction."
+                      &quot;Our staff loves having access to fresh options right in our break room. The touchscreen interface and cashless payment options make it incredibly convenient, and we&apos;ve seen a boost in workplace satisfaction.&quot;
                       </p>
                       <p className="text-[#FD5A1E] mt-2 text-sm font-medium">- Office Manager, Healthcare Facility</p>
                     </div>
@@ -579,7 +581,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                         <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </motion.div>
             )}
@@ -681,29 +683,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 bg-[#FD5A1E]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-[#F5F5F5] mb-4">
-            Ready to Enhance Your Workplace?
-          </h2>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-            Join businesses enhancing employee satisfaction with our premium vending solutions.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="px-8 py-4 bg-[#F5F5F5] text-[#000000] font-medium rounded-full shadow-lg hover:bg-[#000000] hover:text-[#F5F5F5] hover:border-[#F5F5F5] border border-transparent transition-colors"
-            >
-              Contact Us Today
-            </Link>
-            <Link
-              href="/proposal"
-              className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#F5F5F5]/10 transition-colors"
-            >
-              View Our Proposal
-            </Link>
-          </div>
-        </div>
+      <section className="py-12">
+        <CTASection/>
       </section>
     </div>
   );

@@ -62,7 +62,7 @@ const DynamicMachineDetailPage = () => {
             {error || 'Machine not found'}
           </h1>
           <p className="text-[#A5ACAF] mb-6">
-            We couldn't find the vending machine you're looking for. It may have been moved or removed.
+            We couldn&apos;t find the vending machine you&apos;re looking for. It may have been moved or removed.
           </p>
           <Link
             href="/vending-machines"

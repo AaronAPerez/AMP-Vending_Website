@@ -1,15 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { usePathname } from 'next/navigation';
-import NavbarStyles from '@/NavbarStyles';
 
-interface NavigationProps {
-  showCTA?: boolean;
-}
 
 // Define types for nav items
 interface NavItem {
@@ -29,14 +24,11 @@ interface NavItemChild {
  * A modern navbar that changes width on scroll and provides smooth animations
  * Based on concepts from Aceternity UI
  */
-const ResizableNavbar = ({ showCTA = true }: NavigationProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const ResizableNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Added missing state variable
-  const navRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
-  const pathname = usePathname();
 
   // Handle scroll to add shadow when scrolled
   useEffect(() => {
@@ -60,7 +52,7 @@ const ResizableNavbar = ({ showCTA = true }: NavigationProps) => {
 
   // Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = () => {
       if (isMenuOpen) {
         setIsMenuOpen(false);
       }
@@ -110,12 +102,12 @@ const ResizableNavbar = ({ showCTA = true }: NavigationProps) => {
           stiffness: 260,
           damping: 20,
         }}
-        className={`bg-[#000000] text-[#F5F5F5] border-b border-[#4d4d4d] mx-auto ${
-          isScrolled ? 'rounded-xl shadow-lg' : ''
+        className={`text-[#F5F5F5] border-b border-[#4d4d4d] mx-auto ${
+          isScrolled ? 'bg-black shadow-lg backdrop-blur-md' : 'bg-black shadow-lg backdrop-blur-md'
         }`}
         role="banner"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-black rounded-b-full">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-18 items-center justify-between">
             {/* Logo */}
             <motion.div
@@ -128,9 +120,9 @@ const ResizableNavbar = ({ showCTA = true }: NavigationProps) => {
                 <Image
                   src="/images/logo/AMP_logo.png"
                   alt="AMP Vending Logo"
-                  width={80}
+                  width={60}
                   height={40}
-                  className={`transition-all duration-300 ${isScrolled ? 'w-20 h-10' : 'w-20 h-10'}`}
+                  className={`transition-all duration-300 bg-transparent z-0 ${isScrolled ? 'w-20 h-10' : 'w-20 h-12'}`}
                   priority
                 />
               </Link>

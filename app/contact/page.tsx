@@ -180,8 +180,8 @@ export default function ContactPage() {
                 </div>
                 <p className="text-[#A5ACAF]">
                   Monday - Friday: 8AM - 8PM<br />
-                  Saturday - Sunday: Closed<br />
-                  <span className="text-[#FD5A1E]">24/7 Customer Support</span>
+                  Saturday - Sunday: 8AM - 8PM<br />
+                  {/* <span className="text-[#FD5A1E]">24/7 Customer Support</span> */}
                 </p>
               </div>
             </div>
