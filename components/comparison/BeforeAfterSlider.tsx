@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { StaticImageData } from 'next/image';
 import Image from 'next/image';
@@ -19,6 +20,71 @@ interface BeforeAfterSliderProps {
 }
 
 const BeforeAfterSlider = ({
+=======
+import useKeyboardNavigation from '@/hook/useKeyboardNavigation';
+import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
+import Image from 'next/image';
+import React, { useState } from 'react';
+
+
+/**
+ * Props for BeforeAfterSlider component
+ */
+interface BeforeAfterSliderProps {
+  /**
+   * Title for the slider section
+   */
+  title: string;
+  
+  /**
+   * Label for the "before" state
+   */
+  beforeTitle: string;
+  
+  /**
+   * Label for the "after" state
+   */
+  afterTitle: string;
+  
+  /**
+   * Description text for the "before" state
+   */
+  beforeDescription: string;
+  
+  /**
+   * Description text for the "after" state
+   */
+  afterDescription: string;
+  
+  /**
+   * Image source URL for the "before" state
+   */
+  beforeImageSrc: string;
+  
+  /**
+   * Image source URL for the "after" state
+   */
+  afterImageSrc: string;
+  
+  /**
+   * Alt text for the "before" image (important for accessibility)
+   */
+  beforeImageAlt: string;
+  
+  /**
+   * Alt text for the "after" image (important for accessibility)
+   */
+  afterImageAlt: string;
+}
+
+/**
+ * BeforeAfterSlider Component
+ * 
+ * A toggle component that allows users to compare before and after states
+ * with accessible keyboard navigation
+ */
+const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
   title,
   beforeTitle,
   afterTitle,
@@ -28,10 +94,18 @@ const BeforeAfterSlider = ({
   afterImageSrc,
   beforeImageAlt,
   afterImageAlt
+<<<<<<< HEAD
 }: BeforeAfterSliderProps) => {
   // State to track whether we're showing the "after" state
   const [showAfter, setShowAfter] = useState(false);
 
+=======
+}) => {
+  // State to track whether we're showing the "after" state
+  const [showAfter, setShowAfter] = useState(false);
+
+  // Use custom hook for keyboard navigation
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
   useKeyboardNavigation({
     onLeftArrow: () => setShowAfter(false),
     onRightArrow: () => setShowAfter(true)
@@ -39,7 +113,11 @@ const BeforeAfterSlider = ({
 
   return (
     <div className="mx-auto max-w-4xl mb-8">
+<<<<<<< HEAD
       <h3 className="text-2xl font-bold mb-4 text-[#F5F5F5] text-center">{title}</h3>
+=======
+      <h2 className="text-2xl font-bold mb-4 text-[#F5F5F5] text-center">{title}</h2>
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
       
       {/* Toggle buttons for accessibility */}
       <div className="flex justify-center mb-4 gap-2">
@@ -69,12 +147,17 @@ const BeforeAfterSlider = ({
       <div className="relative w-full h-96 overflow-hidden rounded-lg border-2 border-[#A5ACAF]">
         {/* Before image */}
         <div 
+<<<<<<< HEAD
           className="absolute top-0 left-0 w-full h-full flex justify-center items-center transition-opacity duration-500"
+=======
+          className="absolute top-0 left-0 w-full h-full bg-[#4d4d4d] flex justify-center items-center transition-opacity duration-500"
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           style={{ opacity: showAfter ? 0 : 1 }}
           aria-hidden={showAfter}
         >
           <div className="p-6 text-center">
             <div className="bg-[#4d4d4d] p-6 rounded-lg shadow-lg">
+<<<<<<< HEAD
               <h4 className="text-xl font-bold mb-4 text-[#A5ACAF]">{beforeTitle}</h4>
               <div className="border-2 border-[#a4acac] rounded-lg p-4 mb-4 bg-[#000000]">
               <Image
@@ -85,6 +168,15 @@ const BeforeAfterSlider = ({
                 className="object-cover w-full h-48"
                   sizes="(max-width: 768px) 100vw, 50vw"
               />
+=======
+              <h3 className="text-xl font-bold mb-4 text-[#A5ACAF]">Standard Break Room</h3>
+              <div className="border-2 border-[#a4acac] rounded-lg p-4 mb-4 bg-[#000000]">
+                <Image
+                  src={beforeImageSrc} 
+                  alt={beforeImageAlt} 
+                  className="mx-auto max-h-48"
+                />
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
               </div>
               <p className="text-[#F5F5F5] mb-4">{beforeDescription}</p>
             </div>
@@ -93,21 +185,33 @@ const BeforeAfterSlider = ({
         
         {/* After image */}
         <div 
+<<<<<<< HEAD
           className="absolute top-0 left-0 w-full h-full flex justify-center items-center transition-opacity duration-500"
+=======
+          className="absolute top-0 left-0 w-full h-full bg-[#4d4d4d] flex justify-center items-center transition-opacity duration-500"
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           style={{ opacity: showAfter ? 1 : 0 }}
           aria-hidden={!showAfter}
         >
           <div className="p-6 text-center">
             <div className="bg-[#000000] p-6 rounded-lg shadow-lg">
+<<<<<<< HEAD
               <h4 className="text-xl font-bold mb-4 text-[#FD5A1E]">{afterTitle}</h4>
+=======
+              <h3 className="text-xl font-bold mb-4 text-[#FD5A1E]">Enhanced Break Room</h3>
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
               <div className="bg-[#4d4d4d] p-2 rounded-lg">
                 <Image 
                   src={afterImageSrc} 
                   alt={afterImageAlt}
+<<<<<<< HEAD
                   width={500}
                   height={300}
                   className="object-cover w-full h-48"
                     sizes="(max-width: 768px) 100vw, 50vw"
+=======
+                  className="mx-auto max-h-48" 
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 />
               </div>
               <p className="text-[#F5F5F5] mt-4">{afterDescription}</p>
@@ -135,6 +239,14 @@ const BeforeAfterSlider = ({
         </button>
       </div>
       
+<<<<<<< HEAD
+=======
+      {/* Screen reader text explaining keyboard navigation */}
+      <div className="sr-only">
+        Use left and right arrow keys to switch between before and after views.
+      </div>
+      
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
       {/* Visible keyboard navigation hint */}
       <div className="flex items-center justify-center mt-2 text-[#A5ACAF] text-sm">
         <Info size={16} className="mr-1" />

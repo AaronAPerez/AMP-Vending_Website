@@ -21,6 +21,7 @@ interface VendingMachine {
  * LensEffectImage Component
  * Creates a magnifying lens effect on hover over an image
  */
+<<<<<<< HEAD
 const LensEffectImage = ({ 
   src, 
   alt, 
@@ -34,26 +35,55 @@ const LensEffectImage = ({
   const [showLens, setShowLens] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   
+=======
+const LensEffectImage = ({
+  src,
+  alt,
+  className
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) => {
+  const [, setPosition] = useState({ x: 0, y: 0 });
+  const [, setShowLens] = useState(false);
+  const [, setCursorPosition] = useState({ x: 0, y: 0 });
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
   const imageRef = useRef<HTMLDivElement>(null);
 
   // Calculate lens position based on mouse movement
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (imageRef.current) {
       const { left, top, width, height } = imageRef.current.getBoundingClientRect();
+<<<<<<< HEAD
       
       // Calculate cursor position relative to image
       const x = ((e.clientX - left) / width) * 100;
       const y = ((e.clientY - top) / height) * 100;
       
+=======
+
+      // Calculate cursor position relative to image
+      const x = ((e.clientX - left) / width) * 100;
+      const y = ((e.clientY - top) / height) * 100;
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
       setPosition({ x, y });
       setCursorPosition({ x: e.clientX - left, y: e.clientY - top });
     }
   };
 
   return (
+<<<<<<< HEAD
     <div 
       ref={imageRef}
       className={`relative w-full h-full overflow-hidden ${className || ''}`}
+=======
+    <div
+      ref={imageRef}
+      className={`relative w-full h-full overflow-hidden bg-[#000000] ${className || ''}`}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
       onMouseEnter={() => setShowLens(true)}
       onMouseLeave={() => setShowLens(false)}
       onMouseMove={handleMouseMove}
@@ -62,6 +92,7 @@ const LensEffectImage = ({
       <div className="absolute inset-0 flex items-center justify-center bg-[#000000] text-[#A5ACAF]">
         {alt}
       </div>
+<<<<<<< HEAD
       
       {/* Base image */}
       <Image 
@@ -75,12 +106,28 @@ const LensEffectImage = ({
       {/* Lens effect overlay */}
       {showLens && (
         <div 
+=======
+
+      {/* Base image */}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+        className="object-cover bg-black"
+      />
+
+      {/* Lens effect overlay */}
+      {/* {showLens && (
+        <div
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           className="absolute w-full h-full top-0 left-0 pointer-events-none"
           style={{
             backgroundImage: `url(${src})`,
             backgroundPosition: `${position.x}% ${position.y}%`,
             backgroundSize: '200%',
             backgroundRepeat: 'no-repeat',
+<<<<<<< HEAD
             opacity: 0.8,
             mixBlendMode: 'hard-light',
             filter: 'contrast(1.1)',
@@ -100,6 +147,28 @@ const LensEffectImage = ({
           }}
         />
       )}
+=======
+            opacity: 1, // Change from 0.8 to 1 for full opacity
+            mixBlendMode: 'normal', // Change from 'hard-light' to 'normal'
+            filter: 'contrast(1.2) brightness(1.1)', // Enhance contrast slightly
+            clipPath: `circle(80px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
+          }}
+        />
+      )} */}
+
+      {/* Lens circle indicator */}
+      {/* {showLens && (
+        <div
+          className="absolute pointer-events-none border-2 border-[#FD5A1E] rounded-full w-40 h-40 -mt-20 -ml-20"
+          style={{
+            top: `${cursorPosition.y}px`,
+            left: `${cursorPosition.x}px`,
+            boxShadow: '0 0 15px rgba(253, 90, 30, 0.4)',
+            background: 'transparent', // Ensure no background color
+          }}
+        />
+      )} */}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
     </div>
   );
 };
@@ -110,7 +179,11 @@ const LensEffectImage = ({
  */
 const ShowcaseLensEffect = () => {
   const [activeSection, setActiveSection] = useState('all');
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
   // Array of available premium vending machines
   const vendingMachines: VendingMachine[] = [
     {
@@ -188,6 +261,7 @@ const ShowcaseLensEffect = () => {
   ];
 
   // Filter the machines based on active section
+<<<<<<< HEAD
   const filteredMachines = activeSection === 'all' 
     ? vendingMachines 
     : vendingMachines.filter(machine => {
@@ -201,44 +275,87 @@ const ShowcaseLensEffect = () => {
     <section className="bg-[#000000]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* <div className="text-center mb-12">
+=======
+  const filteredMachines = activeSection === 'all'
+    ? vendingMachines
+    : vendingMachines.filter(machine => {
+      if (activeSection === 'refrigerated') {
+        return machine.id.includes('vmr');
+      }
+      return !machine.id.includes('vmr');
+    });
+
+  return (
+    <section className="py-16 bg-[#000000]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
             Premium Vending <span className="text-[#FD5A1E]">Solutions</span>
           </h2>
           <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
+<<<<<<< HEAD
             Explore our range of state-of-the-art vending machines featuring advanced technology 
             and customizable options for your workplace needs.
           </p>
         </div> */}
+=======
+            Explore our range of state-of-the-art vending machines featuring advanced technology
+            and customizable options for your workplace needs.
+          </p>
+        </div>
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
         {/* Category Filter Buttons */}
         <div className="flex justify-center gap-3 mb-10">
           <button
             onClick={() => setActiveSection('all')}
+<<<<<<< HEAD
             className={`px-4 py-2 rounded-full text-sm transition-colors ${
               activeSection === 'all'
                 ? 'bg-[#FD5A1E] text-[#F5F5F5]'
                 : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
             }`}
+=======
+            className={`px-4 py-2 rounded-full text-sm transition-colors ${activeSection === 'all'
+              ? 'bg-[#FD5A1E] text-[#F5F5F5]'
+              : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
+              }`}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           >
             All Machines
           </button>
           <button
             onClick={() => setActiveSection('refrigerated')}
+<<<<<<< HEAD
             className={`px-4 py-2 rounded-full text-sm transition-colors ${
               activeSection === 'refrigerated'
                 ? 'bg-[#FD5A1E] text-[#F5F5F5]'
                 : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
             }`}
+=======
+            className={`px-4 py-2 rounded-full text-sm transition-colors ${activeSection === 'refrigerated'
+              ? 'bg-[#FD5A1E] text-[#F5F5F5]'
+              : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
+              }`}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           >
             Refrigerated
           </button>
           <button
             onClick={() => setActiveSection('non-refrigerated')}
+<<<<<<< HEAD
             className={`px-4 py-2 rounded-full text-sm transition-colors ${
               activeSection === 'non-refrigerated'
                 ? 'bg-[#FD5A1E] text-[#F5F5F5]'
                 : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
             }`}
+=======
+            className={`px-4 py-2 rounded-full text-sm transition-colors ${activeSection === 'non-refrigerated'
+              ? 'bg-[#FD5A1E] text-[#F5F5F5]'
+              : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
+              }`}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           >
             Non-Refrigerated
           </button>
@@ -247,7 +364,11 @@ const ShowcaseLensEffect = () => {
         {/* Amazon-inspired product grid with lens effect */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredMachines.map((machine) => (
+<<<<<<< HEAD
             <div 
+=======
+            <div
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
               key={machine.id}
               className="rounded-xl overflow-hidden border border-[#a4acac] 
                         hover:border-[#FD5A1E] hover:shadow-lg hover:shadow-[#FD5A1E]/10 
@@ -256,28 +377,48 @@ const ShowcaseLensEffect = () => {
               {/* Image with lens effect container */}
               <div className="relative h-72 overflow-hidden">
                 {/* Lens effect image */}
+<<<<<<< HEAD
                 <LensEffectImage 
                   src={machine.image} 
                   alt={`${machine.name} - ${machine.model}`} 
                 />
                 
+=======
+                <LensEffectImage
+                  src={machine.image}
+                  alt={`${machine.name} - ${machine.model}`}
+                />
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 {/* "Zero Cost" badge */}
                 <div className="absolute top-3 right-3 bg-[#FD5A1E] text-[#F5F5F5] px-3 py-1 rounded-full text-xs font-medium z-10">
                   Zero Cost
                 </div>
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 {/* Model label */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
                   <div className="text-xs font-medium text-[#A5ACAF]">{machine.model}</div>
                 </div>
               </div>
+<<<<<<< HEAD
               
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
               {/* Content */}
               <div className="flex-1 p-6 flex flex-col">
                 <h3 className="text-lg font-bold text-[#F5F5F5] mb-1 group-hover:text-[#FD5A1E] transition-colors">
                   {machine.name}
                 </h3>
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 {/* Rating stars simulation */}
                 <div className="flex items-center mb-2">
                   {[...Array(5)].map((_, i) => (
@@ -287,10 +428,17 @@ const ShowcaseLensEffect = () => {
                   ))}
                   <span className="text-xs text-[#A5ACAF] ml-1">(Premium Model)</span>
                 </div>
+<<<<<<< HEAD
                 
                 {/* Short description */}
                 <p className="text-[#A5ACAF] text-sm mb-4 line-clamp-2">{machine.description}</p>
                 
+=======
+
+                {/* Short description */}
+                <p className="text-[#A5ACAF] text-sm mb-4 line-clamp-2">{machine.description}</p>
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 {/* Key features with advanced styling */}
                 <div className="mb-4">
                   <h4 className="text-[#A5ACAF] text-xs uppercase tracking-wider mb-2 font-medium">Key Features</h4>
@@ -304,11 +452,19 @@ const ShowcaseLensEffect = () => {
                       </li>
                     ))}
                   </ul>
+<<<<<<< HEAD
                   
                   {/* "More features" indicator */}
                   <p className="text-xs text-[#FD5A1E] mt-1 ml-6 italic">+{machine.features.length - 3} more features</p>
                 </div>
                 
+=======
+
+                  {/* "More features" indicator */}
+                  <p className="text-xs text-[#FD5A1E] mt-1 ml-6 italic">+{machine.features.length - 3} more features</p>
+                </div>
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 {/* Dimensions spec */}
                 <div className="bg-[#000000]/50 rounded p-2 text-xs mb-3">
                   <div className="flex justify-between">
@@ -316,22 +472,37 @@ const ShowcaseLensEffect = () => {
                     <span className="text-[#F5F5F5] font-medium">{machine.dimensions}</span>
                   </div>
                 </div>
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 {/* Best for banner */}
                 <div className="bg-[#FD5A1E]/10 border border-[#FD5A1E]/30 p-2 rounded mb-4 text-xs">
                   <p className="text-[#F5F5F5]"><span className="font-medium">Best for:</span> {machine.best}</p>
                 </div>
+<<<<<<< HEAD
                 
                 {/* CTA Buttons */}
                 <div className="mt-auto space-y-2">
                   <Link 
+=======
+
+                {/* CTA Buttons */}
+                <div className="mt-auto space-y-2">
+                  <Link
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                     href={`/vending-machines/${machine.id}`}
                     className="block py-2 px-4 bg-[#FD5A1E] text-[#F5F5F5] rounded-lg text-center font-medium 
                               hover:bg-[#FD5A1E]/90 transition-colors"
                   >
                     View Details
                   </Link>
+<<<<<<< HEAD
                   <Link 
+=======
+                  <Link
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                     href="/contact"
                     className="block py-2 px-4 bg-[#000000] text-[#F5F5F5] border border-[#a4acac] rounded-lg text-center text-sm
                               hover:bg-[#4d4d4d] transition-colors"
@@ -343,7 +514,11 @@ const ShowcaseLensEffect = () => {
             </div>
           ))}
         </div>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
         {/* Zero Cost Promise Banner */}
         <div className="mt-16 bg-gradient-to-r from-[#FD5A1E]/20 to-[#000000] rounded-xl p-6 border border-[#FD5A1E]">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -357,7 +532,11 @@ const ShowcaseLensEffect = () => {
               <div>
                 <h3 className="text-2xl font-bold text-[#F5F5F5] mb-2">Zero Cost Vending Solutions</h3>
                 <p className="text-[#A5ACAF]">
+<<<<<<< HEAD
                   All our premium machines are installed at <span className="text-[#FD5A1E] font-medium">absolutely no cost</span> to qualified locations. 
+=======
+                  All our premium machines are installed at <span className="text-[#FD5A1E] font-medium">absolutely no cost</span> to qualified locations.
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                   We handle everything from maintenance to restocking, leaving you free to enjoy the benefits.
                 </p>
               </div>
@@ -371,7 +550,11 @@ const ShowcaseLensEffect = () => {
             </Link>
           </div>
         </div>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
         {/* Key Benefits Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Benefit 1: Maintenance-Free */}
@@ -389,7 +572,11 @@ const ShowcaseLensEffect = () => {
               We handle all servicing, cleaning, and repairs. Our team monitors machines remotely and proactively addresses any issues before they affect performance.
             </p>
           </div>
+<<<<<<< HEAD
           
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           {/* Benefit 2: Latest Technology */}
           <div className="bg-[#4d4d4d]/20 rounded-xl p-6 border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
             <div className="flex items-center mb-4">
@@ -404,7 +591,11 @@ const ShowcaseLensEffect = () => {
               Premium 21.5&quot; touchscreen interfaces and advanced payment systems including tap-to-pay make purchasing quick and convenient for everyone.
             </p>
           </div>
+<<<<<<< HEAD
           
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           {/* Benefit 3: Customizable Selection */}
           <div className="bg-[#4d4d4d]/20 rounded-xl p-6 border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
             <div className="flex items-center mb-4">
@@ -420,7 +611,11 @@ const ShowcaseLensEffect = () => {
             </p>
           </div>
         </div>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
         {/* View All Machines Link */}
         <div className="mt-12 text-center">
           <Link

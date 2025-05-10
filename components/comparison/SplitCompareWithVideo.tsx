@@ -129,20 +129,33 @@ const SplitCompareWithVideo: React.FC<SplitCompareWithVideoProps> = ({
     <div className={`${layoutClasses} ${className}`}>
       {/* Before/After Comparison Section */}
       <div className={`${compareOrderClass}`}>
+<<<<<<< HEAD
         <HeroHighlight containerClassName="rounded-xl overflow-hidden">
+=======
+        <HeroHighlight containerClassName="rounded-xl overflow-hidden h-full">
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
           <div className="p-4 bg-dark-gray/20">
             <h3 className="text-xl font-bold text-orange mb-4">Workplace Transformation</h3>
 
             {/* Comparison Container */}
+<<<<<<< HEAD
             <div className="relative w-100 aspect-[1/1] overflow-hidden rounded-lg">
+=======
+            <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
               {/* Before Image (Full width) */}
               <div className="absolute inset-0">
                 <Image
                   src={beforeSrc}
                   alt={beforeAlt}
                   className="w-full h-full object-cover"
+<<<<<<< HEAD
                   width={200}
                   height={200}
+=======
+                  width={100}
+                  height={100}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 />
               </div>
 
@@ -154,9 +167,15 @@ const SplitCompareWithVideo: React.FC<SplitCompareWithVideoProps> = ({
                 <Image
                   src={afterSrc}
                   alt={afterAlt}
+<<<<<<< HEAD
                   className="w-full h-full object-cover"
                   width={200}
                   height={200}
+=======
+                  className="absolute top-0 left-0 w-full h-full object-cover"
+                  width={100}
+                  height={100}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 />
               </div>
 

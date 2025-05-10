@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 'use client';
+=======
+import VendingMachinesPage from "@/components/machines/VendingMachinesPage";
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';

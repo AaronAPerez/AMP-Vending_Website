@@ -470,6 +470,7 @@ gmpx-place-picker {
 
 img {
   background-color: #000000;
+<<<<<<< HEAD
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -502,4 +503,6 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+=======
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 }

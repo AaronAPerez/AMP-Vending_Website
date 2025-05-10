@@ -4,8 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { getVendingMachineById, MachineData } from '@/lib/data/vendingMachineData';
 import { Loading } from '@/components/ui/Loading';
+<<<<<<< HEAD
 import Link from 'next/link';
 import VendingMachineDetailPage from '@/components/machines/VendingMachineDetailPage';
+=======
+import VendingMachineDetailPage from '@/components/machines/VendingMachineDetailPage';
+import Link from 'next/link';
+import "../../globals.css";
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
 /**
  * Dynamic Vending Machine Detail Page Component
@@ -17,7 +23,11 @@ const DynamicMachineDetailPage = () => {
   // Get the machine ID from the URL parameters
   const params = useParams();
   const machineId = params?.id as string;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
   // State for the machine data
   const [machineData, setMachineData] = useState<MachineData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +44,11 @@ const DynamicMachineDetailPage = () => {
     try {
       // Get the machine data from the data file
       const machine = getVendingMachineById(machineId);
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
       if (!machine) {
         setError(`Machine with ID ${machineId} not found`);
       } else {
@@ -76,7 +90,11 @@ const DynamicMachineDetailPage = () => {
   }
 
   // Render the detail page with the machine data
+<<<<<<< HEAD
   return <VendingMachineDetailPage machine={machineData} />;
+=======
+  return <VendingMachineDetailPage machine={machineData as MachineData} />;
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 };
 
 export default DynamicMachineDetailPage;

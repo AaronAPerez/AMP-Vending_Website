@@ -72,7 +72,7 @@ export default function ContactPage() {
           },
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "123 Vending Way",
+            "streetAddress": "4120 Dale Rd ste j8 1005",
             "addressLocality": "Modesto",
             "addressRegion": "CA",
             "postalCode": "95354",
@@ -156,10 +156,11 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold text-[#F5F5F5] ml-4">Contact Info</h3>
                 </div>
                 <p className="text-[#A5ACAF]">
-                  Email:<a href="mailto:contact@aaronaperez.dev" className="text-[#FD5A1E] hover:underline"
+                  Email:<a href="mailto:contact@ampvendingmachines.com" className="text-[#FD5A1E] hover:underline"
                   > 
                   <br></br>
-                  ampdesignandconsulting@gmail.com</a>
+                  ampdesignandconsulting@gmail.com
+                  </a>
                   {/* <a href="mailto:contact@aaronaperez.dev" className="text-[#FD5A1E] hover:underline">contact@aaronaperez.dev</a> */}
                   <br />
                   Phone: <a href="tel:+12094035450" className="text-[#FD5A1E] hover:underline">

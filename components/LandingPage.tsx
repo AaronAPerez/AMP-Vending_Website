@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // 'use client';
   
 // import React, { useState, useEffect } from 'react';
@@ -131,6 +132,214 @@
 
 //       {/* Vending Machine Showcase Section */}
 //       <KoolMoreVendingShowcase />
+=======
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import ContactFormSection from '@/components/sections/ContactForm';
+
+
+
+const LandingPage = () => {
+  // State for animation control
+  const [, setIsVisible] = useState(false);
+
+  // Animation effect on component mount
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  // Product items to display in the parallax grid
+
+  return (
+    <div className="flex flex-col min-h-screen bg-[#000000] text-white">
+      {/* Hero Section */}
+      {/* <section 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        aria-labelledby="hero-heading"
+      >
+        {/* Background Overlay 
+        <div className="absolute inset-0 bg-[#000000]/60 z-10" aria-hidden="true"></div>
+        
+        {/* Products Grid Background 
+        <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 p-2 z-0">
+          {products.map((product, index) => {
+            // Calculate parallax offset based on index
+            const offset = Math.min(index % 6 + 1, 100);
+            
+            return (
+              <div 
+                key={index}
+                className="relative aspect-[3/4] rounded-lg overflow-hidden transition-transform hover:scale-105"
+                style={{ 
+                  transform: `translateY(${offset}px)`,
+                  transition: 'transform 0.3s ease-out',
+                }}
+                aria-hidden="true"
+              >
+                {/* Fallback for images 
+                <div className="absolute inset-0 bg-[#4d4d4d] flex items-center justify-center">
+                  <div className="text-[#A5ACAF] text-xs">
+                    {product.title}
+                  </div>
+                </div>
+                
+                {/* Product image 
+                <div className="absolute inset-0">
+                  <Image 
+                    src={product.image} 
+                    alt={product.title}
+                    fill
+                    sizes="(max-width: 768px) 33vw, (max-width: 1200px) 25vw, 16vw"
+                    className="object-cover"
+                    onError={(e) => {
+                      // Fallback if image doesn't load
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                </div>
+
+                {/* Category badge 
+                <div className="absolute top-2 left-2 z-20">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#FD5A1E] text-[#F5F5F5]">
+                    {product.category}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        
+        {/* Hero Content - using motion for animation 
+        <motion.div 
+          className="relative z-20 text-center px-4 max-w-5xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h1 
+            id="hero-heading"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg"
+          >
+            Premium Workplace Vending <br /> 
+            <span className="text-[#FD5A1E]">Zero Cost to You</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-md max-w-3xl mx-auto">
+            Enhance your workplace with state-of-the-art vending machines offering 
+            50+ customizable snack and beverage options.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/vending-machines"
+              className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
+              aria-label="View our vending machines"
+            >
+              View Machines
+            </Link>
+            <Link
+              href="/contact"
+              className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
+              aria-label="Contact us about vending machines"
+            >
+              Contact Us
+            </Link>
+          </div>
+        </motion.div>
+        
+        {/* Scroll indicator *
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+          <svg className="w-6 h-6 text-[#F5F5F5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </section> */}
+
+
+
+      {/* Key Benefits Section */}
+      {/* <section 
+        className="py-16 bg-[#000000]"
+        aria-labelledby="benefits-heading"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 
+              id="benefits-heading"
+              className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4"
+            >
+              Premium Vending, Zero Hassle
+            </h2>
+            <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
+              Our vending machines bring convenience and satisfaction to your workplace without any of the traditional headaches.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Benefit 1 
+            <motion.div 
+              className="bg-[#4d4d4d] rounded-xl p-8 border border-[#a4acac] hover:border-[#FD5A1E] transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-[#FD5A1E]/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#FD5A1E]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#F5F5F5] mb-3">Zero Cost Installation</h3>
+              <p className="text-[#A5ACAF]">
+                Our vending machines are installed completely free of charge. No upfront costs, no monthly fees, and no hidden charges.
+              </p>
+            </motion.div>
+
+            {/* Benefit 2 
+            <motion.div 
+              className="bg-[#4d4d4d] rounded-xl p-8 border border-[#a4acac] hover:border-[#FD5A1E] transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-[#FD5A1E]/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#FD5A1E]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#F5F5F5] mb-3">Maintenance-Free Operation</h3>
+              <p className="text-[#A5ACAF]">
+                We handle all servicing, restocking, and repairs. Your team never has to worry about the machines - we take care of everything.
+              </p>
+            </motion.div>
+
+            {/* Benefit 3 
+            <motion.div 
+              className="bg-[#4d4d4d] rounded-xl p-8 border border-[#a4acac] hover:border-[#FD5A1E] transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-[#FD5A1E]/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#FD5A1E]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#F5F5F5] mb-3">Latest Technology</h3>
+              <p className="text-[#A5ACAF]">
+                Featuring 21.5&quot; HD touchscreens and modern payment options including credit card, mobile pay, and tap-to-pay functionality.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* Vending Machine Showcase Section */}
+      {/* <KoolMoreVendingShowcase /> */}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
 
 //       {/* Products Showcase Section */}
@@ -431,6 +640,7 @@
 //         </div>
 //       </section>
 
+<<<<<<< HEAD
 //         {/* Service Area Map Preview */}
 //         <section id="service-area-preview" className="py-16 bg-[#000000]">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -439,6 +649,16 @@
 //             <div className="order-2 md:order-1">
 //               <ServiceAreaMapPreview className="shadow-lg" />
 //             </div>
+=======
+      {/* Service Area Map Preview */}
+      {/* <section id="service-area-preview" className="py-16 bg-[#000000]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Service Area Map Preview Component 
+            <div className="order-2 md:order-1">
+              <ServiceAreaMapPreview className="shadow-lg" />
+            </div>
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
 //             <div className="order-1 md:order-2">
 //               <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
@@ -451,6 +671,7 @@
 //                 AMP Vending provides premium vending services throughout Modesto, Stockton, Merced, and surrounding areas in Central California.
 //               </p>
 
+<<<<<<< HEAD
 //               {/* Service areas list */}
 //               <ul className="space-y-3 mb-8">
 //                 <li className="flex items-start">
@@ -494,6 +715,51 @@
 //           </div>
 //         </div>
 //       </section >
+=======
+              {/* Service areas list 
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-[#FD5A1E] mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-[#A5ACAF]">Modesto metropolitan area</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-[#FD5A1E] mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-[#A5ACAF]">Stockton and surrounding communities</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-[#FD5A1E] mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-[#A5ACAF]">Merced and Turlock regions</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-[#FD5A1E] mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-[#A5ACAF]">
+                    Tracy, Manteca, and Lodi areas
+                  </span>
+                </li>
+              </ul>
+              {/* Call to action 
+              <Link
+                href="/service-areas"
+                className="inline-flex items-center px-6 py-3 bg-[#FD5A1E] text-[#F5F5F5] rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors font-medium"
+              >
+                Check Your Location
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section > */}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
 //       {/* FAQ Section */}
 //       <section
@@ -561,6 +827,7 @@
 //         </div>
 //       </section>
 
+<<<<<<< HEAD
 //       {/* Contact Form Section */}
 //       <section
 //         className="py-16"
@@ -590,6 +857,37 @@
 //               <p className="text-[#A5ACAF] mb-6">
 //                 Fill out the form and our team will get back to you within 24 hours to discuss your vending needs.
 //               </p>
+=======
+      {/* Contact Form Section */}
+      <section
+        className="py-16"
+        aria-labelledby="contact-heading"
+      >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
+            Get In Touch
+          </span>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
+            Contact AMP Vending
+          </h1>
+          <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+            Have questions about our vending solutions? We&apos;re here to help. Fill out the form below and our team will get back to you soon.
+          </p>
+        </div>
+        <ContactFormSection />
+        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-black rounded-xl shadow-xl overflow-hidden md:flex">
+            <div className="md:w-1/2 p-8 md:p-12">
+              <h2
+                id="contact-heading"
+                className="text-2xl md:text-3xl font-bold text-white mb-4"
+              >
+                Ready to Enhance Your Workplace?
+              </h2>
+              <p className="text-[#A5ACAF] mb-6">
+                Fill out the form and our team will get back to you within 24 hours to discuss your vending needs.
+              </p>
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
             
 //               <form className="space-y-4">
@@ -707,6 +1005,7 @@
 //         </div> */}
 //       </section>
 
+<<<<<<< HEAD
 //       {/* CTA Section */}
 //       <section className="py-16 bg-[#FD5A1E] text-white">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -735,5 +1034,35 @@
 //     </div>
 //   );
 // }
+=======
+      {/* CTA Section */}
+      <section className="py-16 bg-[#FD5A1E] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Premium Refreshments, Zero Hassle
+          </h2>
+          <p className="text-xl max-w-3xl mx-auto mb-8">
+            Join leading workplaces enjoying state-of-the-art vending with no costs and no maintenance worries.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-white text-black font-medium rounded-full shadow-lg hover:bg-black hover:text-white transition-colors"
+            >
+              Get Started
+            </Link>
+            {/* <Link
+              href="/proposal"
+              className="px-8 py-4 border-2 border-white text-white font-medium rounded-full hover:bg-black transition-colors"
+            >
+              View Proposal
+            </Link> */}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
 // export default LandingPage;

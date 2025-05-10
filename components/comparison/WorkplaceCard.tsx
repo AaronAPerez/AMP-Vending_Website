@@ -36,11 +36,14 @@ interface WorkplaceCardProps {
    * @default false
    */
   highlighted?: boolean;
+<<<<<<< HEAD
 
 
 beforeFeatures?: []; 
 
 afterFeatures?: { id: number; iconName: string; title: string; description: string; }[];
+=======
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 }
 
 /**
@@ -51,10 +54,18 @@ afterFeatures?: { id: number; iconName: string; title: string; description: stri
  */
 const WorkplaceCard: React.FC<WorkplaceCardProps> = ({
   title,
+<<<<<<< HEAD
   imageAlt,
   description,
   features,
   highlighted = false,
+=======
+  imageSrc,
+  imageAlt,
+  description,
+  features,
+  highlighted = false
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 }) => {
   // Define style variations based on highlighted state
   const styles = {
@@ -75,8 +86,13 @@ const WorkplaceCard: React.FC<WorkplaceCardProps> = ({
           <div className={styles.imageBorder}>
             {/* Use Next.js Image component for better performance */}
             <div className="relative w-full h-48">
+<<<<<<< HEAD
               <Image
                 src="/images/before-modesto-left.png"
+=======
+              <Image 
+                src={imageSrc || "/images/before-vending-machine.jpg"} 
+>>>>>>> a228a893c55835008002ef550579f1f56bfc520c
                 alt={imageAlt}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
