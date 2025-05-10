@@ -140,7 +140,7 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold text-[#F5F5F5] ml-4">Our Location</h3>
                 </div>
                 <p className="text-[#A5ACAF]">
-                  123 Vending Way<br />
+                  4120 Dale Rd ste j8 1005<br />
                   Modesto, CA 95354<br />
                   United States
                 </p>
@@ -178,9 +178,9 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold text-[#F5F5F5] ml-4">Business Hours</h3>
                 </div>
                 <p className="text-[#A5ACAF]">
-                  Monday - Friday: 9AM - 5PM<br />
-                  Saturday - Sunday: Closed<br />
-                  <span className="text-[#FD5A1E]">24/7 Customer Support</span>
+                  Monday - Friday: 8AM - 8PM<br />
+                  Saturday - Sunday: 8AM - 8PM<br />
+                  {/* <span className="text-[#FD5A1E]">24/7 Customer Support</span> */}
                 </p>
               </div>
             </div>
