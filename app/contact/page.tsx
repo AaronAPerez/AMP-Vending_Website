@@ -20,10 +20,6 @@ import GoogleMapComponent from '@/components/GoogleMapComponent';
 //   )
 // });
 
-// export const metadata: Metadata = {
-//   title: 'Contact Us | AMP Vending',
-//   description: 'Get in touch with AMP Vending for personalized vending machine solutions for your workplace.',
-// };
 export const metadata: Metadata = {
   title: 'Contact Us | AMP Vending',
   description: 'Get in touch with AMP Vending for personalized vending machine solutions for your workplace.',

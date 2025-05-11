@@ -88,7 +88,6 @@ const HomePage = () => {
           <VendingMachineShowcase/>
         </div>
       </section>
-
       {/* Products Showcase - 50+ Premium Products */}
       <section 
         id="products-showcase" 

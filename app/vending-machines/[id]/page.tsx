@@ -17,11 +17,38 @@ const DynamicMachineDetailPage = () => {
   // Get the machine ID from the URL parameters
   const params = useParams();
   const machineId = params?.id as string;
-  
+
   // State for the machine data
   const [machineData, setMachineData] = useState<MachineData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // vending machine pages
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "[Machine Name] Vending Machine",
+        "image": "https://www.ampvendingmachines.com/images/machines/[Machine-Image]",
+        "description": "[Machine description]",
+        "brand": {
+          "@type": "Brand",
+          "name": "AMP Vending"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "description": "Zero-cost installation and maintenance-free operation"
+        },
+        "features": ["21.5\" touchscreen interface", "Advanced payment systems", "50+ product options", "Maintenance-free operation"]
+      })
+    }
+  }
+  />
 
   // Fetch the machine data when the component mounts
   useEffect(() => {
@@ -34,7 +61,7 @@ const DynamicMachineDetailPage = () => {
     try {
       // Get the machine data from the data file
       const machine = getVendingMachineById(machineId);
-      
+
       if (!machine) {
         setError(`Machine with ID ${machineId} not found`);
       } else {
@@ -56,6 +83,7 @@ const DynamicMachineDetailPage = () => {
   // Show error state
   if (error || !machineData) {
     return (
+      
       <div className="min-h-screen bg-[#000000] flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6 bg-[#4d4d4d]/30 rounded-xl border border-[#a4acac]">
           <h1 className="text-2xl font-bold text-[#F5F5F5] mb-4">

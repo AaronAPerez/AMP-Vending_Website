@@ -198,7 +198,7 @@ const HeroParallax = () => {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-30 text-center px-4 max-w-5xl mb-20">
+        <div className="relative z-30 text-center px-4 max-w-5xl pb-20">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg">
             Premium Workplace Vending<br />
             <span className="text-[#FD5A1E]">at Zero Cost to You</span>

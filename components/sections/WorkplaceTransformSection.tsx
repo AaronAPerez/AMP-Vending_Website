@@ -138,7 +138,8 @@ const WorkplaceTransformSection = () => {
           </CardItem>
           <CardItem translateZ={80} className="w-full text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
-              Elevate Your <span className="text-[#FD5A1E]">Work Environment</span>
+              Enhance Your Workplace with <span className="text-[#FD5A1E]">Advanced Vending Technology</span>
+              {/* Elevate Your <span className="text-[#FD5A1E]">Work Environment</span> */}
             </h2>
           </CardItem>
           <CardItem translateZ={60} className="w-full text-center">
