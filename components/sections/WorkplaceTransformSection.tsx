@@ -256,8 +256,8 @@ const WorkplaceTransformSection = () => {
                   </CardItem>
 
                   {/* Foreground machine image with transparent background */}
-                  <CardItem translateZ={130} className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-[115%] h-[115%] relative">
+                  {/* <CardItem translateZ={130} className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-[125%] h-[125%] relative">
                       <Image
                         src="/images/before-after/after-vending-machine-bg.png"
                         quality={100}
@@ -267,7 +267,7 @@ const WorkplaceTransformSection = () => {
                         alt="Premium vending machine"
                       />
                     </div>
-                  </CardItem>
+                  </CardItem> */}
 
                   {/* Badges */}
                   <CardItem translateZ={150} className="absolute bottom-4 left-4">
