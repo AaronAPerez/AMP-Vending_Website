@@ -129,7 +129,7 @@ const WorkplaceTransformSection = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header with 3D effect */}
-      <CardContainer className="px-8 py-2">
+      <CardContainer className="px-8 py-2 pb-12">
         <CardBody className="bg-transparent border-none relative group w-full h-auto py-8">
           <CardItem translateZ={50} className="w-full text-center">
             <span className="inline-block px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-4">
