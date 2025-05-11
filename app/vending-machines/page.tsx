@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { getAllVendingMachines, getVendingMachinesByCategory, MachineData } from '@/lib/data/vendingMachineData';
 import { Loading } from '@/components/ui/Loading';
 import { usePathname } from 'next/navigation';
-import ShowcaseLensEffect from '@/components/sections/ShowcaseLensEffect';
 import CTASection from '@/components/sections/CTASection';
 
 
@@ -102,7 +101,7 @@ const VendingMachinesPage = () => {
         </div>
       </div>
       {/* Header */}
-      <section className="pt-12 bg-gradient-to-b from-[#000000] to-[#000000]/80">
+      <section className="pt-12 pb-8 bg-gradient-to-b from-[#000000] to-[#000000]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
             Premium Vending <span className="text-[#FD5A1E]">Machines</span>
@@ -150,8 +149,8 @@ const VendingMachinesPage = () => {
       
       {/* Machines Grid */}
       <section className="py-8 pb-16">
-        <ShowcaseLensEffect/>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {machines.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-[#A5ACAF] text-lg">No machines found matching your criteria.</p>
@@ -162,10 +161,10 @@ const VendingMachinesPage = () => {
                 <Link
                   key={machine.id}
                   href={`/vending-machines/${machine.id}`}
-                  className="group bg-[#4d4d4d]/20 rounded-xl overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all flex flex-col transform hover:scale-[1.02]"
+                  className="group bg-[#4d4d4d]/20 rounded-xl overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all flex flex-col transform hover:scale-[1.02] px-6"
                 >
                   {/* Machine Image */}
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-100 overflow-hidden">
                     <Image 
                       src={machine.images[0].src} 
                       alt={machine.name}

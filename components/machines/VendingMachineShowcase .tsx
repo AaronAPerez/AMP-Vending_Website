@@ -205,7 +205,7 @@ const VendingMachineShowcase = () => {
                 {/* CTA Button */}
                 <Link 
                   href={`/vending-machines/${machine.id}`}
-                  className="py-2 px-4 bg-[#FD5A1E] text-[#F5F5F5] rounded-lg text-center font-medium 
+                  className="py-2 px-4 bg-[#FD5A1E] text-[#F5F5F5] rounded-full text-center font-medium 
                             hover:bg-[#FD5A1E]/90 transition-colors mt-auto w-full"
                 >
                   View Details

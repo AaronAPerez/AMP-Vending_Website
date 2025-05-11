@@ -42,7 +42,6 @@ const GlobalStyles = createGlobalStyle`
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Inter', 'Roboto', sans-serif;
   font-weight: 700;
-  color: var(--color-whitesmoke);
   letter-spacing: -0.025em;
 }
 
@@ -203,9 +202,28 @@ body {
   display: none; /* Chrome, Safari */
 }
 
-.bg-radial-gradient-dark {
-  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-  }
+
+  // Homepage
+@keyframes slow-pulse {
+  0% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+
+@keyframes slow-pulse-delay {
+  0% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+  100% { opacity: 0.3; transform: scale(1); }
+}
+
+.animate-slow-pulse {
+  animation: slow-pulse 8s infinite ease-in-out;
+}
+
+.animate-slow-pulse-delay {
+  animation: slow-pulse-delay 12s infinite ease-in-out;
+  animation-delay: 2s;
+}
 `;
   
 

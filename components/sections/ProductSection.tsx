@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ChevronDown, Info, Tag, ShoppingBag, Star, Check } from 'lucide-react';
 
 /**
  * Product data interface for type safety
@@ -19,15 +20,20 @@ interface Product {
 }
 
 /**
- * Background Overlay Card Component - Inspired by Aceternity
+ * Product Card Component with Modern Design
  */
-const BackgroundOverlayCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product, index }: { product: Product; index: number }) => {
   const formatPrice = (price: number) => {
     return `$${price.toFixed(2)}`;
   };
 
   return (
-    <div className="relative group h-72 overflow-hidden rounded-xl shadow-xl">
+    <motion.div
+      className="relative group h-[280px] rounded-xl overflow-hidden shadow-lg border border-[#333333] hover:border-[#FD5A1E]/50 transition-all duration-300"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.05 * (index % 6) }}
+    >
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -47,33 +53,45 @@ const BackgroundOverlayCard = ({ product }: { product: Product }) => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Tags */}
-      <div className="absolute top-2 left-2 right-2 flex justify-between">
+      <div className="absolute top-3 left-3 right-3 flex justify-between">
         {product.popular && (
-          <div className="px-2 py-1 bg-[#FD5A1E] text-white text-xs rounded-full backdrop-blur-sm">
+          <div className="px-3 py-1 bg-[#FD5A1E] text-white text-xs rounded-full backdrop-blur-sm flex items-center">
+            <Star className="w-3 h-3 mr-1" />
             Popular
           </div>
         )}
         {product.healthy && (
-          <div className="ml-auto px-2 py-1 bg-green-500 text-white text-xs rounded-full backdrop-blur-sm">
+          <div className="ml-auto px-3 py-1 bg-green-500 text-white text-xs rounded-full backdrop-blur-sm flex items-center">
+            <Check className="w-3 h-3 mr-1" />
             Healthy
           </div>
         )}
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
-        <h3 className="text-lg font-bold mb-1">{product.name}</h3>
-        <p className="text-sm text-gray-300 capitalize mb-1">{product.category}</p>
-        {product.details && (
-          <p className="text-xs text-gray-400 italic mb-2 line-clamp-2">{product.details}</p>
-        )}
+      <div className="absolute inset-0 flex flex-col justify-end p-5">
+        <h3 className="text-lg font-bold mb-1 text-white">{product.name}</h3>
+        <div className="flex items-center mb-2">
+          {/* <span className="text-sm text-gray-300 capitalize mr-2">{product.category}</span> */}
+          {product.details && (
+            <div className="relative group/tooltip">
+              <Info className="w-4 h-4 text-[#FD5A1E]" />
+              <div className="absolute bottom-full left-0 mb-2 p-2 bg-[#111111] text-xs text-[#A5ACAF] rounded shadow-lg w-48 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all">
+                {product.details}
+              </div>
+            </div>
+          )}
+        </div>
         
-        {/* Bottom section with price and gradient line */}
+        {/* Bottom section with price and add button */}
         <div className="relative mt-2">
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-2" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-[#444444] to-transparent mb-3" />
           <div className="flex justify-between items-center">
-            <span className="text-[#FD5A1E] font-bold text-lg">{formatPrice(product.price)}</span>
-            <button className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full text-xs font-medium transition-colors">
+            <span className="text-[#FD5A1E] font-bold text-md">
+              {product.category}</span>
+            {/* <span className="text-[#FD5A1E] font-bold text-lg">{formatPrice(product.price)}</span> */}
+            <button className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full text-xs font-medium transition-colors text-white flex items-center">
+              <ShoppingBag className="w-3 h-3 mr-1" />
               Add
             </button>
           </div>
@@ -84,20 +102,28 @@ const BackgroundOverlayCard = ({ product }: { product: Product }) => {
       <div className="absolute -inset-0.5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl">
         <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#FD5A1E]/20 to-transparent blur-md" />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 /**
  * ProductSection component that displays the vending machine product catalog
+ * Updated with modern styling and improved user experience
  */
 const ProductSection = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [animateCards, setAnimateCards] = useState(false);
   
   // Define products per row and initial rows to show
-  const PRODUCTS_PER_ROW = 4; // For desktop view
+  const PRODUCTS_PER_ROW = 6; // For desktop view
   const INITIAL_ROWS = 2;
+
+  // Reset animation when changing categories
+  useEffect(() => {
+    setAnimateCards(false);
+    setTimeout(() => setAnimateCards(true), 100);
+  }, [activeCategory]);
 
   /**
    * Complete product catalog with 50+ products
@@ -239,115 +265,244 @@ const ProductSection = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Section Header with Gradient Text */}
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-6">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-          </svg>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section Header */}
+      <motion.div 
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-4">
+          <Tag size={16} />
           Product Selection
-        </div>
-        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#F5F5F5] to-[#A5ACAF] bg-clip-text text-transparent mb-6">
-          50+ Premium Products
+        </span>
+        <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
+          <span className="text-[#FD5A1E]">50+</span> Premium Products
         </h2>
         <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
           Customizable selection of snacks and beverages to meet your workplace needs
         </p>
-      </div>
+      </motion.div>
 
-      {/* Category Filters with Glass Effect - Horizontal Scrollable on Mobile */}
-      <div className="mb-12 overflow-x-auto pb-4 -mx-4 px-4">
-        <div className="flex flex-nowrap gap-2 justify-start md:justify-center md:flex-wrap">
-          {productCategories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => {
-                setActiveCategory(category.id);
-                setIsExpanded(false); // Collapse when changing category
-              }}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all backdrop-blur-sm whitespace-nowrap ${
-                activeCategory === category.id
-                  ? 'bg-[#FD5A1E] text-white shadow-lg shadow-[#FD5A1E]/25'
-                  : 'bg-[#000000]/60 text-[#F5F5F5] border border-[#a4acac] hover:border-[#FD5A1E] hover:bg-[#FD5A1E]/10'
-              }`}
-              aria-pressed={activeCategory === category.id}
-              aria-label={`Filter by ${category.label}. ${category.count} items.`}
-            >
-              {category.label}
-              <span className={`ml-2 px-1.5 py-0.5 text-xs rounded-full ${
-                activeCategory === category.id ? 'bg-white/20' : 'bg-[#FD5A1E]/10 text-[#FD5A1E]'
-              }`}>
-                {category.count}
-              </span>
-            </button>
+      {/* Category Filters - Styled Tabs */}
+      <motion.div 
+        className="mb-12 overflow-x-auto pb-4 -mx-4 px-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <div className="relative">
+          {/* Background Track */}
+          <div className="absolute h-10 inset-x-0 top-1/2 -translate-y-1/2 bg-[#111111] rounded-full"></div>
+          
+          {/* Scrollable Categories */}
+          <div className="relative flex flex-nowrap gap-2 justify-start md:justify-center md:flex-wrap">
+            {productCategories.map((category) => (
+              <motion.button
+                key={category.id}
+                onClick={() => {
+                  setActiveCategory(category.id);
+                  setIsExpanded(false); // Collapse when changing category
+                }}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all backdrop-blur-sm whitespace-nowrap ${
+                  activeCategory === category.id
+                    ? 'bg-[#FD5A1E] text-white shadow-lg shadow-[#FD5A1E]/25'
+                    : 'bg-[#1a1a1a] text-[#F5F5F5] hover:bg-[#333333]'
+                }`}
+                aria-pressed={activeCategory === category.id}
+                aria-label={`Filter by ${category.label}. ${category.count} items.`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {category.label}
+                <span className={`ml-2 px-1.5 py-0.5 text-xs rounded-full ${
+                  activeCategory === category.id ? 'bg-white/20' : 'bg-[#FD5A1E]/10 text-[#FD5A1E]'
+                }`}>
+                  {category.count}
+                </span>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Products Grid */}
+      <div className="relative">
+        {/* Category Title */}
+        <motion.div 
+          className="mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <h3 className="text-xl font-bold text-[#F5F5F5]">
+            {productCategories.find(c => c.id === activeCategory)?.label || 'All Products'}
+            <span className="ml-2 text-[#A5ACAF]">
+              ({filteredProducts.length} items)
+            </span>
+          </h3>
+        </motion.div>
+        
+        {/* Products Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+          {animateCards && displayProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>
-      </div>
-
-      {/* Products Grid with Aceternity Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {displayProducts.map((product) => (
-          <BackgroundOverlayCard key={product.id} product={product} />
-        ))}
+        
+        {/* Empty State */}
+        {filteredProducts.length === 0 && (
+          <div className="py-16 text-center">
+            <p className="text-[#A5ACAF] mb-4">No products found in this category.</p>
+            <button
+              onClick={() => setActiveCategory('all')}
+              className="px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] rounded-full text-sm font-medium transition-colors hover:bg-[#FD5A1E]/20"
+            >
+              View All Products
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Expand/Collapse Button */}
       {hasMoreProducts && (
-        <div id="expand-button" className="flex justify-center mt-8">
+        <motion.div 
+          id="expand-button" 
+          className="flex justify-center mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <button
             onClick={toggleExpand}
-            className="group flex items-center gap-2 px-6 py-3 bg-[#4d4d4d]/30 border border-[#a4acac] hover:border-[#FD5A1E] rounded-full transition-all hover:bg-[#FD5A1E]/10"
+            className="group flex items-center gap-2 px-6 py-3 bg-[#111111] border border-[#333333] hover:border-[#FD5A1E] rounded-full transition-all hover:bg-[#1a1a1a]"
             aria-expanded={isExpanded}
             aria-controls="product-grid"
           >
             <span className="text-[#F5F5F5]">
-              {isExpanded ? 'Show Less' : `Show More (${filteredProducts.length - displayProducts.length} items)`}
+              {isExpanded ? 'Show Less' : `Show ${filteredProducts.length - displayProducts.length} More Products`}
             </span>
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              className={`h-5 w-5 text-[#FD5A1E] transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <ChevronDown 
+              className={`h-5 w-5 text-[#FD5A1E] transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+            />
           </button>
-        </div>
+        </motion.div>
       )}
 
-      {/* Product Rotation Banner with Improved Design */}
-      <div className="mt-16 relative overflow-hidden rounded-xl">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#FD5A1E]/20 to-transparent backdrop-blur-sm" />
-        <div className="relative px-6 py-4 border border-[#FD5A1E]/30 rounded-xl bg-[#000000]/50">
-          <div className="flex items-center justify-center gap-3">
-            <div className="p-2 bg-[#FD5A1E]/10 rounded-full flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FD5A1E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span className="text-[#F5F5F5] text-center">
-              Product selection can be customized based on your workplace preferences and regularly updated based on feedback.
-            </span>
+      {/* Product Features Section */}
+      <motion.div 
+        className="mt-16 grid md:grid-cols-3 gap-6"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+      >
+        {/* Feature 1 */}
+        <div className="bg-[#111111] p-6 rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all">
+          <div className="bg-[#FD5A1E]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+            <Star className="h-6 w-6 text-[#FD5A1E]" />
           </div>
+          <h3 className="text-lg font-bold text-[#F5F5F5] mb-2">Premium Selection</h3>
+          <p className="text-[#A5ACAF]">
+            Curated collection of over 50 premium snacks and beverages, including popular brands and healthy alternatives.
+          </p>
         </div>
-      </div>
+        
+        {/* Feature 2 */}
+        <div className="bg-[#111111] p-6 rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all">
+          <div className="bg-[#FD5A1E]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#FD5A1E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-bold text-[#F5F5F5] mb-2">Customizable Options</h3>
+          <p className="text-[#A5ACAF]">
+            Tailor the product selection to your workplace preferences with regular updates based on consumption patterns and feedback.
+          </p>
+        </div>
+        
+        {/* Feature 3 */}
+        <div className="bg-[#111111] p-6 rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all">
+          <div className="bg-[#FD5A1E]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#FD5A1E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+           </svg>
+         </div>
+         <h3 className="text-lg font-bold text-[#F5F5F5] mb-2">Regular Restocking</h3>
+         <p className="text-[#A5ACAF]">
+           We handle all inventory management and restocking, ensuring your favorite products are always available when you need them.
+         </p>
+       </div>
+     </motion.div>
 
-      {/* Enhanced Call to Action */}
-      <div className="mt-12 text-center">
-        <Link
-          href="/contact"
-          className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#FD5A1E] to-[#FD5A1E]/80 text-white font-medium rounded-full hover:from-[#FD5A1E]/80 hover:to-[#FD5A1E] transition-all shadow-lg shadow-[#FD5A1E]/25 hover:shadow-xl hover:shadow-[#FD5A1E]/30"
-        >
-          Customize Your Selection
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
-        </Link>
-      </div>
-    </div>
-  );
+     {/* Customization Banner */}
+     {/* <motion.div 
+       className="mt-12 rounded-xl overflow-hidden border border-[#333333]"
+       initial={{ opacity: 0, y: 30 }}
+       animate={{ opacity: 1, y: 0 }}
+       transition={{ duration: 0.6, delay: 0.6 }}
+     >
+       <div className="bg-gradient-to-r from-[#111111] to-[#1a1a1a] p-8">
+         <div className="flex flex-col md:flex-row items-center gap-8">
+           {/* Image side 
+           <div className="relative w-full md:w-1/3 aspect-video md:aspect-square rounded-lg overflow-hidden">
+             <Image 
+               src="/images/products/product-selection.jpg" 
+               alt="Product customization illustration" 
+               fill 
+               className="object-cover"
+             />
+             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+             <div className="absolute bottom-4 left-4 bg-[#FD5A1E] text-white px-3 py-1 rounded-full text-sm">
+               Customizable
+             </div>
+           </div>
+           
+           {/* Content side 
+           <div className="w-full md:w-2/3">
+             <h3 className="text-2xl font-bold text-[#F5F5F5] mb-4">
+               Tailor Your Product Selection
+             </h3>
+             <p className="text-[#A5ACAF] mb-6">
+               Product selection can be customized based on your workplace preferences and regularly 
+               updated based on consumption patterns and feedback. We work with you to ensure your 
+               vending machines offer the perfect mix of options for your team.
+             </p>
+             
+             {/* Feature list 
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+               <div className="flex items-start">
+                 <Check className="h-5 w-5 text-[#FD5A1E] mr-2 mt-0.5 flex-shrink-0" />
+                 <span className="text-[#F5F5F5]">Popular brand-name products</span>
+               </div>
+               <div className="flex items-start">
+                 <Check className="h-5 w-5 text-[#FD5A1E] mr-2 mt-0.5 flex-shrink-0" />
+                 <span className="text-[#F5F5F5]">Healthy and dietary options</span>
+               </div>
+               <div className="flex items-start">
+                 <Check className="h-5 w-5 text-[#FD5A1E] mr-2 mt-0.5 flex-shrink-0" />
+                 <span className="text-[#F5F5F5]">Seasonal and rotating selections</span>
+               </div>
+               <div className="flex items-start">
+                 <Check className="h-5 w-5 text-[#FD5A1E] mr-2 mt-0.5 flex-shrink-0" />
+                 <span className="text-[#F5F5F5]">Data-driven product optimization</span>
+               </div>
+             </div>
+             
+             {/* CTA button 
+             <Link
+               href="/contact"
+               className="inline-flex items-center px-6 py-3 bg-[#FD5A1E] text-white font-medium rounded-full hover:bg-[#FD5A1E]/90 transition-colors shadow-lg shadow-[#FD5A1E]/20"
+             >
+               <span>Customize Your Selection</span>
+               <ArrowRight className="ml-2 h-5 w-5" />
+             </Link>
+           </div>
+         </div>
+       </div>
+     </motion.div> */}
+   </div>
+ );
 };
 
 export default ProductSection;

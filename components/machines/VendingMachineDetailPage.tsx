@@ -199,7 +199,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                             quality={100}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 60vw"
-                            className="object-contain z-10"
+                            className="object-contain z-10
+                            bg-black"
                             priority
                           />
                         {/* </> */}

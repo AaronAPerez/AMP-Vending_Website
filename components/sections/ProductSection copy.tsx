@@ -25,6 +25,7 @@
 // }
 
 // const ProductSection = () => {
+
 //   // Ref for scrolling container
 //   const containerRef = useRef<HTMLDivElement>(null);
   

@@ -313,7 +313,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-3 bg-[#FD5A1E] text-white font-medium rounded-lg hover:bg-[#FD5A1E]/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+              className="px-6 py-3 bg-[#FD5A1E] text-white font-medium rounded-full hover:bg-[#FD5A1E]/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
               aria-busy={isSubmitting}
             >
               {isSubmitting ? 'Sending...' : 'Request Information'}

@@ -213,13 +213,13 @@ const VendingMachineShowcase = () => {
                 <div className="flex flex-col sm:flex-row gap-4 mt-auto">
                   <Link 
                     href={`/vending-machines/${machine.id}`}
-                    className="py-3 px-6 bg-[#FD5A1E] text-white font-medium rounded-lg text-center hover:bg-[#FD5A1E]/90 transition-colors"
+                    className="py-3 px-6 bg-[#FD5A1E] text-white font-medium rounded-full text-center hover:bg-[#FD5A1E]/90 transition-colors"
                   >
                     View Details
                   </Link>
                   <Link 
                     href="/contact"
-                    className="py-3 px-6 bg-transparent text-white border border-[#333333] rounded-lg text-center hover:bg-[#333333] transition-colors"
+                    className="py-3 px-6 bg-transparent text-white border border-[#333333] rounded-full text-center hover:bg-[#333333] transition-colors"
                   >
                     Request Installation
                   </Link>
