@@ -1,6 +1,6 @@
 import Script from 'next/script';
 import { Metadata } from 'next';
-import ContactForm from '@/components/sections/ContactForm';
+import ContactForm from '@/components/contact/ContactForm';
 import GoogleMapComponent from '@/components/GoogleMapComponent';
 
 
@@ -77,7 +77,7 @@ export default function ContactPage() {
         })
       }} />
       
-      <div className="bg-[#000000] min-h-screen">
+      <div className="bg-[#000000] min-h-screen py-16">
         {/* Hero Section */}
         <div className="relative py-16 md:py-24 overflow-hidden">
           <div className="absolute inset-0 opacity-20">
@@ -236,12 +236,12 @@ export default function ContactPage() {
               >
                 Contact Us
               </a>
-              {/* <a 
+              <a 
                 href="tel:+12094035450" 
                 className="px-6 py-3 bg-transparent border border-[#A5ACAF] text-[#F5F5F5] rounded-lg font-medium hover:bg-[#4d4d4d] transition-colors"
               >
                 Call Us Now
-              </a> */}
+              </a> 
             </div>
           </div>
         </div>

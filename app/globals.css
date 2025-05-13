@@ -97,6 +97,109 @@ body {
   background-color: gray/10;
 }
 
+/* Responsive padding utility classes */
+.p-responsive {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .p-responsive {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .p-responsive {
+    padding: 2rem;
+  }
+}
+
+/* Responsive margin utility classes */
+.m-responsive {
+  margin: 1rem;
+}
+
+@media (min-width: 640px) {
+  .m-responsive {
+    margin: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .m-responsive {
+    margin: 2rem;
+  }
+}
+
+/* Responsive spacing utility classes */
+.gap-responsive {
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .gap-responsive {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gap-responsive {
+    gap: 2rem;
+  }
+}
+
+/* Responsive font size utility classes */
+.text-responsive {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 640px) {
+  .text-responsive {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive {
+    font-size: 1.25rem;
+    line-height: 1.7;
+  }
+}
+
+/* Accessibility focus indicators that work across viewports */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(253, 90, 30, 0.5);
+}
+
+/* Responsive hero styles */
+@media (max-width: 640px) {
+  .hero-content {
+    padding-top: 4rem;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .hero-scroll-indicator {
+    bottom: 1.5rem;
+  }
+}
+
+/* Enhance scroll indicator visibility */
+.scroll-indicator {
+  filter: drop-shadow(0 0 8px rgba(253, 90, 30, 0.5));
+}
+
+/* Add glow effect to the orange accent in the heading */
+.hero-accent {
+  text-shadow: 0 0 15px rgba(253, 90, 30, 0.5);
+}
+
 .no-visible-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;

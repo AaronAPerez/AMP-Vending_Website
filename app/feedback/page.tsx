@@ -34,7 +34,7 @@ export const metadata: Metadata = {
  */
 export default function FeedbackPage() {
   return (
-    <div className="bg-[#000000] min-h-screen">
+    <div className="bg-[#000000] min-h-screen py-16">
       {/* Hero Section */}
       <div className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-20">

@@ -35,7 +35,7 @@ const CTASection = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Premium Refreshments, <span className="text-[#FD5A1E]">Zero Hassle</span>
+            Premium Machines, <span className="text-[#FD5A1E]">Zero Hassle</span>
           </h2>
           <p className="text-xl text-white/80 max-w-3xl mx-auto mb-8">
             Join leading workplaces enjoying state-of-the-art vending with no costs and no maintenance worries.

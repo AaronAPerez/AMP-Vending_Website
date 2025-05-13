@@ -60,7 +60,7 @@ const FAQSection = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
-      <motion.div 
+      {/* <motion.div 
         className="text-center mb-16"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -78,10 +78,10 @@ const FAQSection = () => {
         <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
           Find answers to common questions about our premium vending solutions.
         </p>
-      </motion.div>
+      </motion.div> */}
       
       {/* Search Section */}
-      <motion.div 
+      {/* <motion.div 
         className="max-w-3xl mx-auto mb-12"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -96,8 +96,8 @@ const FAQSection = () => {
           <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-[#A5ACAF]">
             <Search size={20} />
           </div>
-        </div> */}
-      </motion.div>
+        </div> 
+      </motion.div> */}
       
       {/* FAQ Grid */}
       <motion.div 

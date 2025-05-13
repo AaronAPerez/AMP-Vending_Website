@@ -7,7 +7,7 @@ import { getAllVendingMachines, getVendingMachinesByCategory, MachineData } from
 import { Loading } from '@/components/ui/Loading';
 import { usePathname } from 'next/navigation';
 import CTASection from '@/components/sections/CTASection';
-
+import Script from 'next/script';
 
 
 // Types for our navigation sidebar
@@ -91,7 +91,42 @@ const VendingMachinesPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#000000]">
+     <div className="min-h-screen bg-[#000000]">
+      {/* Structured data for SEO collection page */}
+      <Script
+        id="vending-machines-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Premium Vending Machines",
+            "description": "Explore our range of state-of-the-art vending machines with zero cost installation and maintenance-free operation for your workplace.",
+            "url": "https://www.ampvendingmachines.com/vending-machines/",
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": machines.map((machine, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "Product",
+                  "name": machine.name,
+                  "description": machine.shortDescription,
+                  "url": `https://www.ampvendingmachines.com/vending-machines/${machine.id}`,
+                  "image": machine.images[0].src,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "description": "Zero-cost installation and maintenance-free operation"
+                  }
+                }
+              }))
+            }
+          })
+        }}
+      />
       {/* Breadcrumb Navigation */}
       <div className="bg-[#000000]/50 border-b border-[#4d4d4d]">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center text-sm text-[#A5ACAF]">
@@ -110,6 +145,32 @@ const VendingMachinesPage = () => {
           )}
         </div>
       </div>
+
+      {/* Structured data for breadcrumbs */}
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.ampvendingmachines.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Vending Machines",
+                "item": "https://www.ampvendingmachines.com/vending-machines"
+              }
+            ]
+          })
+        }}
+      />
       {/* Header */}
       <section className="pt-12 pb-8 bg-gradient-to-b from-[#000000] to-[#000000]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -156,7 +217,6 @@ const VendingMachinesPage = () => {
 
       {/* Machines Grid */}
       <section className="py-8 pb-16">
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {machines.length === 0 ? (
             <div className="text-center py-12">

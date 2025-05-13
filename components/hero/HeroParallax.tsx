@@ -12,8 +12,16 @@ interface ProductItem {
   category: string;
 }
 
+// Add prop to control content rendering
+interface HeroParallaxProps {
+  renderHeading?: boolean; // If false, parent will render the heading
+  renderContent?: boolean; // If false, parent will render all content
+}
 
-const HeroParallax = () => {
+const HeroParallax = ({ 
+  renderHeading = true, 
+  renderContent = true 
+}: HeroParallaxProps) => {
   // Ref for the scrolling container
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
@@ -132,11 +140,24 @@ const HeroParallax = () => {
       image: "/images/products/root-beer.jpg",
       category: "Beverage"
     },
+    {
+      title: "Sprite",
+      image: "/images/products/Sprite.jpg",
+      category: "Beverage"
+    },
+    {
+      title: "Rockstar Fruit Punch",
+      image: "/images/products/rockstar-fruit-punch.jpg",
+      category: "Energy Drink"
+    },
+    {
+      title: "Lays Chips",
+      image: "/images/products/layssourcream.jpg",
+      category: "Snack"
+    },
   ];
 
-
   return (
-
     <motion.div
       className="text-center mb-12"
       initial={{ opacity: 0, y: 20 }}
@@ -144,19 +165,17 @@ const HeroParallax = () => {
       transition={{ duration: 0.8 }}
     >
       <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
-
-
         {/* Products grid with parallax effect */}
-        <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 p-2 z-10">
+        <div className="absolute inset-0 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 p-2 z-10">
           {products.map((product, index) => {
             // Calculate parallax offset based on index and scroll position
             const offset = Math.min(scrollY * 0.1 * (index % 6 + 1) * 0.2, 100);
             const opacity = Math.max(0.3, 1 - (scrollY * 0.001));
 
             return (
-              <div
+               <div
                 key={index}
-                className="relative aspect-[4/3]full rounded-lg overflow-hidden"
+                className="relative rounded-lg overflow-hidden w-full h-50"
                 style={{
                   transform: `translateY(${offset}px)`,
                   transition: 'transform 0.3s ease-out',
@@ -176,9 +195,14 @@ const HeroParallax = () => {
                   <Image
                     src={product.image}
                     alt={product.title}
-                    fill
-                    sizes="(max-width: 768px) 33vw, (max-width: 1200px) 25vw, 16vw"
-                    className="object-cover"
+                    width={800}
+                    height={600}
+                    sizes="(max-width: 640px) 100vw, 
+                          (max-width: 768px) 50vw, 
+                          (max-width: 1024px) 33vw, 
+                          25vw"
+                    className="object-cover w-full h-full rounded-lg"
+                    priority
                     onError={(e) => {
                       // Fallback if image doesn't load
                       e.currentTarget.style.display = 'none';
@@ -197,47 +221,55 @@ const HeroParallax = () => {
           })}
         </div>
 
-        {/* Hero content */}
-        <div className="relative z-30 text-center px-4 max-w-5xl pb-20">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg">
-            Premium Workplace Vending<br />
-            <span className="text-[#FD5A1E]">at Zero Cost to You</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-lg max-w-3xl mx-auto">
-            Enhance your workplace with state-of-the-art vending machines offering
-            50+ snack options, and
-            20+ beverage options.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/vending-machines"
-              className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-color"
-              aria-label="View our vending machines"
-            >
-
-              View Machines
-            </Link>
-            <Link
-              href="/contact"
-              className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
-              aria-label="Contact us about vending machines"
-            >
-              Contact Us
-            </Link>
+        {/* Only render hero content if renderContent is true */}
+        {renderContent && (
+          <div className="relative z-30 text-center px-4 max-w-5xl pb-20">
+            {/* Only render the heading if both renderContent and renderHeading are true */}
+            {renderHeading && (
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg">
+                Premium Workplace Vending<br />
+                <span className="text-[#FD5A1E]">at Zero Cost to You</span>
+              </h1>
+            )}
+            
+            <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-lg max-w-3xl mx-auto">
+              Enhance your workplace with state-of-the-art vending machines offering
+              50+ snack options, and
+              20+ beverage options.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="/vending-machines"
+                className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-color"
+                aria-label="View our vending machines"
+              >
+                View Machines
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
+                aria-label="Contact us about vending machines"
+              >
+                Contact Us
+              </Link>
+            </div>
           </div>
-        </div>
-      <div 
-        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/60 to-black z-10" 
-        aria-hidden="true"
+        )}
+        
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/70 to-black z-10" 
+          aria-hidden="true"
         >    
-      </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-          <svg className="w-6 h-6 text-[#F5F5F5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
         </div>
+
+        {/* Scroll indicator - only show if renderContent is true */}
+        {renderContent && (
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+            <svg className="w-6 h-6 text-[#F5F5F5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+        )}
       </div>
     </motion.div>
   );

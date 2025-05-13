@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail } from 'lucide-react';
-import ContactForm from './ContactForm';
+import ContactForm from '../contact/ContactForm';
 
 /**
  * HomeContactSection Component
@@ -29,9 +28,9 @@ const HomeContactSection = () => {
       </div>
       
       {/* Content area */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div 
+        {/* <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -48,7 +47,7 @@ const HomeContactSection = () => {
             Have questions about our vending solutions? We&apos;re here to help. 
             Fill out the form below and our team will get back to you soon.
           </p>
-        </motion.div>
+        </motion.div> */}
         
         {/* Quick Contact Options */}
         {/* <motion.div 

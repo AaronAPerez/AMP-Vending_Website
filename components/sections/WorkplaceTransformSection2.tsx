@@ -205,7 +205,7 @@
 //  * A section container for the before/after workplace comparison with video
 //  * Enhanced with Aceternity UI-inspired components
 //  */
-// const WorkplaceTransformSection: React.FC<WorkplaceTransformSectionProps> = ({ 
+// const WorkplaceTransformSection2: React.FC<WorkplaceTransformSectionProps> = ({ 
 //   className = "",
 //   id = "workplace-transformation" 
 // }) => {
@@ -333,4 +333,4 @@
 //   );
 // };
 
-// export default WorkplaceTransformSection;
+// export default WorkplaceTransformSection2;

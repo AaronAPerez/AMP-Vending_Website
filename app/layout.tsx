@@ -7,11 +7,12 @@ import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 import 'rsuite/dist/rsuite-no-reset.min.css';
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import FeedbackWidget from "@/components/FeedbackWidget";
-<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+
+
 
 
 export const metadata: Metadata = {
@@ -36,6 +37,8 @@ export const metadata: Metadata = {
     ]
   }
 };
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 // Business information 
 <script
@@ -72,6 +75,14 @@ export const metadata: Metadata = {
   }}
 />
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  minimumScale: 1,
+  viewportFit: 'cover',
+}
+
 
 export default function RootLayout({
   children,
@@ -79,11 +90,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
     <html lang="en" suppressHydrationWarning>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      />
       <body className={`${inter.variable} 'antialiased'`}>
-      <GlobalStyles />
+        <GlobalStyles />
         {/* Toaster component */}
         <Toaster
           position="top-right"
@@ -94,19 +107,17 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <div className="mb-18">
-         <ResizableNavbar/>
-         </div>
+        <ResizableNavbar />
         <main className="min-h-screen" id="main">
           {/* <AuthProvider> */}
           <StyledComponentsRegistry>
-          {children}
+            {children}
           </StyledComponentsRegistry>
           {/* </AuthProvider> */}
           <Analytics />
         </main>
         <Footer />
-        <FeedbackWidget/>
+        <FeedbackWidget />
       </body>
     </html>
   );
