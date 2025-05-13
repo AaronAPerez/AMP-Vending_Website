@@ -3,7 +3,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useIsMobile, useIsTablet } from '@/hooks/useMediaQuery';
 import Text from '../ui/typography/Text';
-import Button from '../ui/buttons/Button';
 import Container from '../ui/Container';
 import HeroParallax from './HeroParallax';
 import Link from 'next/link';
@@ -29,17 +28,13 @@ interface ResponsiveHeroProps {
  */
 const ResponsiveHero = ({
   title,
-  subtitle,
-  primaryCta,
-  secondaryCta
-}: ResponsiveHeroProps) => {
+  subtitle}: ResponsiveHeroProps) => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
 
   // Adjust content based on screen size
   const titleSize = 'h1'; // Use h1 for all devices
   const subtitleSize = isMobile ? 'body' : isTablet ? 'h5' : 'h4';
-  const buttonSize = isMobile ? 'md' : 'lg';
 
   // For mobile reduce parallax intensity or disable
   const parallaxProps = {
