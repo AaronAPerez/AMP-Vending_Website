@@ -6,6 +6,7 @@ import Text from '../ui/typography/Text';
 import Button from '../ui/buttons/Button';
 import Container from '../ui/Container';
 import HeroParallax from './HeroParallax';
+import Link from 'next/link';
 
 interface ResponsiveHeroProps {
   title: React.ReactNode;
@@ -87,29 +88,22 @@ const ResponsiveHero = ({
               )}
 
               {/* Responsive call-to-action buttons */}
-              <div className="flex flex-col sm:flex-row justify-center gap-4 hero-cta">
-                {primaryCta && (
-                  <Button
-                    href="/vending-machines"
-                    variant="primary"
-                    size={isMobile ? "md" : "lg"}
-                    fullWidth={true}
-                  >
-                    View Machines
-                  </Button>
-                )}
-
-                {secondaryCta && (
-                  <Button
-                    href={secondaryCta.href}
-                    variant="outline"
-                    size={buttonSize}
-                    fullWidth={isMobile}
-                  >
-                    {secondaryCta.text}
-                  </Button>
-                )}
-              </div>
+           <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="/vending-machines"
+                className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-color"
+                aria-label="View our vending machines"
+              >
+                View Machines
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
+                aria-label="Contact us about vending machines"
+              >
+                Contact Us
+              </Link>
+            </div>
             </motion.div>
           </Container>
         </div>
