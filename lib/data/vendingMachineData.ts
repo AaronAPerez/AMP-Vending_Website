@@ -601,7 +601,7 @@ const vendingMachineData: Record<string, MachineData> = {
     images: [
       { 
         id: 1, 
-        src: '/images/products/placeholder.jpg', 
+        src: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg', 
         alt: 'Front view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
       },
       { 
