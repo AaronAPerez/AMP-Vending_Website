@@ -338,12 +338,12 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                       >
                         Request This Machine
                       </Link>
-                      <Link
+                      {/* <Link
                         href="/proposal"
                         className="flex-1 py-3 px-4 border-2 border-[#FD5A1E] text-[#FD5A1E] rounded-lg font-medium hover:bg-[#FD5A1E]/10 transition-colors text-center"
                       >
                         View Proposal
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 </div>

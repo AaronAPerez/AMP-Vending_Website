@@ -20,9 +20,6 @@ import CTASection from '../sections/CTASection';
 import ProductSection from '../sections/ProductSection';
 import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
 import WorkplaceTransformSection from '../sections/WorkplaceTransformSection';
-import NewMachineShowcase from '../sections/NewMachineShowcase';
-import MaintenanceGuaranteeSection from '../sections/MaintenanceGuaranteeSection';
-import TechnologyShowcaseSection from '../sections/TechnologyShowcaseSection';
 
 
 /**
