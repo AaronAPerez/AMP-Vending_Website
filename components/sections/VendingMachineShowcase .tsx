@@ -48,7 +48,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
       model: 'KM-VMNT-50-B',
-      image: '/images/products/placeholder.jpg',
+      image: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg',
       features: [
         'Premium 21.5" Touchscreen Display',
         'Credit Card & Mobile Pay Ready',
@@ -62,29 +62,29 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       price: 'Zero Cost Installation',
       description: 'Advanced snack vending solution with large HD touchscreen display, featuring versatile payment options and high-capacity storage for a wide variety of non-refrigerated products.'
     },
-    {
-      id: 'km-vmr-30-b',
-      name: 'Compact Refrigerated Machine',
-      model: 'KM-VMR-30-B',
-      image: '/images/products/placeholder.jpg',
-      features: [
-        'Space-Saving Refrigerated Design',
-        'Energy-Efficient Cooling System',
-        'Modern Touchscreen Interface',
-        'Multiple Payment Options',
-        'Remote Inventory Monitoring',
-        'Bright LED Interior Lighting'
-      ],
-      dimensions: '30"W x 28"D x 76.7"H',
-      best: 'Perfect for smaller spaces requiring refrigerated products',
-      price: 'Zero Cost Installation',
-      description: 'Compact refrigerated vending solution perfect for limited spaces, offering cold beverages and refrigerated snacks with energy-efficient cooling technology.'
-    },
+    // {
+    //   id: 'km-vmr-30-b',
+    //   name: 'Compact Refrigerated Machine',
+    //   model: 'KM-VMR-30-B',
+    //   image: '/images/products/placeholder.jpg',
+    //   features: [
+    //     'Space-Saving Refrigerated Design',
+    //     'Energy-Efficient Cooling System',
+    //     'Modern Touchscreen Interface',
+    //     'Multiple Payment Options',
+    //     'Remote Inventory Monitoring',
+    //     'Bright LED Interior Lighting'
+    //   ],
+    //   dimensions: '30"W x 28"D x 76.7"H',
+    //   best: 'Perfect for smaller spaces requiring refrigerated products',
+    //   price: 'Zero Cost Installation',
+    //   description: 'Compact refrigerated vending solution perfect for limited spaces, offering cold beverages and refrigerated snacks with energy-efficient cooling technology.'
+    // },
     {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
-      image: '/images/products/placeholder.jpg',
+      image: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg',
       features: [
         'Advanced Refrigeration System',
         'Large 60-Selection Capacity',
@@ -98,24 +98,24 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       price: 'Zero Cost Installation',
       description: 'Versatile refrigerated vending machine designed for reliability and performance, featuring intelligent cooling technology and ample capacity for varied product selections.'
     },
-    {
-      id: 'km-vmrt-50-b',
-      name: 'Premium Refrigerated Machine',
-      model: 'KM-VMR-50-B',
-      image: '/images/products/placeholder.jpg',
-      features: [
-        '21.5" HD Interactive Display',
-        'Dual Temperature Zone System',
-        'Advanced Payment Processing',
-        'Remote Monitoring Technology',
-        'High-Capacity Product Storage',
-        'Premium Metal Plate Shelving'
-      ],
-      dimensions: '51"W x 34.3"D x 76.7"H',
-      best: 'Ultimate solution for premium locations and diverse product needs',
-      price: 'Zero Cost Installation',
-      description: 'Our flagship vending solution with state-of-the-art technology, featuring dual temperature zones for maximum product flexibility and an immersive touchscreen interface.'
-    }
+    // {
+    //   id: 'km-vmrt-50-b',
+    //   name: 'Premium Refrigerated Machine',
+    //   model: 'KM-VMR-50-B',
+    //   image: '/images/products/placeholder.jpg',
+    //   features: [
+    //     '21.5" HD Interactive Display',
+    //     'Dual Temperature Zone System',
+    //     'Advanced Payment Processing',
+    //     'Remote Monitoring Technology',
+    //     'High-Capacity Product Storage',
+    //     'Premium Metal Plate Shelving'
+    //   ],
+    //   dimensions: '51"W x 34.3"D x 76.7"H',
+    //   best: 'Ultimate solution for premium locations and diverse product needs',
+    //   price: 'Zero Cost Installation',
+    //   description: 'Our flagship vending solution with state-of-the-art technology, featuring dual temperature zones for maximum product flexibility and an immersive touchscreen interface.'
+    // }
   ];
 
   return (

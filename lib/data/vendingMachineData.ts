@@ -246,7 +246,7 @@ const vendingMachineData: Record<string, MachineData> = {
     images: [
       { 
         id: 1, 
-        src: '/images/products/placeholder.jpg', 
+        src: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg', 
         alt: 'Front view of Standard Refrigerated Machine KM-VMR-40-B' 
       },
       { 
