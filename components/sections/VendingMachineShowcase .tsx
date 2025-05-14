@@ -48,7 +48,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
       model: 'KM-VMNT-50-B',
-      image: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg',
+      image: '/images/amp-premium-non-refrigerated-vending-machine-front.jpg',
       features: [
         'Premium 21.5" Touchscreen Display',
         'Credit Card & Mobile Pay Ready',
@@ -84,7 +84,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
-      image: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg',
+      image: '/images/amp-standard-refrigerated-vending-machine-front.jpg',
       features: [
         'Advanced Refrigeration System',
         'Large 60-Selection Capacity',
@@ -197,7 +197,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FD5A1E] mr-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    Key Features
+                    Key Features 
                   </h4>
                   
                   <div className="grid grid-cols-2 gap-x-4 gap-y-3">

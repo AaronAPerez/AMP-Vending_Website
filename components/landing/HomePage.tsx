@@ -20,6 +20,9 @@ import CTASection from '../sections/CTASection';
 import ProductSection from '../sections/ProductSection';
 import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
 import WorkplaceTransformSection from '../sections/WorkplaceTransformSection';
+import NewMachineShowcase from '../sections/NewMachineShowcase';
+import MaintenanceGuaranteeSection from '../sections/MaintenanceGuaranteeSection';
+import TechnologyShowcaseSection from '../sections/TechnologyShowcaseSection';
 
 
 /**
@@ -115,6 +118,7 @@ const HomePage = () => {
         className="h-32 bg-gradient-to-b from-transparent to-[#000000] -mt-32 relative z-20"
         aria-hidden="true"
       />
+
       
       {/* Workplace Transformation Section */}
       <Section
@@ -129,6 +133,7 @@ const HomePage = () => {
       >
         <WorkplaceTransformSection renderHeading={false} />
       </Section>
+
       
       {/* Vending Machine Showcase */}
       <Section
