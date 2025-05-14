@@ -87,14 +87,15 @@ const ResizableNavbar = () => {
     { name: 'Home', path: '/' },
     {
       name: 'Vending Machines',
-      path: '/vending-machines',
-      children: [
-        { name: 'All Machines', path: '/vending-machines' },
-        { name: 'Compact Refrigerated', path: '/vending-machines/km-vmr-30-b' },
-        { name: 'Standard Refrigerated', path: '/vending-machines/km-vmr-40-b' },
-        { name: 'Non-Refrigerated Snack', path: '/vending-machines/km-vmnt-50-b' },
-        { name: 'Premium Refrigerated', path: '/vending-machines/km-vmrt-50-b' },
-      ]
+      path: '/vending-machines'
+      //,
+      // children: [
+      //   { name: 'All Machines', path: '/vending-machines' },
+      //   { name: 'Compact Refrigerated', path: '/vending-machines/km-vmr-30-b' },
+      //   { name: 'Standard Refrigerated', path: '/vending-machines/km-vmr-40-b' },
+      //   { name: 'Non-Refrigerated Snack', path: '/vending-machines/km-vmnt-50-b' },
+      //   { name: 'Premium Refrigerated', path: '/vending-machines/km-vmrt-50-b' },
+      // ]
     },
     { name: 'Feedback', path: '/feedback' },
     { name: 'Contact', path: '/contact' }

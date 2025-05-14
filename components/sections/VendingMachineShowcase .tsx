@@ -48,7 +48,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
       model: 'KM-VMNT-50-B',
-      image: '/images/machines/KM-VMNT-50-B (Non-Refrigerated Snack Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       features: [
         'Premium 21.5" Touchscreen Display',
         'Credit Card & Mobile Pay Ready',
@@ -66,7 +66,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       id: 'km-vmr-30-b',
       name: 'Compact Refrigerated Machine',
       model: 'KM-VMR-30-B',
-      image: '/images/machines/KM-VMR-30-B (Compact Refrigerated Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       features: [
         'Space-Saving Refrigerated Design',
         'Energy-Efficient Cooling System',
@@ -84,7 +84,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
-      image: '/images/machines/KM-VMR-40-B (Standard Refrigerated Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       features: [
         'Advanced Refrigeration System',
         'Large 60-Selection Capacity',
@@ -102,7 +102,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       id: 'km-vmrt-50-b',
       name: 'Premium Refrigerated Machine',
       model: 'KM-VMR-50-B',
-      image: '/images/machines/KM-VMRT-50-B (Premium Refrigerated Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       features: [
         '21.5" HD Interactive Display',
         'Dual Temperature Zone System',

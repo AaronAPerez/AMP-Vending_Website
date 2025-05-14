@@ -82,7 +82,7 @@ const ResponsiveHero = ({
                 </Text>
               )}
 
-              {/* Responsive call-to-action buttons */}
+          
            <div className="flex flex-wrap justify-center gap-4">
               <Link
                 href="/vending-machines"

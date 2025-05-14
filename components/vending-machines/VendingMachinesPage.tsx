@@ -31,7 +31,7 @@ const VendingMachinesPage = () => {
       id: 'km-vmrt-50-b',
       name: 'Premium Refrigerated Machine',
       model: 'KM-VMRT-50-B',
-      image: '/images/machines/KM-VMRT-50-B (Premium Refrigerated Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       description: 'Our flagship refrigerated vending solution with a 21.5" HD touchscreen and dual temperature zones for maximum product flexibility.',
       features: [
         '21.5" HD touchscreen interface',
@@ -49,7 +49,7 @@ const VendingMachinesPage = () => {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
-      image: '/images/machines/KM-VMR-40-B (Standard Refrigerated Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       description: 'A versatile refrigerated vending machine designed for reliability and performance in medium to high-traffic locations.',
       features: [
         '60 product slots',
@@ -67,7 +67,7 @@ const VendingMachinesPage = () => {
       id: 'km-vmr-30-b',
       name: 'Compact Refrigerated Machine',
       model: 'KM-VMR-30-B',
-      image: '/images/machines/KM-VMR-30-B (Compact Refrigerated Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       description: 'Space-saving refrigerated vending solution perfect for smaller locations that still need quality refrigerated product options.',
       features: [
         '36 product slots',
@@ -85,7 +85,7 @@ const VendingMachinesPage = () => {
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
       model: 'KM-VMNT-50-B',
-      image: '/images/machines/KM-VMNT-50-B (Non-Refrigerated Snack Machine) bg.png',
+      image: '/images/products/placeholder.jpg',
       description: 'Advanced snack vending machine with a large 22" touchscreen interface and maximum product capacity for non-refrigerated items.',
       features: [
         '60 product slots',

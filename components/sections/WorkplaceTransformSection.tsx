@@ -115,7 +115,7 @@ const WorkplaceTransformSection = ({ renderHeading = true, className = "" }: Wor
 
               <div className="bg-[#4d4d4d]/20 p-6 rounded-xl border border-[#4d4d4d]">
                 <h3 className="text-xl font-bold text-[#F5F5F5] mb-4">
-                  Standard Break Room
+                  Standard Vending Experience
                 </h3>
                 <ul className="space-y-3 text-[#A5ACAF]">
                   <li className="flex items-start">
@@ -205,7 +205,7 @@ const WorkplaceTransformSection = ({ renderHeading = true, className = "" }: Wor
               </h4>
               <div className="bg-[#4d4d4d]/20 p-6 rounded-xl border border-[#4d4d4d]">
                 <h3 className="text-xl font-bold text-[#FD5A1E] mb-4">
-                  Enhanced Break Room
+                  Enhanced Vending Experience
                 </h3>
                 <ul className="space-y-3 text-[#A5ACAF]">
                   <li className="flex items-start">
@@ -233,7 +233,7 @@ const WorkplaceTransformSection = ({ renderHeading = true, className = "" }: Wor
 
       {/* Implementation Benefits Section */}
       <motion.div
-        className="bg-[#111111] rounded-xl overflow-hidden border border-[#333333] mb-16"
+        className="bg-[#111111] rounded-xl overflow-hidden border border-[#333333] my-16"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
