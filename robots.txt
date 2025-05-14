@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.ampvendingmachines.com/sitemap.xml
+# Block specific folders I don't want indexed
+# Disallow: /admin/
+# Disallow: /private/
+
+Sitemap: https://ampvendingmachines.com/sitemap.xml
