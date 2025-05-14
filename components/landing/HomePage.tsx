@@ -19,7 +19,7 @@ import ServiceAreaSection from '../sections/ServiceAreaSection';
 import CTASection from '../sections/CTASection';
 import ProductSection from '../sections/ProductSection';
 import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
-import WorkplaceTransformSection from '../sections/WorkplaceTransformSection';
+import WorkplaceTransformSection from '../sections/WorkplaceTransformSection'; 
 
 
 /**
