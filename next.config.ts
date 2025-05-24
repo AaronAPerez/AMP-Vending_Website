@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   // Add redirects configuration
   async redirects() {
     return [
-      // Redirect HTTP to HTTPS with www
+      // Redirect non-www to www (handles both http and https)
       {
         source: '/:path*',
         has: [
@@ -20,34 +20,10 @@ const nextConfig: NextConfig = {
         destination: 'https://www.ampvendingmachines.com/:path*',
         permanent: true,
       },
-      // Redirect HTTPS non-www to HTTPS www
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'ampvendingmachines.com',
-          },
-        ],
-        destination: 'https://www.ampvendingmachines.com/:path*',
-        permanent: true,
-      },
-      // Handle any accidental double-www in the URL
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'www.www.ampvendingmachines.com',
-          },
-        ],
-        destination: 'https://www.ampvendingmachines.com/:path*',
-        permanent: true,
-      }
     ];
   },
   
-  // Custom headers to ensure proper HTTPS
+  // Add custom headers to ensure proper HTTPS
   async headers() {
     return [
       {
