@@ -1,8 +1,40 @@
 User-agent: *
 Allow: /
 
-# Block specific folders I don't want indexed
-# Disallow: /admin/
-# Disallow: /private/
+# Allow all main pages
+Allow: /vending-machines
+Allow: /vending-machines/
+Allow: /contact
+Allow: /feedback
+Allow: /about
 
-Sitemap: https://ampvendingmachines.com/sitemap.xml
+# Allow specific vending machine pages
+Allow: /vending-machines/km-vmrt-50-b
+Allow: /vending-machines/km-vmr-40-b
+Allow: /vending-machines/km-vmr-30-b
+Allow: /vending-machines/km-vmnt-50-b
+
+# Block admin areas and private folders (if they exist)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /api/
+Disallow: /.well-known/
+
+# Block development and build files
+Disallow: /*.json$
+Disallow: /*.map$
+Disallow: /node_modules/
+
+# Block duplicate content from different protocols/domains
+# (This helps prevent indexing of non-canonical URLs)
+
+# Allow social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.ampvendingmachines.com/sitemap.xml
