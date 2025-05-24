@@ -24,16 +24,16 @@ export const metadata: Metadata = {
   title: 'Contact Us | AMP Vending',
   description: 'Get in touch with AMP Vending for personalized vending machine solutions for your workplace.',
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/contact`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ampvendingmachines.com'}/contact`,
   },
   openGraph: {
     title: 'Contact AMP Vending',
     description: 'Reach out to our team for custom vending machine solutions for your business.',
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/contact`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ampvendingmachines.com'}/contact`,
     siteName: 'AMP Vending',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/images/contact-og.jpg`,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ampvendingmachines.com'}/images/contact-og.jpg`,
         width: 1200,
         height: 630,
         alt: 'Contact AMP Vending',
@@ -55,7 +55,7 @@ export default function ContactPage() {
           "description": "Contact AMP Vending for vending machine solutions",
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://amp-vending-website.vercel.app/contact"
+            "@id": "https://www.ampvendingmachines.com/contact"
           },
           "contactPoint": {
             "@type": "ContactPoint",

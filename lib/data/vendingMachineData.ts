@@ -249,21 +249,21 @@ const vendingMachineData: Record<string, MachineData> = {
         src: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg', 
         alt: 'Front view of Standard Refrigerated Machine KM-VMR-40-B' 
       },
-      { 
-        id: 2, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Side view of Standard Refrigerated Machine KM-VMR-40-B' 
-      },
-      { 
-        id: 3, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Angle view of Standard Refrigerated Machine KM-VMR-40-B' 
-      },
-      { 
-        id: 4, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'User interface of Standard Refrigerated Machine KM-VMR-40-B' 
-      }
+      // { 
+      //   id: 2, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Side view of Standard Refrigerated Machine KM-VMR-40-B' 
+      // },
+      // { 
+      //   id: 3, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Angle view of Standard Refrigerated Machine KM-VMR-40-B' 
+      // },
+      // { 
+      //   id: 4, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'User interface of Standard Refrigerated Machine KM-VMR-40-B' 
+      // }
     ],
     dimensions: [
       { label: 'Width', value: '40.4 inches (103 cm)' },
@@ -392,12 +392,12 @@ const vendingMachineData: Record<string, MachineData> = {
       'Locations with moderate foot traffic'
     ],
     relatedMachines: [
-      {
-        id: 'km-vmrt-50-b',
-        name: 'Premium Refrigerated Machine',
-        model: 'KM-VMRT-50-B',
-        image: '/images/products/placeholder.jpg'
-      },
+      // {
+      //   id: 'km-vmrt-50-b',
+      //   name: 'Premium Refrigerated Machine',
+      //   model: 'KM-VMRT-50-B',
+      //   image: '/images/products/placeholder.jpg'
+      // },
       {
         id: 'km-vmr-30-b',
         name: 'Compact Refrigerated Machine',
@@ -408,7 +408,7 @@ const vendingMachineData: Record<string, MachineData> = {
         id: 'km-vmnt-50-b',
         name: 'Non-Refrigerated Snack Machine',
         model: 'KM-VMNT-50-B',
-        image: '/images/products/placeholder.jpg'
+        image: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg'
       }
     ],
     category: 'refrigerated'
@@ -427,21 +427,21 @@ const vendingMachineData: Record<string, MachineData> = {
         src: '/images/products/placeholder.jpg', 
         alt: 'Front view of Compact Refrigerated Machine KM-VMR-30-B' 
       },
-      { 
-        id: 2, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Side view of Compact Refrigerated Machine KM-VMR-30-B' 
-      },
-      { 
-        id: 3, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Angle view of Compact Refrigerated Machine KM-VMR-30-B' 
-      },
-      { 
-        id: 4, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Interior view of Compact Refrigerated Machine KM-VMR-30-B' 
-      }
+      // { 
+      //   id: 2, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Side view of Compact Refrigerated Machine KM-VMR-30-B' 
+      // },
+      // { 
+      //   id: 3, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Angle view of Compact Refrigerated Machine KM-VMR-30-B' 
+      // },
+      // { 
+      //   id: 4, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Interior view of Compact Refrigerated Machine KM-VMR-30-B' 
+      // }
     ],
     dimensions: [
       { label: 'Width', value: '30 inches (76 cm)' },
@@ -569,23 +569,23 @@ const vendingMachineData: Record<string, MachineData> = {
       'Locations with space constraints'
     ],
     relatedMachines: [
-      {
-        id: 'km-vmrt-50-b',
-        name: 'Premium Refrigerated Machine',
-        model: 'KM-VMRT-50-B',
-        image: '/images/products/placeholder.jpg'
-      },
+      // {
+      //   id: 'km-vmrt-50-b',
+      //   name: 'Premium Refrigerated Machine',
+      //   model: 'KM-VMRT-50-B',
+      //   image: '/images/products/placeholder.jpg'
+      // },
       {
         id: 'km-vmr-40-b',
         name: 'Standard Refrigerated Machine',
         model: 'KM-VMR-40-B',
-        image: '/images/products/placeholder.jpg'
+        image: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg'
       },
       {
         id: 'km-vmnt-50-b',
         name: 'Non-Refrigerated Snack Machine',
         model: 'KM-VMNT-50-B',
-        image: '/images/products/placeholder.jpg'
+        image: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg'
       }
     ],
     category: 'refrigerated'
@@ -604,26 +604,26 @@ const vendingMachineData: Record<string, MachineData> = {
         src: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg', 
         alt: 'Front view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
       },
-      { 
-        id: 2, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Side view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
-      },
-      { 
-        id: 3, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Angle view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
-      },
-      { 
-        id: 4, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Touchscreen interface of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
-      },
-      { 
-        id: 5, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Interior view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
-      }
+      // { 
+      //   id: 2, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Side view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
+      // },
+      // { 
+      //   id: 3, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Angle view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
+      // },
+      // { 
+      //   id: 4, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Touchscreen interface of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
+      // },
+      // { 
+      //   id: 5, 
+      //   src: '/images/products/placeholder.jpg', 
+      //   alt: 'Interior view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
+      // }
     ],
     dimensions: [
       { label: 'Width', value: '50 inches (127 cm)' },
@@ -758,17 +758,17 @@ const vendingMachineData: Record<string, MachineData> = {
         'Locations without refrigeration needs'
       ],
       relatedMachines: [
-        {
-          id: 'km-vmrt-50-b',
-          name: 'Premium Refrigerated Machine',
-          model: 'KM-VMRT-50-B',
-          image: '/images/products/placeholder.jpg'
-        },
+        // {
+        //   id: 'km-vmrt-50-b',
+        //   name: 'Premium Refrigerated Machine',
+        //   model: 'KM-VMRT-50-B',
+        //   image: '/images/products/placeholder.jpg'
+        // },
         {
           id: 'km-vmr-40-b',
           name: 'Standard Refrigerated Machine',
           model: 'KM-VMR-40-B',
-          image: '/images/products/placeholder.jpg'
+          image: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg'
         },
         {
           id: 'km-vmr-30-b',
