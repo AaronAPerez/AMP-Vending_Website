@@ -45,11 +45,11 @@ const ProcessSection = () => {
 
   return (
     // Fixed container with proper centering
-    <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full mx-auto">
       {/* Process Steps - Fixed grid with proper centering */}
-      <div className="grid grid-cols-1z sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16 mx-auto justify-center">
+      <div className="grid grid-cols-1z sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16 mx-auto justify-start">
         {processSteps.map((step, index) => (
-          <GlareCard key={step.number} className="flex flex-col items-center justify-center w-full max-w-xs mx-auto">
+          <GlareCard key={step.number} className="flex flex-col items-center justify-center w-10/12 mx-auto">
             <motion.div
               className="relative bg-[#111111] rounded-xl overflow-hidden border border-[#333333] shadow-lg w-full"
               initial={{ opacity: 0, y: 30 }}
