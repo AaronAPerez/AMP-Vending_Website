@@ -17,7 +17,7 @@ const PageLayout = ({ children, className = '' }: PageLayoutProps) => {
       {/* <ResizableNavbar /> */}
       
       {/* Main content area with responsive padding */}
-      <main className={`flex-grow pt-18 md:pt-18 ${className}`}>
+      <main className={`flex-grow mt-10 ${className}`}>
         {children}
       </main>
       

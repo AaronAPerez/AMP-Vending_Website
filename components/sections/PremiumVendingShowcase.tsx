@@ -21,7 +21,7 @@ const PremiumVendingShowcase: React.FC<PremiumVendingShowcaseProps> = ({
     // Array of available machine images
     const machineImages = [
         {
-            src: "/images/machines/premium-touchscreen-vending-machine.jpg",
+            src: "/images/vending-machines/premium-vending-machines.jpg",
             alt: "KoolMore Vending Machine Front View",
             description: "Front view of KoolMore KM-VMRT-50-BR Vending Machine"
         },

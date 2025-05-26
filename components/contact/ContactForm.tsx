@@ -2,13 +2,13 @@
 
 import { useState, FormEvent } from 'react';
 import { toast } from 'sonner';
-import Card from '../ui/cards/Card';
-import Text from '../ui/typography/Text';
-
+import Text from '../ui/layout/Text';
+import Card from '../ui/core/Card';
 
 interface ZodFieldError {
   _errors: string[];
 }
+
 interface ContactFormProps {
   className?: string;
 }
@@ -17,7 +17,7 @@ interface ContactFormProps {
  * Contact Form Component
  * 
  * A responsive, accessible form for the homepage that sends data to the server
- * and triggers an automatic email reply
+ * and triggers an automatic email reply - updated to remove cost references
  */
 const ContactForm = ({ }: ContactFormProps) => {
   // Form state
@@ -134,7 +134,7 @@ const ContactForm = ({ }: ContactFormProps) => {
         }
       } else {
         // Show success message
-        toast.success('Thank you! Your message has been sent. Check your email for confirmation.');
+        toast.success('Thank you! Your message has been sent successfully. Check your email for confirmation.');
 
         // Reset form
         setFormData({
@@ -233,7 +233,6 @@ const ContactForm = ({ }: ContactFormProps) => {
                 )}
               </div>
             </div>
-
 
             {/* Email */}
             <div>
@@ -380,13 +379,11 @@ const ContactForm = ({ }: ContactFormProps) => {
           </div>
 
           <div className="mt-10">
-            {/* Left-aligned heading */}
             <h3 className="text-xl font-bold text-white mb-4 text-left">Business Hours</h3>
             <p className="text-[#A5ACAF]">
               Monday - Friday: 8AM - 8PM<br />
               Saturday - Sunday: 8AM - 8PM
             </p>
-            {/* <p className="text-[#FD5A1E] mt-2">24/7 Customer Support Available</p> */}
           </div>
         </div>
       </div>
@@ -394,4 +391,4 @@ const ContactForm = ({ }: ContactFormProps) => {
   );
 };
 
-      export default ContactForm;
+export default ContactForm;

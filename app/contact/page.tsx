@@ -2,6 +2,7 @@ import Script from 'next/script';
 import { Metadata } from 'next';
 import ContactForm from '@/components/contact/ContactForm';
 import GoogleMapComponent from '@/components/GoogleMapComponent';
+import { ContactMetaTags } from '@/components/seo/MetaTags';
 
 
 // Dynamically import the map component to avoid SSR issues
@@ -44,9 +45,12 @@ export const metadata: Metadata = {
   },
 };
 
+ <ContactMetaTags/>
+
 export default function ContactPage() {
   return (
     <>
+   
       <Script id="contact-jsonld" type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",

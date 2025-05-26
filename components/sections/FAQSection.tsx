@@ -6,36 +6,36 @@ import { HelpCircle, Search, Zap, CreditCard } from 'lucide-react';
 /**
  * FAQSection Component
  * Displays frequently asked questions about AMP Vending services
- * Updated styling to match site-wide visual enhancements
+ * Updated to remove cost references and focus on service benefits
  */
 const FAQSection = () => {
-  // FAQ data structure with categories
+  // FAQ data structure with categories - updated content
   const faqItems = [
     {
       id: 1,
-      question: "How can you offer machines at zero cost?",
-      answer: "Our business model allows us to provide premium machines at no cost to qualified locations that meet our minimum traffic requirements.",
+      question: "What makes your vending machines different?",
+      answer: "Our machines feature 21.5\" HD touchscreen interfaces, contactless payment technology, and smart inventory monitoring. We provide comprehensive service packages including installation, maintenance, and restocking.",
       icon: <Zap size={20} />,
-      category: "business"
+      category: "technology"
     },
     {
       id: 2,
       question: "What types of products are available?",
-      answer: "We offer a wide selection of premium snacks, beverages, and healthy options. Our team customizes the selection based on your workplace preferences.",
+      answer: "We offer a wide selection of premium snacks, beverages, and healthy options. Our team customizes the product mix based on your workplace preferences and employee feedback.",
       icon: <Search size={20} />,
       category: "products"
     },
     {
       id: 3,
-      question: "How often are machines restocked?",
-      answer: "We monitor inventory levels remotely and typically restock weekly, though high-traffic locations may receive more frequent service.",
+      question: "How often are machines restocked and maintained?",
+      answer: "We monitor inventory levels remotely and typically restock weekly, though high-traffic locations may receive more frequent service. All maintenance is included in our service package.",
       icon: <HelpCircle size={20} />,
       category: "service"
     },
     {
       id: 4,
       question: "What payment methods are accepted?",
-      answer: "Our machines accept multiple payment options including credit/debit cards, mobile payments (Apple Pay, Google Pay), as well as traditional cash and coins.",
+      answer: "Our machines accept multiple payment options including credit/debit cards, mobile payments (Apple Pay, Google Pay), as well as traditional cash and coins for maximum convenience.",
       icon: <CreditCard size={20} />,
       category: "payment"
     }
@@ -59,46 +59,6 @@ const FAQSection = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Section Header */}
-      {/* <motion.div 
-        className="text-center mb-16"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <span className="inline-block px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-4">
-          Support
-        </span>
-        <h2
-          id="faq-heading"
-          className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4"
-        >
-          Frequently Asked <span className="text-[#FD5A1E]">Questions</span>
-        </h2>
-        <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
-          Find answers to common questions about our premium vending solutions.
-        </p>
-      </motion.div> */}
-      
-      {/* Search Section */}
-      {/* <motion.div 
-        className="max-w-3xl mx-auto mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        {/* <div className="relative">
-          <input
-            type="text"
-            placeholder="Search for answers..."
-            className="w-full py-4 pl-14 pr-4 rounded-full bg-[#111111] border border-[#333333] text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:border-transparent"
-          />
-          <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-[#A5ACAF]">
-            <Search size={20} />
-          </div>
-        </div> 
-      </motion.div> */}
-      
       {/* FAQ Grid */}
       <motion.div 
         className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12"
@@ -129,9 +89,6 @@ const FAQSection = () => {
                 <span className="text-xs py-1 px-3 bg-[#333333] text-[#A5ACAF] rounded-full">
                   {item.category}
                 </span>
-                {/* <button className="text-[#FD5A1E] text-sm hover:underline focus:outline-none">
-                  Read more
-                </button> */}
               </div>
             </div>
           </motion.div>
@@ -149,18 +106,10 @@ const FAQSection = () => {
           Have More Questions?
         </h3>
         <p className="text-[#A5ACAF] max-w-2xl mx-auto mb-6">
-          Our comprehensive FAQ section covers additional topics including machine maintenance, 
-          product selection, and service details. If you can&apos;t find what you&apos;re looking for, 
-          our team is always ready to help.
+          Our team is ready to answer any questions about our vending solutions, 
+          technology features, service packages, and installation process.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          {/* <Link
-            href="/faq"
-            className="inline-flex items-center px-6 py-3 bg-[#111111] text-[#F5F5F5] rounded-full border border-[#333333] hover:bg-[#222222] transition-colors"
-          >
-            <span>View all FAQs</span>
-            <ChevronRight size={16} className="ml-2" />
-          </Link> */}
           <Link
             href="/contact"
             className="inline-flex items-center px-6 py-3 bg-[#FD5A1E]/10 text-[#FD5A1E] rounded-full border border-[#FD5A1E]/30 hover:bg-[#FD5A1E]/20 transition-colors"

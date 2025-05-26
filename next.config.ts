@@ -5,42 +5,26 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   reactStrictMode: true,
   
-  // Add redirects configuration
-  async redirects() {
-    return [
-      // Redirect non-www to www (handles both http and https)
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'ampvendingmachines.com',
-          },
-        ],
-        destination: 'https://www.ampvendingmachines.com/:path*',
-        permanent: true,
-      },
-    ];
+ images: {
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 768, 1024, 1280, 1600],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  
-  // Add custom headers to ensure proper HTTPS
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          }
-        ],
-      },
-    ];
-  }
+  headers: async () => [
+    {
+      source: '/images/:path*',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable',
+        },
+      ],
+    },
+  ],
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
 };
 
 export default nextConfig;

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import ResponsiveGrid from '../ui/grids/ResponsiveGrid';
+import ResponsiveGrid from '../ui/layout/ResponsiveGrid';
 import BackgroundOverlayCard from '../ui/BackgroundOverlayCard';
 import Section from '../ui/sections/Section';
 
@@ -181,16 +181,7 @@ const ProductSection = () => {
   };
 
   return (
-    <Section
-      id="products"
-      title={
-        <>
-          Customizable <span className="text-[#FD5A1E]">Product Selection</span>
-        </>
-      }
-      subtitle="Choose from over 50 refreshment options tailored to your employee and customer preferences."
-      background="gradient"
-    >
+    <>
       {/* Product Category Filters */}
       <div className="mb-8 overflow-x-auto pb-4 -mx-4 px-4">
         <div className="flex flex-nowrap gap-2 justify-start md:justify-center md:flex-wrap">
@@ -202,8 +193,8 @@ const ProductSection = () => {
                 setIsExpanded(false);
               }}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all backdrop-blur-sm whitespace-nowrap ${activeCategory === category.id
-                  ? 'bg-[#FD5A1E] text-white shadow-lg shadow-[#FD5A1E]/25'
-                  : 'bg-[#000000]/60 text-[#F5F5F5] border border-[#a4acac] hover:border-[#FD5A1E] hover:bg-[#FD5A1E]/10'
+                ? 'bg-[#FD5A1E] text-white shadow-lg shadow-[#FD5A1E]/25'
+                : 'bg-[#000000]/60 text-[#F5F5F5] border border-[#a4acac] hover:border-[#FD5A1E] hover:bg-[#FD5A1E]/10'
                 }`}
               aria-pressed={activeCategory === category.id}
               aria-label={`Filter by ${category.label}. ${category.count} items.`}
@@ -252,7 +243,7 @@ const ProductSection = () => {
           </button>
         </div>
       )}
-    </Section>
+    </>
   );
 };
 
