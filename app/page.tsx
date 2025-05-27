@@ -1,6 +1,6 @@
 import HomePage from '@/components/landing/HomePage';
-import { HomeMetaTags } from '@/components/seo/MetaTags';
 import { PAGE_METADATA } from '@/lib/data/seoData';
+import HomeMetaTags from '@/components/seo/MetaTags';
 
 // In layout.tsx or page.tsx
 export const metadata = PAGE_METADATA.HOME;
@@ -37,7 +37,7 @@ export const metadata = PAGE_METADATA.HOME;
 //   }
 // };
 
-<HomeMetaTags/>
+<HomeMetaTags meta={PAGE_METADATA.HOME} />
 
 // Home page component that renders the HomePage component
 export default function Home() {

@@ -205,7 +205,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                  Advanced workplace vending with 21.5" touchscreen technology, contactless payments,
+                  Advanced workplace vending with 21.5&quot; touchscreen technology, contactless payments,
                   and customizable product selections. Boost employee satisfaction with the latest vending innovation.
                 </motion.p>
               </div>

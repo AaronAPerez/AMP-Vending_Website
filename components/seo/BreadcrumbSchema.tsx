@@ -84,7 +84,7 @@ export default function BreadcrumbSchema({
     const pathSegments = pathname.split('/').filter(Boolean);
     let currentPath = '';
 
-    pathSegments.forEach((segment, index) => {
+    pathSegments.forEach((segment) => {
       currentPath += `/${segment}`;
       
       // Get display name from mappings or format the segment

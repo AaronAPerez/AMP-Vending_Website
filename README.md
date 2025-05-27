@@ -1,3 +1,4 @@
+
 # AMP Vending - Advanced Workplace Vending Solutions
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
@@ -262,23 +263,7 @@ xl: 1280px   // Desktops
 2xl: 1536px  // Large screens
 ```
 
-## 🤝 Contributing
 
-We welcome contributions! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Commit your changes** (`git commit -m 'Add amazing feature'`)
-4. **Push to the branch** (`git push origin feature/amazing-feature`)
-5. **Open a Pull Request**
-
-### Development Guidelines
-- Follow TypeScript best practices
-- Use meaningful component and variable names
-- Include proper accessibility attributes
-- Write clean, documented code
-- Test components thoroughly
-- Maintain responsive design principles
 
 ## 📝 License
 

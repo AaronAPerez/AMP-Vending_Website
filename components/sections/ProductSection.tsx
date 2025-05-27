@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import ResponsiveGrid from '../ui/layout/ResponsiveGrid';
 import BackgroundOverlayCard from '../ui/BackgroundOverlayCard';
-import Section from '../ui/sections/Section';
+
 
 
 

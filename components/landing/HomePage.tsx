@@ -7,9 +7,6 @@ import Script from 'next/script';
 import PageLayout from '../layout/PageLayout';
 import Section from '../ui/layout/Section';
 
-// Hero section
-import HeroSection from '../sections/HeroSection';
-
 // Homepage sections
 import WorkplaceTransformSection from '../sections/WorkplaceTransformSection';
 import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
@@ -21,19 +18,10 @@ import HomeContactSection from '../sections/HomeContactSection';
 import CTASection from '../sections/CTASection';
 import ResponsiveHero from '../hero/ResponsiveHero';
 
-/**
- * HomePage Component
- * 
- * Professional landing page for AMP Vending Machines website with:
- * - Focus on advanced technology and service benefits
- * - Enhanced visual hierarchy and flow
- * - Improved section transitions and animations
- * - SEO-optimized structured data
- * - Better accessibility and performance
- */
+
 const HomePage = () => {
   // State for tracking client-side rendering
-  const [isClient, setIsClient] = useState(false);
+  const [, setIsClient] = useState(false);
 
   // Effect to check if we're on client-side (for SSR compatibility)
   useEffect(() => {
@@ -144,19 +132,11 @@ const HomePage = () => {
 
         {/* Vending Machine Showcase - Clean presentation */}
         <Section
-          id="vending-machines"
-          background="dark"
-          spacing="lg"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#F5F5F5]">
-            Advanced <span className="text-[#FD5A1E]">Vending Machines</span>
-          </h2>
-
-          <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
-            State-of-the-art machines with 21.5" touchscreen interfaces and smart technology
-          </p>
-
-
+          id="workplace-transformation"
+          className='py-20 md:py-32 lg:py-40 text-c'
+          background="gradient"
+          spacing="lg">
+            
           <VendingMachineShowcase />
         </Section>
 

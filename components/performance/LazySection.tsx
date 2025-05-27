@@ -1,10 +1,17 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
-const LazyProductSection = lazy(() => import('@/components/sections/ProductSection'));
 
-export default function LazySection({ children, fallback, threshold = 0.1 }) {
-  const [ref, isIntersecting] = useIntersectionObserver({ threshold });
+import { ReactNode } from 'react';
+
+type LazySectionProps = {
+  children: ReactNode;
+  fallback: ReactNode;
+  threshold?: number;
+};
+
+export default function LazySection({ children, fallback, threshold = 0.1 }: LazySectionProps) {
+  const { ref, isVisible: isIntersecting } = useIntersectionObserver({ threshold });
   
   return (
     <div ref={ref}>

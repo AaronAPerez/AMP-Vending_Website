@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-# Block specific folders I don't want indexed
-# Disallow: /admin/
-# Disallow: /private/
-
-Sitemap: https://ampvendingmachines.com/sitemap.xml

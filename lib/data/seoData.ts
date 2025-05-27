@@ -530,16 +530,16 @@ export type BreadcrumbItem = { name: string; url: string };
  * Default export containing all SEO constants and utilities
  * Use this for importing all SEO-related functionality
  */
-export default {
-  SEO_CONSTANTS,
-  SCHEMA_TYPES,
-  BASE_ORGANIZATION_SCHEMA,
-  PAGE_METADATA,
-  WEBSITE_SEARCH_SCHEMA,
-  SERVICE_AREA_SCHEMA,
-  OPERATING_HOURS_SCHEMA,
-  ROBOTS_CONFIG,
-  generateMachineMetadata,
-  generateMachineStructuredData,
-  generateBreadcrumbStructuredData,
-};
+// export default {
+//   SEO_CONSTANTS,
+//   SCHEMA_TYPES,
+//   BASE_ORGANIZATION_SCHEMA,
+//   PAGE_METADATA,
+//   WEBSITE_SEARCH_SCHEMA,
+//   SERVICE_AREA_SCHEMA,
+//   OPERATING_HOURS_SCHEMA,
+//   ROBOTS_CONFIG,
+//   generateMachineMetadata,
+//   generateMachineStructuredData,
+//   generateBreadcrumbStructuredData,
+// };

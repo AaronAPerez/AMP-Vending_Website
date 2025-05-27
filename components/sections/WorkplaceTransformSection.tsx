@@ -110,7 +110,7 @@ const WorkplaceTransformSection: React.FC<WorkplaceTransformSectionProps> = ({
   className = "" 
 }) => {
   // State for responsive behavior
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [, setIsMobileView] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   // Effect to handle responsive behavior
@@ -212,7 +212,7 @@ const WorkplaceTransformSection: React.FC<WorkplaceTransformSectionProps> = ({
                   {/* 21.5" Touchscreen Badge */}
                   <div className="absolute top-4 left-4 bg-[#FD5A1E] text-[#000000] px-3 py-2 rounded-lg font-bold text-sm flex items-center">
                     <MonitorIcon size={16} className="mr-2" />
-                    21.5" HD Touchscreen
+                    21.5&quot; HD Touchscreen
                   </div>
                   
                   {/* Payment Technology Badge */}

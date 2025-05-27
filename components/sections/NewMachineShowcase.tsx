@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Package, CheckCircle, ChevronsRight } from 'lucide-react';
+import { CheckCircle, ChevronsRight } from 'lucide-react';
 
 /**
  * NewMachineShowcase Component

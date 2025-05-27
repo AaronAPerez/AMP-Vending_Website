@@ -1,4 +1,4 @@
-import { HomeMetaTags } from '@/components/seo/MetaTags';
+import HomeMetaTags from '@/components/seo/MetaTags';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import type { Metadata } from "next";
 import "./globals.css";
@@ -95,7 +95,11 @@ export default function RootLayout({
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
       />
       <body className={`${inter.variable} 'antialiased'`}>
-        <HomeMetaTags />
+        <HomeMetaTags meta={{
+          title: "AMP Vending | Zero-Cost Premium Vending Solutions for Workplaces | Modesto, CA",
+          description: "AMP Vending provides zero-cost, maintenance-free vending machines with 21.5\" touchscreen interfaces and 50+ customizable product options for workplaces.",
+          // Add other required BaseMetaData fields here if needed
+        }} />
         <BreadcrumbSchema />
         <GlobalStyles />
         {/* Toaster component */}

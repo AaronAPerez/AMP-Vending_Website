@@ -34,8 +34,7 @@ export const FlipWords: React.FC<FlipWordsProps> = ({
   className
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
-  const [isVisible, setIsVisible] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [, setCurrentIndex] = useState(0);
 
   // Check for reduced motion preference
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);

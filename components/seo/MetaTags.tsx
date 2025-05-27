@@ -65,6 +65,15 @@ interface BusinessData {
 }
 
 /**
+ * JSON-LD structured data type
+ */
+interface JsonLdData {
+  '@context': string;
+  '@type': string;
+  [key: string]: string | number | boolean | JsonLdData | JsonLdData[] | undefined;
+}
+
+/**
  * Complete meta tags configuration
  */
 interface MetaTagsProps {
@@ -72,7 +81,7 @@ interface MetaTagsProps {
   openGraph?: OpenGraphData;
   twitter?: TwitterCardData;
   business?: BusinessData;
-  jsonLd?: Record<string, any>; // Custom JSON-LD structured data
+  jsonLd?: JsonLdData; // Replaced any with proper type
 }
 
 /**
@@ -98,7 +107,7 @@ const SEO_CONSTANTS = {
     email: 'ampdesignandconsulting@gmail.com',
     url: 'https://www.ampvendingmachines.com',
     logo: 'https://www.ampvendingmachines.com/images/logo/AMP_logo.png',
-    priceRange: 'Free installation',
+    priceRange: 'Professional vending solutions',
     areaServed: 'Central California',
   },
 } as const;
@@ -165,22 +174,22 @@ export default function MetaTags({
   ].join(', ');
 
   // Generate JSON-LD structured data
-  const generateJsonLd = () => {
-    const baseStructuredData = {
+  const generateJsonLd = (): JsonLdData => {
+    const baseStructuredData: JsonLdData = {
       '@context': 'https://schema.org',
       '@type': businessData.type || 'LocalBusiness',
-      name: businessData.name,
-      url: businessData.url,
-      logo: businessData.logo,
+      name: businessData.name || '',
+      url: businessData.url || '',
+      logo: businessData.logo || '',
       description: meta.description,
-      telephone: businessData.telephone,
-      email: businessData.email,
-      priceRange: businessData.priceRange,
-      areaServed: businessData.areaServed,
+      telephone: businessData.telephone || '',
+      email: businessData.email || '',
+      priceRange: businessData.priceRange || '',
+      areaServed: businessData.areaServed || '',
       address: {
         '@type': 'PostalAddress',
         ...businessData.address,
-      },
+      } as JsonLdData,
     };
 
     // Merge with custom JSON-LD if provided
@@ -240,110 +249,3 @@ export default function MetaTags({
     </Head>
   );
 }
-
-/**
- * Pre-configured MetaTags for common AMP Vending pages
- */
-export const VendingMachineMetaTags = ({
-  machineName,
-  machineModel,
-  description,
-  image,
-  machineId,
-}: {
-  machineName: string;
-  machineModel: string;
-  description: string;
-  image?: string;
-  machineId: string;
-}) => {
-  return (
-    <MetaTags
-      meta={{
-        title: `${machineName} | Zero-Cost Installation | AMP Vending`,
-        description: `${description} Features 21.5" touchscreen, tap-to-pay technology, and maintenance-free operation.`,
-        keywords: `vending machine, ${machineModel}, zero cost, touchscreen, workplace vending, ${machineName}`,
-        canonical: `/vending-machines/${machineId}`,
-      }}
-      openGraph={{
-        type: 'product',
-        title: `${machineName} - Premium Vending Solution`,
-        description: `Zero-cost ${machineName} with advanced technology. ${description}`,
-        image: image || SEO_CONSTANTS.DEFAULT_IMAGE,
-        imageAlt: `${machineName} ${machineModel} vending machine`,
-      }}
-      jsonLd={{
-        '@type': 'Product',
-        name: `${machineName} Vending Machine`,
-        model: machineModel,
-        description: description,
-        brand: {
-          '@type': 'Brand',
-          name: 'AMP Vending',
-        },
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD',
-          availability: 'https://schema.org/InStock',
-          description: 'Zero-cost installation and maintenance-free operation',
-        },
-        manufacturer: {
-          '@type': 'Organization',
-          name: 'AMP Vending',
-        },
-      }}
-    />
-  );
-};
-
-/**
- * Contact Page MetaTags
- */
-export const ContactMetaTags = () => (
-  <MetaTags
-    meta={{
-      title: 'Contact AMP Vending | Zero-Cost Vending Machine Installation',
-      description: 'Contact AMP Vending for free consultation on premium vending machines. Zero-cost installation, maintenance-free operation, and 24/7 support.',
-      keywords: 'contact vending machine company, free consultation, zero cost installation, Modesto vending',
-      canonical: '/contact',
-    }}
-    openGraph={{
-      title: 'Contact AMP Vending - Free Consultation',
-      description: 'Get in touch for zero-cost vending machine installation. Premium solutions with maintenance-free operation.',
-    }}
-    jsonLd={{
-      '@type': 'ContactPage',
-      name: 'AMP Vending Contact Page',
-      description: 'Contact AMP Vending for premium vending machine solutions',
-    }}
-  />
-);
-
-/**
- * Home Page MetaTags
- */
-export const HomeMetaTags = () => (
-  <MetaTags
-    meta={{
-      title: 'AMP Vending | Zero-Cost Premium Vending Solutions for Workplaces | Modesto, CA',
-      description: 'AMP Vending provides zero-cost, maintenance-free vending machines with 21.5" touchscreen interfaces and 50+ customizable product options for workplaces.',
-      keywords: 'vending machines, zero-cost vending, workplace vending, touchscreen vending, Modesto vending, employee satisfaction',
-    }}
-    openGraph={{
-      title: 'Premium Vending Solutions at Zero Cost | AMP Vending',
-      description: 'Enhance your workplace with advanced vending technology featuring touchscreen interfaces and 50+ customizable options.',
-    }}
-    jsonLd={{
-      '@type': 'WebSite',
-      name: 'AMP Vending',
-      description: 'Premium vending machine solutions with zero-cost installation',
-      url: SEO_CONSTANTS.BASE_URL,
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: `${SEO_CONSTANTS.BASE_URL}/search?q={search_term_string}`,
-        'query-input': 'required name=search_term_string',
-      },
-    }}
-  />
-);
