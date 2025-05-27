@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getVendingMachineById, MachineData } from '@/lib/data/vendingMachineData';
 import { useParams } from 'next/navigation';
+import { getVendingMachineById, MachineData } from '@/lib/data/vendingMachineData';
 import { Loading } from '@/components/ui/Loading';
 import Link from 'next/link';
-import VendingMachineDetailPage from '@/components/vending-machines/VendingMachineDetailPage';
-import Script from 'next/script';
+import VendingMachineDetailPage from '@/components/machines/VendingMachineDetailPage';
 
 /**
  * Dynamic Vending Machine Detail Page Component
@@ -18,38 +17,11 @@ const DynamicMachineDetailPage = () => {
   // Get the machine ID from the URL parameters
   const params = useParams();
   const machineId = params?.id as string;
-
+  
   // State for the machine data
   const [machineData, setMachineData] = useState<MachineData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // vending machine pages
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "[Machine Name] Vending Machine",
-        "image": "https://www.ampvendingmachines.com/images/machines/[Machine-Image]",
-        "description": "[Machine description]",
-        "brand": {
-          "@type": "Brand",
-          "name": "AMP Vending"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "description": "Zero-cost installation and maintenance-free operation"
-        },
-        "features": ["21.5\" touchscreen interface", "Advanced payment systems", "50+ product options", "Maintenance-free operation"]
-      })
-    }
-  }
-  />
 
   // Fetch the machine data when the component mounts
   useEffect(() => {
@@ -62,7 +34,7 @@ const DynamicMachineDetailPage = () => {
     try {
       // Get the machine data from the data file
       const machine = getVendingMachineById(machineId);
-
+      
       if (!machine) {
         setError(`Machine with ID ${machineId} not found`);
       } else {
@@ -103,72 +75,8 @@ const DynamicMachineDetailPage = () => {
     );
   }
 
-  return (
-    <>
-      {/* Add structured data */}
-      <Script
-        id="product-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            "name": `${machineData.name} Vending Machine`,
-            "image": `https://www.ampvendingmachines.com${machineData.images[0].src}`,
-            "description": machineData.description,
-            "brand": {
-              "@type": "Brand",
-              "name": "AMP Vending"
-            },
-            "model": machineData.model,
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD",
-              "availability": "https://schema.org/InStock",
-              "description": "Zero-cost installation and maintenance-free operation"
-            },
-            "features": machineData.features.map(feature => feature.title)
-          })
-        }}
-      />
-
-      {/* Add breadcrumb structured data */}
-      <Script
-        id="breadcrumb-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://www.ampvendingmachines.com/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Vending Machines",
-                "item": "https://www.ampvendingmachines.com/vending-machines"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": machineData.name,
-                "item": `https://www.ampvendingmachines.com/vending-machines/${machineData.id}`
-              }
-            ]
-          })
-        }}
-      />
-
-      {/* Render the detail page component */}
-      <VendingMachineDetailPage machine={machineData} />
-    </>
-  );
+  // Render the detail page with the machine data
+  return <VendingMachineDetailPage machine={machineData} />;
 };
 
 export default DynamicMachineDetailPage;
