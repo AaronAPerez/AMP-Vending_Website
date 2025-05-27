@@ -1,6 +1,7 @@
 'use client';
 import { createGlobalStyle } from 'styled-components';
 
+
 const NavbarStyles = createGlobalStyle`
   /* Ensure header is always on top */
   header {

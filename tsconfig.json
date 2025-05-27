@@ -5,7 +5,6 @@
       "dom",
       "dom.iterable",
       "esnext"
-
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,7 +21,9 @@
       "@/*": [
         "./*"
       ],
-      "typeRoots": [ "./types"],
+      "typeRoots": [
+        "./types"
+      ]
     },
     "plugins": [
       {
@@ -35,9 +36,9 @@
     "**/*.tsx",
     "next-env.d.ts",
     "types/**/*.d.ts",
-    ".next/types/**/*.ts"
-, ".next/types/app/page.tsx"  
-],
+    ".next/types/**/*.ts",
+    ".next/types/app/page.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]

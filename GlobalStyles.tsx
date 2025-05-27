@@ -42,6 +42,7 @@ const GlobalStyles = createGlobalStyle`
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Inter', 'Roboto', sans-serif;
   font-weight: 700;
+  color: var(--color-whitesmoke);
   letter-spacing: -0.025em;
 }
 
