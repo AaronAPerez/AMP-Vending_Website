@@ -11,7 +11,7 @@ import 'rsuite/dist/rsuite-no-reset.min.css';
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import FeedbackWidget from "@/components/FeedbackWidget";
 
-
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: "AMP Vending Machine Website",
@@ -35,7 +35,6 @@ export default function RootLayout({
         {/* Skip to main content link for accessibility */}
         <a href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-orange-600 focus:text-white"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-orange-600 focus:text-white"
         >
           Skip to main content
         </a>
@@ -51,7 +50,6 @@ export default function RootLayout({
           <Analytics />
         </main>
         <Footer />
-        <FeedbackWidget/>
         <FeedbackWidget/>
       </body>
     </html>

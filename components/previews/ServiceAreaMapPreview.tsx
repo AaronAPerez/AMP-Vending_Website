@@ -1,17 +1,6 @@
-/**
- * ServiceAreaMapPreview Component
- * 
- * Displays a preview of AMP Vending's service areas on a customized Google Map.
- * Uses hardcoded location data to ensure stability and prevent import errors.
- */
-
 'use client';
 
-<<<<<<< HEAD
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-=======
-import React, { useEffect, useRef, useState, useCallback } from 'react';
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 import Link from 'next/link';
 
 interface ServiceAreaMapPreviewProps {
@@ -19,7 +8,6 @@ interface ServiceAreaMapPreviewProps {
   className?: string;
 }
 
-<<<<<<< HEAD
 interface ServiceLocation {
   name: string;
   lat: number;
@@ -29,10 +17,7 @@ interface ServiceLocation {
 
 /**
  * A standalone map preview component that displays AMP Vending's service areas
- * without relying on external data imports that might cause issues
  */
-=======
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 export default function ServiceAreaMapPreview({
   apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   className = ''
@@ -44,13 +29,8 @@ export default function ServiceAreaMapPreview({
   const [error, setError] = useState<string | null>(null);
 
   // Hardcoded service area locations for Central California
-<<<<<<< HEAD
   // Using useMemo to maintain stable reference across renders
   const serviceLocations = useMemo<ServiceLocation[]>(() => [
-=======
-  // Using hardcoded values to avoid import issues
-  const serviceLocations = [
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
     {
       name: 'Modesto',
       lat: 37.6390972,
@@ -69,11 +49,7 @@ export default function ServiceAreaMapPreview({
       lng: -120.4829677,
       radius: 35
     }
-<<<<<<< HEAD
   ], []); // Empty dependency array since these values never change
-=======
-  ];
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
   // Initialize the map (use useCallback to make it stable)
   const initMap = useCallback(() => {
@@ -139,11 +115,7 @@ export default function ServiceAreaMapPreview({
       
       // Add circles and markers for each location
       serviceLocations.forEach((location) => {
-<<<<<<< HEAD
         // Create circle for service area (directly use without assignment)
-=======
-        // Create circle for service area (remove unused assignment)
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
         new google.maps.Circle({
           strokeColor: '#FD5A1E',
           strokeOpacity: 0.8,
@@ -208,11 +180,7 @@ export default function ServiceAreaMapPreview({
       setError('Error initializing map. Please try again later.');
       setIsLoading(false);
     }
-<<<<<<< HEAD
   }, [serviceLocations]); // Now serviceLocations is a stable reference
-=======
-  }, []); 
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
 
   // Load Google Maps API
   useEffect(() => {

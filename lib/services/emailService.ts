@@ -49,7 +49,6 @@ export class EmailService {
   
   /**
    * Send an email for contact form submissions
-<<<<<<< HEAD
    * Sends both admin notification and user confirmation
    */
   async sendContactFormEmail(data: ContactFormData): Promise<boolean> {
@@ -59,18 +58,10 @@ export class EmailService {
       
       // Format the confirmation email for user
       const userEmailContent = this.formatContactConfirmationEmail(data);
-=======
-   */
-  async sendContactFormEmail(data: ContactFormData): Promise<boolean> {
-    try {
-      // Format the email content
-      const emailContent = this.formatContactEmail(data);
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
       
       // Split multiple recipient emails if present
       const toEmails = (process.env.TO_EMAIL || 'contact@ampvendingmachines.com').split(',').map(email => email.trim());
       
-<<<<<<< HEAD
       // Send notification to admin
       const adminEmailSent = await this.sendEmail({
         to: toEmails,
@@ -89,15 +80,6 @@ export class EmailService {
       });
       
       return adminEmailSent;
-=======
-      return await this.sendEmail({
-        to: toEmails,
-        subject: `New Contact Form Submission from ${data.firstName} ${data.lastName}`,
-        html: emailContent.html,
-        text: emailContent.text,
-        replyTo: data.email
-      });
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
     } catch (error) {
       console.error('Error sending contact form email:', error);
       throw new Error('Failed to send contact form email');
@@ -142,11 +124,7 @@ export class EmailService {
   }
   
   /**
-<<<<<<< HEAD
    * Format contact form data into email content for admin notification
-=======
-   * Format contact form data into email content
->>>>>>> a228a893c55835008002ef550579f1f56bfc520c
    */
   private formatContactEmail(data: ContactFormData): { text: string; html: string } {
     // Plain text version
@@ -376,102 +354,7 @@ ampdesignandconsulting@gmail.com
     userHtml?: string;
     userText?: string;
   } {
-    // Admin plain text version
-    const adminText = `
-New Feedback Submission
 
-FEEDBACK DETAILS
---------------
-Category: ${data.category}
-From: ${data.name} (${data.email})
-${data.locationName ? `Location: ${data.locationName}` : ''}
-${data.machineId ? `Machine ID: ${data.machineId}` : ''}
-Contact Consent: ${data.contactConsent ? 'Yes' : 'No'}
-
-MESSAGE
-------
-${data.message}
-
-Submitted on ${new Date().toLocaleString()}
-    `;
-    
-    // Admin HTML version
-    const adminHtml = `
-<h2>New Feedback Submission</h2>
-<p><strong>Category:</strong> ${data.category}</p>
-<p><strong>From:</strong> ${data.name} (<a href="mailto:${data.email}">${data.email}</a>)</p>
-${data.locationName ? `<p><strong>Location:</strong> ${data.locationName}</p>` : ''}
-${data.machineId ? `<p><strong>Machine ID:</strong> ${data.machineId}</p>` : ''}
-<p><strong>Message:</strong></p>
-<p style="background-color: #f5f5f5; padding: 12px; border-radius: 4px;">${data.message.replace(/\n/g, '<br>')}</p>
-<p><strong>Contact Consent:</strong> ${data.contactConsent ? 'Yes' : 'No'}</p>
-<p><em>Submitted on ${new Date().toLocaleString()}</em></p>
-    `;
-
-    // Only create user email content if they've consented to contact
-    if (data.contactConsent) {
-      // User plain text version
-      const userText = `
-Thank you for your feedback
-
-Dear ${data.name},
-
-We've received your ${data.category.toLowerCase()} about our vending machine service. Your input is valuable to us, and we appreciate you taking the time to share your thoughts.
-
-Here's a copy of your message:
-
-${data.message}
-
-Our team will review your feedback and get back to you if necessary.
-
-Thank you for helping us improve our vending machine services!
-
-Best regards,
-AMP Vending Team
-      `;
-      
-      // User HTML version
-      const userHtml = `
-<h2>Thank you for your feedback</h2>
-<p>Dear ${data.name},</p>
-<p>We've received your ${data.category.toLowerCase()} about our vending machine service. Your input is valuable to us, and we appreciate you taking the time to share your thoughts.</p>
-<p>Here's a copy of your message:</p>
-<p style="background-color: #f5f5f5; padding: 12px; border-radius: 4px; font-style: italic;">${data.message.replace(/\n/g, '<br>')}</p>
-<p>Our team will review your feedback and get back to you if necessary.</p>
-<p>Thank you for helping us improve our vending machine services!</p>
-<p>Best regards,<br>AMP Vending Team</p>
-      `;
-      
-      return { adminHtml, adminText, userHtml, userText };
-    }
-    
-    return { adminHtml, adminText };
-  }
-
-  /**
-   * Helper function to get a user-friendly machine name from machine ID
-   */
-  private getMachineNameFromId(machineId: string): string {
-    const machineMap: Record<string, string> = {
-      'km-vmrt-50-b': 'Premium Refrigerated Machine (KM-VMRT-50-B)',
-      'km-vmr-40-b': 'Standard Refrigerated Machine (KM-VMR-40-B)',
-      'km-vmr-30-b': 'Compact Refrigerated Machine (KM-VMR-30-B)',
-      'km-vmnt-50-b': 'Non-Refrigerated Snack Machine (KM-VMNT-50-B)',
-      'unsure': 'Vending Machine Options'
-    };
-    
-    return machineMap[machineId] || 'Our Vending Machines';
-  }
-  
-  /**
-   * Format feedback form data into email content for admin and user
-   */
-  private formatFeedbackEmail(data: FeedbackFormData): { 
-    adminHtml: string; 
-    adminText: string;
-    userHtml?: string;
-    userText?: string;
-  } {
     // Admin plain text version
     const adminText = `
 New Feedback Submission
