@@ -6,7 +6,7 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 /**
  * CTASection Component
  * Call-to-Action section with premium visuals and engaging content
- * Updated styling to match site-wide visual enhancements
+ * Updated to remove cost references and focus on technology benefits
  */
 const CTASection = () => {
   return (
@@ -35,10 +35,10 @@ const CTASection = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Premium Machines, <span className="text-[#FD5A1E]">Zero Hassle</span>
+            Advanced Machines, <span className="text-[#FD5A1E]">Complete Service</span>
           </h2>
           <p className="text-xl text-white/80 max-w-3xl mx-auto mb-8">
-            Join leading workplaces enjoying state-of-the-art vending with no costs and no maintenance worries.
+            Join leading workplaces enjoying state-of-the-art vending with comprehensive maintenance and support.
           </p>
           
           {/* Key Benefits */}
@@ -50,7 +50,7 @@ const CTASection = () => {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <CheckCircle size={24} className="text-white mr-2" />
-              <span className="text-white">Zero Cost Installation</span>
+              <span className="text-white">Professional Installation</span>
             </motion.div>
             <motion.div 
               className="flex items-center"
@@ -59,7 +59,7 @@ const CTASection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <CheckCircle size={24} className="text-white mr-2" />
-              <span className="text-white">Maintenance-Free</span>
+              <span className="text-white">Full-Service Support</span>
             </motion.div>
             <motion.div 
               className="flex items-center"
@@ -68,7 +68,7 @@ const CTASection = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <CheckCircle size={24} className="text-white mr-2" />
-              <span className="text-white">Premium Products</span>
+              <span className="text-white">Latest Technology</span>
             </motion.div>
           </div>
           
@@ -95,39 +95,8 @@ const CTASection = () => {
                 </span>
               </Link>
             </motion.div>
-            
-            {/* <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <Link
-                href="/proposal"
-                className="group relative inline-flex items-center px-8 py-4 border-2 border-white text-white font-medium rounded-full transition-all duration-300 hover:bg-white/10"
-              >
-                <span className="relative flex items-center">
-                  View Proposal
-                </span>
-              </Link>
-            </motion.div> */}
           </div>
         </motion.div>
-        
-        {/* Testimonial Highlight - Optional */}
-        {/* <motion.div 
-          className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center mt-12 border border-white/20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <p className="text-white italic mb-4">
-            "The premium vending machines have been a fantastic addition to our workplace. 
-            Zero maintenance, great product selection, and our employees love the convenience."
-          </p>
-          <p className="text-white/80 font-medium">
-            — Satisfied Customer, Modesto Transit Center
-          </p>
-        </motion.div>*/}
       </div> 
     </section>
   );

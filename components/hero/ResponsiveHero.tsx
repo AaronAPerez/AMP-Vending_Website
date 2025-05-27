@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+
+interface CtaButton {
+  text: string;
+  href: string;
+}
 import Image from 'next/image';
 
 interface CtaButton {
@@ -12,7 +20,30 @@ interface ResponsiveHeroProps {
   /**
    * Hero title - can include JSX for styling parts differently
    */
+  /**
+   * Hero title - can include JSX for styling parts differently
+   */
   title: React.ReactNode;
+  
+  /**
+   * Subtitle text to display below the title
+   */
+  subtitle: string;
+  
+  /**
+   * Primary call to action button
+   */
+  primaryCta?: CtaButton;
+  
+  /**
+   * Secondary call to action button
+   */
+  secondaryCta?: CtaButton;
+  
+  /**
+   * Optional className for additional styling
+   */
+  className?: string;
   
   /**
    * Subtitle text to display below the title
@@ -38,7 +69,9 @@ interface ResponsiveHeroProps {
 /**
  * ResponsiveHero Component
  * A modern, accessible hero section with product grid background and animated content
+ * A modern, accessible hero section with product grid background and animated content
  */
+const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
 const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
   title,
   subtitle,
@@ -228,6 +261,7 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
           </div>
         </motion.div>
       </motion.div>
+    </div>
     </div>
   );
 };

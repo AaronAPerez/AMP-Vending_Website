@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { 
@@ -234,6 +235,7 @@ const WorkplaceTransformSection = ({
   return (
     <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}>
       {/* Section Header - Only rendered if renderHeading is true */}
+      {/* Section Header - Only rendered if renderHeading is true */}
       {renderHeading && (
         <motion.div 
           className="text-center mb-12 sm:mb-16 lg:mb-20"
@@ -293,6 +295,7 @@ const WorkplaceTransformSection = ({
                 </div>
               </div>
             </div>
+          </div>
           </div>
 
           {/* Enhanced Content Grid */}
@@ -385,16 +388,23 @@ const WorkplaceTransformSection = ({
               </div>
             </div>
           </div>
+          </div>
         </div>
+      </motion.div>
       </motion.div>
 
       {/* Workplace Impact Metrics */}
+      {/* Workplace Impact Metrics */}
       <motion.div
+        className="mb-16 sm:mb-20"
         className="mb-16 sm:mb-20"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
       >
+        <div className="text-center mb-10">
+          <h3 className="text-2xl sm:text-3xl font-bold text-[#F5F5F5] mb-4">
+            Measurable Workplace Improvements
         <div className="text-center mb-10">
           <h3 className="text-2xl sm:text-3xl font-bold text-[#F5F5F5] mb-4">
             Measurable Workplace Improvements
@@ -534,10 +544,14 @@ const WorkplaceTransformSection = ({
               >
                 View All Machines
                 <ArrowRightIcon size={16} className="ml-2" />
+                View All Machines
+                <ArrowRightIcon size={16} className="ml-2" />
               </Link>
+            </div>
             </div>
           </div>
         </div>
+      </motion.div>
       </motion.div>
     </div>
   );

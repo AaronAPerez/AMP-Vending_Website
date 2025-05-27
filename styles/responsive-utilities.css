@@ -100,3 +100,29 @@
 .hero-accent {
   text-shadow: 0 0 15px rgba(253, 90, 30, 0.5);
 }
+
+ /* Enhanced Hero Section */
+  .hero-accent {
+    background: linear-gradient(90deg, #FD5A1E, #ff8c5a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    position: relative;
+  }
+  
+  /* Improved animations */
+  .animate-section-transition {
+    transition: all 0.6s ease-in-out;
+  }
+  
+  /* Enhanced section backgrounds */
+  .section-pattern-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 60L60 0H30L0 30V60Z' fill='%23FD5A1E' fill-opacity='0.1'/%3E%3Cpath d='M60 60L0 0H30L60 30V60Z' fill='%23FD5A1E' fill-opacity='0.1'/%3E%3C/svg%3E");
+    background-size: 60px 60px;
+    background-position: center;
+    background-repeat: repeat;
+  }
+  
+  /* Enhanced card hover effects */
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(253, 90, 30, 0.2);
+  }
