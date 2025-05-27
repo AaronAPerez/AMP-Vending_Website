@@ -3,32 +3,24 @@
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
 
-// Responsive components
+// Layout components
 import PageLayout from '../layout/PageLayout';
-import Section from '../ui/sections/Section';
-import ResponsiveHero from '../hero/ResponsiveHero';
-import ResponsiveGrid from '../ui/grids/ResponsiveGrid';
-import Card from '../ui/cards/Card';
-import Text from '../ui/typography/Text';
+import Section from '../ui/layout/Section';
 
 // Homepage sections
+import WorkplaceTransformSection from '../sections/WorkplaceTransformSection';
+import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
+import ProductSection from '../sections/ProductSection';
 import ProcessSection from '../sections/ProcessSection';
+import ServiceAreaSection from '../sections/ServiceAreaSection';
 import FAQSection from '../sections/FAQSection';
 import HomeContactSection from '../sections/HomeContactSection';
-import ServiceAreaSection from '../sections/ServiceAreaSection';
 import CTASection from '../sections/CTASection';
-import ProductSection from '../sections/ProductSection';
-import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
-import WorkplaceTransformSection from '../sections/WorkplaceTransformSection'; 
+import ResponsiveHero from '../hero/ResponsiveHero';
 
 
-/**
- * HomePage Component
- * Main landing page for AMP Vending Machines website
- * Features visual distinction between sections with varying dark backgrounds
- */
 const HomePage = () => {
-  // State for tracking if we're on client-side for animations
+  // State for tracking client-side rendering
   const [, setIsClient] = useState(false);
 
   // Effect to check if we're on client-side (for SSR compatibility)
@@ -37,19 +29,20 @@ const HomePage = () => {
   }, []);
 
   return (
-     <PageLayout>
-      {/* Structured data scripts */}
+    <PageLayout>
+      {/* Enhanced Structured Data */}
       <Script
         id="organization-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Organization",
+            "@type": "LocalBusiness",
             "name": "AMP Vending",
             "url": "https://www.ampvendingmachines.com",
             "logo": "https://www.ampvendingmachines.com/images/logo/AMP_logo.png",
-            "description": "Premium vending machine solutions with zero-cost installation and maintenance-free operation for workplaces.",
+            "description": "Advanced vending machine solutions with 21.5-inch touchscreen technology and comprehensive service packages for workplaces in Central California.",
+            "areaServed": "Central California",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "4120 Dale Rd ste j8 1005",
@@ -62,7 +55,18 @@ const HomePage = () => {
               "@type": "ContactPoint",
               "telephone": "+12094035450",
               "contactType": "customer service",
-              "email": "ampdesignandconsulting@gmail.com"
+              "email": "ampdesignandconsulting@gmail.com",
+              "areaServed": "US-CA",
+              "availableLanguage": "English"
+            },
+            "openingHours": [
+              "Mo-Fr 08:00-20:00",
+              "Sa-Su 08:00-20:00"
+            ],
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 37.6390972,
+              "longitude": -120.9968782
             }
           })
         }}
@@ -75,599 +79,240 @@ const HomePage = () => {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Premium Vending Solutions at Zero Cost",
-            "description": "AMP Vending provides zero-cost, maintenance-free vending machines with 21.5\" touchscreen interfaces and 50+ customizable product options.",
+            "name": "Advanced Vending Solutions | AMP Vending",
+            "description": "Transform your workplace with advanced vending machines featuring 21.5\" touchscreen interfaces, contactless payments, and 50+ customizable product options.",
             "url": "https://www.ampvendingmachines.com/",
             "mainEntityOfPage": {
               "@type": "WebPage",
               "@id": "https://www.ampvendingmachines.com/"
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.ampvendingmachines.com/"
+              }]
             }
           })
         }}
       />
 
+      {/* Main Content Flow */}
+      <main className="flex flex-col min-h-screen overflow-hidden">
 
-
-       <div className="flex flex-col min-h-screen overflow-hidden">
-         {/* Hero Section - Premium Workplace Vending at Zero Cost */}
-         <section
+        {/* Hero Section - Advanced Workplace Vending Solutions */}
+        <section
           id="hero"
           className="relative min-h-screen"
           aria-labelledby="hero-heading"
         >
-      
-    
-<ResponsiveHero 
-  title={
-    <>
-      Premium Vending Solutions at{' '}
-      <span className="text-[#FD5A1E] hero-accent">Zero Cost</span>
-    </>
-  }
-  subtitle="Enhance your workplace with state-of-the-art vending machines offering 50+ snack options and 20+ beverage options."
-  primaryCta={{ text: "View Machines", href: "/vending-machines" }}
-  secondaryCta={{ text: "Contact Us", href: "/contact" }}
-/>
-</section>
-      
-      {/* Smooth transition gradient */}
-      <div 
-        className="h-32 bg-gradient-to-b from-transparent to-[#000000] -mt-32 relative z-20"
-        aria-hidden="true"
-      />
+          <ResponsiveHero
+            title={
+              <>
+                Advanced Vending Solutions
+                <br />for <span className="text-[#FD5A1E] hero-accent">Modern Workplaces</span>
+              </>
+            }
+            subtitle="Enhance your workplace with state-of-the-art vending machines featuring 21.5&quot; touchscreen technology, contactless payments, and 50+ customizable options."
+            primaryCta={{ text: "View Machines", href: "/vending-machines" }}
+            secondaryCta={{ text: "Contact Us", href: "/contact" }}
+          />
+        </section>
 
-      
-      {/* Workplace Transformation Section */}
-      <Section
-        id="workplace-transform"
-        title={
-          <>
-            Transform Your <span className="text-[#FD5A1E]">Workplace Experience</span>
-          </>
-        }
-        subtitle="See how premium vending machines transform ordinary workplaces into modern, employee-focused environments."
-        background="gradient"
-      >
-        <WorkplaceTransformSection renderHeading={false} />
-      </Section>
+        {/* Workplace Transformation - Technology Focus */}
+        <Section
+          id="workplace-transformation"
+          className='py-20 md:py-32 lg:py-40'
+          background="gradient"
+          spacing="lg">
+          <WorkplaceTransformSection />
+        </Section>
 
-      
-      {/* Vending Machine Showcase */}
-      <Section
-        id="vending-machine-showcase"
-        title={
-          <>
-            Our Premium <span className="text-[#FD5A1E]">Vending Machines</span>
-          </>
-        }
-        subtitle="Discover our state-of-the-art vending machines with advanced features designed for modern workplaces."
-        background="dark"
-      >
-        <VendingMachineShowcase />
-      </Section>
-      
-      {/* Products Showcase */}
-      <Section
-        id="products-showcase" 
-        background="gradient"
-      >
-        <ProductSection />
-      </Section>
-      
-      {/* Process Section */}
-      <Section
-        id="process-section"
-        title={
-          <>
-            Getting Started <span className="text-[#FD5A1E]">Is Simple</span>
-          </>
-        }
-        subtitle="Our streamlined process makes it easy to upgrade your workplace with premium vending solutions."
-        background="dark"
-      >
-        <ProcessSection />
-      </Section>
-      
-      {/* Benefits Section */}
-      <Section
-        id="benefits-section"
-        title={
-          <>
-            Benefits for <span className="text-[#FD5A1E]">Your Workplace</span>
-          </>
-        }
-        subtitle="Discover how our zero-cost vending solutions enhance employee satisfaction and workplace productivity."
-        background="gradient"
-      >
-        <ResponsiveGrid
-          cols={{ xs: 1, sm: 1, md: 2, lg: 2 }}
-          gap="gap-8"
+        {/* Vending Machine Showcase - Clean presentation */}
+        <Section
+          id="workplace-transformation"
+          className='py-20 md:py-32 lg:py-40 text-c'
+          background="gradient"
+          spacing="lg">
+            
+          <VendingMachineShowcase />
+        </Section>
+
+        {/* Product Selection - Simplified */}
+        <Section
+          id="products"
+          background="gradient"
+          spacing="lg"
         >
-          <Card variant="default" padding="md">
-            <Text variant="h4" color="accent" className="mb-3">Zero-Cost Installation</Text>
-            <Text variant="body" color="muted">
-              Premium vending machines installed at absolutely no cost to your business, with all maintenance handled by our team.
-            </Text>
-          </Card>
-          
-          <Card variant="default" padding="md">
-            <Text variant="h4" color="accent" className="mb-3">21.5&quot; Touchscreen Interface</Text>
-            <Text variant="body" color="muted">
-              State-of-the-art interactive display with intuitive navigation for a premium user experience.
-            </Text>
-          </Card>
-          
-          <Card variant="default" padding="md">
-            <Text variant="h4" color="accent" className="mb-3">Maintenance-Free Operation</Text>
-            <Text variant="body" color="muted">
-              We handle all servicing, repairs, and restocking, ensuring your machines are always operational and well-stocked.
-            </Text>
-          </Card>
-          
-          <Card variant="default" padding="md">
-            <Text variant="h4" color="accent" className="mb-3">Customizable Product Options</Text>
-            <Text variant="body" color="muted">
-              Choose from 50+ refreshment options tailored to your employee and customer preferences.
-            </Text>
-          </Card>
-        </ResponsiveGrid>
-      </Section>
-      
-      {/* Service Area Section */}
-      <Section
-        id="service-area"
-        title={
-          <>
-            Our <span className="text-[#FD5A1E]">Service Area</span>
-          </>
-        }
-        subtitle="We provide vending solutions throughout Central California, with a focus on Modesto and surrounding areas."
-        background="dark"
-      >
-        <ServiceAreaSection />
-      </Section>
-      
-      {/* FAQ Section */}
-      <Section
-        id="faq-section"
-        title={
-          <>
-            Frequently <span className="text-[#FD5A1E]">Asked Questions</span>
-          </>
-        }
-        subtitle="Find answers to common questions about our zero-cost vending solutions."
-        background="gradient"
-      >
-        <FAQSection />
-      </Section>
-      
-      {/* Contact Section */}
-      <Section
-        id="contact-section"
-        title={
-          <>
-            Get <span className="text-[#FD5A1E]">In Touch</span>
-          </>
-        }
-        subtitle="Have questions about our vending solutions? We're here to help."
-        background="dark"
-      >
-        <HomeContactSection />
-      </Section>
-      
-      {/* CTA Section */}
-      <CTASection />
-    </div>
-    </PageLayout>
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
+              <svg
+                className="w-5 h-5 text-[#FD5A1E] mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span className="text-[#FD5A1E] font-medium text-sm">50+ Options</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#F5F5F5]">
+              Customizable <span className="text-[#FD5A1E]">Product Selection</span>
+            </h2>
+
+            <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+              Tailored refreshment options to match your workplace preferences
+            </p>
+          </div>
+
+          <ProductSection />
+        </Section>
+
+        {/* Implementation Process - Streamlined */}
+        <Section
+          id="process"
+          background="dark"
+          spacing="lg"
+        >
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
+              <svg
+                className="w-5 h-5 text-[#FD5A1E] mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span className="text-[#FD5A1E] font-medium text-sm">Simple Process</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#F5F5F5]">
+              Getting Started <span className="text-[#FD5A1E]">Is Simple</span>
+            </h2>
+
+            <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+              Four easy steps to transform your workplace
+            </p>
+          </div>
+
+          <ProcessSection />
+        </Section>
+
+        {/* Service Area - Concise */}
+        <Section
+          id="service-area"
+          background="gradient"
+          spacing="lg"
+        >
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
+              <svg
+                className="w-5 h-5 text-[#FD5A1E] mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="text-[#FD5A1E] font-medium text-sm">Central California</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#F5F5F5]">
+              Our <span className="text-[#FD5A1E]">Service Area</span>
+            </h2>
+
+            <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+              Professional installation and support throughout the Central Valley
+            </p>
+          </div>
+
+          <ServiceAreaSection />
+        </Section>
+
+        {/* FAQ Section - Essential questions only */}
+        <Section
+          id="faq"
+          background="dark"
+          spacing="lg"
+        >
+
+
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
+              <svg
+                className="w-5 h-5 text-[#FD5A1E] mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-[#FD5A1E] font-medium text-sm">Quick Answers</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#F5F5F5]">
+              Frequently <span className="text-[#FD5A1E]">Asked Questions</span>
+            </h2>
+
+            <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+              Everything you need to know about our advanced vending solutions
+            </p>
+          </div>
+
+          <FAQSection />
+        </Section>
+
+        {/* Contact Section - Direct and clear */}
+        <Section
+          id="contact"
+          background="gradient"
+          spacing="lg"
+        >
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
+              <svg
+                className="w-5 h-5 text-[#FD5A1E] mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span className="text-[#FD5A1E] font-medium text-sm">Get Started</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#F5F5F5]">
+              Ready to <span className="text-[#FD5A1E]">Upgrade</span> Your Workplace?
+            </h2>
+
+            <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+              Contact us today for your consultation
+            </p>
+          </div>
+
+          <HomeContactSection />
+        </Section>
+
+        {/* Final CTA - Strong close */}
+        <CTASection />
+      </main>
+    </PageLayout >
   );
 };
 
 export default HomePage;
-// 'use client';
-
-// import React, { useState, useEffect } from 'react';
-// import ProcessSection from '../sections/ProcessSection';
-// import FAQSection from '../sections/FAQSection';
-// import HomeContactSection from '../sections/HomeContactSection';
-// import ServiceAreaSection from '../sections/ServiceAreaSection';
-// import CTASection from '../sections/CTASection';
-// import HeroParallax from '../hero/HeroParallax';
-// import ProductSection from '../sections/ProductSection';
-// import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
-// import Script from 'next/script';
-// import Link from 'next/link';
-// import WorkplaceTransformSection from '../sections/WorkplaceTransformSection';
-
-
-// /**
-//  * HomePage Component
-//  * Main landing page for AMP Vending Machines website
-//  * Features visual distinction between sections with varying dark backgrounds
-//  */
-// const HomePage = () => {
-//   // State for tracking if we're on client-side for animations
-//   const [isClient, setIsClient] = useState(false);
-
-//   // Effect to check if we're on client-side (for SSR compatibility)
-//   useEffect(() => {
-//     setIsClient(true);
-//   }, []);
-
-//   return (
-//     <>
-//       {/* Structured data scripts */}
-//       <Script
-//         id="organization-schema"
-//         type="application/ld+json"
-//         dangerouslySetInnerHTML={{
-//           __html: JSON.stringify({
-//             "@context": "https://schema.org",
-//             "@type": "Organization",
-//             "name": "AMP Vending",
-//             "url": "https://www.ampvendingmachines.com",
-//             "logo": "https://www.ampvendingmachines.com/images/logo/AMP_logo.png",
-//             "description": "Premium vending machine solutions with zero-cost installation and maintenance-free operation for workplaces.",
-//             "address": {
-//               "@type": "PostalAddress",
-//               "streetAddress": "4120 Dale Rd ste j8 1005",
-//               "addressLocality": "Modesto",
-//               "addressRegion": "CA",
-//               "postalCode": "95354",
-//               "addressCountry": "US"
-//             },
-//             "contactPoint": {
-//               "@type": "ContactPoint",
-//               "telephone": "+12094035450",
-//               "contactType": "customer service",
-//               "email": "ampdesignandconsulting@gmail.com"
-//             }
-//           })
-//         }}
-//       />
-
-//       <Script
-//         id="webpage-schema"
-//         type="application/ld+json"
-//         dangerouslySetInnerHTML={{
-//           __html: JSON.stringify({
-//             "@context": "https://schema.org",
-//             "@type": "WebPage",
-//             "name": "Premium Vending Solutions at Zero Cost",
-//             "description": "AMP Vending provides zero-cost, maintenance-free vending machines with 21.5\" touchscreen interfaces and 50+ customizable product options.",
-//             "url": "https://www.ampvendingmachines.com/",
-//             "mainEntityOfPage": {
-//               "@type": "WebPage",
-//               "@id": "https://www.ampvendingmachines.com/"
-//             }
-//           })
-//         }}
-//       />
-
-//       <div className="flex flex-col min-h-screen overflow-hidden">
-//         {/* Hero Section - Premium Workplace Vending at Zero Cost */}
-//         <section
-//           id="hero"
-//           className="relative min-h-screen"
-//           aria-labelledby="hero-heading"
-//         >
-//           {/* Use HeroParallax as the background but disable its content rendering */}
-//           <HeroParallax renderHeading={false} renderContent={false} />
-
-//           {/* Custom hero content with single H1 heading */}
-//           <div className="absolute inset-0 z-30 flex items-center justify-center">
-//             <div className="text-center px-4 max-w-5xl">
-//               <h1
-//                 id="hero-heading"
-//                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-lg"
-//               >
-//                 Premium Vending Solutions<br></br>
-//                 <span className="text-[#FD5A1E]">at Zero Cost</span>
-//               </h1>
-//               <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-lg max-w-3xl mx-auto">
-//                 Enhance your workplace with state-of-the-art vending machines offering
-//                 50+ snack options and 20+ beverage options.
-//               </p>
-//               <div className="flex flex-wrap justify-center gap-4">
-//                 <Link
-//                   href="/vending-machines"
-//                   className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
-//                   aria-label="View our vending machines"
-//                 >
-//                   View Machines
-//                 </Link>
-//                 <Link
-//                   href="/contact"
-//                   className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
-//                   aria-label="Contact us about vending machines"
-//                 >
-//                   Contact Us
-//                 </Link>
-//               </div>
-
-//               {/* Scroll indicator */}
-//               <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-//                 <svg className="w-6 h-6 text-[#F5F5F5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-//                 </svg>
-//               </div>
-//             </div>
-//           </div>
-//         </section>
-
-//         {/* Smooth transition gradient */}
-//         <div className="h-32 bg-gradient-to-b from-transparent to-[#000000] -mt-32 relative z-20"
-//           aria-hidden="true"></div>
-
-//         {/* Workplace Transformation Section - Before/After Comparison */}
-//         <section
-//           id="workplace-transform"
-//           className="relative py-16 bg-gradient-to-b from-[#000000] to-[#111111] overflow-hidden"
-//           aria-labelledby="transform-heading"
-//         >
-//           {/* Background styling */}
-//           <div className="absolute inset-0 opacity-5" aria-hidden="true">
-//             <div
-//               className="absolute inset-0"
-//               style={{
-//                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H20V20H0V0Z' fill='none' stroke='%23A5ACAF' stroke-width='0.2'/%3E%3C/svg%3E")`,
-//                 backgroundSize: '20px 20px'
-//               }}
-//             ></div>
-//           </div>
-//           <div className="absolute inset-0 bg-radial-gradient-dark opacity-30" aria-hidden="true"></div>
-
-//           <div className="relative text-center z-10">
-//             <h2
-//               id="transform-heading"
-//               className="text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-6"
-//             >
-//               Transform Your <span className="text-[#FD5A1E]">Workplace Experience</span>
-//             </h2>
-//             <p className="text-lg md:text-1xl text-[#F5F5F5] drop-shadow-lg max-w-3xl mx-auto">
-//               See how our premium vending solutions transform ordinary workplaces into modern refreshment centers that boost environment satisfaction.
-//             </p>
-//             <WorkplaceTransformSection renderHeading={false} />
-//           </div>
-//         </section>
-
-//         {/* Vending Machine Showcase - Premium Solutions */}
-//         <section
-//           id="vending-machine-showcase"
-//           className="relative py-16 bg-[#0a0a0a]"
-//           aria-labelledby="showcase-heading"
-//         >
-//           {/* Subtle diagonal pattern background */}
-//           <div className="absolute inset-0 opacity-5" aria-hidden="true">
-//             <div
-//               className="absolute inset-0"
-//               style={{
-//                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 60L60 0H30L0 30V60Z' fill='%23FD5A1E' fill-opacity='0.1'/%3E%3Cpath d='M60 60L0 0H30L60 30V60Z' fill='%23FD5A1E' fill-opacity='0.1'/%3E%3C/svg%3E")`,
-//                 backgroundSize: '60px 60px'
-//               }}
-//             ></div>
-//           </div>
-//           <div className="relative text-center z-10">
-//             {/* Section H2 Heading */}
-//             <h2
-//               id="showcase-heading"
-//               className="text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-8"
-//             >
-//               Our Premium <span className="text-[#FD5A1E]">Vending Machines</span>
-//             </h2>
-//              <p className="text-lg md:text-1xl text-[#F5F5F5] drop-shadow-lg max-w-3xl mx-auto">
-//                Explore our range of state-of-the-art vending machines featuring advanced technology and customizable options for your workplace needs.
-//             </p>
-//             <VendingMachineShowcase renderHeading={false} />
-//           </div>
-//         </section>
-
-//         {/* Products Showcase - 50+ Premium Products */}
-//         <section
-//           id="products-showcase"
-//           className="relative py-16 bg-gradient-to-r from-[#111111] via-black to-[#111111]"
-//           aria-labelledby="products-heading"
-//         >
-//           {/* Subtle dot pattern background */}
-//           <div className="absolute inset-0 opacity-5" aria-hidden="true">
-//             <div
-//               className="absolute inset-0"
-//               style={{
-//                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1' fill='%23FD5A1E' fill-opacity='0.4'/%3E%3C/svg%3E")`,
-//                 backgroundSize: '20px 20px'
-//               }}
-//             ></div>
-//           </div>
-
-//           <div className="relative text-center z-10">
-//             {/* Section H2 Heading */}
-//             <h2
-//               id="products-heading"
-//               className="text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-8"
-//             >
-//               Customizable <span className="text-[#FD5A1E]">Product Selection</span>
-//             </h2>
-//              <p className="text-lg md:text-1xl text-[#F5F5F5] drop-shadow-lg max-w-3xl mx-auto">
-//             Customizable selection of snacks and beverages to meet your workplace needs
-//             </p>
-//             <ProductSection />
-//           </div>
-//         </section>
-
-//         {/* Process Section - Getting Started Is Simple */}
-//         <section
-//           id="process-section"
-//           className="relative py-16 bg-[#0d0d0d]"
-//           aria-labelledby="process-heading"
-//         >
-//           {/* Subtle stepped gradient background */}
-//           <div className="absolute inset-0" aria-hidden="true">
-//             <div className="absolute inset-0 bg-gradient-to-br from-[#000000] via-[#0a0a0a] to-[#111111] opacity-60"></div>
-//           </div>
-
-//           <div className="relative text-center z-10">
-//             {/* Section H2 Heading */}
-//             <h2
-//               id="process-heading"
-//               className="text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-8"
-//             >
-//               Getting Started <span className="text-[#FD5A1E]">Is Simple</span>
-//             </h2> 
-//             <p className="text-lg md:text-1xl text-[#F5F5F5] drop-shadow-lg max-w-3xl mx-auto">
-//                 Our streamlined process gets your vending machines up and running with minimal effort.
-//             </p>
-
-//             <ProcessSection />
-//           </div>
-//         </section>
-
-//         {/* Benefits Section */}
-//         {/* <section
-//           id="benefits-section"
-//           className="relative py-16 bg-gradient-to-br from-[#121212] to-[#0a0a0a]"
-//           aria-labelledby="benefits-heading"
-//         >
-//           <div className="relative z-10">
-//             {/* Section H2 Heading 
-//             <h2
-//               id="benefits-heading"
-//               className="text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-8"
-//             >
-//               Benefits for Your Workplace
-//             </h2>
-//             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-//               <div className="max-w-4xl mx-auto">
-//                 <div className="grid md:grid-cols-2 gap-8">
-//                   {/* H3 headings for benefits 
-//                   <div className="bg-[#4d4d4d]/20 p-6 rounded-lg border border-[#a4acac]">
-//                     <h3 className="text-xl font-bold text-[#FD5A1E] mb-3">Zero-Cost Installation</h3>
-//                     <p className="text-[#A5ACAF]">Premium vending machines installed at absolutely no cost to your business, with all maintenance handled by our team.</p>
-//                   </div>
-
-//                   <div className="bg-[#4d4d4d]/20 p-6 rounded-lg border border-[#a4acac]">
-//                     <h3 className="text-xl font-bold text-[#FD5A1E] mb-3">21.5" Touchscreen Interface</h3>
-//                     <p className="text-[#A5ACAF]">State-of-the-art interactive display with intuitive navigation for a premium user experience.</p>
-//                   </div>
-
-//                   <div className="bg-[#4d4d4d]/20 p-6 rounded-lg border border-[#a4acac]">
-//                     <h3 className="text-xl font-bold text-[#FD5A1E] mb-3">Maintenance-Free Operation</h3>
-//                     <p className="text-[#A5ACAF]">We handle all servicing, repairs, and restocking, ensuring your machines are always operational and well-stocked.</p>
-//                   </div>
-
-//                   <div className="bg-[#4d4d4d]/20 p-6 rounded-lg border border-[#a4acac]">
-//                     <h3 className="text-xl font-bold text-[#FD5A1E] mb-3">Customizable Product Options</h3>
-//                     <p className="text-[#A5ACAF]">Choose from 50+ refreshment options tailored to your employee and customer preferences.</p>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </section> */}
-
-//         {/* Service Area Section */}
-//         <section
-//           id="service-area"
-//           className="relative py-16 bg-gradient-to-br from-[#121212] to-[#0a0a0a]"
-//           aria-labelledby="service-area-heading"
-//         >
-//           {/* Subtle pattern background */}
-//           <div className="absolute inset-0 opacity-5" aria-hidden="true">
-//             <div
-//               className="absolute inset-0"
-//               style={{
-//                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30m-15 0a15 15 0 1 0 30 0a15 15 0 1 0 -30 0' stroke='%23A5ACAF' stroke-opacity='0.2' stroke-width='1' fill='none'/%3E%3C/svg%3E")`,
-//                 backgroundSize: '60px 60px'
-//               }}
-//             ></div>
-//           </div>
-
-//           <div className="relative z-10 text-center">
-//             {/* Section H2 Heading */}
-//             <h2
-//               id="service-area-heading"
-//               className="text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-8"
-//             >
-//               Our <span className="text-[#FD5A1E]">Service Area</span>
-//             </h2>
-//              <p className="text-lg md:text-1xl text-[#F5F5F5] drop-shadow-lg max-w-3xl mx-auto">
-//               AMP Vending provides premium vending solutions throughout Central California. Our service area includes Modesto and surrounding communities.
-//             </p>
-//             <ServiceAreaSection />
-//           </div>
-//         </section>
-
-//         {/* FAQ Section - Frequently Asked Questions */}
-//         <section
-//           id="faq-section"
-//           className="relative py-16 bg-gradient-to-b from-[#111111] to-[#0a0a0a]"
-//           aria-labelledby="faq-heading"
-//         >
-//           {/* Subtle wave pattern background */}
-//           {/* <div className="absolute inset-0 opacity-5" aria-hidden="true">
-//             <div
-//               className="absolute inset-0"
-//               style={{
-//                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10C25 18 25 2 50 10C75 18 75 2 100 10V20H0V10Z' fill='%23A5ACAF' fill-opacity='0.1'/%3E%3C/svg%3E")`,
-//                 backgroundSize: '100px 20px'
-//               }}
-//             ></div>
-//           </div> */}
-
-//           <div className="relative text-center z-10">
-//             {/* Section H2 Heading */}
-//             <h2
-//               id="faq-heading"
-//               className="text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-8"
-//             >
-//               Frequently <span className="text-[#FD5A1E]">Asked Questions</span>
-//             </h2>
-//              <p className="text-lg md:text-1xl text-[#F5F5F5] drop-shadow-lg max-w-3xl mx-auto">
-//               Find answers to common questions about our premium vending solutions.
-//             </p>
-//             <FAQSection />
-//           </div>
-//         </section>
-
-//         {/* Contact Section - Get In Touch */}
-//         <section
-//           id="contact-section"
-//           className="relative py-16 bg-gradient-to-br from-[#000000] via-[#050505] to-[#0d0d0d]"
-//           aria-labelledby="contact-heading"
-//         >
-//           {/* Subtle grid pattern background */}
-//           <div className="absolute inset-0 opacity-10" aria-hidden="true">
-//             <div
-//               className="absolute inset-0"
-//               style={{
-//                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0L40 0L40 40L0 40L0 0Z' fill='none' stroke='%23A5ACAF' stroke-width='0.5'/%3E%3C/svg%3E")`,
-//                 backgroundSize: '40px 40px'
-//               }}
-//             >
-//             </div>
-//           </div>
-
-//           {/* Subtle radial gradient overlay for orange accent */}
-//           <div className="absolute inset-0 bg-gradient-to-b from-[#FD5A1E]/5 to-transparent opacity-30" aria-hidden="true"></div>
-          
-          
-//           {/* Section H2 Heading */}
-//           <h2
-//             id="contact-heading"
-//             className="relative z-10 text-3xl md:text-4xl font-bold text-[#F5F5F5] text-center mb-8"
-//           >
-//             Get <span className="text-[#FD5A1E]">In Touch</span>
-//           </h2>
-//                <p className="text-lg md:text-1xl text-[#F5F5F5] drop-shadow-lg max-w-3xl mx-auto text-center">
-//                 Have questions about our vending solutions? We&apos;re here to help. 
-//             Fill out the form below and our team will get back to you soon.
-//             </p>
-//           <HomeContactSection />
-//         </section>
-
-//         {/* CTA Section - Premium Refreshments, Zero Hassle */}
-//         <CTASection />
-//       </div>
-//     </>
-//   );
-// };
-
-// export default HomePage;

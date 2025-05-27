@@ -392,12 +392,12 @@ const vendingMachineData: Record<string, MachineData> = {
       'Locations with moderate foot traffic'
     ],
     relatedMachines: [
-      {
-        id: 'km-vmrt-50-b',
-        name: 'Premium Refrigerated Machine',
-        model: 'KM-VMRT-50-B',
-        image: '/images/products/placeholder.jpg'
-      },
+      // {
+      //   id: 'km-vmrt-50-b',
+      //   name: 'Premium Refrigerated Machine',
+      //   model: 'KM-VMRT-50-B',
+      //   image: '/images/products/placeholder.jpg'
+      // },
       {
         id: 'km-vmr-30-b',
         name: 'Compact Refrigerated Machine',
@@ -569,12 +569,12 @@ const vendingMachineData: Record<string, MachineData> = {
       'Locations with space constraints'
     ],
     relatedMachines: [
-      {
-        id: 'km-vmrt-50-b',
-        name: 'Premium Refrigerated Machine',
-        model: 'KM-VMRT-50-B',
-        image: '/images/products/placeholder.jpg'
-      },
+      // {
+      //   id: 'km-vmrt-50-b',
+      //   name: 'Premium Refrigerated Machine',
+      //   model: 'KM-VMRT-50-B',
+      //   image: '/images/products/placeholder.jpg'
+      // },
       {
         id: 'km-vmr-40-b',
         name: 'Standard Refrigerated Machine',
@@ -758,12 +758,12 @@ const vendingMachineData: Record<string, MachineData> = {
         'Locations without refrigeration needs'
       ],
       relatedMachines: [
-        {
-          id: 'km-vmrt-50-b',
-          name: 'Premium Refrigerated Machine',
-          model: 'KM-VMRT-50-B',
-          image: '/images/products/placeholder.jpg'
-        },
+        // {
+        //   id: 'km-vmrt-50-b',
+        //   name: 'Premium Refrigerated Machine',
+        //   model: 'KM-VMRT-50-B',
+        //   image: '/images/products/placeholder.jpg'
+        // },
         {
           id: 'km-vmr-40-b',
           name: 'Standard Refrigerated Machine',

@@ -1,151 +1,234 @@
-// src/components/hero/ResponsiveHero.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useIsMobile, useIsTablet } from '@/hooks/useMediaQuery';
-import Text from '../ui/typography/Text';
-import Container from '../ui/Container';
-import HeroParallax from './HeroParallax';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+
+interface CtaButton {
+  text: string;
+  href: string;
+}
 
 interface ResponsiveHeroProps {
+  /**
+   * Hero title - can include JSX for styling parts differently
+   */
   title: React.ReactNode;
-  subtitle?: React.ReactNode;
-  primaryCta?: {
-    text: string;
-    href: string;
-  };
-  secondaryCta?: {
-    text: string;
-    href: string;
-  };
+  
+  /**
+   * Subtitle text to display below the title
+   */
+  subtitle: string;
+  
+  /**
+   * Primary call to action button
+   */
+  primaryCta?: CtaButton;
+  
+  /**
+   * Secondary call to action button
+   */
+  secondaryCta?: CtaButton;
+  
+  /**
+   * Optional className for additional styling
+   */
+  className?: string;
 }
 
 /**
  * ResponsiveHero Component
- * 
- * A fully responsive hero section that adapts to different screen sizes
- * with consistent title positioning across all devices
+ * A modern, accessible hero section with product grid background and animated content
  */
-const ResponsiveHero = ({
+const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
   title,
-  subtitle}: ResponsiveHeroProps) => {
-  const isMobile = useIsMobile();
-  const isTablet = useIsTablet();
-
-  // Adjust content based on screen size
-  const titleSize = 'h1'; // Use h1 for all devices
-  const subtitleSize = isMobile ? 'body' : isTablet ? 'h5' : 'h4';
-
-  // For mobile reduce parallax intensity or disable
-  const parallaxProps = {
-    renderHeading: false,
-    renderContent: false,
-    intensity: isMobile ? 0.5 : 1
-  };
-
+  subtitle,
+  primaryCta,
+  secondaryCta,
+  className = ''
+}) => {
+  // Images for product grid background
+  const productImages = [
+    '/images/products/lays.jpg',
+    '/images/products/doritos.jpg',
+    '/images/products/snickers.jpg',
+    '/images/products/kitkat.jpg',
+    '/images/products/coke.jpg',
+    '/images/products/monster.jpg',
+    '/images/products/redbull.jpg',
+    '/images/products/gatorade.jpg',
+    '/images/products/starburst.jpg',
+    '/images/beverages/justwater.jpg',
+    '/images/products/cheetos.jpg',
+    '/images/products/mms.jpg',
+    '/images/products/orangecrush.jpg',
+    '/images/products/mountaindew.jpg',
+    '/images/products/threemusketeers.jpg',
+    '/images/products/fanta.jpg',
+    '/images/products/skittles.jpg',
+    '/images/beverages/drpepper.jpg',
+    '/images/products/poptarts.jpg',
+    '/images/products/layssourcream.jpg',
+  ];
+  
+  // State to manage parallax effect
+  const [scrollY, setScrollY] = useState(0);
+  
+  // Track scroll position for parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
   return (
-    <section className="relative min-h-screen">
-      {/* Background Parallax - adjust rendering based on device */}
-      <HeroParallax {...parallaxProps} />
-
-      {/* Content container with consistent vertical positioning */}
-      <div className="absolute inset-0 flex flex-col z-30">
-        {/* Top padding to place content in the visual sweet spot consistently across devices */}
-        <div className="flex-grow-0 pt-20 sm:pt-24 md:pt-32 lg:pt-36"></div>
-
-        {/* Main content area with flex-grow to push content towards the top rather than centering */}
-        <div className="flex-grow flex items-start">
-          <Container>
-            <motion.div
-              className="text-center max-w-4xl mx-auto px-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              {/* Responsive title with custom text component and consistent styling */}
-              <Text
-                variant={titleSize}
-                element="h1"
-                className="mb-6 drop-shadow-lg hero-title"
-              >
-                {title}
-              </Text>
-
-              {/* Responsive subtitle */}
-              {subtitle && (
-                <Text
-                  variant={subtitleSize}
-                  color="muted"
-                  className="mb-8 max-w-3xl mx-auto hero-subtitle"
-                >
-                  {subtitle}
-                </Text>
-              )}
-
-          
-           <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/vending-machines"
-                className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-color"
-                aria-label="View our vending machines"
-              >
-                View Machines
-              </Link>
-              <Link
-                href="/contact"
-                className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
-                aria-label="Contact us about vending machines"
-              >
-                Contact Us
-              </Link>
-            </div>
-            </motion.div>
-          </Container>
-        </div>
-
-        {/* Empty space to maintain visual balance */}
-        <div className="flex-grow-0 flex-shrink-0 h-16 sm:h-24 md:h-32 lg:h-40"></div>
-      </div>
-
-      {/* Enhanced Scroll Indicator - shown on all devices */}
-      <motion.div
-        className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20 scroll-indicator"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{
-          opacity: 1,
-          y: [0, 10, 0],
-        }}
-        transition={{
-          y: {
-            repeat: Infinity,
-            duration: 1.5,
-            ease: "easeInOut"
-          },
-          opacity: {
-            delay: 1,
-            duration: 0.8
-          }
-        }}
+    <div 
+      className={`relative mt-10 min-h-screen flex items-center justify-center overflow-hidden ${className}`}
+      aria-labelledby="hero-heading"
+    >
+      {/* Product grid background with parallax effect */}
+      <div 
+        className="absolute inset-0 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-2 p-2 z-10"
+        aria-hidden="true"
       >
-        <div
-          className="flex flex-col items-center cursor-pointer"
-          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-          aria-label="Scroll down to next section"
+        {productImages.map((src, index) => {
+          // Calculate parallax offset based on index and scroll position
+          const offset = Math.min(scrollY * 0.1 * (index % 6 + 1) * 0.2, 100);
+          const opacity = Math.max(0.3, 1 - (scrollY * 0.001));
+          
+          return (
+            <div
+              key={index}
+              className="relative rounded-lg overflow-hidden w-full h-50"
+              style={{
+                transform: `translateY(${offset}px)`,
+                transition: 'transform 0.3s ease-out',
+                opacity
+              }}
+            >
+              {/* Product background image */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 33vw, (max-width: 1200px) 25vw, 16vw"
+                  className="object-cover"
+                  priority={index < 5}
+                  onError={(e) => {
+                    // Fallback if image doesn't load
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
+              
+              {/* Subtle gradient overlay */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/50"
+              ></div>
+            </div>
+          );
+        })}
+      </div>
+      
+      {/* Dark overlay */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/70 to-black z-10" 
+        aria-hidden="true"
+      ></div>
+      
+      {/* Hero content */}
+      <motion.div
+        className="relative z-30 text-center px-4 sm:px-6 max-w-5xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h1
+          id="hero-heading"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-xl"
+        >
+          {title}
+        </h1>
+        
+        <motion.p 
+          className="text-xl md:text-2xl text-[#F5F5F5] mb-8 drop-shadow-lg max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          {subtitle}
+        </motion.p>
+        
+        {/* CTA Buttons */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          {primaryCta && (
+            <Link
+              href={primaryCta.href}
+              className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
+              aria-label={primaryCta.text}
+            >
+              {primaryCta.text}
+            </Link>
+          )}
+          
+          {secondaryCta && (
+            <Link
+              href={secondaryCta.href}
+              className="px-8 py-4 border-2 border-[#F5F5F5] text-[#F5F5F5] font-medium rounded-full hover:bg-[#FD5A1E] hover:border-[#FD5A1E] transition-colors"
+              aria-label={secondaryCta.text}
+            >
+              {secondaryCta.text}
+            </Link>
+          )}
+        </motion.div>
+      </motion.div>
+      
+       {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.5, duration: 0.6 }}
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 hidden lg:block"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="text-white/60 cursor-pointer text-center hover:text-white/80 transition-colors"
+          onClick={() => {
+            const nextSection = document.querySelector('main section:nth-child(2)');
+            nextSection?.scrollIntoView({ behavior: 'smooth' });
+          }}
           role="button"
           tabIndex={0}
+          aria-label="Scroll to explore"
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-              window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+              const nextSection = document.querySelector('main section:nth-child(2)');
+              nextSection?.scrollIntoView({ behavior: 'smooth' });
             }
           }}
         >
-          <span className="text-[#F5F5F5] text-xs uppercase tracking-widest mb-2 sm:block">Scroll Down</span>
-          <svg className="w-6 h-6 text-[#FD5A1E]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
+          <div className="flex flex-col items-center">
+            <span className="text-sm mb-3 font-medium">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
+              <motion.div
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-1 h-3 bg-white/60 rounded-full mt-2"
+              />
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
-    </section>
+    </div>
   );
 };
 

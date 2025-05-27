@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import ContactForm from '@/components/contact/ContactForm';
 import GoogleMapComponent from '@/components/GoogleMapComponent';
 
@@ -43,6 +43,13 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 
 export default function ContactPage() {
   return (

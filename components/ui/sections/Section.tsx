@@ -1,85 +1,153 @@
 import React from 'react';
-import Container from '../Container';
-import Text from '../typography/Text';
+import { motion } from 'framer-motion';
 
-export interface SectionProps {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
+interface SectionProps {
+  /**
+   * Section ID for navigation links
+   */
+  id: string;
+  
+  /**
+   * Section title (can include JSX)
+   */
   title?: React.ReactNode;
+  
+  /**
+   * Section subtitle text
+   */
   subtitle?: string;
-  titleClassName?: string;
-  subtitleClassName?: string;
-  containerSize?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  background?: 'default' | 'gradient' | 'accent' | 'dark' | 'none';
-  spacing?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  
+  /**
+   * Children to render in the section
+   */
+  children: React.ReactNode;
+  
+  /**
+   * Background style for the section
+   * - 'dark': solid dark background
+   * - 'gradient': gradient background
+   * - 'pattern': pattern background
+   */
+  background?: 'dark' | 'gradient' | 'pattern';
+  
+  /**
+   * Optional className for additional styling
+   */
+  className?: string;
 }
 
 /**
  * Section Component
- * 
- * Creates responsive page sections with consistent styling
- * and optional title/subtitle heading
+ * Provides consistent styling and animations for page sections
  */
-const Section = ({
-  children,
-  className = '',
+const Section: React.FC<SectionProps> = ({
   id,
   title,
   subtitle,
-  titleClassName = '',
-  subtitleClassName = '',
-  containerSize = 'lg',
-  background = 'default',
-  spacing = 'lg'
-}: SectionProps) => {
-  // Background classes
-  const bgClasses = {
-    default: 'bg-black',
-    gradient: 'bg-gradient-to-b from-black to-[#111111]',
-    accent: 'bg-gradient-to-br from-[#FD5A1E]/10 to-black',
-    dark: 'bg-[#0a0a0a]',
-    none: ''
+  children,
+  background = 'dark',
+  className = ''
+}) => {
+  // Background styles based on type
+  const getBgStyles = () => {
+    switch (background) {
+      case 'gradient':
+        return 'bg-gradient-to-b from-[#121212] to-[#0a0a0a]';
+      case 'pattern':
+        return 'bg-[#0a0a0a] bg-pattern';
+      default:
+        return 'bg-[#0a0a0a]';
+    }
   };
-
-  // Spacing classes
-  const spacingClasses = {
-    none: '',
-    sm: 'py-6 sm:py-8',
-    md: 'py-8 sm:py-12',
-    lg: 'py-12 sm:py-16',
-    xl: 'py-16 sm:py-24'
+  
+  // Animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
   };
-
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  };
+  
   return (
-    <section 
+    <section
       id={id}
-      className={`relative ${bgClasses[background]} ${spacingClasses[spacing]} ${className}`}
+      className={`relative py-16 overflow-hidden ${getBgStyles()} ${className}`}
+      aria-labelledby={title ? `${id}-heading` : undefined}
     >
-      <Container size={containerSize}>
+      {/* Dynamic background decorations */}
+      {background === 'gradient' && (
+        <div className="absolute inset-0 opacity-10" aria-hidden="true">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1' fill='%23FD5A1E' fill-opacity='0.4'/%3E%3C/svg%3E")`,
+              backgroundSize: '20px 20px'
+            }}
+          ></div>
+        </div>
+      )}
+      
+      {background === 'pattern' && (
+        <div className="absolute inset-0 opacity-5" aria-hidden="true">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 60L60 0H30L0 30V60Z' fill='%23FD5A1E' fill-opacity='0.1'/%3E%3Cpath d='M60 60L0 0H30L60 30V60Z' fill='%23FD5A1E' fill-opacity='0.1'/%3E%3C/svg%3E")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      )}
+      
+      <motion.div
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        {/* Section header */}
         {(title || subtitle) && (
-          <div className="text-center mb-8 sm:mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            variants={itemVariants}
+          >
             {title && (
-              <Text 
-                variant="h2" 
-                className={titleClassName}
+              <h2
+                id={`${id}-heading`}
+                className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4"
               >
                 {title}
-              </Text>
+              </h2>
             )}
+            
             {subtitle && (
-              <Text 
-                variant="body" 
-                color="muted" 
-                className={`mt-4 max-w-3xl mx-auto ${subtitleClassName}`}
-              >
+              <p className="text-lg md:text-xl text-[#A5ACAF] max-w-3xl mx-auto">
                 {subtitle}
-              </Text>
+              </p>
             )}
-          </div>
+          </motion.div>
         )}
-        {children}
-      </Container>
+        
+        {/* Section content */}
+        <motion.div variants={itemVariants}>
+          {children}
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

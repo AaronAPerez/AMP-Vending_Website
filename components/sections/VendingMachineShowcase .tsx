@@ -16,8 +16,9 @@ interface VendingMachine {
   price: string;
   description: string;
 }
+
 /**
- * Props for WorkplaceTransformSection component
+ * Props for VendingMachineShowcase component
  */
 interface VendingMachineShowcaseSectionProps {
   /**
@@ -32,18 +33,38 @@ interface VendingMachineShowcaseSectionProps {
   className?: string;
 }
 
-
 /**
  * VendingMachineShowcase Component
  * Displays premium vending machines with clean, spacious card layout
  * Based on the website screenshot with improved spacing and organization
  */
-const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
+const VendingMachineShowcase = ({ 
+  renderHeading = true, 
+  className = '' 
+}: VendingMachineShowcaseSectionProps) => {
   // State for active machine (hover effect)
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   
   // Array of available premium vending machines
   const vendingMachines: VendingMachine[] = [
+        {
+      id: 'km-vmr-40-b',
+      name: 'Standard Refrigerated Machine',
+      model: 'KM-VMR-40-B',
+      image: '/images/amp-standard-refrigerated-vending-machine-front.jpg',
+      features: [
+        'Advanced Refrigeration System',
+        'Large 60-Selection Capacity',
+        'Smart Inventory Management',
+        'Versatile Shelf Configuration',
+        'Contactless Payment Options',
+        'Energy-Efficient Operation'
+      ],
+      dimensions: '40.4"W x 31"D x 76.7"H',
+      best: 'Versatile solution for medium to high-traffic locations',
+      price: 'Zero Cost Installation',
+      description: 'Versatile refrigerated vending machine designed for reliability and performance, featuring intelligent cooling technology and ample capacity for varied product selections.'
+    },
     {
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
@@ -62,74 +83,43 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
       price: 'Zero Cost Installation',
       description: 'Advanced snack vending solution with large HD touchscreen display, featuring versatile payment options and high-capacity storage for a wide variety of non-refrigerated products.'
     },
-    // {
-    //   id: 'km-vmr-30-b',
-    //   name: 'Compact Refrigerated Machine',
-    //   model: 'KM-VMR-30-B',
-    //   image: '/images/products/placeholder.jpg',
-    //   features: [
-    //     'Space-Saving Refrigerated Design',
-    //     'Energy-Efficient Cooling System',
-    //     'Modern Touchscreen Interface',
-    //     'Multiple Payment Options',
-    //     'Remote Inventory Monitoring',
-    //     'Bright LED Interior Lighting'
-    //   ],
-    //   dimensions: '30"W x 28"D x 76.7"H',
-    //   best: 'Perfect for smaller spaces requiring refrigerated products',
-    //   price: 'Zero Cost Installation',
-    //   description: 'Compact refrigerated vending solution perfect for limited spaces, offering cold beverages and refrigerated snacks with energy-efficient cooling technology.'
-    // },
-    {
-      id: 'km-vmr-40-b',
-      name: 'Standard Refrigerated Machine',
-      model: 'KM-VMR-40-B',
-      image: '/images/amp-standard-refrigerated-vending-machine-front.jpg',
-      features: [
-        'Advanced Refrigeration System',
-        'Large 60-Selection Capacity',
-        'Smart Inventory Management',
-        'Versatile Shelf Configuration',
-        'Contactless Payment Options',
-        'Energy-Efficient Operation'
-      ],
-      dimensions: '40.4"W x 31"D x 76.7"H',
-      best: 'Versatile solution for medium to high-traffic locations',
-      price: 'Zero Cost Installation',
-      description: 'Versatile refrigerated vending machine designed for reliability and performance, featuring intelligent cooling technology and ample capacity for varied product selections.'
-    },
-    // {
-    //   id: 'km-vmrt-50-b',
-    //   name: 'Premium Refrigerated Machine',
-    //   model: 'KM-VMR-50-B',
-    //   image: '/images/products/placeholder.jpg',
-    //   features: [
-    //     '21.5" HD Interactive Display',
-    //     'Dual Temperature Zone System',
-    //     'Advanced Payment Processing',
-    //     'Remote Monitoring Technology',
-    //     'High-Capacity Product Storage',
-    //     'Premium Metal Plate Shelving'
-    //   ],
-    //   dimensions: '51"W x 34.3"D x 76.7"H',
-    //   best: 'Ultimate solution for premium locations and diverse product needs',
-    //   price: 'Zero Cost Installation',
-    //   description: 'Our flagship vending solution with state-of-the-art technology, featuring dual temperature zones for maximum product flexibility and an immersive touchscreen interface.'
-    // }
   ];
 
   return (
-    <section>
+    <section className={className} aria-labelledby="vending-machines-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header 
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
-            Premium Vending <span className="text-[#FD5A1E]">Solutions</span>
-          </h2>
-          <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
-            Explore our range of state-of-the-art vending machines featuring advanced technology and customizable options for your workplace needs.
-          </p>
-        {/* </div>  */}
+        
+        {/* Consistent Section Header - Matches other sections */}
+        {renderHeading && (
+          <div className="text-center mb-12">
+            {/* Section Badge */}
+            <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
+              <svg
+                className="w-5 h-5 text-[#FD5A1E] mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+              </svg>
+              <span className="text-[#FD5A1E] font-medium text-sm">Advanced Technology</span>
+            </div>
+
+            {/* Section Title */}
+            <h2 
+              id="vending-machines-heading"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#F5F5F5]"
+            >
+              Premium <span className="text-[#FD5A1E]">Vending Machines</span>
+            </h2>
+
+            {/* Section Description */}
+            <p className="text-lg text-[#A5ACAF] max-w-3xl mx-auto">
+              State-of-the-art machines with touchscreen interfaces and smart technology
+            </p>
+          </div>
+        )}
 
         {/* Vending Machine Cards - Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -144,10 +134,10 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
             >
               {/* Machine Image - Full width at top */}
               <div className="relative h-96 overflow-hidden">
-                {/* Zero Cost Badge */}
+                {/* Professional Installation Badge */}
                 <div className="absolute top-4 right-4 z-10">
                   <span className="bg-[#FD5A1E] text-white px-4 py-2 rounded-full font-medium">
-                    Zero Cost
+                    Professional Installation
                   </span>
                 </div>
                 
@@ -239,7 +229,7 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
                     href="/contact"
                     className="py-3 px-6 bg-transparent text-white border border-[#333333] rounded-full text-center hover:bg-[#333333] transition-colors"
                   >
-                    Request Installation
+                    Request Consultation
                   </Link>
                 </div>
               </div>
@@ -247,22 +237,22 @@ const VendingMachineShowcase = ({  }: VendingMachineShowcaseSectionProps) => {
           ))}
         </div>
         
-        {/* Banner */}
+        {/* Enhanced Banner */}
         <div className="mt-16 bg-gradient-to-r from-[#111111] to-[#000000] rounded-xl p-8 border border-[#333333]">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
-              <h3 className="text-2xl font-bold text-[#F5F5F5] mb-4">Zero Cost Vending Solutions</h3>
+              <h3 className="text-2xl font-bold text-[#F5F5F5] mb-4">Professional Vending Solutions</h3>
               <p className="text-[#A5ACAF] max-w-2xl">
-                All our premium machines are installed at absolutely no cost to qualified locations. 
-                We handle everything from maintenance to restocking, leaving you free to enjoy the benefits.
+                Our premium machines come with professional installation and complete maintenance support. 
+                We handle everything from setup to restocking, enhancing your workplace satisfaction.
               </p>
             </div>
             <Link
               href="/contact"
               className="py-3 px-6 bg-[#FD5A1E] text-white font-medium rounded-full shadow-lg 
-                        hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors whitespace-nowrap"
+                        hover:bg-[#FD5A1E]/90 transition-colors whitespace-nowrap"
             >
-              Request Your Machine
+              Get Started Today
             </Link>
           </div>
         </div>

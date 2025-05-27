@@ -8,6 +8,18 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata, Viewport } from 'next';
+
+export const metadata: Metadata = {
+  title: '404 - Page Not Found | AMP Vending',
+  description: 'The page you are looking for does not exist.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
 
 export default function NotFound() {
   return (

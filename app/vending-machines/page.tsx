@@ -186,28 +186,31 @@ const VendingMachinesPage = () => {
           <div className="flex justify-center mt-8 space-x-4">
             <button
               onClick={() => setActiveFilter('all')}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${activeFilter === 'all'
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeFilter === 'all'
                   ? 'bg-[#FD5A1E] text-[#F5F5F5]'
                   : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
-                }`}
+              }`}
             >
               All Machines
             </button>
             <button
               onClick={() => setActiveFilter('refrigerated')}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${activeFilter === 'refrigerated'
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeFilter === 'refrigerated'
                   ? 'bg-[#FD5A1E] text-[#F5F5F5]'
                   : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
-                }`}
+              }`}
             >
               Refrigerated
             </button>
             <button
               onClick={() => setActiveFilter('non-refrigerated')}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${activeFilter === 'non-refrigerated'
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeFilter === 'non-refrigerated'
                   ? 'bg-[#FD5A1E] text-[#F5F5F5]'
                   : 'bg-[#4d4d4d]/30 text-[#A5ACAF] hover:bg-[#4d4d4d]/50'
-                }`}
+              }`}
             >
               Non-Refrigerated
             </button>

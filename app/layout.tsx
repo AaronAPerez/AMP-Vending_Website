@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import '../styles/globals.css';
+import "../styles/globals.css";
 import GlobalStyles from "@/GlobalStyles";
 import StyledComponentsRegistry from '../lib/registry';
 import { Analytics } from "@vercel/analytics/react"
@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   // Homepage
   title: "AMP Vending | Zero-Cost Premium Vending Solutions for Workplaces | Modesto, CA",
   description: "AMP Vending provides zero-cost, maintenance-free vending machines with 21.5\" touchscreen interfaces and 50+ customizable product options for workplaces.",
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
     type: "website",
@@ -78,10 +77,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
-  minimumScale: 1,
-  viewportFit: 'cover',
-}
+  maximumScale: 1,
+};
 
 
 export default function RootLayout({
