@@ -3,13 +3,11 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import type { Metadata } from "next";
 import "./globals.css";
 import "../styles/globals.css";
-import GlobalStyles from "@/GlobalStyles";
 import StyledComponentsRegistry from '../lib/registry';
 import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
-import 'rsuite/dist/rsuite-no-reset.min.css';
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import FeedbackWidget from "@/components/FeedbackWidget";
 
@@ -101,7 +99,7 @@ export default function RootLayout({
           // Add other required BaseMetaData fields here if needed
         }} />
         <BreadcrumbSchema />
-        <GlobalStyles />
+   
         {/* Toaster component */}
         <Toaster
           position="top-right"
