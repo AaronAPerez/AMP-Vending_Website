@@ -1,430 +1,343 @@
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
-import { 
-  CreditCardIcon, 
-  ShoppingBagIcon, 
-  ZapIcon, 
-  MonitorIcon, 
-  WifiIcon,
-  ArrowRightIcon,
-  TrendingUpIcon,
-  UsersIcon,
-  ClockIcon,
-  StarIcon
-} from 'lucide-react';
+import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { ChevronRightIcon, ClockIcon, CreditCardIcon, HomeIcon, ListIcon, ShoppingBagIcon, ZapIcon } from 'lucide-react';
+import { CardBody, CardContainer, CardItem } from '../ui/3d-card';
 
 /**
- * Props for WorkplaceTransformSection component
+ * Feature component for comparison cards
+ * Displays a single feature with icon, title, and description
  */
-interface WorkplaceTransformSectionProps {
-  /**
-   * Whether to render the section heading inside this component
-   * @default true
-   */
-  renderHeading?: boolean;
-
-  /**
-   * Optional className for additional styling
-   */
-  className?: string;
-}
-
-/**
- * PremiumFeature Component
- * Highlights individual premium features with visual emphasis
- */
-interface PremiumFeatureProps {
+const Feature = ({
+  icon,
+  title,
+  description,
+  highlighted = false
+}: {
   icon: React.ReactNode;
   title: string;
   description: string;
-  highlight: string;
-  delay?: number;
-}
-
-const PremiumFeature: React.FC<PremiumFeatureProps> = ({ icon, title, description, highlight, delay = 0 }) => {
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true });
-
+  highlighted?: boolean;
+}) => {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: -20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-      className="flex items-start space-x-4 p-4 rounded-lg hover:bg-[#FD5A1E]/5 transition-all group"
-    >
-      <div className="flex-shrink-0 w-12 h-12 bg-[#FD5A1E]/10 rounded-full flex items-center justify-center group-hover:bg-[#FD5A1E]/20 transition-all">
-        <div className="text-[#FD5A1E] text-xl">
-          {icon}
-        </div>
-      </div>
-      <div className="flex-1">
-        <h4 className="text-[#F5F5F5] font-bold text-lg mb-1">{title}</h4>
-        <p className="text-[#A5ACAF] text-sm mb-2">{description}</p>
-        <span className="text-[#FD5A1E] text-sm font-semibold">{highlight}</span>
-      </div>
-    </motion.div>
-  );
-};
-
-/**
- * UpgradeMetric Component
- * Displays quantifiable benefits of the upgrade
- */
-interface UpgradeMetricProps {
-  metric: string;
-  label: string;
-  icon: React.ReactNode;
-  delay?: number;
-}
-
-const UpgradeMetric: React.FC<UpgradeMetricProps> = ({ metric, label, icon, delay = 0 }) => {
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-      className="text-center p-6 bg-[#111111] rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all group"
-    >
-      <div className="text-[#FD5A1E] text-3xl mb-3 flex justify-center group-hover:scale-110 transition-transform">
+    <div className={`flex gap-3 p-3 rounded-lg ${highlighted ? 'bg-[#FD5A1E]/10' : 'bg-[#333333]/20'
+      }`}>
+      <div className={`flex-shrink-0 p-2 rounded-full ${highlighted ? 'bg-[#FD5A1E]/20 text-[#FD5A1E]' : 'bg-[#444444] text-[#A5ACAF]'
+        }`}>
         {icon}
       </div>
-      <div className="text-2xl sm:text-3xl font-bold text-[#FD5A1E] mb-2">{metric}</div>
-      <div className="text-[#A5ACAF] text-sm">{label}</div>
-    </motion.div>
+      <div className="flex-1">
+        <h4 className={`font-medium mb-1 ${highlighted ? 'text-[#FD5A1E]' : 'text-[#F5F5F5]'
+          }`}>
+          {title}
+        </h4>
+        <p className="text-[#A5ACAF] text-sm">
+          {description}
+        </p>
+      </div>
+    </div>
   );
 };
 
 /**
  * WorkplaceTransformSection Component
- * Showcases the premium upgrade benefits without cost references
+ * Showcases the transformation from standard to premium vending solutions
+ * Styled to match the updated VendingMachineShowcase component
  */
-const WorkplaceTransformSection: React.FC<WorkplaceTransformSectionProps> = ({ 
-  renderHeading = true, 
-  className = "" 
-}) => {
-  // State for responsive behavior
-  const [, setIsMobileView] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+const WorkplaceTransformSection = () => {
+  // Features for standard vending machines
+  const standardFeatures = [
+    {
+      icon: <ListIcon size={20} />,
+      title: "Limited Options",
+      description: "Staff must bring food from home or leave premises to find refreshments during breaks."
+    },
+    {
+      icon: <ClockIcon size={20} />,
+      title: "Lost Break Time",
+      description: "Short break periods wasted traveling to purchase refreshments off-site."
+    },
+    {
+      icon: <CreditCardIcon size={20} />,
+      title: "Limited Payment Options",
+      description: "External vendors may have restricted payment methods or cash-only policies."
+    },
+    {
+      icon: <HomeIcon size={20} />,
+      title: "Basic Amenities",
+      description: "Outdated break room facilities lacking modern conveniences."
+    }
+  ];
 
-  // Effect to handle responsive behavior
-  useEffect(() => {
-    const checkMobileView = () => {
-      setIsMobileView(window.innerWidth < 768);
-    };
-
-    checkMobileView();
-    window.addEventListener('resize', checkMobileView);
-    return () => window.removeEventListener('resize', checkMobileView);
-  }, []);
+  // Features for premium vending machines
+  const premiumFeatures = [
+    {
+      icon: <ListIcon size={20} />,
+      title: "50+ Customizable Options",
+      description: "Wide selection of snacks and beverages tailored to staff preferences, including healthy alternatives."
+    },
+    {
+      icon: <ClockIcon size={20} />,
+      title: "Maximum Break Efficiency",
+      description: "Immediate access to refreshments on-site, allowing full use of short, unpredictable breaks."
+    },
+    {
+      icon: <CreditCardIcon size={20} />,
+      title: "Modern Payment Systems",
+      description: "21.5\" touchscreen interface with credit card, mobile pay, and cash payment options."
+    },
+    {
+      icon: <HomeIcon size={20} />,
+      title: "Enhanced Workplace",
+      description: "Zero-cost, maintenance-free premium amenities improving employee satisfaction."
+    }
+  ];
 
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}>
-      {/* Section Header - Only rendered if renderHeading is true */}
-      {renderHeading && (
-        <motion.div 
-          className="text-center mb-12 sm:mb-16 lg:mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section Header with 3D effect */}
+      <CardContainer className="px-8 py-2 pb-12">
+        <CardBody className="bg-transparent border-none relative group w-full h-auto py-8">
+          <CardItem translateZ={50} className="w-full text-center">
+            <span className="inline-block px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-4">
+              Workplace Transformation
+            </span>
+          </CardItem>
+          <CardItem translateZ={80} className="w-full text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
+              Elevate Your <span className="text-[#FD5A1E]">Work Environment</span>
+            </h2>
+          </CardItem>
+          <CardItem translateZ={60} className="w-full text-center">
+            <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
+              See how our premium vending solutions transform ordinary break rooms into
+              modern refreshment centers that boost employee satisfaction.
+            </p>
+          </CardItem>
+        </CardBody>
+      </CardContainer>
+      {/* Side-by-Side Comparison Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
+        {/* Standard Vending Card */}
+        <motion.div
+          className="rounded-xl overflow-hidden border border-[#333333] bg-[#111111]"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <span className="inline-block px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-4 sm:mb-6">
-            Advanced Workplace Solutions
-          </span>
-          <h2 
-            id="transform-heading" 
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#F5F5F5] mb-4 sm:mb-6 leading-tight"
-          >
-            Transform Your Workplace with{' '}
-            <span className="text-[#FD5A1E]">Latest Technology</span>
-          </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl text-[#A5ACAF] max-w-4xl mx-auto leading-relaxed">
-            Discover how our advanced vending solutions enhance employee satisfaction and workplace convenience.
-          </p>
+          {/* Card Header */}
+          <div className="p-6 border-b border-[#333333]">
+            <h3 className="text-2xl font-bold text-[#F5F5F5] mb-1">
+              Standard Vending Experience
+            </h3>
+            <p className="text-[#A5ACAF]">
+              Traditional setup with limited convenient options
+            </p>
+          </div>
+
+          {/* Card Image */}
+          <div className="relative h-40 sm:h-40 md:h-46 lg:h-70 overflow-hidden bg-[#333333]">
+            <Image
+              src="/images/before-after/before-vending-machine.jpg"
+              alt="Standard break room vending setup"
+              quality={100}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover rounded-xl px-6"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent opacity-50"></div>
+            <div className="absolute bottom-4 left-4 bg-[#000000]/80 px-3 py-1 rounded-full text-sm text-[#A5ACAF]">
+              Before
+            </div>
+          </div>
+
+          {/* Card Description */}
+          <div className="p-6 border-b border-[#333333]">
+            <p className="text-[#A5ACAF]">
+              Traditional break room setup lacking convenient refreshment options, requiring staff to leave premises during short breaks.
+            </p>
+          </div>
+
+          {/* Card Features */}
+          <div className="p-6">
+            <h4 className="text-[#F5F5F5] font-bold mb-4 flex items-center">
+              <span className="p-1 bg-[#333333] rounded-full mr-2">
+                <ChevronRightIcon size={16} />
+              </span>
+              Key Limitations
+            </h4>
+
+            <div className="space-y-3">
+              {standardFeatures.map((feature, index) => (
+                <Feature
+                  key={index}
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                  highlighted={false}
+                />
+              ))}
+            </div>
+          </div>
         </motion.div>
-      )}
 
-      {/* Main Premium Showcase */}
-      <motion.div
-        className="mb-16 sm:mb-20"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-      >
-        <div className="relative rounded-xl overflow-hidden border border-[#FD5A1E]/30 bg-[#111111] shadow-2xl">
-          {/* Premium Header */}
-          <div className="p-6 sm:p-8 border-b border-[#FD5A1E]/30 bg-gradient-to-r from-[#FD5A1E]/10 to-transparent">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#F5F5F5] mb-2">
-                  The AMP Technology Advantage
-                </h3>
-                <p className="text-sm sm:text-base lg:text-lg text-[#A5ACAF]">
-                  Experience the difference advanced technology makes
-                </p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="bg-[#FD5A1E] text-[#000000] px-3 py-1 rounded-full text-xs font-bold">
-                  Latest Tech
-                </div>
-                <div className="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-bold">
-                  Full Service
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
-            {/* Premium Machine Showcase - 3 columns */}
-            <div className="col-span-2 lg:col-span-3 relative">
-              {/* Main Image Gallery with Lens Effect */}
-              <div className="bg-[#4d4d4d]/20 p-6 rounded-xl border border-[#a4acac]">
-                {/* Large Main Image - Reduced size for better quality */}
-                <div className="relative aspect-[4/3] max-w-2xl mx-auto overflow-hidden rounded-lg mb-4 transition-all duration-300 hover:shadow-lg hover:shadow-[#FD5A1E]/20">
-                  <Image
-                    src="/images/machines/premium-vending-machines.jpg"
-                    alt="AMP Premium vending machines featuring 21.5-inch touchscreen technology and modern payment systems"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                    className="object-cover"
-                    priority
-                    onLoad={() => setImageLoaded(true)}
-                    quality={90}
-                  />
-                </div>
+        {/* Premium Vending Card */}
+        <CardContainer>
+          <CardBody className="p-6 border-b border-[#FD5A1E]/70 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] h-auto rounded-xl border">
+            <CardItem
+              translateZ="80"
+              className="text-2xl font-bold text-[#FD5A1E] mb-1"
+            >
+              Premium Vending Experience
+            </CardItem>
+            <CardItem
+              as="p"
+              translateZ="60"
+              className="text-[#A5ACAF] text-md max-w-sm mt-2 dark:text-neutral-300
+                pb-2"
+            >
+              State-of-the-art machines with advanced features
+            </CardItem>
+            <CardItem translateZ="100" className="w-full mt-4">
+              <Image
+                src="/images/before-after/after-vending-machine.jpg"
+                height="1000"
+                width="1000"
+                className="w-full h-full object-cover rounded-xl group-hover/card:shadow-xl"
+                alt="thumbnail"
                 
-                {/* Loading placeholder */}
-                {!imageLoaded && (
-                  <div className="absolute inset-0 bg-[#333333] animate-pulse flex items-center justify-center">
-                    <div className="text-[#A5ACAF] text-lg">Loading premium machines...</div>
-                  </div>
-                )}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent opacity-50"></div>
+              <div className="absolute bottom-4 left-4 bg-[#FD5A1E] px-3 py-1 rounded-full text-sm text-[#000000] z-20">
+                After
+              </div>
+              <div className="absolute top-4 right-4 bg-[#FD5A1E] px-3 py-1 rounded-full text-sm text-[#000000] z-20">
+                Zero Cost
+              </div>
+            </CardItem>
+            <div className="text-[#A5ACAF]">
 
-                {/* Technology Callouts Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-transparent">
-                  {/* 21.5" Touchscreen Badge */}
-                  <div className="absolute top-4 left-4 bg-[#FD5A1E] text-[#000000] px-3 py-2 rounded-lg font-bold text-sm flex items-center">
-                    <MonitorIcon size={16} className="mr-2" />
-                    21.5&quot; HD Touchscreen
-                  </div>
-                  
-                  {/* Payment Technology Badge */}
-                  <div className="absolute top-4 right-4 bg-[#000000]/80 text-[#F5F5F5] px-3 py-2 rounded-lg font-bold text-sm flex items-center backdrop-blur-sm">
-                    <CreditCardIcon size={16} className="mr-2 text-[#FD5A1E]" />
-                    Tap-to-Pay Ready
-                  </div>
 
-                  {/* Bottom Feature Highlights */}
-                  <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
-                    <span className="bg-[#FD5A1E]/20 text-[#F5F5F5] px-3 py-1 rounded-full text-xs backdrop-blur-sm border border-[#FD5A1E]/50">
-                      50+ Products
-                    </span>
-                    <span className="bg-[#FD5A1E]/20 text-[#F5F5F5] px-3 py-1 rounded-full text-xs backdrop-blur-sm border border-[#FD5A1E]/50">
-                      Smart Monitoring
-                    </span>
-                    <span className="bg-[#FD5A1E]/20 text-[#F5F5F5] px-3 py-1 rounded-full text-xs backdrop-blur-sm border border-[#FD5A1E]/50">
-                      Energy Efficient
-                    </span>
-                  </div>
+
+
+              <CardItem
+                as="p"
+                translateZ="60"
+                className="text-[#A5ACAF] pt-8"
+              >
+                Modern break room with state-of-the-art vending machines providing 50+ customizable options and convenient payment solutions.
+              </CardItem>
+              <div className="p-2 border-b border-[#FD5A1E]/20">
+
+              </div>
+
+              {/* Card Features */}
+              <div>
+                <h4 className="text-[#FD5A1E] font-bold mb-4 flex items-center">
+                  <span className="p-1 bg-[#FD5A1E]/20 rounded-full mr-2">
+                    <ChevronRightIcon size={16} className="text-[#FD5A1E]" />
+                  </span>
+                  Key Benefits
+                </h4>
+
+                <div className="space-y-3">
+                  {premiumFeatures.map((feature, index) => (
+                    <Feature
+                      key={index}
+                      icon={feature.icon}
+                      title={feature.title}
+                      description={feature.description}
+                      highlighted={true}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
+          </CardBody>
+        </CardContainer>
+      </div>
 
-            {/* Premium Features List - 2 columns */}
-            <div className="lg:col-span-2 p-4 sm:p-6 bg-[#0a0a0a]">
-              <h4 className="text-xl font-bold text-[#F5F5F5] mb-4 flex items-center">
-                <StarIcon size={20} className="text-[#FD5A1E] mr-2" />
-                Advanced Technology Benefits
-              </h4>
-
-              <div className="space-y-4">
-                <PremiumFeature
-                  icon={<MonitorIcon size={20} />}
-                  title="Interactive Touchscreen Experience"
-                  description="21.5 HD display with intuitive navigation and product information"
-                  highlight="Enhanced user engagement"
-                  delay={0.1}
-                />
-
-                <PremiumFeature
-                  icon={<CreditCardIcon size={20} />}
-                  title="Universal Payment Acceptance"
-                  description="Credit cards, mobile payments, Apple Pay, Google Pay, and cash"
-                  highlight="Maximum convenience for all users"
-                  delay={0.2}
-                />
-
-                <PremiumFeature
-                  icon={<ShoppingBagIcon size={20} />}
-                  title="Customized Product Selection"
-                  description="50+ options tailored to your workplace preferences"
-                  highlight="Personalized to your team"
-                  delay={0.3}
-                />
-
-                <PremiumFeature
-                  icon={<WifiIcon size={20} />}
-                  title="Smart Inventory Management"
-                  description="Real-time monitoring ensures products are always available"
-                  highlight="Never run out of favorites"
-                  delay={0.4}
-                />
-
-                <PremiumFeature
-                  icon={<ZapIcon size={20} />}
-                  title="Professional Implementation"
-                  description="Complete installation, setup, and ongoing maintenance service"
-                  highlight="Hassle-free operation"
-                  delay={0.5}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Workplace Impact Metrics */}
+      {/* Implementation Benefits Section */}
       <motion.div
-        className="mb-16 sm:mb-20"
+        className="bg-[#111111] rounded-xl overflow-hidden border border-[#333333] mb-16"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
       >
-        <div className="text-center mb-10">
-          <h3 className="text-2xl sm:text-3xl font-bold text-[#F5F5F5] mb-4">
-            Measurable Workplace Improvements
+        <div className="p-8 text-center">
+          <h3 className="text-2xl font-bold text-[#F5F5F5] mb-6">
+            <span className="text-[#FD5A1E]">Zero-Cost</span> Implementation Benefits
           </h3>
-          <p className="text-[#A5ACAF] max-w-2xl mx-auto">
-            See the quantifiable benefits our clients experience with advanced vending technology
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <UpgradeMetric
-            metric="95%"
-            label="Employee Satisfaction Increase"
-            icon={<UsersIcon />}
-            delay={0.1}
-          />
-          <UpgradeMetric
-            metric="60%"
-            label="Reduced Break Time Waste"
-            icon={<ClockIcon />}
-            delay={0.2}
-          />
-          <UpgradeMetric
-            metric="80%"
-            label="Preference for On-Site Options"
-            icon={<TrendingUpIcon />}
-            delay={0.3}
-          />
-          <UpgradeMetric
-            metric="24/7"
-            label="Service & Support"
-            icon={<ZapIcon />}
-            delay={0.4}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Maintenance-Free */}
+            <div className="bg-[#0a0a0a] p-6 rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all">
+              <div className="bg-[#FD5A1E]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ZapIcon size={28} className="text-[#FD5A1E]" />
+              </div>
+              <h4 className="text-[#F5F5F5] font-bold text-lg mb-2">Maintenance-Free</h4>
+              <p className="text-[#A5ACAF]">
+                All machine servicing, repairs, and maintenance fully covered and managed by AMP Vending.
+              </p>
+            </div>
+
+            {/* Advanced Technology */}
+            <div className="bg-[#0a0a0a] p-6 rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all">
+              <div className="bg-[#FD5A1E]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CreditCardIcon size={28} className="text-[#FD5A1E]" />
+              </div>
+              <h4 className="text-[#F5F5F5] font-bold text-lg mb-2">Advanced Technology</h4>
+              <p className="text-[#A5ACAF]">
+                21.5&quot; touchscreen interface with tap-to-pay functionality and multiple payment methods for modern convenience.
+              </p>
+            </div>
+
+            {/* Customer Satisfaction */}
+            <div className="bg-[#0a0a0a] p-6 rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all">
+              <div className="bg-[#FD5A1E]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingBagIcon size={28} className="text-[#FD5A1E]" />
+              </div>
+              <h4 className="text-[#F5F5F5] font-bold text-lg mb-2">Customer Satisfaction</h4>
+              <p className="text-[#A5ACAF]">
+                Improved amenities enhance both employee and visitor experience, contributing to workplace satisfaction.
+              </p>
+            </div>
+          </div>
         </div>
       </motion.div>
 
-      {/* Implementation Value Proposition */}
+      {/* Call to Action Section */}
       <motion.div
-        className="bg-gradient-to-r from-[#FD5A1E]/10 to-transparent rounded-xl p-6 sm:p-8 lg:p-10 border border-[#FD5A1E]/30 mb-16 sm:mb-20"
+        className="bg-gradient-to-r from-[#FD5A1E]/20 to-transparent rounded-xl p-8 border border-[#FD5A1E]/30 text-center"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#F5F5F5] mb-4">
-              Why Choose AMP Vending?
-            </h3>
-            <p className="text-[#A5ACAF] mb-6 leading-relaxed">
-              Unlike traditional vending solutions, AMP Vending provides cutting-edge technology 
-              with comprehensive service packages designed to enhance your workplace experience.
-            </p>
-            
-            <div className="space-y-3">
-              {[
-                "Professional installation and setup",
-                "Complete maintenance and service included",
-                "Latest payment technology and touchscreen interface",
-                "Customizable product selection for your team",
-                "24/7 monitoring and support",
-                "Immediate workplace value enhancement"
-              ].map((benefit, index) => (
-                <motion.div
-                  key={benefit}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.9 + (index * 0.1) }}
-                  className="flex items-center text-[#F5F5F5]"
-                >
-                  <div className="w-2 h-2 bg-[#FD5A1E] rounded-full mr-3 flex-shrink-0"></div>
-                  <span className="text-sm sm:text-base">{benefit}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+        <h3 className="text-2xl font-bold text-[#F5F5F5] mb-4">
+          Ready to Transform Your Workplace?
+        </h3>
+        <p className="text-[#A5ACAF] max-w-2xl mx-auto mb-8">
+          Join other organizations enhancing their work environment with zero-cost vending solutions.
+          Get started today with our hassle-free implementation process.
+        </p>
 
-          <div className="text-center lg:text-right">
-            <div className="inline-block p-8 bg-[#000000]/50 rounded-xl border border-[#FD5A1E]/20">
-              <div className="text-4xl sm:text-5xl font-bold text-[#FD5A1E] mb-2">24/7</div>
-              <div className="text-[#F5F5F5] font-semibold mb-1">Service Support</div>
-              <div className="text-[#A5ACAF] text-sm">Complete maintenance included</div>
-              
-              <div className="mt-6 pt-6 border-t border-[#FD5A1E]/20">
-                <div className="text-2xl font-bold text-[#F5F5F5] mb-1">50+</div>
-                <div className="text-[#A5ACAF] text-sm">Product options available</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Call to Action */}
-      <motion.div 
-        className="text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.0 }}
-      >
-        <div className="relative overflow-hidden rounded-xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FD5A1E]/20 to-transparent backdrop-blur-sm" />
-          <div className="relative px-4 sm:px-6 lg:px-8 py-8 sm:py-10 border border-[#FD5A1E]/30 rounded-xl bg-[#000000]/50">
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#F5F5F5] mb-4">
-              Ready to Experience Advanced Vending Technology?
-            </h3>
-            <p className="text-sm sm:text-base lg:text-lg text-[#A5ACAF] mb-8 max-w-2xl mx-auto leading-relaxed">
-              Transform your workplace today with state-of-the-art vending technology. 
-              Enhanced employee satisfaction starts with a simple consultation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md sm:max-w-none mx-auto">
-              <Link
-                href="/contact"
-                className="group px-8 py-3 bg-[#FD5A1E] text-[#000000] rounded-full font-medium shadow-lg hover:bg-[#FD5A1E]/90 transition-all flex items-center justify-center"
-                aria-label="Schedule your workplace vending consultation"
-              >
-                Start Your Upgrade Today
-                <ArrowRightIcon size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/vending-machines"
-                className="px-8 py-3 bg-transparent text-[#F5F5F5] border border-[#A5ACAF] rounded-full font-medium hover:bg-[#4d4d4d] hover:border-[#FD5A1E] transition-all flex items-center justify-center"
-                aria-label="View our complete vending machine collection"
-              >
-                View All Machines
-                <ArrowRightIcon size={16} className="ml-2" />
-              </Link>
-            </div>
-          </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link
+            href="/contact"
+            className="px-8 py-4 bg-[#FD5A1E] text-white font-medium rounded-full shadow-lg 
+                      hover:bg-[#FD5A1E]/90 transition-colors"
+          >
+            Request Installation
+          </Link>
+          <Link
+            href="/vending-machines"
+            className="px-8 py-4 border-2 border-[#A5ACAF] text-[#F5F5F5] rounded-full 
+                      font-medium hover:bg-[#333333] transition-colors"
+          >
+            Explore Our Machines
+          </Link>
         </div>
       </motion.div>
     </div>
