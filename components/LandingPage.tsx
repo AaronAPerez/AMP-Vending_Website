@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ServiceAreaMapPreview from '@/components/previews/ServiceAreaMapPreview';
 import KoolMoreVendingShowcase from '@/components/machines/KoolMoreVendingShowcase';
-import ContactFormSection from '@/components/sections/ContactForm';
+import ContactFormSection from '@/components/contact/ContactForm';
 
 // Define types for snack/beverage items
 interface ProductItem {

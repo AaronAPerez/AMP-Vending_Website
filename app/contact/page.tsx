@@ -1,6 +1,6 @@
 import Script from 'next/script';
 import { Metadata } from 'next';
-import ContactForm from '@/components/sections/ContactForm';
+import ContactForm from '@/components/contact/ContactForm';
 import GoogleMapComponent from '@/components/GoogleMapComponent';
 
 

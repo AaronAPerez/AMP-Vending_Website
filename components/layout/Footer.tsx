@@ -23,7 +23,6 @@ const Footer = () => {
       links: [
         { label: 'About Us', href: '/about' },
         { label: 'Our Clients', href: '/about#clients' },
-        { label: 'Proposal', href: '/proposal' },
         { label: 'Contact', href: '/contact' },
       ]
     },
