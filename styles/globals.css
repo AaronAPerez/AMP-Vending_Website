@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -41,12 +41,12 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
+} */
 
-body {
+/* body {
   @apply font-sans text-gray-900 antialiased;
   background-color: gray/10;
-}
+} */
 
 
 .bg-grid {

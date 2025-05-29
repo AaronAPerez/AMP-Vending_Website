@@ -2,21 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
+// import Script from 'next/script';
 
 // Layout components
-import PageLayout from '../layout/PageLayout';
-import Section from '../ui/layout/Section';
+import Section from '../ui/shared/Section';
 
 // Homepage sections
-import WorkplaceTransformSection from '../sections/WorkplaceTransformSection';
-import VendingMachineShowcase from '../sections/VendingMachineShowcase ';
-import ProductSection from '../sections/ProductSection';
-import ProcessSection from '../sections/ProcessSection';
-import ServiceAreaSection from '../sections/ServiceAreaSection';
-import FAQSection from '../sections/FAQSection';
-import HomeContactSection from '../sections/HomeContactSection';
-import CTASection from '../sections/CTASection';
+import WorkplaceTransformSection from '../landing/WorkplaceTransformSection';
+import VendingMachineShowcase from '../landing/VendingMachineShowcase ';
+import ProductSection from './ProductSection';
+import ProcessSection from '../landing/ProcessSection';
+import ServiceAreaSection from '../landing/ServiceAreaSection';
+import FAQSection from '../landing/FAQSection';
+import HomeContactSection from '../landing/HomeContactSection';
+import CTASection from '../landing/CTASection';
 import ResponsiveHero from '../hero/ResponsiveHero';
+import { ClientOnly } from '../ui/shared/ClientOnly';
+
 
 
 const HomePage = () => {
@@ -29,7 +31,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <PageLayout>
+    <>
       {/* Enhanced Structured Data */}
       <Script
         id="organization-schema"
@@ -100,31 +102,48 @@ const HomePage = () => {
       />
 
       {/* Main Content Flow */}
-      <main className="flex flex-col min-h-screen overflow-hidden">
+      <main className="flex flex-col min-h-screen overflow-hidden bg-black/90">
 
         {/* Hero Section - Advanced Workplace Vending Solutions */}
-        <section
+        <Section
           id="hero"
-          className="relative min-h-screen"
+          className="relative min-h-screen bg-black/90"
           aria-labelledby="hero-heading"
-        >
-          <ResponsiveHero
-            title={
-              <>
-                Advanced Vending Solutions
-                <br />for <span className="text-[#FD5A1E] hero-accent">Modern Workplaces</span>
-              </>
+        > 
+          {/* Wrap ResponsiveHero in ClientOnly to prevent hydration issues */}
+          <ClientOnly
+            fallback={
+              <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="text-center px-4">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6">
+                    Advanced Vending Solutions
+                    <br />for <span className="text-[#FD5A1E]">Modern Workplaces</span>
+                  </h1>
+                  <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 max-w-3xl mx-auto">
+                    Enhance your workplace with state-of-the-art vending machines featuring 21.5&quot; touchscreen technology, contactless payments, and 50+ customizable options.
+                  </p>
+                </div>
+              </div>
             }
-            subtitle="Enhance your workplace with state-of-the-art vending machines featuring 21.5\ touchscreen technology, contactless payments, and 50+ customizable options."
-            primaryCta={{ text: "View Machines", href: "/vending-machines" }}
-            secondaryCta={{ text: "Contact Us", href: "/contact" }}
-          />
-        </section>
+          >
+           <ResponsiveHero
+              title={
+                <>
+                  Premium Vending Solutions
+                  <br />for <span className="text-[#FD5A1E] hero-accent">Modern Workplaces</span>
+                </>
+              }
+              subtitle="Enhance your workplace with state-of-the-art vending machines featuring 21.5&quot; inch touchscreen technology, contactless payments, and 50+ customizable options."
+              primaryCta={{ text: "View Machines", href: "/vending-machines" }}
+              secondaryCta={{ text: "Contact Us", href: "/contact" }}
+            />
+          </ClientOnly>
+        </Section> 
 
         {/* Workplace Transformation - Technology Focus */}
         <Section
           id="workplace-transformation"
-          className='py-20 md:py-32 lg:py-40'
+          // className='py-20 md:py-32 lg:py-40'
           background="gradient"
           spacing="lg">
           <WorkplaceTransformSection />
@@ -132,11 +151,10 @@ const HomePage = () => {
 
         {/* Vending Machine Showcase - Clean presentation */}
         <Section
-          id="workplace-transformation"
-          className='py-20 md:py-32 lg:py-40 text-c'
+          id="vending-machine-showcase"
+          // className='py-20 md:py-32 lg:py-40'
           background="gradient"
           spacing="lg">
-            
           <VendingMachineShowcase />
         </Section>
 
@@ -182,15 +200,6 @@ const HomePage = () => {
           {/* Section Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
-              <svg
-                className="w-5 h-5 text-[#FD5A1E] mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
               <span className="text-[#FD5A1E] font-medium text-sm">Simple Process</span>
             </div>
 
@@ -204,7 +213,7 @@ const HomePage = () => {
           </div>
 
           <ProcessSection />
-        </Section>
+        </Section> 
 
         {/* Service Area - Concise */}
         <Section
@@ -238,28 +247,17 @@ const HomePage = () => {
           </div>
 
           <ServiceAreaSection />
-        </Section>
+        </Section> 
 
         {/* FAQ Section - Essential questions only */}
-        <Section
+       <Section
           id="faq"
           background="dark"
           spacing="lg"
         >
-
-
           {/* Section Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
-              <svg
-                className="w-5 h-5 text-[#FD5A1E] mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
               <span className="text-[#FD5A1E] font-medium text-sm">Quick Answers</span>
             </div>
 
@@ -273,7 +271,7 @@ const HomePage = () => {
           </div>
 
           <FAQSection />
-        </Section>
+        </Section> 
 
         {/* Contact Section - Direct and clear */}
         <Section
@@ -284,15 +282,6 @@ const HomePage = () => {
           {/* Section Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 rounded-full mb-6">
-              <svg
-                className="w-5 h-5 text-[#FD5A1E] mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
               <span className="text-[#FD5A1E] font-medium text-sm">Get Started</span>
             </div>
 
@@ -306,12 +295,14 @@ const HomePage = () => {
           </div>
 
           <HomeContactSection />
-        </Section>
+        </Section> 
 
         {/* Final CTA - Strong close */}
-        <CTASection />
+        <div className='bg-black/70'>
+        <CTASection /> 
+        </div>
       </main>
-    </PageLayout >
+    </ >
   );
 };
 

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Product } from "../sections/ProductSection";
+import { Product } from "../landing/ProductSection";
 
 
 

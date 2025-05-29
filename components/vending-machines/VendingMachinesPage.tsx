@@ -49,7 +49,11 @@ const VendingMachinesPage = () => {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
+<<<<<<< HEAD:components/VendingMachinesPage.tsx
+      image: '/images/machines/amp-standard-refrigerated-vending-machine.jpg',
+=======
       image: '/images/products/placeholder.jpg',
+>>>>>>> main:components/vending-machines/VendingMachinesPage.tsx
       description: 'A versatile refrigerated vending machine designed for reliability and performance in medium to high-traffic locations.',
       features: [
         '60 product slots',
@@ -85,7 +89,11 @@ const VendingMachinesPage = () => {
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
       model: 'KM-VMNT-50-B',
+<<<<<<< HEAD:components/VendingMachinesPage.tsx
+      image: '/images/machines/amp-premium-non-refrigerated-vending-machine.jpg',
+=======
       image: '/images/products/placeholder.jpg',
+>>>>>>> main:components/vending-machines/VendingMachinesPage.tsx
       description: 'Advanced snack vending machine with a large 22" touchscreen interface and maximum product capacity for non-refrigerated items.',
       features: [
         '60 product slots',

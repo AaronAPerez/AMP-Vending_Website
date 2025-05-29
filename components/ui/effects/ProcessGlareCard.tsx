@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import React from "react";
 import { useRef } from 'react';
+
 /**
  * Interface for container style properties with CSS custom properties
  */
@@ -41,6 +42,7 @@ interface ProcessGlareCardProps {
  * design that works well across all device sizes.
  * 
  * Key improvements:
+ * - Fixed height issues with proper flex/grid layout
  * - Responsive sizing with CSS Grid and Flexbox
  * - Accessibility support with reduced motion detection
  * - Optimized performance with requestAnimationFrame
@@ -216,15 +218,14 @@ export const ProcessGlareCard = ({
     <div
       style={containerStyle as React.CSSProperties}
       className={cn(
-        // Responsive container with flexible sizing
+        // Fixed responsive container with proper sizing
         "relative isolate",
         "[contain:layout_style]",
         "[perspective:600px]",
         "transition-transform duration-[var(--duration)] ease-[var(--easing)]",
         "will-change-transform",
-        // Responsive width and aspect ratio
-        "w-full max-w-[320px] mx-auto",
-        "aspect-[4/5]", // More flexible aspect ratio
+        // Responsive width with proper height inheritance
+        "w-full h-full", // Changed to inherit full height from parent
         // Touch improvements for mobile
         "touch-manipulation",
         className
@@ -237,9 +238,10 @@ export const ProcessGlareCard = ({
       role="presentation"
       aria-hidden="true"
     >
-      {/* Main card container with enhanced responsiveness */}
+      {/* Main card container with full height */}
       <div className={cn(
-        "h-full w-full grid will-change-transform origin-center",
+        "h-full w-full", // Ensure full height is used
+        "will-change-transform origin-center",
         "transition-transform duration-[var(--duration)] ease-[var(--easing)]",
         "[transform:rotateY(var(--r-x))_rotateX(var(--r-y))]",
         "rounded-[var(--radius)]",
@@ -253,11 +255,13 @@ export const ProcessGlareCard = ({
         "shadow-lg shadow-black/20",
         "hover:shadow-xl hover:shadow-[#FD5A1E]/10",
         // Responsive scaling
-        "transition-all duration-300"
+        "transition-all duration-300",
+        // Use flexbox to ensure content fills container
+        "flex flex-col"
       )}>
-        {/* Content layer */}
-        <div className="w-full h-full grid [grid-area:1/1] mix-blend-soft-light [clip-path:inset(0_0_0_0_round_var(--radius))]">
-          <div className={cn("h-full w-full bg-black/60", className)}>
+        {/* Content layer with full height */}
+        <div className="w-full h-full flex flex-col [clip-path:inset(0_0_0_0_round_var(--radius))]">
+          <div className={cn("h-full w-full bg-black/60 flex flex-col", className)}>
             {children}
           </div>
         </div>
@@ -267,27 +271,32 @@ export const ProcessGlareCard = ({
           <>
             <div 
               className={cn(
-                "w-full h-full grid [grid-area:1/1] mix-blend-soft-light",
+                "absolute inset-0", // Position absolutely over content
+                "mix-blend-soft-light",
                 "[clip-path:inset(0_0_1px_0_round_var(--radius))]",
                 "opacity-[var(--opacity)]",
                 "transition-opacity duration-[var(--duration)] ease-[var(--easing)]",
                 "will-change-background",
+                "pointer-events-none", // Don't interfere with content interaction
                 "[background:radial-gradient(farthest-corner_circle_at_var(--m-x)_var(--m-y),_rgba(255,255,255,0.8)_10%,_rgba(255,255,255,0.65)_20%,_rgba(255,255,255,0)_90%)]"
               )}
             />
             
             <div
               className={cn(
-                "w-full h-full grid [grid-area:1/1] mix-blend-color-dodge",
+                "absolute inset-0", // Position absolutely over content
+                "mix-blend-color-dodge",
                 "opacity-[var(--opacity)]",
                 "will-change-background",
                 "transition-opacity",
+                "pointer-events-none", // Don't interfere with content interaction
                 "[clip-path:inset(0_0_1px_0_round_var(--radius))]",
                 "[background-blend-mode:hue_hue_hue_overlay]",
                 "[background:var(--pattern),_var(--rainbow),_var(--diagonal),_var(--shade)]",
                 "relative",
                 "after:content-['']",
-                "after:grid-area-[inherit]",
+                "after:absolute",
+                "after:inset-0",
                 "after:bg-repeat-[inherit]",
                 "after:bg-attachment-[inherit]",
                 "after:bg-origin-[inherit]",

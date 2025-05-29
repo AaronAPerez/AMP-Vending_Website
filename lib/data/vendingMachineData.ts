@@ -246,7 +246,7 @@ const vendingMachineData: Record<string, MachineData> = {
     images: [
       { 
         id: 1, 
-        src: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg', 
+        src: '/images/machines/amp-standard-refrigerated-vending-machine.jpg', 
         alt: 'Front view of Standard Refrigerated Machine KM-VMR-40-B' 
       },
       // { 
@@ -398,198 +398,198 @@ const vendingMachineData: Record<string, MachineData> = {
       //   model: 'KM-VMRT-50-B',
       //   image: '/images/products/placeholder.jpg'
       // },
-      {
-        id: 'km-vmr-30-b',
-        name: 'Compact Refrigerated Machine',
-        model: 'KM-VMR-30-B',
-        image: '/images/products/placeholder.jpg'
-      },
+      // {
+      //   id: 'km-vmr-30-b',
+      //   name: 'Compact Refrigerated Machine',
+      //   model: 'KM-VMR-30-B',
+      //   image: '/images/products/placeholder.jpg'
+      // },
       {
         id: 'km-vmnt-50-b',
         name: 'Non-Refrigerated Snack Machine',
         model: 'KM-VMNT-50-B',
-        image: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg'
+        image: '/images/machines/amp-premium-non-refrigerated-vending-machine.jpg'
       }
     ],
     category: 'refrigerated'
   },
 
   // Compact Refrigerated Machine
-  'km-vmr-30-b': {
-    id: 'km-vmr-30-b',
-    name: 'Compact Refrigerated Machine',
-    model: 'KM-VMR-30-B',
-    shortDescription: 'A space-efficient refrigerated vending solution designed for smaller locations while still offering premium features and product variety.',
-    description: 'The KM-VMR-30-B is our compact refrigerated vending machine, engineered specifically for locations where space is at a premium but quality refreshment options are still essential. Despite its smaller footprint, this machine delivers the same advanced technology and reliability as our larger models. It features energy-efficient cooling, versatile payment options, and can accommodate a surprising variety of refrigerated products. The space-saving design makes it perfect for smaller offices, break rooms, or spaces with limited floor area.',
-    images: [
-      { 
-        id: 1, 
-        src: '/images/products/placeholder.jpg', 
-        alt: 'Front view of Compact Refrigerated Machine KM-VMR-30-B' 
-      },
-      // { 
-      //   id: 2, 
-      //   src: '/images/products/placeholder.jpg', 
-      //   alt: 'Side view of Compact Refrigerated Machine KM-VMR-30-B' 
-      // },
-      // { 
-      //   id: 3, 
-      //   src: '/images/products/placeholder.jpg', 
-      //   alt: 'Angle view of Compact Refrigerated Machine KM-VMR-30-B' 
-      // },
-      // { 
-      //   id: 4, 
-      //   src: '/images/products/placeholder.jpg', 
-      //   alt: 'Interior view of Compact Refrigerated Machine KM-VMR-30-B' 
-      // }
-    ],
-    dimensions: [
-      { label: 'Width', value: '30 inches (76 cm)' },
-      { label: 'Depth', value: '28 inches (71 cm)' },
-      { label: 'Height', value: '76.7 inches (195 cm)' },
-      { label: 'Weight', value: '550 lbs (250 kg)' },
-      { label: 'Capacity', value: '30+ product selections' },
-      { label: 'Power', value: '120V / 60Hz' }
-    ],
-    features: [
-      {
-        title: 'Space-Saving Design',
-        description: 'Optimized dimensions for installation in smaller areas while maintaining substantial product capacity and selection variety.',
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" /></svg>'
-      },
-      {
-        title: 'Energy-Efficient Cooling',
-        description: 'Advanced refrigeration system that maintains proper temperature while minimizing power consumption for eco-friendly operation.',
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>'
-      },
-      {
-        title: 'Modern Payment Interface',
-        description: 'Integrated payment system accepting credit/debit cards, mobile payments, and cash, ensuring maximum convenience for users.',
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>'
-      },
-      {
-        title: 'Optimized Product Layout',
-        description: 'Specially designed interior configuration that maximizes product variety despite the compact external dimensions.',
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>'
-      },
-      {
-        title: 'Intelligent Inventory Management',
-        description: 'Remote monitoring system that tracks product levels in real-time to ensure timely restocking and minimize out-of-stock situations.',
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" /></svg>'
-      },
-      {
-        title: 'LED Illumination',
-        description: 'Energy-efficient LED lighting system that attractively showcases products while consuming minimal power and generating less heat.',
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>'
-      }
-    ],
-    specifications: [
-      {
-        category: 'Physical Specifications',
-        items: [
-          { label: 'Dimensions', value: '30"W x 28"D x 76.7"H' },
-          { label: 'Weight', value: '550 lbs (250 kg)' },
-          { label: 'Cabinet Construction', value: 'Powder-coated steel' },
-          { label: 'Front Glass', value: 'Tempered safety glass' },
-          { label: 'Insulation', value: 'High-density foam insulation' }
-        ]
-      },
-      {
-        category: 'Capacity & Configuration',
-        items: [
-          { label: 'Product Selections', value: '30+ different products' },
-          { label: 'Shelving', value: '4 adjustable shelves' },
-          { label: 'Maximum Products', value: 'Up to 240 items depending on size' }
-        ]
-      },
-      {
-        category: 'Technology Features',
-        items: [
-          { label: 'Display', value: '7" LCD screen' },
-          { label: 'Controller', value: 'Microprocessor control system' },
-          { label: 'Connectivity', value: '4G LTE, Wi-Fi option' },
-          { label: 'Remote Monitoring', value: 'Inventory tracking and alerts' }
-        ]
-      },
-      {
-        category: 'Payment Systems',
-        items: [
-          { label: 'Card Reader', value: 'EMV compliant' },
-          { label: 'Contactless', value: 'NFC payment capability' },
-          { label: 'Cash Handling', value: 'Bill acceptor ($1-$20)' },
-          { label: 'Coin Mechanism', value: 'Multi-coin with change dispensing' }
-        ]
-      },
-      {
-        category: 'Refrigeration',
-        items: [
-          { label: 'Cooling System', value: 'Compact energy-efficient compressor' },
-          { label: 'Temperature Range', value: '35°F to 41°F (1.7°C to 5°C)' },
-          { label: 'Defrost System', value: 'Automatic cycle defrost' },
-          { label: 'Refrigerant', value: 'R290 environmentally friendly refrigerant' }
-        ]
-      },
-      {
-        category: 'Electrical',
-        items: [
-          { label: 'Power Requirements', value: '120V AC, 60Hz' },
-          { label: 'Power Consumption', value: 'Average 6.5 kWh/day' },
-          { label: 'Lighting', value: 'LED interior lighting' },
-          { label: 'Certifications', value: 'UL, Energy Star qualified' }
-        ]
-      }
-    ],
-    productOptions: [
-      'Bottled water and sparkling water',
-      'Soft drinks and sodas',
-      'Energy drinks',
-      'Sports drinks',
-      'Yogurt cups',
-      'Sandwiches and wraps',
-      'Protein bars',
-      'Healthy snack options',
-      'Chips and savory snacks',
-      'Candy and chocolate',
-      'Pastries and cookies',
-      'Fresh fruit cups',
-      'Ready-to-eat salads',
-      'Cheese and cracker packs',
-      'Hummus and veggie packs'
-    ],
-    bestFor: [
-      'Small offices',
-      'Limited space environments',
-      'Boutique retail locations',
-      'Small break rooms',
-      'Medical waiting areas',
-      'Small fitness centers',
-      'Beauty salons and spas',
-      'Small educational facilities',
-      'Narrow corridors and alcoves',
-      'Locations with space constraints'
-    ],
-    relatedMachines: [
-      // {
-      //   id: 'km-vmrt-50-b',
-      //   name: 'Premium Refrigerated Machine',
-      //   model: 'KM-VMRT-50-B',
-      //   image: '/images/products/placeholder.jpg'
-      // },
-      {
-        id: 'km-vmr-40-b',
-        name: 'Standard Refrigerated Machine',
-        model: 'KM-VMR-40-B',
-        image: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg'
-      },
-      {
-        id: 'km-vmnt-50-b',
-        name: 'Non-Refrigerated Snack Machine',
-        model: 'KM-VMNT-50-B',
-        image: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg'
-      }
-    ],
-    category: 'refrigerated'
-  },
+  // 'km-vmr-30-b': {
+  //   id: 'km-vmr-30-b',
+  //   name: 'Compact Refrigerated Machine',
+  //   model: 'KM-VMR-30-B',
+  //   shortDescription: 'A space-efficient refrigerated vending solution designed for smaller locations while still offering premium features and product variety.',
+  //   description: 'The KM-VMR-30-B is our compact refrigerated vending machine, engineered specifically for locations where space is at a premium but quality refreshment options are still essential. Despite its smaller footprint, this machine delivers the same advanced technology and reliability as our larger models. It features energy-efficient cooling, versatile payment options, and can accommodate a surprising variety of refrigerated products. The space-saving design makes it perfect for smaller offices, break rooms, or spaces with limited floor area.',
+  //   images: [
+  //     { 
+  //       id: 1, 
+  //       src: '/images/products/placeholder.jpg', 
+  //       alt: 'Front view of Compact Refrigerated Machine KM-VMR-30-B' 
+  //     },
+  //     // { 
+  //     //   id: 2, 
+  //     //   src: '/images/products/placeholder.jpg', 
+  //     //   alt: 'Side view of Compact Refrigerated Machine KM-VMR-30-B' 
+  //     // },
+  //     // { 
+  //     //   id: 3, 
+  //     //   src: '/images/products/placeholder.jpg', 
+  //     //   alt: 'Angle view of Compact Refrigerated Machine KM-VMR-30-B' 
+  //     // },
+  //     // { 
+  //     //   id: 4, 
+  //     //   src: '/images/products/placeholder.jpg', 
+  //     //   alt: 'Interior view of Compact Refrigerated Machine KM-VMR-30-B' 
+  //     // }
+  //   ],
+  //   dimensions: [
+  //     { label: 'Width', value: '30 inches (76 cm)' },
+  //     { label: 'Depth', value: '28 inches (71 cm)' },
+  //     { label: 'Height', value: '76.7 inches (195 cm)' },
+  //     { label: 'Weight', value: '550 lbs (250 kg)' },
+  //     { label: 'Capacity', value: '30+ product selections' },
+  //     { label: 'Power', value: '120V / 60Hz' }
+  //   ],
+  //   features: [
+  //     {
+  //       title: 'Space-Saving Design',
+  //       description: 'Optimized dimensions for installation in smaller areas while maintaining substantial product capacity and selection variety.',
+  //       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" /></svg>'
+  //     },
+  //     {
+  //       title: 'Energy-Efficient Cooling',
+  //       description: 'Advanced refrigeration system that maintains proper temperature while minimizing power consumption for eco-friendly operation.',
+  //       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>'
+  //     },
+  //     {
+  //       title: 'Modern Payment Interface',
+  //       description: 'Integrated payment system accepting credit/debit cards, mobile payments, and cash, ensuring maximum convenience for users.',
+  //       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>'
+  //     },
+  //     {
+  //       title: 'Optimized Product Layout',
+  //       description: 'Specially designed interior configuration that maximizes product variety despite the compact external dimensions.',
+  //       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>'
+  //     },
+  //     {
+  //       title: 'Intelligent Inventory Management',
+  //       description: 'Remote monitoring system that tracks product levels in real-time to ensure timely restocking and minimize out-of-stock situations.',
+  //       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" /></svg>'
+  //     },
+  //     {
+  //       title: 'LED Illumination',
+  //       description: 'Energy-efficient LED lighting system that attractively showcases products while consuming minimal power and generating less heat.',
+  //       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>'
+  //     }
+  //   ],
+  //   specifications: [
+  //     {
+  //       category: 'Physical Specifications',
+  //       items: [
+  //         { label: 'Dimensions', value: '30"W x 28"D x 76.7"H' },
+  //         { label: 'Weight', value: '550 lbs (250 kg)' },
+  //         { label: 'Cabinet Construction', value: 'Powder-coated steel' },
+  //         { label: 'Front Glass', value: 'Tempered safety glass' },
+  //         { label: 'Insulation', value: 'High-density foam insulation' }
+  //       ]
+  //     },
+  //     {
+  //       category: 'Capacity & Configuration',
+  //       items: [
+  //         { label: 'Product Selections', value: '30+ different products' },
+  //         { label: 'Shelving', value: '4 adjustable shelves' },
+  //         { label: 'Maximum Products', value: 'Up to 240 items depending on size' }
+  //       ]
+  //     },
+  //     {
+  //       category: 'Technology Features',
+  //       items: [
+  //         { label: 'Display', value: '7" LCD screen' },
+  //         { label: 'Controller', value: 'Microprocessor control system' },
+  //         { label: 'Connectivity', value: '4G LTE, Wi-Fi option' },
+  //         { label: 'Remote Monitoring', value: 'Inventory tracking and alerts' }
+  //       ]
+  //     },
+  //     {
+  //       category: 'Payment Systems',
+  //       items: [
+  //         { label: 'Card Reader', value: 'EMV compliant' },
+  //         { label: 'Contactless', value: 'NFC payment capability' },
+  //         { label: 'Cash Handling', value: 'Bill acceptor ($1-$20)' },
+  //         { label: 'Coin Mechanism', value: 'Multi-coin with change dispensing' }
+  //       ]
+  //     },
+  //     {
+  //       category: 'Refrigeration',
+  //       items: [
+  //         { label: 'Cooling System', value: 'Compact energy-efficient compressor' },
+  //         { label: 'Temperature Range', value: '35°F to 41°F (1.7°C to 5°C)' },
+  //         { label: 'Defrost System', value: 'Automatic cycle defrost' },
+  //         { label: 'Refrigerant', value: 'R290 environmentally friendly refrigerant' }
+  //       ]
+  //     },
+  //     {
+  //       category: 'Electrical',
+  //       items: [
+  //         { label: 'Power Requirements', value: '120V AC, 60Hz' },
+  //         { label: 'Power Consumption', value: 'Average 6.5 kWh/day' },
+  //         { label: 'Lighting', value: 'LED interior lighting' },
+  //         { label: 'Certifications', value: 'UL, Energy Star qualified' }
+  //       ]
+  //     }
+  //   ],
+  //   productOptions: [
+  //     'Bottled water and sparkling water',
+  //     'Soft drinks and sodas',
+  //     'Energy drinks',
+  //     'Sports drinks',
+  //     'Yogurt cups',
+  //     'Sandwiches and wraps',
+  //     'Protein bars',
+  //     'Healthy snack options',
+  //     'Chips and savory snacks',
+  //     'Candy and chocolate',
+  //     'Pastries and cookies',
+  //     'Fresh fruit cups',
+  //     'Ready-to-eat salads',
+  //     'Cheese and cracker packs',
+  //     'Hummus and veggie packs'
+  //   ],
+  //   bestFor: [
+  //     'Small offices',
+  //     'Limited space environments',
+  //     'Boutique retail locations',
+  //     'Small break rooms',
+  //     'Medical waiting areas',
+  //     'Small fitness centers',
+  //     'Beauty salons and spas',
+  //     'Small educational facilities',
+  //     'Narrow corridors and alcoves',
+  //     'Locations with space constraints'
+  //   ],
+  //   relatedMachines: [
+  //     // {
+  //     //   id: 'km-vmrt-50-b',
+  //     //   name: 'Premium Refrigerated Machine',
+  //     //   model: 'KM-VMRT-50-B',
+  //     //   image: '/images/products/placeholder.jpg'
+  //     // },
+  //     {
+  //       id: 'km-vmr-40-b',
+  //       name: 'Standard Refrigerated Machine',
+  //       model: 'KM-VMR-40-B',
+  //       image: '/images/machines/amp-premium-non-refrigerated-vending-machine.jpg'
+  //     },
+  //     {
+  //       id: 'km-vmnt-50-b',
+  //       name: 'Non-Refrigerated Snack Machine',
+  //       model: 'KM-VMNT-50-B',
+  //       image: '/images/machines/amp-premium-non-refrigerated-vending-machine.jpg'
+  //     }
+  //   ],
+  //   category: 'refrigerated'
+  // },
 
   // Non-Refrigerated Snack Machine
   'km-vmnt-50-b': {
@@ -601,7 +601,7 @@ const vendingMachineData: Record<string, MachineData> = {
     images: [
       { 
         id: 1, 
-        src: '/images/vending-machines/amp-premium-non-refrigerated-vending-machine-front.jpg', 
+        src: '/images/machines/amp-premium-non-refrigerated-vending-machine.jpg', 
         alt: 'Front view of Non-Refrigerated Snack Machine KM-VMNT-50-B' 
       },
       // { 
@@ -768,14 +768,14 @@ const vendingMachineData: Record<string, MachineData> = {
           id: 'km-vmr-40-b',
           name: 'Standard Refrigerated Machine',
           model: 'KM-VMR-40-B',
-          image: '/images/vending-machines/amp-standard-refrigerated-vending-machine-front.jpg'
+          image: '/images/machines/amp-standard-refrigerated-vending-machine.jpg'
         },
-        {
-          id: 'km-vmr-30-b',
-          name: 'Compact Refrigerated Machine',
-          model: 'KM-VMR-30-B',
-          image: '/images/products/placeholder.jpg'
-        }
+        // {
+        //   id: 'km-vmr-30-b',
+        //   name: 'Compact Refrigerated Machine',
+        //   model: 'KM-VMR-30-B',
+        //   image: '/images/products/placeholder.jpg'
+        // }
       ],
       category: 'non-refrigerated'
     }

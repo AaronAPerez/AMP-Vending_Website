@@ -24,8 +24,8 @@ import type { MachineData } from './vendingMachineData';
 export const SEO_CONSTANTS = {
   // Website Identity
   SITE_NAME: 'AMP Vending',
-  SITE_TITLE: 'AMP Vending | Zero-Cost Premium Vending Solutions for Workplaces',
-  SITE_DESCRIPTION: 'AMP Vending provides zero-cost, maintenance-free vending machines with 21.5" touchscreen interfaces and 50+ customizable product options for workplaces in Central California.',
+  SITE_TITLE: 'AMP Vending | Premium Vending Solutions for Workplaces',
+  SITE_DESCRIPTION: 'AMP Vending provides maintenance-free vending machines with 21.5" touchscreen interfaces and 50+ customizable product options for workplaces in Central California.',
   
   // URLs and Domains
   BASE_URL: 'https://www.ampvendingmachines.com',
@@ -75,7 +75,7 @@ export const SEO_CONSTANTS = {
   // Industry Keywords
   PRIMARY_KEYWORDS: [
     'vending machines',
-    'zero-cost vending',
+    'premium vending',
     'workplace vending',
     'touchscreen vending',
     'maintenance-free vending',
@@ -94,7 +94,7 @@ export const SEO_CONSTANTS = {
   
   // Service Features
   KEY_FEATURES: [
-    'Zero-cost installation and maintenance',
+    'Installation and maintenance',
     '21.5" HD touchscreen interfaces',
     'Tap-to-pay technology',
     '50+ customizable product options',
@@ -195,7 +195,7 @@ export const PAGE_METADATA = {
       canonical: SEO_CONSTANTS.BASE_URL,
     },
     openGraph: {
-      title: 'Premium Vending Solutions at Zero Cost | AMP Vending',
+      title: 'Premium Vending Solutions at premium | AMP Vending',
       description: 'Enhance your workplace with advanced vending technology featuring 21.5" touchscreen interfaces and 50+ customizable product options.',
       url: SEO_CONSTANTS.BASE_URL,
       siteName: SEO_CONSTANTS.SITE_NAME,
@@ -210,8 +210,8 @@ export const PAGE_METADATA = {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Premium Vending Solutions at Zero Cost | AMP Vending',
-      description: 'Zero-cost vending machines with touchscreen technology for enhanced workplace satisfaction.',
+      title: 'Premium Vending Solutions at premium | AMP Vending',
+      description: 'Premium vending machines with touchscreen technology for enhanced workplace satisfaction.',
       images: [SEO_CONSTANTS.DEFAULT_OG_IMAGE_FULL],
     },
   } satisfies Metadata,
@@ -221,14 +221,14 @@ export const PAGE_METADATA = {
    */
   VENDING_MACHINES: {
     title: 'Premium Vending Machines | Touchscreen Technology | AMP Vending',
-    description: 'Explore our premium vending machines featuring 21.5" touchscreen interfaces, tap-to-pay technology, and customizable product selections. Zero-cost installation.',
-    keywords: 'premium vending machines, touchscreen vending, workplace vending solutions, zero-cost vending machines, Modesto',
+    description: 'Explore our premium vending machines featuring 21.5" touchscreen interfaces, tap-to-pay technology, and customizable product selections. Premium installation.',
+    keywords: 'premium vending machines, touchscreen vending, workplace vending solutions, Premium vending machines, Modesto',
     alternates: {
       canonical: `${SEO_CONSTANTS.BASE_URL}/vending-machines`,
     },
     openGraph: {
       title: 'Premium Vending Machines | AMP Vending',
-      description: 'Zero-cost premium vending solutions with touchscreen technology and 50+ customizable product options.',
+      description: 'Premium premium vending solutions with touchscreen technology and 50+ customizable product options.',
       url: `${SEO_CONSTANTS.BASE_URL}/vending-machines`,
       siteName: SEO_CONSTANTS.SITE_NAME,
       images: [{
@@ -243,7 +243,7 @@ export const PAGE_METADATA = {
     twitter: {
       card: 'summary_large_image',
       title: 'Premium Vending Machines | AMP Vending',
-      description: 'Zero-cost premium vending solutions with touchscreen technology',
+      description: 'Premium premium vending solutions with touchscreen technology',
       images: [`${SEO_CONSTANTS.BASE_URL}/images/og/vending-machines.jpg`],
     },
   } satisfies Metadata,
@@ -252,15 +252,15 @@ export const PAGE_METADATA = {
    * Contact page metadata configuration
    */
   CONTACT: {
-    title: 'Contact AMP Vending | Zero-Cost Vending Machine Installation',
-    description: 'Contact AMP Vending for free consultation on premium vending machines. Zero-cost installation, maintenance-free operation, and 24/7 support in Central California.',
-    keywords: 'contact vending machine company, free consultation, zero cost installation, Modesto vending, Central California',
+    title: 'Contact AMP Vending | Premium Vending Machine Installation',
+    description: 'Contact AMP Vending for free consultation on premium vending machines. Premium installation, maintenance-free operation, and 24/7 support in Central California.',
+    keywords: 'contact vending machine company, free consultation, premium installation, Modesto vending, Central California',
     alternates: {
       canonical: `${SEO_CONSTANTS.BASE_URL}/contact`,
     },
     openGraph: {
       title: 'Contact AMP Vending - Free Consultation',
-      description: 'Get in touch for zero-cost vending machine installation and premium workplace solutions.',
+      description: 'Get in touch for premium vending machine installation and premium workplace solutions.',
       url: `${SEO_CONSTANTS.BASE_URL}/contact`,
       siteName: SEO_CONSTANTS.SITE_NAME,
       images: [{
@@ -275,7 +275,7 @@ export const PAGE_METADATA = {
     twitter: {
       card: 'summary_large_image',
       title: 'Contact AMP Vending - Free Consultation',
-      description: 'Zero-cost vending machine installation and maintenance-free operation',
+      description: 'Premium vending machine installation and maintenance-free operation',
       images: [`${SEO_CONSTANTS.BASE_URL}/images/og/contact.jpg`],
     },
   } satisfies Metadata,
@@ -285,14 +285,14 @@ export const PAGE_METADATA = {
    */
   FEEDBACK: {
     title: 'Share Your Feedback | AMP Vending Customer Experience',
-    description: 'Share your experience with AMP Vending machines and services. Your feedback helps us improve our zero-cost vending solutions for workplaces.',
+    description: 'Share your experience with AMP Vending machines and services. Your feedback helps us improve our Premium vending solutions for workplaces.',
     keywords: 'vending machine feedback, customer experience, AMP Vending reviews, workplace satisfaction',
     alternates: {
       canonical: `${SEO_CONSTANTS.BASE_URL}/feedback`,
     },
     openGraph: {
       title: 'Share Your Feedback with AMP Vending',
-      description: 'Your feedback helps us improve our zero-cost vending machine services.',
+      description: 'Your feedback helps us improve our Premium vending machine services.',
       url: `${SEO_CONSTANTS.BASE_URL}/feedback`,
       siteName: SEO_CONSTANTS.SITE_NAME,
       images: [{
@@ -321,7 +321,7 @@ export const PAGE_METADATA = {
  * @returns Complete metadata configuration for the machine page
  */
 export function generateMachineMetadata(machine: MachineData): Metadata {
-  const machineTitle = `${machine.name} | Zero-Cost Installation | AMP Vending`;
+  const machineTitle = `${machine.name} | Premium Installation | AMP Vending`;
   const machineDescription = `${machine.shortDescription} Features 21.5" touchscreen, tap-to-pay technology, and maintenance-free operation for enhanced workplace satisfaction.`;
   const machineUrl = `${SEO_CONSTANTS.BASE_URL}/vending-machines/${machine.id}`;
   const machineImageUrl = `${SEO_CONSTANTS.BASE_URL}${machine.images[0].src}`;
@@ -332,7 +332,7 @@ export function generateMachineMetadata(machine: MachineData): Metadata {
     keywords: [
       machine.name.toLowerCase(),
       machine.model.toLowerCase(),
-      'zero cost vending machine',
+      'premium vending machine',
       'touchscreen vending',
       'workplace vending solution',
       'maintenance-free vending',
@@ -343,7 +343,7 @@ export function generateMachineMetadata(machine: MachineData): Metadata {
     },
     openGraph: {
       title: `${machine.name} - Premium Vending Solution`,
-      description: `Zero-cost ${machine.name} with advanced technology. ${machine.shortDescription}`,
+      description: `Premium ${machine.name} with advanced technology. ${machine.shortDescription}`,
       url: machineUrl,
       siteName: SEO_CONSTANTS.SITE_NAME,
       images: [{
@@ -394,7 +394,7 @@ export function generateMachineStructuredData(machine: MachineData) {
       price: '0',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
-      description: 'Zero-cost installation and maintenance-free operation',
+      description: 'Premium installation and maintenance-free operation',
       seller: {
         '@type': SCHEMA_TYPES.ORGANIZATION,
         name: SEO_CONSTANTS.BUSINESS_NAME,
@@ -406,7 +406,7 @@ export function generateMachineStructuredData(machine: MachineData) {
       {
         '@type': 'PropertyValue',
         name: 'Installation Cost',
-        value: 'Zero Cost',
+        value: 'premium',
       },
       {
         '@type': 'PropertyValue',

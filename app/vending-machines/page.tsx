@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { getAllVendingMachines, getVendingMachinesByCategory, MachineData } from '@/lib/data/vendingMachineData';
 import { Loading } from '@/components/ui/Loading';
 import { usePathname } from 'next/navigation';
-import ShowcaseLensEffect from '@/components/sections/ShowcaseLensEffect';
-import CTASection from '@/components/sections/CTASection';
+import CTASection from '@/components/landing/CTASection';
+import Script from 'next/script';
 
 
 // Types for our navigation sidebar
@@ -16,6 +16,15 @@ interface SidebarItem {
   path: string;
   model?: string;
 }
+
+// For /vending-machines/page.tsx
+// export const metadata: Metadata = {
+//   title: "Premium Vending Machines | Touchscreen Technology | AMP Vending",
+//   description: "Explore our premium vending machines featuring touchscreen interfaces, tap-to-pay technology, and customizable product selections to enhance your workplace experience.",
+//   alternates: {
+//     canonical: `https://www.ampvendingmachines.com/vending-machines`,
+//   },
+// };
 
 /**
  * VendingMachinesPage Component
@@ -28,42 +37,42 @@ const VendingMachinesPage = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
-    
-    // Data for sidebar navigation
-    const sidebarItems: SidebarItem[] = [
-      { name: 'All Vending Machines', path: '/vending-machines' },
-      { 
-        name: 'Premium Refrigerated Machine', 
-        path: '/vending-machines/km-vmrt-50-b',
-        model: 'KM-VMRT-50-B'
-      },
-      { 
-        name: 'Standard Refrigerated Machine', 
-        path: '/vending-machines/km-vmr-40-b',
-        model: 'KM-VMR-40-B'
-      },
-      { 
-        name: 'Compact Refrigerated Machine', 
-        path: '/vending-machines/km-vmr-30-b',
-        model: 'KM-VMR-30-B'
-      },
-      { 
-        name: 'Non-Refrigerated Snack Machine', 
-        path: '/vending-machines/km-vmnt-50-b',
-        model: 'KM-VMNT-50-B'
-      }
-    ];
-  
-    // Check if the current page is the main vending machines page
-    const isMainVendingPage = pathname === '/vending-machines';
+
+  // Data for sidebar navigation
+  const sidebarItems: SidebarItem[] = [
+    { name: 'All Vending Machines', path: '/vending-machines' },
+    {
+      name: 'Premium Refrigerated Machine',
+      path: '/vending-machines/km-vmrt-50-b',
+      model: 'KM-VMRT-50-B'
+    },
+    {
+      name: 'Standard Refrigerated Machine',
+      path: '/vending-machines/km-vmr-40-b',
+      model: 'KM-VMR-40-B'
+    },
+    {
+      name: 'Compact Refrigerated Machine',
+      path: '/vending-machines/km-vmr-30-b',
+      model: 'KM-VMR-30-B'
+    },
+    {
+      name: 'Non-Refrigerated Snack Machine',
+      path: '/vending-machines/km-vmnt-50-b',
+      model: 'KM-VMNT-50-B'
+    }
+  ];
+
+  // Check if the current page is the main vending machines page
+  const isMainVendingPage = pathname === '/vending-machines';
 
   // Load machines on component mount
   useEffect(() => {
     setIsLoading(true);
-    
+
     // Get machines based on active filter
     let filteredMachines: MachineData[];
-    
+
     if (activeFilter === 'all') {
       filteredMachines = getAllVendingMachines();
     } else {
@@ -71,20 +80,55 @@ const VendingMachinesPage = () => {
         activeFilter as 'refrigerated' | 'non-refrigerated'
       );
     }
-    
+
     setMachines(filteredMachines);
     setIsLoading(false);
   }, [activeFilter]);
-  
+
   // Show loading state
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <div className="min-h-screen bg-[#000000]">
-       {/* Breadcrumb Navigation */}
-       <div className="bg-[#000000]/50 border-b border-[#4d4d4d]">
+     <div className="min-h-screen bg-[#000000]">
+      {/* Structured data for SEO collection page */}
+      <Script
+        id="vending-machines-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Premium Vending Machines",
+            "description": "Explore our range of state-of-the-art vending machines with zero cost installation and maintenance-free operation for your workplace.",
+            "url": "https://www.ampvendingmachines.com/vending-machines/",
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": machines.map((machine, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "Product",
+                  "name": machine.name,
+                  "description": machine.shortDescription,
+                  "url": `https://www.ampvendingmachines.com/vending-machines/${machine.id}`,
+                  "image": machine.images[0].src,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "description": "Zero-cost installation and maintenance-free operation"
+                  }
+                }
+              }))
+            }
+          })
+        }}
+      />
+      {/* Breadcrumb Navigation */}
+      <div className="bg-[#000000]/50 border-b border-[#4d4d4d]">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center text-sm text-[#A5ACAF]">
           <Link href="/" className="hover:text-[#FD5A1E]">Home</Link>
           <span className="mx-2">/</span>
@@ -101,17 +145,43 @@ const VendingMachinesPage = () => {
           )}
         </div>
       </div>
+
+      {/* Structured data for breadcrumbs */}
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.ampvendingmachines.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Vending Machines",
+                "item": "https://www.ampvendingmachines.com/vending-machines"
+              }
+            ]
+          })
+        }}
+      />
       {/* Header */}
-      <section className="pt-12 bg-gradient-to-b from-[#000000] to-[#000000]/80">
+      <section className="pt-12 pb-8 bg-gradient-to-b from-[#000000] to-[#000000]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-[#F5F5F5] mb-4">
             Premium Vending <span className="text-[#FD5A1E]">Machines</span>
           </h1>
           <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
-            Explore our range of state-of-the-art vending machines with zero cost installation 
+            Explore our range of state-of-the-art vending machines with zero cost installation
             and maintenance-free operation for your workplace.
           </p>
-          
+
           {/* Filter Tabs */}
           <div className="flex justify-center mt-8 space-x-4">
             <button
@@ -147,10 +217,9 @@ const VendingMachinesPage = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Machines Grid */}
       <section className="py-8 pb-16">
-        <ShowcaseLensEffect/>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {machines.length === 0 ? (
             <div className="text-center py-12">
@@ -162,23 +231,23 @@ const VendingMachinesPage = () => {
                 <Link
                   key={machine.id}
                   href={`/vending-machines/${machine.id}`}
-                  className="group bg-[#4d4d4d]/20 rounded-xl overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all flex flex-col transform hover:scale-[1.02]"
+                  className="group bg-[#4d4d4d]/20 rounded-xl overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all flex flex-col transform hover:scale-[1.02] px-6"
                 >
                   {/* Machine Image */}
-                  <div className="relative h-64 overflow-hidden">
-                    <Image 
-                      src={machine.images[0].src} 
+                  <div className="relative h-100 overflow-hidden">
+                    <Image
+                      src={machine.images[0].src}
                       alt={machine.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    
+
                     {/* Zero Cost Badge */}
                     <div className="absolute top-4 right-4 bg-[#FD5A1E] text-[#F5F5F5] px-3 py-1 rounded-full text-xs font-medium">
                       Zero Cost
                     </div>
-                    
+
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                       <div className="w-full p-4">
@@ -188,7 +257,7 @@ const VendingMachinesPage = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Machine Info */}
                   <div className="p-5 flex-grow flex flex-col">
                     <h2 className="text-xl font-bold text-[#F5F5F5] group-hover:text-[#FD5A1E] transition-colors">
@@ -198,7 +267,7 @@ const VendingMachinesPage = () => {
                     <p className="text-[#A5ACAF] text-sm line-clamp-2 mb-4">
                       {machine.shortDescription}
                     </p>
-                    
+
                     {/* Key Features */}
                     <div className="mt-auto">
                       <h3 className="text-sm font-medium text-[#F5F5F5] mb-2">Key Features:</h3>
@@ -220,10 +289,10 @@ const VendingMachinesPage = () => {
           )}
         </div>
       </section>
-      
+
       {/* CTA Section */}
       <section className="py-12 bg-gradient-to-r from-[#000000] to-[#4d4d4d]/30 border-t border-[#4d4d4d]">
-     <CTASection/>
+        <CTASection />
       </section>
     </div>
   );

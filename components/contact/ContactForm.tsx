@@ -3,7 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { toast } from 'sonner';
 import Card from '../ui/core/Card';
-import Text from '../ui/layout/Text';
+import Text from '../ui/shared/Text';
 
 
 /**

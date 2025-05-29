@@ -33,12 +33,15 @@ interface ResponsiveHeroProps {
    * Optional className for additional styling
    */
   className?: string;
+  
+
 }
 
-/**
+  /**
  * ResponsiveHero Component
- * A modern, accessible hero section with product grid background and animated content
+ * Accessible hero section with product grid background and animated content
  */
+
 const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
   title,
   subtitle,
@@ -50,20 +53,19 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
   const productImages = [
     '/images/products/lays.jpg',
     '/images/products/doritos.jpg',
-    '/images/products/skittles.jpg',
+    '/images/products/snickers.jpg',
     '/images/products/kitkat.jpg',
     '/images/products/coke.jpg',
     '/images/products/monster.jpg',
-    '/images/machines/refrigerated-vending-machine.jpg',
-     '/images/products/RedBull.jpg',
-    '/images/machines/vending-poster.jpg',
+    '/images/products/redbull.jpg',
+    '/images/products/gatorade.jpg',
     '/images/products/starburst.jpg',
+    '/images/beverages/justwater.jpg',
     '/images/products/cheetos.jpg',
     '/images/products/mms.jpg',
     '/images/products/orangecrush.jpg',
     '/images/products/mountaindew.jpg',
-
-    '/images/products/gatorade.jpg',
+    '/images/products/threemusketeers.jpg',
     '/images/products/fanta.jpg',
     '/images/products/skittles.jpg',
     '/images/beverages/drpepper.jpg',
@@ -192,17 +194,42 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
         </motion.div>
       </motion.div>
       
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
-        aria-hidden="true"
+       {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.5, duration: 0.6 }}
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 hidden lg:block"
       >
-        <svg className="w-6 h-6 text-[#F5F5F5]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="text-white/60 cursor-pointer text-center hover:text-white/80 transition-colors"
+          onClick={() => {
+            const nextSection = document.querySelector('main section:nth-child(2)');
+            nextSection?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label="Scroll to explore"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              const nextSection = document.querySelector('main section:nth-child(2)');
+              nextSection?.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+        >
+          <div className="flex flex-col items-center">
+            <span className="text-sm mb-3 font-medium">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
+              <motion.div
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-1 h-3 bg-white/60 rounded-full mt-2"
+              />
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   );
