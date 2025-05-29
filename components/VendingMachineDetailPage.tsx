@@ -60,7 +60,7 @@ const ImageGallery: React.FC<{ images: VendingMachineImage[] }> = ({ images }) =
   return (
     <div className="space-y-4">
       {/* Main image display */}
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[#a4acac] bg-[#4d4d4d]">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[#a4acac] bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(165,172,175,1)_50%,rgba(253,90,30,1)_100%)]">
         {/* Fallback display if image isn't available */}
         <div className="absolute inset-0 flex items-center justify-center bg-[#000000]/50 text-[#A5ACAF] z-0">
           {images[activeIndex].alt}
@@ -105,7 +105,7 @@ const ImageGallery: React.FC<{ images: VendingMachineImage[] }> = ({ images }) =
           <button
             key={image.id}
             onClick={() => setActiveIndex(index)}
-            className={`relative aspect-[4/3] rounded-lg overflow-hidden border ${
+            className={`relative aspect-[4/3] rounded-lg overflow-hidden border  bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(165,172,175,1)_50%,rgba(253,90,30,1)_100%)] ${
               index === activeIndex ? 'border-[#FD5A1E]' : 'border-[#a4acac]'
             }`}
             aria-label={`View ${image.alt}`}
@@ -194,7 +194,7 @@ const RelatedMachines: React.FC<{ machines: VendingMachineProps['relatedMachines
         <Link 
           key={machine.id}
           href={`/vending-machines/${machine.id}`}
-          className="bg-[#4d4d4d] rounded-lg overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all block"
+          className="bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(165,172,175,1)_50%,rgba(253,90,30,1)_100%)] rounded-lg overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all block"
         >
           <div className="relative aspect-[4/3]">
             <Image 
@@ -206,8 +206,8 @@ const RelatedMachines: React.FC<{ machines: VendingMachineProps['relatedMachines
             />
           </div>
           <div className="p-4">
-            <h3 className="font-medium text-white">{machine.name}</h3>
-            <p className="text-[#FD5A1E] text-sm">{machine.model}</p>
+            <h3 className="font-medium text-black">{machine.name}</h3>
+            <p className="text-gray-700 text-sm">{machine.model}</p>
           </div>
         </Link>
       ))}

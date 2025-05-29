@@ -129,7 +129,7 @@ const HomePage = () => {
            <ResponsiveHero
               title={
                 <>
-                  Advanced Vending Solutions
+                  Premium Vending Solutions
                   <br />for <span className="text-[#FD5A1E] hero-accent">Modern Workplaces</span>
                 </>
               }

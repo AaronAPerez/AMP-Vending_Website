@@ -124,7 +124,7 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
         </motion.div> */}
 
         {/* Machine Image */}
-        <div className="relative bg-gray-400 z-0 h-full w-full bg-gradient-to-t from-[#000000]/40 to-transparent">
+        <div className="relative z-0 h-full w-full bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(165,172,175,1)_50%,rgba(253,90,30,1)_100%)]">
           <Image
             src={machine.image}
             alt={`${machine.name} - ${machine.model} vending machine`}
