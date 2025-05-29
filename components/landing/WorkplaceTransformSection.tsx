@@ -55,7 +55,7 @@ const VendingMachineCard = () => {
         <div className="absolute top-4 left-4 right-4 flex justify-between">
           <span className="bg-[#FD5A1E] text-[#000000] px-3 py-1 rounded-full text-xs font-bold flex items-center">
             <MonitorIcon size={12} className="mr-1" />
-            21.5" HD
+            21.5&quot; HD
           </span>
           <span className="bg-[#000000]/90 text-[#FD5A1E] px-3 py-1 rounded-full text-xs font-bold border border-[#FD5A1E]/30">
             Touchscreen
@@ -104,7 +104,7 @@ const VendingMachineCard = () => {
         </div>
 
         <p className="text-[#A5ACAF] text-sm mb-6 leading-relaxed">
-          Advanced vending solution featuring 21.5" touchscreen technology, 
+          Advanced vending solution featuring 21.5&quot; touchscreen technology, 
           multiple payment options, and customizable product selection.
         </p>
 
@@ -332,7 +332,7 @@ const WorkplaceTransformSection = ({
             {/* Additional Machine Stats */}
             <div className="mt-6 grid grid-cols-3 gap-4">
               <div className="text-center p-4 bg-[#111111] rounded-lg border border-[#333333]">
-                <div className="text-2xl font-bold text-[#FD5A1E] mb-1">21.5"</div>
+                <div className="text-2xl font-bold text-[#FD5A1E] mb-1">21.5&quot;</div>
                 <div className="text-xs text-[#A5ACAF]">HD Display</div>
               </div>
               <div className="text-center p-4 bg-[#111111] rounded-lg border border-[#333333]">

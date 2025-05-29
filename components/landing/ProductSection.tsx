@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
+import BackgroundOverlayCard from '../ui/BackgroundOverlayCard';
 import ResponsiveGrid from '../layout/ResponsiveGrid';
-import BackgroundOverlayCard from '../ui/BackgroundOverlayCard'
+
 
 export interface Product {
   id: string;
@@ -44,11 +45,11 @@ const ProductSection = () => {
   const productCatalog: Product[] = [
     // Chips & Savory Snacks ($1.75)
     { id: 'lays-classic', name: 'Lays Classic', category: 'chips', image: '/images/products/lays.jpg', popular: true },
-    { id: 'doritos-nacho', name: 'Doritos Nacho Cheese', category: 'chips', image: '/images/products/doritos.jpg', popular: true },
+    { id: 'doritos-nacho', name: 'Doritos Nacho Cheese', category: 'chips', image: '/images/products/doritos-nacho-cheese.jpg', popular: true },
     { id: 'cheetos', name: 'Cheetos', category: 'chips', image: '/images/products/cheetos.jpg' },
     { id: 'lays-sour-cream', name: 'Lays Sour Cream & Onion', category: 'chips', image: '/images/products/layssourcream.jpg' },
     // { id: 'fritos-original', name: 'Fritos Original', category: 'chips', image: '/images/products/placeholder.jpg' },
-    { id: 'doritos-cool-ranch', name: 'Doritos Cool Ranch', category: 'chips', image: '/images/products/doritos.jpg' },
+    { id: 'doritos-cool-ranch', name: 'Doritos Cool Ranch', category: 'chips', image: '/images/products/doritos-cool-ranch.jpg' },
     // { id: 'ruffles-cheddar', name: 'Ruffles Cheddar & Sour Cream', category: 'chips', image: '/images/products/placeholder.jpg' },
     { id: 'lays-bbq', name: 'Lays BBQ', category: 'chips', image: '/images/products/lays-bbq.jpg' },
     // { id: 'funyuns', name: 'Funyuns Onion Rings', category: 'chips', image: '/images/products/placeholder.jpg' },
@@ -179,6 +180,7 @@ const ProductSection = () => {
 
   return (
     <>
+    <>
       {/* Product Category Filters */}
       <div className="mb-8 overflow-x-auto pb-4 -mx-4 px-4">
         <div className="flex flex-nowrap gap-2 justify-start md:justify-center md:flex-wrap">
@@ -240,6 +242,7 @@ const ProductSection = () => {
           </button>
         </div>
       )}
+    </>
     </>
   );
 };

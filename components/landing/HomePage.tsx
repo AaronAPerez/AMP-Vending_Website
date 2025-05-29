@@ -10,7 +10,7 @@ import Section from '../ui/shared/Section';
 // Homepage sections
 import WorkplaceTransformSection from '../landing/WorkplaceTransformSection';
 import VendingMachineShowcase from '../landing/VendingMachineShowcase ';
-import ProductSection from '../sections/ProductSection';
+import ProductSection from './ProductSection';
 import ProcessSection from '../landing/ProcessSection';
 import ServiceAreaSection from '../landing/ServiceAreaSection';
 import FAQSection from '../landing/FAQSection';
