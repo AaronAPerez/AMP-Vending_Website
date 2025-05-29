@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    { 
+      "source": "http://ampvendingmachines.com/:path*", 
+      "destination": "https://www.ampvendingmachines.com/:path*", 
+      "permanent": true 
+    },
+    { 
+      "source": "https://ampvendingmachines.com/:path*", 
+      "destination": "https://www.ampvendingmachines.com/:path*", 
+      "permanent": true 
+    }
+  ]
+}

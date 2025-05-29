@@ -44,3 +44,10 @@ next-env.d.ts
 .env*.local
 
 .react-email/
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
