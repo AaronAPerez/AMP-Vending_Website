@@ -57,6 +57,7 @@ interface MachineCardProps {
   onHover: (index: number | null) => void;
 }
 
+
 const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -76,9 +77,23 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
       onMouseLeave={() => onHover(null)}
       role="article"
       aria-label={`${machine.name} vending machine details`}
+      whileHover={{ 
+        y: -8,
+        transition: { duration: 0.3 }
+      }}
     >
-      {/* Machine Image Section */}
+      {/* Machine Image Section with Enhanced Highlighting */}
       <div className="relative h-80 sm:h-96 overflow-hidden">
+        {/* Enhanced Spotlight Background with New Gradient */}
+        <div className="absolute inset-0 bg-[#F5F5F5] bg-[radial-gradient(circle,rgba(245,245,245,1)_0%,rgba(253,90,30,1)_50%,rgba(0,0,0,1)_90%)]" />
+        
+        {/* Machine Glow Effect */}
+        <div className={`absolute inset-0 transition-all duration-700 ${
+          isActive 
+            ? 'bg-[radial-gradient(circle,rgba(245,245,245,0.4)_0%,rgba(253,90,30,0.3)_50%,rgba(0,0,0,0.2)_90%)]' 
+            : 'bg-[radial-gradient(circle,rgba(245,245,245,0.2)_0%,rgba(253,90,30,0.1)_50%,rgba(0,0,0,0.1)_90%)]'
+        }`} />
+
         {/* Category Badge */}
         <motion.div 
           className="absolute top-4 left-4 z-20"
@@ -86,8 +101,8 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: index * 0.2 + 0.3 }}
         >
-          <span className={`px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg ${
-            machine.category === 'refrigerated' ? 'bg-blue-600' : 'bg-green-600'
+          <span className={`px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg backdrop-blur-sm ${
+            machine.category === 'refrigerated' ? 'bg-blue-600/90' : 'bg-green-600/90'
           }`}>
             {machine.category === 'refrigerated' ? 'Refrigerated' : 'Non-Refrigerated'}
           </span>
@@ -100,44 +115,13 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: index * 0.2 + 0.4 }}
         >
-          <span className="bg-[#FD5A1E] text-[#000000] px-4 py-2 rounded-full font-bold text-sm shadow-lg flex items-center">
+          <span className="bg-[#000000] text-[#FD5A1E] px-4 py-2 rounded-full font-bold text-sm shadow-lg flex items-center backdrop-blur-sm border border-[#FD5A1E]/30">
             <CheckCircleIcon size={14} className="mr-1" />
             Full Service
           </span>
         </motion.div>
 
         {/* Technology Indicators */}
-        {/* <motion.div 
-          className="absolute bottom-4 left-4 flex space-x-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: index * 0.2 + 0.5 }}
-        >
-          {[MonitorIcon, CreditCardIcon, WifiIcon].map((Icon, iconIndex) => (
-            <div
-              key={iconIndex}
-              className="w-8 h-8 bg-[#000000]/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-[#FD5A1E]/30"
-            >
-              <Icon size={14} className="text-[#FD5A1E]" />
-            </div>
-          ))}
-        </motion.div> */}
-
-        {/* Machine Image */}
-        <div className="relative z-0 h-full w-full bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(165,172,175,1)_50%,rgba(253,90,30,1)_100%)]">
-          <Image
-            src={machine.image}
-            alt={`${machine.name} - ${machine.model} vending machine`}
-            width={380}
-            height={380}
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-            className={`object-cover mx-auto transition-transform duration-700 ${
-              isActive ? 'scale-105' : 'scale-100'
-            }`}
-            priority={index === 0}
-          />
-        </div>
-         {/* Technology Indicators */}
         <motion.div 
           className="absolute bottom-4 left-4 flex space-x-2"
           initial={{ opacity: 0, y: 20 }}
@@ -145,16 +129,46 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
           transition={{ delay: index * 0.2 + 0.5 }}
         >
           {[MonitorIcon, CreditCardIcon, WifiIcon].map((Icon, iconIndex) => (
-            <div
+            <motion.div
               key={iconIndex}
-              className="w-8 h-8 bg-[#000000]/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-[#FD5A1E]/30"
+              className="w-8 h-8 bg-[#F5F5F5]/90 backdrop-blur-sm rounded-full flex items-center justify-center border border-[#FD5A1E]/50 shadow-lg"
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.2 }}
             >
               <Icon size={14} className="text-[#FD5A1E]" />
-            </div>
+            </motion.div>
           ))}
         </motion.div>
+
+        {/* Machine Image with Enhanced Effects */}
+        <div className="relative h-full w-full z-10">
+          {/* Machine Spotlight Glow */}
+          <div className={`absolute inset-0 transition-all duration-700 ${
+            isActive 
+              ? 'bg-[radial-gradient(circle_at_center,rgba(245,245,245,0.3)_0%,rgba(253,90,30,0.2)_30%,transparent_70%)] blur-2xl scale-110' 
+              : 'bg-[radial-gradient(circle_at_center,rgba(245,245,245,0.2)_0%,rgba(253,90,30,0.1)_30%,transparent_60%)] blur-xl scale-105'
+          }`} />
+          
+          {/* Machine Image */}
+          <div className="relative h-full w-full">
+            <Image
+              src={machine.image}
+              alt={`${machine.name} - ${machine.model} vending machine`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
+              className={`object-cover transition-all duration-700 ${
+                isActive 
+                  ? 'scale-105 drop-shadow-2xl' 
+                  : 'scale-100 drop-shadow-lg'
+              } ${isActive ? 'ring-2 ring-[#F5F5F5]/50 ring-offset-4 ring-offset-transparent' : ''}`}
+              priority={index === 0}
+            />
+            
+            {/* Subtle overlay for better contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/10 via-transparent to-transparent" />
+          </div>
+        </div>
       </div>
-     
 
       {/* Content Section */}
       <div className="p-6 sm:p-8 flex-1 flex flex-col">
@@ -174,7 +188,7 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
         </p>
 
         {/* Key Highlights */}
-        <div className="mb-6 z-30">
+        <div className="mb-6">
           <h4 className="text-[#F5F5F5] font-bold flex items-center mb-4">
             <StarIcon size={16} className="text-[#FD5A1E] mr-2" />
             Key Highlights
@@ -230,6 +244,7 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
   );
 };
 
+
 /**
  * VendingMachineShowcase Component
  * Displays premium vending machines with enhanced animations and integration
@@ -244,11 +259,11 @@ const VendingMachineShowcase = ({
   
   // Available premium vending machines (limited to actual machines with real images)
   const vendingMachines: VendingMachine[] = [
-      {
+       {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
-      image: '/images/machines/amp-standard-refrigerated-vending-machine.jpg',
+      image: '/images/machines/amp-standard-refrigerated-vending-machine.png',
       category: 'refrigerated',
       features: [
         'Advanced Refrigeration System',
@@ -272,7 +287,7 @@ const VendingMachineShowcase = ({
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
       model: 'KM-VMNT-50-B',
-      image: '/images/machines/amp-premium-non-refrigerated-vending-machine.jpg',
+      image: '/images/machines/amp-premium-non-refrigerated-vending-machine-front-screen.png',
       category: 'non-refrigerated',
       features: [
         'Premium 21.5" Touchscreen Display',
@@ -374,7 +389,7 @@ const VendingMachineShowcase = ({
                   {[
                     'Professional Installation',
                     'Complete Maintenance',
-                    // '24/7 Support',
+                    '24/7 Support',
                     'Smart Monitoring'
                   ].map((feature, index) => (
                     <motion.div
