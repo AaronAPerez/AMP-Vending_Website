@@ -49,22 +49,37 @@ export class EmailService {
   
   /**
    * Send an email for contact form submissions
+   * Sends both admin notification and user confirmation
    */
   async sendContactFormEmail(data: ContactFormData): Promise<boolean> {
     try {
-      // Format the email content
-      const emailContent = this.formatContactEmail(data);
+      // Format the email content for admin
+      const adminEmailContent = this.formatContactEmail(data);
+      
+      // Format the confirmation email for user
+      const userEmailContent = this.formatContactConfirmationEmail(data);
       
       // Split multiple recipient emails if present
       const toEmails = (process.env.TO_EMAIL || 'contact@ampvendingmachines.com').split(',').map(email => email.trim());
       
-      return await this.sendEmail({
+      // Send notification to admin
+      const adminEmailSent = await this.sendEmail({
         to: toEmails,
         subject: `New Contact Form Submission from ${data.firstName} ${data.lastName}`,
-        html: emailContent.html,
-        text: emailContent.text,
+        html: adminEmailContent.html,
+        text: adminEmailContent.text,
         replyTo: data.email
       });
+      
+      // Send confirmation to user
+      await this.sendEmail({
+        to: data.email,
+        subject: 'Thank you for contacting AMP Vending',
+        html: userEmailContent.html,
+        text: userEmailContent.text
+      });
+      
+      return adminEmailSent;
     } catch (error) {
       console.error('Error sending contact form email:', error);
       throw new Error('Failed to send contact form email');
@@ -109,7 +124,7 @@ export class EmailService {
   }
   
   /**
-   * Format contact form data into email content
+   * Format contact form data into email content for admin notification
    */
   private formatContactEmail(data: ContactFormData): { text: string; html: string } {
     // Plain text version
@@ -175,6 +190,160 @@ ${data.message || 'No additional message provided.'}
     
     return { text, html };
   }
+
+  /**
+   * Format confirmation email for contact form submissions
+   */
+  private formatContactConfirmationEmail(data: ContactFormData): { text: string; html: string } {
+
+    // Plain text version
+    const text = `
+Thank You for Contacting AMP Vending
+
+Dear ${data.firstName} ${data.lastName},
+
+Thank you for your interest in AMP Vending's premium vending machine solutions. We've received your request and our team will review your information promptly.
+
+Here's a summary of what you shared with us:
+- Company: ${data.companyName}
+${data.message ? `- Your message: "${data.message}"` : ''}
+
+What happens next?
+Our team will contact you within 1-2 business days using your preferred contact method (${data.preferredContact}). We'll discuss your specific workplace needs and provide more information about how our zero-cost, maintenance-free vending solutions can benefit your business.
+
+In the meantime, you can learn more about our vending solutions by visiting our website at https://www.ampvendingmachines.com/vending-machines
+
+If you have any urgent questions, please contact us at:
+- Phone: (209) 403-5450
+- Email: ampdesignandconsulting@gmail.com
+
+Thank you for considering AMP Vending for your workplace refreshment needs. We look forward to speaking with you soon!
+
+Best regards,
+
+Andrew Perez
+AMP Vending
+(209) 403-5450
+ampdesignandconsulting@gmail.com
+    `;
+    
+    // HTML version
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank You for Contacting AMP Vending</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #000000;
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1 {
+      color: #F5F5F5;
+      margin: 0;
+    }
+    .content {
+      padding: 20px;
+      background-color: #F5F5F5;
+    }
+    .footer {
+      background-color: #4d4d4d;
+      color: #F5F5F5;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .cta-button {
+      display: inline-block;
+      background-color: #FD5A1E;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .summary-box {
+      background-color: #F5F5F5;
+      border-left: 4px solid #FD5A1E;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .contact-info {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #F5F5F5;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Thank You for Contacting AMP Vending</h1>
+    </div>
+    
+    <div class="content">
+      <p>Dear ${data.firstName} ${data.lastName},</p>
+      
+      <p>Thank you for your interest in AMP Vending's premium vending solutions. We've received your request and our team will review your information promptly.</p>
+      
+      <div class="summary-box">
+        <h3>Here's a summary of what you shared with us:</h3>
+        <p><strong>Company:</strong> ${data.companyName}</p>
+        ${data.message ? `<p><strong>Your message:</strong> "${data.message}"</p>` : ''}
+      </div>
+      
+      <h3>What happens next?</h3>
+      <p>Our team will contact you within 1-2 business days using your preferred contact method (${data.preferredContact}). We'll discuss your specific workplace needs and provide more information about how our zero-cost, maintenance-free vending solutions can benefit your business.</p>
+      
+      <div style="text-align: center;">
+        <a href="https://www.ampvendingmachines.com/vending-machines" class="cta-button">View Our Vending Machines</a>
+      </div>
+      
+      <div class="contact-info">
+        <h3>Have urgent questions?</h3>
+        <p>Please contact us at:</p>
+        <p><strong>Phone:</strong> <a href="tel:+12094035450">(209) 403-5450</a></p>
+        <p><strong>Email:</strong> <a href="mailto:ampdesignandconsulting@gmail.com">ampdesignandconsulting@gmail.com</a></p>
+      </div>
+      
+      <p>Thank you for considering AMP Vending for your workplace refreshment needs. We look forward to speaking with you soon!</p>
+      
+      <p>Best regards,</p>
+      <p>
+        <strong>Andrew Perez</strong><br>
+        AMP Vending<br>
+        (209) 403-5450<br>
+        <a href="mailto:ampdesignandconsulting@gmail.com">ampdesignandconsulting@gmail.com</a>
+      </p>
+    </div>
+    
+    <div class="footer">
+      <p>© ${new Date().getFullYear()} AMP Vending Solutions. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
+    `;
+    
+    return { text, html };
+  }
   
   /**
    * Format feedback form data into email content for admin and user
@@ -185,6 +354,7 @@ ${data.message || 'No additional message provided.'}
     userHtml?: string;
     userText?: string;
   } {
+
     // Admin plain text version
     const adminText = `
 New Feedback Submission

@@ -1,0 +1,12 @@
+{
+  "name": "AMP Vending",
+  "version": "1.0.0",
+  "description": "Premium vending machine solutions with advanced touchscreen technology",
+  "developer": {
+    "name": "AMP Vending",
+    "url": "https://www.ampvendingmachines.com"
+  },
+  "devtools": {
+    "enabled": false
+  }
+}
