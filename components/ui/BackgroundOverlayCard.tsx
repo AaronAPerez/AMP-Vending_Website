@@ -1,8 +1,5 @@
-
-import { Product } from "../sections/ProductSection";
-import { HydrationSafeImage } from "./shared/HydrationSafeImage";
-
-
+import Image from "next/image";
+import { Product } from "../landing/ProductSection";
 
 
 
@@ -12,21 +9,27 @@ import { HydrationSafeImage } from "./shared/HydrationSafeImage";
 const BackgroundOverlayCard = ({ product }: { product: Product }) => {
 
   return (
-    <div className="relative group overflow-hidden rounded-xl shadow-xl">
+      <div className="relative group h-60 sm:h-72 overflow-hidden rounded-xl shadow-xl">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <HydrationSafeImage
+        <Image
           src={product.image}
           alt={product.name}
-          width={10}
-          height={10}
-          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = '/images/products/placeholder.jpg';
+          }}
         />
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Gradient Overlay - Ensure visibility on all screens */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
+        aria-hidden="true"
+      />
 
       {/* Tags */}
       <div className="absolute top-2 left-2 right-2 flex justify-between">
@@ -42,36 +45,34 @@ const BackgroundOverlayCard = ({ product }: { product: Product }) => {
         )}
       </div>
 
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-4 text-white shadow-">
-        <h3 className="text-lg font-bold mb-1">{product.name}</h3>
-             <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-2" />
-        <p className="text-sm text-gray-300 capitalize mb-1">{product.category}</p>
-
-        {/* {product.details && (
-          <p className="text-xs text-gray-400 italic mb-2 line-clamp-2">{product.details}</p>
-        )} */}
+      {/* Content - Adjusted for better visibility on small screens */}
+      <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4 text-white">
+        <h3 className="text-base sm:text-lg font-bold mb-0.5 sm:mb-1">{product.name}</h3>
         
-        {/* Bottom section with price and gradient line */}
-        <div className="relative mt-2">
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-2" />
+        {product.details && (
+          <p className="text-xs text-gray-300 italic mb-1 sm:mb-2 line-clamp-2">{product.details}</p>
+        )}
+        
+        {/* Bottom section with category */}
+        <div className="relative mt-1 sm:mt-2">
+          <div 
+            className="h-px w-full bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-2" 
+            aria-hidden="true"
+          />
           <div className="flex justify-between items-center">
-           {/* <span className="text-[#FD5A1E] font-bold text-lg">{formatPrice(product.price)}</span> */}
-            <button className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full text-xs font-medium transition-colors">
-              Add
-            </button> 
+            <p className="text-xs sm:text-sm text-gray-300 capitalize">{product.category}</p>
           </div>
-        </div> 
+        </div>
       </div>
 
       {/* Hover Effect Glow */}
-      <div className="absolute -inset-0.5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl">
+      <div 
+        className="absolute -inset-0.5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" 
+        aria-hidden="true"
+      >
         <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#FD5A1E]/20 to-transparent blur-md" />
       </div>
     </div>
-
-   
- 
   );
 };
 

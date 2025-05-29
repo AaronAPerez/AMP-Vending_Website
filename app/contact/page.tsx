@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import { Metadata } from 'next';
-import ContactForm from '@/components/contact/ContactForm';
 import GoogleMapComponent from '@/components/GoogleMapComponent';
+import ContactForm from '@/components/contact/ContactForm';
 
 
 // Dynamically import the map component to avoid SSR issues
@@ -180,8 +180,8 @@ export default function ContactPage() {
                 </div>
                 <p className="text-[#A5ACAF]">
                   Monday - Friday: 8AM - 8PM<br />
-                  Saturday - Sunday: Closed<br />
-                  <span className="text-[#FD5A1E]">24/7 Customer Support</span>
+                  Saturday - Sunday: 8AM - 8PM<br />
+                  {/* <span className="text-[#FD5A1E]">24/7 Customer Support</span> */}
                 </p>
               </div>
             </div>

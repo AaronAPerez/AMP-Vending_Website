@@ -15,105 +15,135 @@ import {
   SparklesIcon
 } from 'lucide-react';
 import Link from 'next/link';
-import { HydrationSafeImage } from '../ui/shared/HydrationSafeImage';
+import Image from 'next/image';
 
 /**
- * SpotlightMachineCard Component
- * Interactive machine showcase with hover effects
+ * VendingMachineCard Component
+ * Interactive machine showcase card with detailed specifications
  */
-const SpotlightMachineCard = () => {
+const VendingMachineCard = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      className="relative h-full rounded-2xl overflow-hidden cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <motion.div
+      className="relative bg-[#111111] rounded-xl overflow-hidden border border-[#333333] shadow-lg group"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+      role="article"
+      aria-label="Premium vending machine showcase"
     >
-      {/* Background Image with vending machine interior */}
-      <HydrationSafeImage
-        src="/images/machines/machine-snacks.jpg"
-        alt=""
-        className={`object-cover transition-transform duration-700 ease-out ${isHovered ? 'scale-105' : 'scale-100'}`}
-        aria-hidden="true"
-      />
-
-      {/* Dynamic overlay */}
-      <div
-        className={`absolute inset-0 transition-all duration-500 ${isHovered
-          ? 'bg-gradient-radial from-transparent via-[#000000]/30 to-[#000000]/80'
-          : 'bg-gradient-to-t from-[#000000]/90 to-[#000000]/40'
-          }`}
-      />
-
-      {/* Spotlight machine card */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: 1,
-          scale: isHovered ? 1.1 : 1,
-          y: isHovered ? -10 : 0
-        }}
-        transition={{ duration: 0.5 }}
-        className="absolute inset-0 flex items-center justify-center"
-      >
-        <div className={`relative transition-all duration-500 ${isHovered ? 'bg-[#000000]/50' : 'bg-[#000000]/80'
-          } backdrop-blur-sm border-2 border-[#FD5A1E]/50 rounded-2xl shadow-2xl`}>
-
-          {/* Machine image with glow effect */}
-          <div className="relative aspect-[4/3] h-68 sm:h-80 md:h-full rounded-xl overflow-hidden">
-            <HydrationSafeImage
-              src="/images/machines/vending-machines-bg.png"
-              alt="Premium vending machine showcase"
-              className="object-cover"
-            />
-
-            {/* Animated glow */}
-            <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'
-              }`}>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#FD5A1E]/30 to-transparent" />
-              <div className="absolute top-0 left-0 right-0 h-1 bg-[#FD5A1E] animate-pulse" />
-            </div>
-
-            {/* Tech indicators */}
-            <div className="absolute bottom-2 left-2 right-2 flex justify-between">
-              <span className="bg-[#FD5A1E] text-[#000000] px-2 py-1 rounded text-xs font-bold">
-                Interactive
-              </span>
-              <span className="bg-[#000000]/90 text-[#FD5A1E] px-2 py-1 rounded text-xs font-bold">
-                Smart Tech
-              </span>
-            </div>
-          </div>
-
-          {/* Hover content */}
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{
-              opacity: isHovered ? 1 : 0,
-              height: isHovered ? 'auto' : 0
-            }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden mt-4"
-          >
-            <h3 className="text-lg font-bold text-[#F5F5F5] text-center mb-2">
-              21.5&quot; Touchscreen Technology
-            </h3>
-            <div className="flex justify-center space-x-2">
-              <div className="w-6 h-6 bg-[#FD5A1E]/20 rounded-full flex items-center justify-center">
-                <MonitorIcon size={12} className="text-[#FD5A1E]" />
-              </div>
-              <div className="w-6 h-6 bg-[#FD5A1E]/20 rounded-full flex items-center justify-center">
-                <CreditCardIcon size={12} className="text-[#FD5A1E]" />
-              </div>
-              <div className="w-6 h-6 bg-[#FD5A1E]/20 rounded-full flex items-center justify-center">
-                <WifiIcon size={12} className="text-[#FD5A1E]" />
-              </div>
-            </div>
-          </motion.div>
+      {/* Machine Image */}
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <Image
+          src="/images/machines/vending-machines-bg.png"
+          alt="AMP Premium Vending Machine with 21.5 inch touchscreen interface"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500"
+          style={{
+            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+          }}
+          priority
+        />
+        
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 to-transparent opacity-60" />
+        
+        {/* Technology badges */}
+        <div className="absolute top-4 left-4 right-4 flex justify-between">
+          <span className="bg-[#FD5A1E] text-[#000000] px-3 py-1 rounded-full text-xs font-bold flex items-center">
+            <MonitorIcon size={12} className="mr-1" />
+            21.5" HD
+          </span>
+          <span className="bg-[#000000]/90 text-[#FD5A1E] px-3 py-1 rounded-full text-xs font-bold border border-[#FD5A1E]/30">
+            Touchscreen
+          </span>
         </div>
-      </motion.div>
-    </div>
+
+        {/* Interactive indicators at bottom */}
+        <div className="absolute bottom-4 left-4 right-4">
+          <div className="flex justify-between items-center">
+            <div className="flex space-x-2">
+              {[CreditCardIcon, WifiIcon, ZapIcon].map((Icon, index) => (
+                <motion.div
+                  key={index}
+                  className="w-8 h-8 bg-[#FD5A1E]/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-[#FD5A1E]/30"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <Icon size={14} className="text-[#FD5A1E]" />
+                </motion.div>
+              ))}
+            </div>
+            <motion.div
+              className="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <CheckCircleIcon size={12} className="mr-1" />
+              Available Now
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Machine Details */}
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-bold text-[#F5F5F5]">
+            Premium Refrigerated Machine
+          </h3>
+          <div className="text-[#FD5A1E] text-sm font-semibold">
+            Model: KM-VMR-40-B
+          </div>
+        </div>
+
+        <p className="text-[#A5ACAF] text-sm mb-6 leading-relaxed">
+          Advanced vending solution featuring 21.5" touchscreen technology, 
+          multiple payment options, and customizable product selection.
+        </p>
+
+        {/* Key Features */}
+        <div className="space-y-3 mb-6">
+          {[
+            { icon: MonitorIcon, text: "21.5\" HD Touchscreen Interface" },
+            { icon: CreditCardIcon, text: "Tap-to-Pay & Mobile Payments" },
+            { icon: ShoppingBagIcon, text: "50+ Customizable Products" },
+            { icon: WifiIcon, text: "Smart Inventory Management" }
+          ].map((feature, index) => (
+            <motion.div
+              key={index}
+              className="flex items-center text-sm"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 * index + 0.2 }}
+            >
+              <div className="w-5 h-5 bg-[#FD5A1E]/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <feature.icon size={12} className="text-[#FD5A1E]" />
+              </div>
+              <span className="text-[#F5F5F5]">{feature.text}</span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Action button with hover effect */}
+        <motion.div
+          animate={{
+            backgroundColor: isHovered ? '#FD5A1E' : 'transparent'
+          }}
+          className="w-full py-3 px-4 border border-[#FD5A1E] rounded-lg text-center font-medium transition-colors cursor-pointer"
+        >
+          <span className={`transition-colors ${isHovered ? 'text-[#000000]' : 'text-[#FD5A1E]'}`}>
+            Learn More About This Machine
+          </span>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 };
 
@@ -156,15 +186,17 @@ const PremiumFeature = ({ icon, title, description, highlight, delay = 0 }: Prem
       animate={isInView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.6, delay }}
       className="flex items-start space-x-4 p-4 rounded-lg hover:bg-[#FD5A1E]/5 transition-all group"
+      role="article"
+      aria-label={`Feature: ${title}`}
     >
       <div className="flex-shrink-0 w-12 h-12 bg-[#FD5A1E]/10 rounded-full flex items-center justify-center group-hover:bg-[#FD5A1E]/20 transition-all">
-        <div className="text-[#FD5A1E] text-xl">
+        <div className="text-[#FD5A1E] text-xl" aria-hidden="true">
           {icon}
         </div>
       </div>
       <div className="flex-1">
         <h4 className="text-[#F5F5F5] font-bold text-lg mb-1">{title}</h4>
-        <p className="text-[#A5ACAF] text-sm mb-2">{description}</p>
+        <p className="text-[#A5ACAF] text-sm mb-2 leading-relaxed">{description}</p>
         <span className="text-[#FD5A1E] text-sm font-semibold">{highlight}</span>
       </div>
     </motion.div>
@@ -193,8 +225,10 @@ const UpgradeMetric = ({ metric, label, icon, delay = 0 }: UpgradeMetricProps) =
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay }}
       className="text-center p-6 bg-[#111111] rounded-xl border border-[#333333] hover:border-[#FD5A1E] transition-all group"
+      role="article"
+      aria-label={`Metric: ${metric} ${label}`}
     >
-      <div className="text-[#FD5A1E] text-3xl mb-3 flex justify-center group-hover:scale-110 transition-transform">
+      <div className="text-[#FD5A1E] text-3xl mb-3 flex justify-center group-hover:scale-110 transition-transform" aria-hidden="true">
         {icon}
       </div>
       <div className="text-2xl sm:text-3xl font-bold text-[#FD5A1E] mb-2">{metric}</div>
@@ -205,7 +239,8 @@ const UpgradeMetric = ({ metric, label, icon, delay = 0 }: UpgradeMetricProps) =
 
 /**
  * WorkplaceTransformSection Component
- * Showcases the premium upgrade benefits with creative vending machine interior background
+ * Showcases the premium upgrade benefits with a dedicated vending machine card
+ * and comprehensive feature breakdown for enhanced workplace solutions.
  */
 const WorkplaceTransformSection = ({
   renderHeading = true,
@@ -226,8 +261,10 @@ const WorkplaceTransformSection = ({
   }, []);
 
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}>
-      {/* Section Header - Only rendered if renderHeading is true */}
+    <section 
+      className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
+      aria-labelledby={renderHeading ? "transform-heading" : undefined}
+    >
       {/* Section Header - Only rendered if renderHeading is true */}
       {renderHeading && (
         <motion.div
@@ -237,7 +274,7 @@ const WorkplaceTransformSection = ({
           transition={{ duration: 0.6 }}
         >
           <span className="inline-flex items-center px-4 py-2 bg-[#FD5A1E]/10 text-[#FD5A1E] text-sm font-medium rounded-full mb-4 sm:mb-6">
-            <SparklesIcon size={16} className="mr-2" />
+            <SparklesIcon size={16} className="mr-2" aria-hidden="true" />
             Advanced Workplace Solutions
           </span>
           <h2
@@ -253,20 +290,15 @@ const WorkplaceTransformSection = ({
         </motion.div>
       )}
 
-      {/* Main Showcase with Creative Background Implementation */}
+      {/* Main Showcase with Vending Machine Card */}
       <motion.div
         className="mb-16 sm:mb-20"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
-        <div className="relative rounded-2xl overflow-hidden border border-[#FD5A1E]/30 bg-[#111111] shadow-2xl">
-          {/* Creative Vending Machine Interior Background - subtle overlay */}
-          <div className="absolute inset-0 opacity-15">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/95 via-[#000000]/80 to-[#000000]/95" />
-          </div>
-
-          {/* Premium Header */}
+        {/* Premium Header */}
+        <div className="relative rounded-2xl overflow-hidden border border-[#FD5A1E]/30 bg-[#111111] shadow-2xl mb-8">
           <div className="relative z-10 p-6 sm:p-8 border-b border-[#FD5A1E]/30 bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
@@ -279,11 +311,11 @@ const WorkplaceTransformSection = ({
               </div>
               <div className="flex items-center space-x-2">
                 <div className="bg-[#FD5A1E] text-[#000000] px-4 py-2 rounded-full text-xs font-bold flex items-center">
-                  <CheckCircleIcon size={14} className="mr-1" />
+                  <CheckCircleIcon size={14} className="mr-1" aria-hidden="true" />
                   Latest Tech
                 </div>
                 <div className="bg-green-600 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center">
-                  <CheckCircleIcon size={14} className="mr-1" />
+                  <CheckCircleIcon size={14} className="mr-1" aria-hidden="true" />
                   Full Service
                 </div>
               </div>
@@ -292,49 +324,32 @@ const WorkplaceTransformSection = ({
         </div>
 
         {/* Enhanced Content Grid */}
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-0">
-          {/* Interactive Machine Showcase using SpotlightMachineCard */}
-          <div className="relative p-6 sm:p-8 bg-[#000000]/80 backdrop-blur-sm">
-            <div className="space-y-6">
-              {/* Enhanced Machine Display with Spotlight Effect */}
-              <div className="relative">
-                <SpotlightMachineCard />
-
-                {/* Additional Context Below Machine */}
-                <div className="mt-6 text-center">
-                  <h4 className="text-lg font-bold text-[#F5F5F5] mb-2">
-                    Interactive Workplace Solution
-                  </h4>
-                  <p className="text-sm text-[#A5ACAF] leading-relaxed">
-                    Experience the future of workplace convenience with our advanced vending technology
-                  </p>
-
-                  {/* Quick Stats */}
-                  <div className="flex justify-center space-x-6 mt-4">
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-[#FD5A1E]">21.5&quot;</div>
-                      <div className="text-xs text-[#A5ACAF]">HD Display</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-[#FD5A1E]">50+</div>
-                      <div className="text-xs text-[#A5ACAF]">Products</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-[#FD5A1E]">24/7</div>
-                      <div className="text-xs text-[#A5ACAF]">Support</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Loading State - Remove this section as it's now handled in SpotlightMachineCard */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Vending Machine Card Display */}
+          <div className="order-2 lg:order-1">
+            <VendingMachineCard />
+            
+            {/* Additional Machine Stats */}
+            <div className="mt-6 grid grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-[#111111] rounded-lg border border-[#333333]">
+                <div className="text-2xl font-bold text-[#FD5A1E] mb-1">21.5"</div>
+                <div className="text-xs text-[#A5ACAF]">HD Display</div>
+              </div>
+              <div className="text-center p-4 bg-[#111111] rounded-lg border border-[#333333]">
+                <div className="text-2xl font-bold text-[#FD5A1E] mb-1">50+</div>
+                <div className="text-xs text-[#A5ACAF]">Products</div>
+              </div>
+              <div className="text-center p-4 bg-[#111111] rounded-lg border border-[#333333]">
+                <div className="text-2xl font-bold text-[#FD5A1E] mb-1">24/7</div>
+                <div className="text-xs text-[#A5ACAF]">Support</div>
               </div>
             </div>
           </div>
 
           {/* Enhanced Features List */}
-          <div className="p-6 sm:p-8 bg-[#0a0a0a]/90 backdrop-blur-sm">
+          <div className="order-1 lg:order-2 bg-[#0a0a0a] rounded-xl p-6 sm:p-8 border border-[#333333]">
             <h4 className="text-xl font-bold text-[#F5F5F5] mb-6 flex items-center">
-              <StarIcon size={20} className="text-[#FD5A1E] mr-2" />
+              <StarIcon size={20} className="text-[#FD5A1E] mr-2" aria-hidden="true" />
               Advanced Technology Benefits
             </h4>
 
@@ -383,9 +398,6 @@ const WorkplaceTransformSection = ({
         </div>
       </motion.div>
 
-
-
-
       {/* Workplace Impact Metrics */}
       <motion.div
         className="mb-16 sm:mb-20"
@@ -402,7 +414,7 @@ const WorkplaceTransformSection = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 sm:mb-20 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 sm:mb-20">
           <UpgradeMetric
             metric="95%"
             label="Employee Satisfaction Increase"
@@ -429,18 +441,13 @@ const WorkplaceTransformSection = ({
           />
         </div>
 
-        {/* Enhanced Value Proposition with Background Effect */}
+        {/* Enhanced Value Proposition */}
         <motion.div
           className="relative rounded-2xl overflow-hidden border border-[#FD5A1E]/30 mb-16 sm:mb-20"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          {/* Subtle product background overlay */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FD5A1E]/20 to-transparent" />
-          </div>
-
           <div className="relative z-10 p-6 sm:p-8 lg:p-10 bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
@@ -468,7 +475,7 @@ const WorkplaceTransformSection = ({
                       transition={{ duration: 0.5, delay: 0.9 + (index * 0.1) }}
                       className="flex items-center text-[#F5F5F5]"
                     >
-                      <CheckCircleIcon size={16} className="text-[#FD5A1E] mr-3 flex-shrink-0" />
+                      <CheckCircleIcon size={16} className="text-[#FD5A1E] mr-3 flex-shrink-0" aria-hidden="true" />
                       <span className="text-sm sm:text-base">{benefit}</span>
                     </motion.div>
                   ))}
@@ -478,7 +485,7 @@ const WorkplaceTransformSection = ({
               <div className="text-center lg:text-right">
                 <div className="inline-block p-8 bg-[#000000]/70 rounded-xl border border-[#FD5A1E]/20 backdrop-blur-sm">
                   <div className="text-4xl sm:text-5xl font-bold text-[#FD5A1E] mb-2 flex items-center justify-center">
-                    <ClockIcon size={40} className="mr-2" />
+                    <ClockIcon size={40} className="mr-2" aria-hidden="true" />
                     24/7
                   </div>
                   <div className="text-[#F5F5F5] font-semibold mb-1">Service Support</div>
@@ -486,7 +493,7 @@ const WorkplaceTransformSection = ({
 
                   <div className="mt-6 pt-6 border-t border-[#FD5A1E]/20">
                     <div className="text-2xl font-bold text-[#F5F5F5] mb-1 flex items-center justify-center">
-                      <ShoppingBagIcon size={24} className="mr-2 text-[#FD5A1E]" />
+                      <ShoppingBagIcon size={24} className="mr-2 text-[#FD5A1E]" aria-hidden="true" />
                       50+
                     </div>
                     <div className="text-[#A5ACAF] text-sm">Product options available</div>
@@ -507,7 +514,7 @@ const WorkplaceTransformSection = ({
           <div className="relative overflow-hidden rounded-2xl">
             <div className="absolute inset-0 bg-gradient-to-r from-[#FD5A1E]/20 to-transparent backdrop-blur-sm" />
             <div className="relative px-4 sm:px-6 lg:px-8 py-8 sm:py-10 border border-[#FD5A1E]/30 rounded-2xl bg-[#000000]/50">
-              <SparklesIcon size={32} className="text-[#FD5A1E] mx-auto mb-4" />
+              <SparklesIcon size={32} className="text-[#FD5A1E] mx-auto mb-4" aria-hidden="true" />
               <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#F5F5F5] mb-4">
                 Ready to Experience Advanced Vending Technology?
               </h3>
@@ -518,26 +525,26 @@ const WorkplaceTransformSection = ({
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md sm:max-w-none mx-auto">
                 <Link
                   href="/contact"
-                  className="group px-8 py-4 bg-[#FD5A1E] text-[#000000] rounded-full font-medium shadow-lg hover:bg-[#FD5A1E]/90 transition-all flex items-center justify-center"
+                  className="group px-8 py-4 bg-[#FD5A1E] text-[#000000] rounded-full font-medium shadow-lg hover:bg-[#FD5A1E]/90 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
                   aria-label="Schedule your workplace vending consultation"
                 >
                   Start Your Upgrade Today
-                  <ArrowRightIcon size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRightIcon size={16} className="ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </Link>
                 <Link
                   href="/vending-machines"
-                  className="px-8 py-4 bg-transparent text-[#F5F5F5] border border-[#A5ACAF] rounded-full font-medium hover:bg-[#4d4d4d] hover:border-[#FD5A1E] transition-all flex items-center justify-center"
+                  className="px-8 py-4 bg-transparent text-[#F5F5F5] border border-[#A5ACAF] rounded-full font-medium hover:bg-[#4d4d4d] hover:border-[#FD5A1E] transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#A5ACAF] focus:ring-offset-2 focus:ring-offset-black"
                   aria-label="View our complete vending machine collection"
                 >
                   View All Machines
-                  <ArrowRightIcon size={16} className="ml-2" />
+                  <ArrowRightIcon size={16} className="ml-2" aria-hidden="true" />
                 </Link>
               </div>
             </div>
           </div>
         </motion.div>
       </motion.div>
-    </div>
+    </section>
   );
 };
 

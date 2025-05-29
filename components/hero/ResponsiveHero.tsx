@@ -93,7 +93,7 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
   
   return (
     <div 
-      className={`relative mt-10 min-h-screen flex items-center justify-center overflow-hidden ${className}`}
+      className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}
       aria-labelledby="hero-heading"
     >
       {/* Product grid background with parallax effect */}

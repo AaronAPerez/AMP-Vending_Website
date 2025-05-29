@@ -4,18 +4,7 @@ import { motion } from 'framer-motion';
 import { Phone, MapPin, Settings, HeadphonesIcon } from 'lucide-react';
 import { GlareCard } from '../ui/effects/glare-card';
 
-/**
- * ProcessSection Component
- * 
- * Displays the step-by-step process of implementing vending machines with enhanced
- * responsive design and improved GlareCard layout. Features:
- * - Fully responsive grid system with proper breakpoints
- * - Enhanced accessibility with proper ARIA labels and semantic HTML
- * - Smooth animations with reduced motion support
- * - Improved mobile experience with stacked layout
- * - Better visual hierarchy and spacing
- * - Fixed card height issues for proper content display
- */
+
 const ProcessSection = () => {
   // Define process steps with icons, descriptions, and accessibility labels
   const processSteps = [

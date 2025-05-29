@@ -5,10 +5,6 @@ import BackgroundOverlayCard from '../ui/BackgroundOverlayCard';
 import ResponsiveGrid from '../layout/ResponsiveGrid';
 
 
-
-
-
-
 export interface Product {
   id: string;
   name: string;
@@ -49,11 +45,11 @@ const ProductSection = () => {
   const productCatalog: Product[] = [
     // Chips & Savory Snacks ($1.75)
     { id: 'lays-classic', name: 'Lays Classic', category: 'chips', image: '/images/products/lays.jpg', popular: true },
-    { id: 'doritos-nacho', name: 'Doritos Nacho Cheese', category: 'chips', image: '/images/products/doritos.jpg', popular: true },
+    { id: 'doritos-nacho', name: 'Doritos Nacho Cheese', category: 'chips', image: '/images/products/doritos-nacho-cheese.jpg', popular: true },
     { id: 'cheetos', name: 'Cheetos', category: 'chips', image: '/images/products/cheetos.jpg' },
     { id: 'lays-sour-cream', name: 'Lays Sour Cream & Onion', category: 'chips', image: '/images/products/layssourcream.jpg' },
     // { id: 'fritos-original', name: 'Fritos Original', category: 'chips', image: '/images/products/placeholder.jpg' },
-    { id: 'doritos-cool-ranch', name: 'Doritos Cool Ranch', category: 'chips', image: '/images/products/doritos.jpg' },
+    { id: 'doritos-cool-ranch', name: 'Doritos Cool Ranch', category: 'chips', image: '/images/products/doritos-cool-ranch.jpg' },
     // { id: 'ruffles-cheddar', name: 'Ruffles Cheddar & Sour Cream', category: 'chips', image: '/images/products/placeholder.jpg' },
     { id: 'lays-bbq', name: 'Lays BBQ', category: 'chips', image: '/images/products/lays-bbq.jpg' },
     // { id: 'funyuns', name: 'Funyuns Onion Rings', category: 'chips', image: '/images/products/placeholder.jpg' },

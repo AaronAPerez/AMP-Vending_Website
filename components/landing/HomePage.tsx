@@ -105,7 +105,7 @@ const HomePage = () => {
       <main className="flex flex-col min-h-screen overflow-hidden bg-black/90">
 
         {/* Hero Section - Advanced Workplace Vending Solutions */}
-        <section
+        <Section
           id="hero"
           className="relative min-h-screen bg-black/90"
           aria-labelledby="hero-heading"
@@ -138,7 +138,7 @@ const HomePage = () => {
               secondaryCta={{ text: "Contact Us", href: "/contact" }}
             />
           </ClientOnly>
-        </section> 
+        </Section> 
 
         {/* Workplace Transformation - Technology Focus */}
         <Section
