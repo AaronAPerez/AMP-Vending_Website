@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import FeedbackForm from "@/components/FeedbackForm";
+import FeedbackForm from "@/components/features/feedback/FeedbackForm";
 import Link from "next/link";
 
 // Define metadata for SEO

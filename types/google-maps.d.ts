@@ -20,3 +20,11 @@ declare namespace JSX {
       }, HTMLElement>;
     }
   }
+export interface GoogleMapComponentProps {
+  mapContainerStyle?: React.CSSProperties;
+  center: { lat: number; lng: number };
+  zoom: number;
+  onLoad?: () => void;
+  onUnmount?: () => void;
+  options?: google.maps.MapOptions;
+}

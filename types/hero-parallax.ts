@@ -1,10 +1,10 @@
-interface ProductItem {
-    title: string;
-    thumbnail: string;
-    link: string;
-  }
+// interface ProductItem {
+//     title: string;
+//     thumbnail: string;
+//     link: string;
+//   }
   
-  interface HeroParallaxProps {
-    products: ProductItem[];
-    children?: React.ReactNode;
-  }
+//   interface HeroParallaxProps {
+//     products: ProductItem[];
+//     children?: React.ReactNode;
+//   }

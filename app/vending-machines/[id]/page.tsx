@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getVendingMachineById, MachineData } from '@/lib/data/vendingMachineData';
 import { useParams } from 'next/navigation';
-import { Loading } from '@/components/ui/Loading';
+import { Loading } from '@/components/ui/core/Loading';
 import Link from 'next/link';
 import VendingMachineDetailPage from '@/components/VendingMachineDetailPage';
 import Script from 'next/script';

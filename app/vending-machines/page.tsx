@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllVendingMachines, getVendingMachinesByCategory, MachineData } from '@/lib/data/vendingMachineData';
-import { Loading } from '@/components/ui/Loading';
+import { Loading } from '@/components/ui/core/Loading';
 import { usePathname } from 'next/navigation';
 import CTASection from '@/components/landing/CTASection';
 import Script from 'next/script';
