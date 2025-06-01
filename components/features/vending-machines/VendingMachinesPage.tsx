@@ -49,11 +49,7 @@ const VendingMachinesPage = () => {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
-<<<<<<< HEAD:components/VendingMachinesPage.tsx
       image: '/images/machines/amp-standard-refrigerated-vending-machine.jpg',
-=======
-      image: '/images/products/placeholder.jpg',
->>>>>>> main:components/vending-machines/VendingMachinesPage.tsx
       description: 'A versatile refrigerated vending machine designed for reliability and performance in medium to high-traffic locations.',
       features: [
         '60 product slots',
@@ -89,11 +85,7 @@ const VendingMachinesPage = () => {
       id: 'km-vmnt-50-b',
       name: 'Non-Refrigerated Snack Machine',
       model: 'KM-VMNT-50-B',
-<<<<<<< HEAD:components/VendingMachinesPage.tsx
       image: '/images/machines/amp-premium-non-refrigerated-vending-machine.jpg',
-=======
-      image: '/images/products/placeholder.jpg',
->>>>>>> main:components/vending-machines/VendingMachinesPage.tsx
       description: 'Advanced snack vending machine with a large 22" touchscreen interface and maximum product capacity for non-refrigerated items.',
       features: [
         '60 product slots',
@@ -216,7 +208,7 @@ const VendingMachinesPage = () => {
             <div className="p-6 flex-1 flex flex-col">
               <div className="mb-4">
                 <h2 className="text-xl font-bold text-[#F5F5F5] mb-1">{machine.name}</h2>
-                <p className="text-[#FD5A1E] text-sm font-medium">{machine.model}</p>
+                {/* <p className="text-[#FD5A1E] text-sm font-medium">{machine.model}</p> */}
               </div>
               
               <p className="text-[#A5ACAF] mb-5">{machine.description}</p>

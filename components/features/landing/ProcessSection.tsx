@@ -55,7 +55,7 @@ const ProcessSection = () => {
             key={step.number}
             className="flex justify-center"
           >
-            <GlareCard className="w-full max-w-[320px] min-h-[420px] sm:min-h-[450px] lg:min-h-[480px]">
+            <GlareCard className="w-full max-w-[320px] min-h-[380px] sm:min-h-[350px] lg:min-h-[380px]">
               <motion.div
                 className="relative bg-[#111111] rounded-xl overflow-hidden border border-[#333333] shadow-lg w-full h-full flex flex-col"
                 initial={{ opacity: 0, y: 30 }}

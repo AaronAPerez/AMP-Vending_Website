@@ -1,7 +1,8 @@
 import Script from 'next/script';
 import { Metadata } from 'next';
 import GoogleMapComponent from '@/components/GoogleMapComponent';
-import ContactForm from '@/components/contact/ContactForm';
+import ContactForm from '@/components/features/contact/ContactForm';
+
 
 
 export const metadata: Metadata = {

@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { getVendingMachineById, MachineData } from '@/lib/data/vendingMachineData';
 import { useParams } from 'next/navigation';
-import { Loading } from '@/components/ui/core/Loading';
 import Link from 'next/link';
-import VendingMachineDetailPage from '@/components/VendingMachineDetailPage';
 import Script from 'next/script';
+import VendingMachineDetailPage from '@/components/features/vending-machines/VendingMachineDetailPage';
+import { Loading } from '@/components/ui/core/Loading';
 
 /**
  * Dynamic Vending Machine Detail Page Component
@@ -120,7 +120,7 @@ const DynamicMachineDetailPage = () => {
               "@type": "Brand",
               "name": "AMP Vending"
             },
-            "model": machineData.model,
+            // "model": machineData.model,
             "offers": {
               "@type": "Offer",
               "price": "0",

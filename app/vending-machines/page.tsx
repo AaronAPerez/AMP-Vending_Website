@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllVendingMachines, getVendingMachinesByCategory, MachineData } from '@/lib/data/vendingMachineData';
-import { Loading } from '@/components/ui/core/Loading';
 import { usePathname } from 'next/navigation';
-import CTASection from '@/components/landing/CTASection';
 import Script from 'next/script';
+import { Loading } from '@/components/ui/core/Loading';
+import CTASection from '@/components/features/landing/CTASection';
 
 
 // Types for our navigation sidebar
@@ -41,21 +41,21 @@ const VendingMachinesPage = () => {
   // Data for sidebar navigation
   const sidebarItems: SidebarItem[] = [
     { name: 'All Vending Machines', path: '/vending-machines' },
-    {
-      name: 'Premium Refrigerated Machine',
-      path: '/vending-machines/km-vmrt-50-b',
-      model: 'KM-VMRT-50-B'
-    },
+    // {
+    //   name: 'Premium Refrigerated Machine',
+    //   path: '/vending-machines/km-vmrt-50-b',
+    //   model: 'KM-VMRT-50-B'
+    // },
     {
       name: 'Standard Refrigerated Machine',
       path: '/vending-machines/km-vmr-40-b',
       model: 'KM-VMR-40-B'
     },
-    {
-      name: 'Compact Refrigerated Machine',
-      path: '/vending-machines/km-vmr-30-b',
-      model: 'KM-VMR-30-B'
-    },
+    // {
+    //   name: 'Compact Refrigerated Machine',
+    //   path: '/vending-machines/km-vmr-30-b',
+    //   model: 'KM-VMR-30-B'
+    // },
     {
       name: 'Non-Refrigerated Snack Machine',
       path: '/vending-machines/km-vmnt-50-b',
@@ -238,7 +238,8 @@ const VendingMachinesPage = () => {
                     <Image
                       src={machine.images[0].src}
                       alt={machine.name}
-                      fill
+                      width={400}
+                      height={600}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -263,7 +264,7 @@ const VendingMachinesPage = () => {
                     <h2 className="text-xl font-bold text-[#F5F5F5] group-hover:text-[#FD5A1E] transition-colors">
                       {machine.name}
                     </h2>
-                    <p className="text-[#FD5A1E] text-sm mb-2">{machine.model}</p>
+                    {/* <p className="text-[#FD5A1E] text-sm mb-2">{machine.model}</p> */}
                     <p className="text-[#A5ACAF] text-sm line-clamp-2 mb-4">
                       {machine.shortDescription}
                     </p>
