@@ -8,7 +8,7 @@
 
 // import React from 'react';
 // import '@testing-library/jest-dom';
-// import { jest } from '@jest/globals';
+// import { afterAll, afterEach, beforeAll, jest } from '@jest/globals';
 
 // // Mock Next.js router
 // jest.mock('next/navigation', () => ({
@@ -120,11 +120,12 @@
 // };
 
 // // Mock fetch for API testing
-// global.fetch = jest.fn();
+// // Cast to the correct type to satisfy TypeScript
+// global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
 
 // // Setup fetch mock helper
 // export const mockFetch = (response: any, ok: boolean = true) => {
-//   (global.fetch as jest.Mock).mockResolvedValueOnce({
+//   (global.fetch as jest.Mock<any, any>).mockResolvedValueOnce({
 //     ok,
 //     json: async () => response,
 //     text: async () => JSON.stringify(response),
