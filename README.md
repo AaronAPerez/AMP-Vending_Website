@@ -149,7 +149,7 @@ AMP Vending is a modern, responsive website built for a vending machine company 
 - npm or yarn package manager
 - Git for version control
 
-### Installation
+<!-- ### Installation
 
 1. **Clone the repository**
    ```bash
@@ -196,7 +196,7 @@ AMP Vending is a modern, responsive website built for a vending machine company 
 ```bash
 npm run build
 npm start
-```
+``` -->
 
 ## 📁 Project Structure
 
@@ -277,7 +277,7 @@ This project is proprietary software owned by AMP Vending. All rights reserved.
 - **Phone**: [(209) 403-5450](tel:+12094035450)
 - **Location**: Modesto, CA 95354
 
----
+<!-- ---
 
 ## 🚀 Deployment
 
@@ -290,7 +290,7 @@ This project is proprietary software owned by AMP Vending. All rights reserved.
 ```bash
 npm run build
 npm run export  # For static export (if configured)
-```
+``` -->
 
 ## 🔍 SEO Features
 
