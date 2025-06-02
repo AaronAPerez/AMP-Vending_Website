@@ -302,6 +302,6 @@ npm run export  # For static export (if configured)
 - **Twitter Cards**: Enhanced Twitter sharing
 - **Canonical URLs**: Proper URL canonicalization
 
----
+
 
 *Built with ❤️ using Next.js, TypeScript, and Tailwind CSS*
