@@ -1,14 +1,45 @@
 {
   "redirects": [
     { 
-      "source": "http://ampvendingmachines.com/:path*", 
-      "destination": "https://www.ampvendingmachines.com/:path*", 
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "ampvendingmachines.com"
+        }
+      ],
+      "destination": "https://www.ampvendingmachines.com/",
       "permanent": true 
     },
     { 
-      "source": "https://ampvendingmachines.com/:path*", 
-      "destination": "https://www.ampvendingmachines.com/:path*", 
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "ampvendingmachines.com"
+        }
+      ],
+      "destination": "https://www.ampvendingmachines.com/:path*",
       "permanent": true 
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "origin-when-cross-origin"
+        }
+      ]
     }
   ]
 }
