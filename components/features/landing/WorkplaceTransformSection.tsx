@@ -132,6 +132,8 @@ const VendingMachineCard = () => {
         </div>
 
         {/* Action button with hover effect */}
+        <Link
+          href="/vending-machines/km-vmnt-50-b">
         <motion.div
           animate={{
             backgroundColor: isHovered ? '#FD5A1E' : 'transparent'
@@ -139,9 +141,10 @@ const VendingMachineCard = () => {
           className="w-full py-3 px-4 border border-[#FD5A1E] rounded-lg text-center font-medium transition-colors cursor-pointer"
         >
           <span className={`transition-colors ${isHovered ? 'text-[#000000]' : 'text-[#FD5A1E]'}`}>
-            Learn More About This Machine
+            Learn More
           </span>
         </motion.div>
+        </Link>
       </div>
     </motion.div>
   );

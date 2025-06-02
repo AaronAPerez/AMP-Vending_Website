@@ -49,6 +49,7 @@ interface VendingMachineShowcaseSectionProps {
 /**
  * MachineCard Component
  * Individual machine card with enhanced interactivity and animations
+ * Features clickable images that work across all devices
  */
 interface MachineCardProps {
   machine: VendingMachine;
@@ -60,6 +61,23 @@ interface MachineCardProps {
 const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  /**
+   * Handle machine image click - navigate to detail page
+   */
+  const handleImageClick = () => {
+    window.location.href = `/vending-machines/${machine.id}`;
+  };
+
+  /**
+   * Handle keyboard navigation for image interaction
+   */
+  const handleImageKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleImageClick();
+    }
+  };
 
   return (
     <motion.div
@@ -77,11 +95,18 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
       role="article"
       aria-label={`${machine.name} vending machine details`}
     >
-      {/* Machine Image Section */}
-      <div className="relative h-80 sm:h-96 overflow-hidden">
+      {/* Clickable Machine Image Section */}
+      <div 
+        className="relative h-80 sm:h-96 overflow-hidden cursor-pointer transform transition-transform duration-300 hover:scale-[1.02] focus-within:scale-[1.02]"
+        onClick={handleImageClick}
+        onKeyDown={handleImageKeyPress}
+        tabIndex={0}
+        role="button"
+        aria-label={`View details for ${machine.name} vending machine`}
+      >
         {/* Category Badge */}
         <motion.div 
-          className="absolute top-4 left-4 z-20"
+          className="absolute top-4 left-4 z-20 pointer-events-none"
           initial={{ opacity: 0, scale: 0 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: index * 0.2 + 0.3 }}
@@ -95,7 +120,7 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
 
         {/* Professional Installation Badge */}
         <motion.div 
-          className="absolute top-4 right-4 z-20"
+          className="absolute top-4 right-4 z-20 pointer-events-none"
           initial={{ opacity: 0, scale: 0 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: index * 0.2 + 0.4 }}
@@ -106,25 +131,16 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
           </span>
         </motion.div>
 
-        {/* Technology Indicators */}
-        {/* <motion.div 
-          className="absolute bottom-4 left-4 flex space-x-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: index * 0.2 + 0.5 }}
-        >
-          {[MonitorIcon, CreditCardIcon, WifiIcon].map((Icon, iconIndex) => (
-            <div
-              key={iconIndex}
-              className="w-8 h-8 bg-[#000000]/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-[#FD5A1E]/30"
-            >
-              <Icon size={14} className="text-[#FD5A1E]" />
-            </div>
-          ))}
-        </motion.div> */}
+        {/* Interactive Click Indicator - shows on hover/focus */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+          <div className="bg-[#FD5A1E]/90 backdrop-blur-sm px-6 py-3 rounded-full text-[#000000] font-bold text-sm transform translate-y-4 group-hover:translate-y-0 focus-within:translate-y-0 transition-transform duration-300 flex items-center">
+            <MonitorIcon size={16} className="mr-2" />
+            View Details
+            <ArrowRightIcon size={16} className="ml-2" />
+          </div>
+        </div>
 
-        {/* Machine Image */}
-        
+        {/* Machine Image with Enhanced Clickable Area */}
         <div className="relative z-0 h-full w-full bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
           <Image
             src={machine.image}
@@ -132,15 +148,16 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
             width={380}
             height={480}
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-            className={`object-cover mx-auto transition-transform duration-700 ${
+            className={`object-cover mx-auto transition-all duration-700 ${
               isActive ? 'scale-105' : 'scale-100'
-            }`}
+            } group-hover:scale-105 focus-within:scale-105`}
             priority={index === 0}
           />
         </div>
-         {/* Technology Indicators */}
+
+        {/* Technology Indicators - positioned to not interfere with clicks */}
         <motion.div 
-          className="absolute bottom-4 left-4 flex space-x-2"
+          className="absolute bottom-4 left-4 flex space-x-2 pointer-events-none"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: index * 0.2 + 0.5 }}
@@ -154,19 +171,24 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
             </div>
           ))}
         </motion.div>
+
+        {/* Focus indicator for accessibility */}
+        <div className="absolute inset-0 ring-2 ring-[#FD5A1E] ring-offset-2 ring-offset-[#000000] opacity-0 focus-within:opacity-100 transition-opacity duration-200 rounded-2xl pointer-events-none" />
       </div>
-     
 
       {/* Content Section */}
       <div className="p-6 sm:p-8 flex-1 flex flex-col">
-        {/* Machine Header */}
+        {/* Machine Header - Also clickable */}
         <div className="mb-6">
-          <h3 className="text-xl sm:text-2xl font-bold text-[#F5F5F5] mb-2 group-hover:text-[#FD5A1E] transition-colors">
-            {machine.name}
-          </h3>
-          {/* <div className="text-[#FD5A1E] font-mono text-sm">
-            Model: {machine.model}
-          </div> */}
+          <Link
+            href={`/vending-machines/${machine.id}`}
+            className="group/title"
+            aria-label={`View ${machine.name} specifications`}
+          >
+            <h3 className="text-xl sm:text-2xl font-bold text-[#F5F5F5] mb-2 group-hover/title:text-[#FD5A1E] transition-colors cursor-pointer">
+              {machine.name}
+            </h3>
+          </Link>
         </div>
 
         {/* Description */}
@@ -175,7 +197,7 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
         </p>
 
         {/* Key Highlights */}
-        <div className="mb-6 z-30">
+        <div className="mb-6">
           <h4 className="text-[#F5F5F5] font-bold flex items-center mb-4">
             <StarIcon size={16} className="text-[#FD5A1E] mr-2" />
             Key Highlights
@@ -208,11 +230,11 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons - Enhanced touch targets */}
         <div className="flex flex-col sm:flex-row gap-3 mt-auto">
           <Link
             href={`/vending-machines/${machine.id}`}
-            className="flex-1 py-3 px-6 bg-[#FD5A1E] text-[#000000] font-medium rounded-full text-center hover:bg-[#FD5A1E]/90 transition-all duration-300 flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
+            className="flex-1 py-4 px-6 bg-[#FD5A1E] text-[#000000] font-medium rounded-full text-center hover:bg-[#FD5A1E]/90 active:bg-[#FD5A1E]/80 transition-all duration-300 flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black touch-manipulation"
             aria-label={`View detailed specifications for ${machine.name}`}
           >
             View Details
@@ -220,7 +242,7 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
           </Link>
           <Link
             href="/contact"
-            className="flex-1 py-3 px-6 bg-transparent text-[#F5F5F5] border border-[#333333] rounded-full text-center hover:bg-[#333333] hover:border-[#FD5A1E] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 focus:ring-offset-black"
+            className="flex-1 py-4 px-6 bg-transparent text-[#F5F5F5] border border-[#333333] rounded-full text-center hover:bg-[#333333] hover:border-[#FD5A1E] active:bg-[#444444] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 focus:ring-offset-black touch-manipulation"
             aria-label="Request consultation for vending machine installation"
           >
             Get Consultation
@@ -245,7 +267,7 @@ const VendingMachineShowcase = ({
   
   // Available premium vending machines (limited to actual machines with real images)
   const vendingMachines: VendingMachine[] = [
-      {
+    {
       id: 'km-vmr-40-b',
       name: 'Standard Refrigerated Machine',
       model: 'KM-VMR-40-B',
@@ -375,7 +397,6 @@ const VendingMachineShowcase = ({
                   {[
                     'Professional Installation',
                     'Complete Maintenance',
-                    // '24/7 Support',
                     'Smart Monitoring'
                   ].map((feature, index) => (
                     <motion.div
@@ -408,7 +429,7 @@ const VendingMachineShowcase = ({
                   
                   <Link
                     href="/contact"
-                    className="inline-flex items-center px-6 py-3 bg-[#FD5A1E] text-[#000000] font-medium rounded-full hover:bg-[#FD5A1E]/90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
+                    className="inline-flex items-center px-6 py-3 bg-[#FD5A1E] text-[#000000] font-medium rounded-full hover:bg-[#FD5A1E]/90 active:bg-[#FD5A1E]/80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black touch-manipulation"
                   >
                     Start Today
                     <ArrowRightIcon size={16} className="ml-2" />
@@ -428,7 +449,7 @@ const VendingMachineShowcase = ({
         >
           <Link
             href="/vending-machines"
-            className="inline-flex items-center px-8 py-4 bg-[#333333] text-[#F5F5F5] font-medium rounded-full hover:bg-[#444444] hover:text-[#FD5A1E] transition-all duration-300 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 focus:ring-offset-black"
+            className="inline-flex items-center px-8 py-4 bg-[#333333] text-[#F5F5F5] font-medium rounded-full hover:bg-[#444444] hover:text-[#FD5A1E] active:bg-[#555555] transition-all duration-300 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 focus:ring-offset-black touch-manipulation"
             aria-label="View complete vending machine collection and specifications"
           >
             <MonitorIcon size={20} className="mr-2" />
