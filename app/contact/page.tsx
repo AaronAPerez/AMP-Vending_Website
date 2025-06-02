@@ -66,23 +66,23 @@ export default function ContactPage() {
       category: "payment"
     }
   ];
-  
+
   // Animation variants for staggered children
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         staggerChildren: 0.1
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
-  
+
 
   return (
     <>
@@ -115,7 +115,7 @@ export default function ContactPage() {
           }
         })
       }} />
-      
+
       <div className="bg-[#000000] min-h-screen">
         {/* Hero Section */}
         <div className="relative py-16 md:py-24 overflow-hidden">
@@ -133,7 +133,7 @@ export default function ContactPage() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-b from-[#FD5A1E]/10 to-transparent"></div>
           </div>
-          
+
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
               Get In Touch
@@ -146,20 +146,20 @@ export default function ContactPage() {
             </p>
           </div>
         </div>
-        
+
         {/* Contact Form Section */}
         <div className="pb-16">
           <ContactForm />
         </div>
-        
+
         {/* Map Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">Find Us</h2>
-        <div className="rounded-lg overflow-hidden shadow-lg border border-[#a4acac]">
-          <GoogleMapComponent apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''} />
-        </div>
-      </div>
-        
+        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+          <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">Find Us</h2>
+          <div className="rounded-lg overflow-hidden shadow-lg border border-[#a4acac]">
+            <GoogleMapComponent apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''} />
+          </div>
+        </div> */}
+
         {/* Additional Contact Information */}
         <div className="bg-[#4d4d4d] py-16 border-t border-[#a4acac]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -180,7 +180,7 @@ export default function ContactPage() {
                   United States
                 </p>
               </div>
-              
+
               <div className="bg-[#000000] p-6 rounded-lg border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
                 <div className="flex items-center justify-center md:justify-start mb-4">
                   <div className="bg-[#FD5A1E]/10 p-3 rounded-full text-[#FD5A1E]">
@@ -192,18 +192,21 @@ export default function ContactPage() {
                 </div>
                 <p className="text-[#A5ACAF]">
                   Email:<a href="mailto:contact@ampvendingmachines.com" className="text-[#FD5A1E] hover:underline"
-                  > 
-                  <br></br>
-                  ampdesignandconsulting@gmail.com
+                  >
+                    <br></br>
+                    ampdesignandconsulting@gmail.com
                   </a>
-                  {/* <a href="mailto:contact@aaronaperez.dev" className="text-[#FD5A1E] hover:underline">contact@aaronaperez.dev</a> */}
+                  <a 
+                    href="mailto:ampdesignandconsulting@gmail.com" className="text-[#FD5A1E] hover:underline">
+                    {/* contact@aaronaperez.dev */}
+                  </a> 
                   <br />
                   Phone: <a href="tel:+12094035450" className="text-[#FD5A1E] hover:underline">
                     <br></br>
                     (209) 403-5450</a>
                 </p>
               </div>
-              
+
               <div className="bg-[#000000] p-6 rounded-lg border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
                 <div className="flex items-center justify-center md:justify-start mb-4">
                   <div className="bg-[#FD5A1E]/10 p-3 rounded-full text-[#FD5A1E]">
@@ -224,68 +227,68 @@ export default function ContactPage() {
         </div>
 
 
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* FAQ Grid */}
-      <motion.div 
-        className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {faqItems.map((item) => (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* FAQ Grid */}
           <motion.div
-            key={item.id}
-            className="bg-[#111111] rounded-xl overflow-hidden border border-[#333333] hover:border-[#FD5A1E] transition-all"
-            variants={itemVariants}
+            className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto my-12"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            {/* Question */}
-            <div className="p-6 border-b border-[#333333] flex items-start gap-4">
-              <div className="p-2 bg-[#FD5A1E]/10 rounded-full text-[#FD5A1E] flex-shrink-0">
-                {item.icon}
-              </div>
-              <h3 className="text-lg font-bold text-[#F5F5F5]">{item.question}</h3>
-            </div>
-            
-            {/* Answer */}
-            <div className="p-6">
-              <p className="text-[#A5ACAF]">{item.answer}</p>
-              
-              {/* Category Tag */}
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-xs py-1 px-3 bg-[#333333] text-[#A5ACAF] rounded-full">
-                  {item.category}
-                </span>
-              </div>
-            </div>
+            {faqItems.map((item) => (
+              <motion.div
+                key={item.id}
+                className="bg-[#111111] rounded-xl overflow-hidden border border-[#333333] hover:border-[#FD5A1E] transition-all"
+                variants={itemVariants}
+              >
+                {/* Question */}
+                <div className="p-6 border-b border-[#333333] flex items-start gap-4">
+                  <div className="p-2 bg-[#FD5A1E]/10 rounded-full text-[#FD5A1E] flex-shrink-0">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-[#F5F5F5]">{item.question}</h3>
+                </div>
+
+                {/* Answer */}
+                <div className="p-6">
+                  <p className="text-[#A5ACAF]">{item.answer}</p>
+
+                  {/* Category Tag */}
+                  <div className="mt-4 flex items-center justify-between">
+                    <span className="text-xs py-1 px-3 bg-[#333333] text-[#A5ACAF] rounded-full">
+                      {item.category}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
-      </motion.div>
-      
-      {/* Additional Questions Section */}
-      <motion.div 
-        className="bg-[#0a0a0a] rounded-xl p-8 border border-[#333333] mb-12 text-center"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-      >
-        <h3 className="text-xl font-bold text-[#F5F5F5] mb-4">
-          Have More Questions?
-        </h3>
-        <p className="text-[#A5ACAF] max-w-2xl mx-auto mb-6">
-          Our team is ready to answer any questions about our vending solutions, 
-          technology features, service packages, and installation process.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-6 py-3 bg-[#FD5A1E]/10 text-[#FD5A1E] rounded-full border border-[#FD5A1E]/30 hover:bg-[#FD5A1E]/20 transition-colors"
+
+          {/* Additional Questions Section */}
+          {/* <motion.div
+            className="bg-[#0a0a0a] rounded-xl p-8 border border-[#333333] mb-12 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <span>Contact Support</span>
-            <HelpCircle size={16} className="ml-2" />
-          </Link>
+            <h3 className="text-xl font-bold text-[#F5F5F5] mb-4">
+              Have More Questions?
+            </h3>
+            <p className="text-[#A5ACAF] max-w-2xl mx-auto mb-6">
+              Our team is ready to answer any questions about our vending solutions,
+              technology features, service packages, and installation process.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-6 py-3 bg-[#FD5A1E]/10 text-[#FD5A1E] rounded-full border border-[#FD5A1E]/30 hover:bg-[#FD5A1E]/20 transition-colors"
+              >
+                <span>Contact Support</span>
+                <HelpCircle size={16} className="ml-2" />
+              </Link>
+            </div>
+          </motion.div> */}
         </div>
-      </motion.div>
-    </div>
         {/* FAQ Section */}
         {/* <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">Frequently Asked Questions</h2>
@@ -323,7 +326,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div> */}
-        
+
         {/* CTA Section */}
         <div className="bg-gradient-to-r from-[#000000] to-[#4d4d4d] py-16 border-t border-[#a4acac]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -332,8 +335,8 @@ export default function ContactPage() {
               Join the growing number of businesses enhancing employee satisfaction with our vending solutions.
             </p>
             <div className="inline-flex flex-wrap justify-center gap-4">
-              <a 
-                href="/contact" 
+              <a
+                href="/contact"
                 className="px-6 py-3 bg-[#FD5A1E] text-white rounded-full font-medium shadow-md hover:bg-[#FD5A1E]/90 transition-colors"
               >
                 Contact Us

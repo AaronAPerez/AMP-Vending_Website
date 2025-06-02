@@ -12,17 +12,17 @@ const Footer = () => {
       title: 'Vending Solutions',
       links: [
         { label: 'All Machines', href: '/vending-machines' },
-        { label: 'Compact Refrigerated', href: '/vending-machines/km-vmr-30-b' },
+        // { label: 'Compact Refrigerated', href: '/vending-machines/km-vmr-30-b' },
         { label: 'Standard Refrigerated', href: '/vending-machines/km-vmr-40-b' },
         { label: 'Non-Refrigerated Snack Machine', href: '/vending-machines/km-vmnt-50-b' },
-        { label: 'Premium Refrigerated Machine', href: '/vending-machines/km-vmrt-50-b' },
+        // { label: 'Premium Refrigerated Machine', href: '/vending-machines/km-vmrt-50-b' },
       ]
     },
     {
       title: 'Company',
       links: [
         { label: 'About Us', href: '/about' },
-        { label: 'Our Clients', href: '/about#clients' },
+        // { label: 'Our Clients', href: '/about#clients' },
         { label: 'Contact', href: '/contact' },
       ]
     },
@@ -30,8 +30,8 @@ const Footer = () => {
       title: 'Resources',
       links: [
         // { label: 'Profit Calculator', href: '/#profit-calculator' },
-        { label: 'Location Finder', href: '/contact#locations' },
-        { label: 'Product Catalog', href: '/vending-machines#products' },
+        // { label: 'Location Finder', href: '/contact#locations' },
+        // { label: 'Product Catalog', href: '/vending-machines#products' },
         { label: 'FAQ', href: '/about#faq' },
       ]
     }

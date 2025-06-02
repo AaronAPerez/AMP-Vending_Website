@@ -136,7 +136,7 @@ const VendingMachinesPage = () => {
             Premium Vending Machines
           </h1>
           <p className="text-xl text-[#A5ACAF] max-w-2xl mx-auto mb-8">
-            Explore our range of state-of-the-art vending machines featuring zero upfront costs, 
+            Explore our range of state-of-the-art vending machines featuring free installation, 
             complete maintenance service, and customizable product options.
           </p>
           <div className="flex flex-wrap justify-center gap-3">

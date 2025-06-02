@@ -37,14 +37,14 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#000000] text-[#F5F5F5]">
+    <div className="min-h-screen pt-4 bg-[#000000] text-[rgb(245,245,245)]">
       {/* Product Header with Horizontal Tabs */}
       <section className="sticky top-0 z-30 bg-[#000000] border-b border-[#4d4d4d] shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between py-4">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-[#F5F5F5]">{machine.name}</h1>
-              <p className="text-[#FD5A1E] text-lg">Model: {machine.model}</p>
+              {/* <p className="text-[#FD5A1E] text-lg">Model: {machine.model}</p> */}
             </div>
 
             <div className="flex mt-4 md:mt-0">
@@ -297,7 +297,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-[#F5F5F5]">Zero Cost Installation</h3>
-                        <p className="text-[#A5ACAF] text-sm">Installed completely free of charge, with no ongoing costs</p>
+                        <p className="text-[#A5ACAF] text-sm">Installed completely free of charge</p>
+                        {/* <p className="text-[#A5ACAF] text-sm">Installed completely free of charge, with no ongoing costs</p> */}
                       </div>
                     </div>
                   </div>
@@ -628,7 +629,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                         </div>
                         <div className="p-4">
                           <h3 className="font-medium text-white group-hover:text-[#FD5A1E] transition-colors">{relatedMachine.name}</h3>
-                          <p className="text-[#FD5A1E] text-sm">{relatedMachine.model}</p>
+                          {/* <p className="text-[#FD5A1E] text-sm">{relatedMachine.model}</p> */}
                         </div>
                       </Link>
                     ))}

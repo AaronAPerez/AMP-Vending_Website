@@ -178,7 +178,7 @@ const VendingMachinesPage = () => {
             Premium Vending <span className="text-[#FD5A1E]">Machines</span>
           </h1>
           <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto">
-            Explore our range of state-of-the-art vending machines with zero cost installation
+            Explore our range of state-of-the-art vending machines with free installation
             and maintenance-free operation for your workplace.
           </p>
 

@@ -146,7 +146,7 @@ const ServiceAreaSection = () => {
               Areas We Serve
             </h3>
             <p className="text-[#A5ACAF] mt-2">
-              Our zero-cost vending machines are available throughout these Central California locations:
+              Our vending machines are available throughout these Central California locations:
             </p>
           </div>
           
@@ -243,7 +243,7 @@ const ServiceAreaSection = () => {
               <h4 className="text-lg font-bold text-[#F5F5F5] ml-3">Premium Service Guarantee</h4>
             </div>
             <p className="text-[#A5ACAF]">
-              All locations receive the same high-quality service and zero-cost vending machines with our maintenance guarantee.
+              All locations receive the same high-quality service with our maintenance guarantee.
             </p>
             <ul className="mt-4 space-y-2">
               <li className="flex items-start">
