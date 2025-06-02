@@ -114,7 +114,7 @@ const ResizableNavbar = () => {
           initial={{ y: 0 }}
           animate={{
             y: 0,
-            width: isScrolled ? '94%' : '100%',
+            width: isScrolled ? '96%' : '100%',
             backdropFilter: isScrolled ? 'blur(10px)' : 'blur(0px)',
           }}
           transition={{
@@ -128,7 +128,7 @@ const ResizableNavbar = () => {
           role="banner"
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-18 items-center justify-between">
+            <div className="flex h-20 items-center justify-between">
               {/* Logo */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Phone, MapPin, Settings, HeadphonesIcon } from 'lucide-react';
-import GlareCard from '@/components/ui/effects/GlareCard';
+import GlareCard from '@/components/ui/effects/glare-card';
 
 
 

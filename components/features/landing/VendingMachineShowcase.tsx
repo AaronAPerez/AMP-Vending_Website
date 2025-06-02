@@ -124,12 +124,13 @@ const MachineCard = ({ machine, index, isActive, onHover }: MachineCardProps) =>
         </motion.div> */}
 
         {/* Machine Image */}
-        <div className="relative z-0 h-full w-full bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(165,172,175,1)_50%,rgba(253,90,30,1)_100%)]">
+        
+        <div className="relative z-0 h-full w-full bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
           <Image
             src={machine.image}
             alt={`${machine.name} - ${machine.model} vending machine`}
             width={380}
-            height={380}
+            height={480}
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
             className={`object-cover mx-auto transition-transform duration-700 ${
               isActive ? 'scale-105' : 'scale-100'

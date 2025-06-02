@@ -241,13 +241,13 @@ const VendingMachinesPage = () => {
                       width={400}
                       height={600}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110 mx-auto"
                     />
 
                     {/* Zero Cost Badge */}
-                    <div className="absolute top-4 right-4 bg-[#FD5A1E] text-[#F5F5F5] px-3 py-1 rounded-full text-xs font-medium">
+                    {/* <div className="absolute top-4 right-4 bg-[#FD5A1E] text-[#F5F5F5] px-3 py-1 rounded-full text-xs font-medium">
                       Zero Cost
-                    </div>
+                    </div> */}
 
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">

@@ -208,7 +208,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
             
 
                       {/* Previous/Next Buttons */}
-                      <button
+                      {/* <button
                         className="absolute top-1/2 left-4 z-20 transform -translate-y-1/2 bg-black/70 rounded-full p-2 text-white hover:bg-[#FD5A1E] transition-colors"
                         onClick={() => setActiveImage((prev) => (prev === 0 ? machine.images.length - 1 : prev - 1))}
                         aria-label="Previous image"
@@ -225,7 +225,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
-                      </button>
+                      </button> */}
                     </div>
 
                     {/* Thumbnail Navigation - Horizontal Scrolling with Larger Thumbs */}
@@ -246,7 +246,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                             alt=""
                             fill
                             sizes="112px"
-                            className="object-cover"
+                            className="object-cover bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm"
                           />
                         </button>
                       ))}
@@ -565,7 +565,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                       </Link>
                     </div>
                   </div>
-{/* 
+                  {/* 
                   <div className="bg-[#4d4d4d]/20 p-6 rounded-xl border border-[#a4acac]">
                     <h3 className="text-lg font-bold text-white mb-3">Customer Success Story</h3>
                     <div className="bg-[#000000]/40 p-4 rounded-lg mb-4">
@@ -612,7 +612,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                         href={`/vending-machines/${relatedMachine.id}`}
                         className="group bg-[#4d4d4d]/20 rounded-xl overflow-hidden border border-[#a4acac] hover:border-[#FD5A1E] transition-all flex flex-col transform hover:scale-[1.02]"
                       >
-                        <div className="relative h-48 overflow-hidden">
+                        <div className="relative h-96 overflow-hidden bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
                           <Image
                             src={relatedMachine.image}
                             alt={relatedMachine.name}

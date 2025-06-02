@@ -98,9 +98,9 @@ const VendingMachineCard = () => {
           <h3 className="text-xl font-bold text-[#F5F5F5]">
             Premium Refrigerated Machine
           </h3>
-          <div className="text-[#FD5A1E] text-sm font-semibold">
+          {/* <div className="text-[#FD5A1E] text-sm font-semibold">
             Model: KM-VMR-40-B
-          </div>
+          </div> */}
         </div>
 
         <p className="text-[#A5ACAF] text-sm mb-6 leading-relaxed">

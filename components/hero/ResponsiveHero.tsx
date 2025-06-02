@@ -195,7 +195,7 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
       </motion.div>
       
        {/* Scroll Indicator */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.5, duration: 0.6 }}
@@ -229,8 +229,8 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
               />
             </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </motion.div> */}
+      {/* </motion.div> */}
     </div>
   );
 };
