@@ -127,7 +127,7 @@ const ResizableNavbar = () => {
             }`}
           role="banner"
         >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-10">
             <div className="flex h-20 items-center justify-between">
               {/* Logo */}
               <motion.div
@@ -140,9 +140,9 @@ const ResizableNavbar = () => {
                   <Image
                     src="/images/logo/AMP_logo.png"
                     alt="AMP Vending Logo"
-                    width={60}
-                    height={40}
-                    className={`transition-all duration-300 bg-transparent z-0 ${isScrolled ? 'w-20 h-10' : 'w-20 h-12'}`}
+                    width={100}
+                    height={100}
+                    className={`transition-all duration-300 bg-transparent z-0 ${isScrolled ? 'w-20 h-12' : 'w-20 h-12'}`}
                     priority
                   />
                 </Link>
@@ -203,7 +203,7 @@ const ResizableNavbar = () => {
                       // Regular nav item
                       <Link
                         href={item.path}
-                        className="px-3 py-2 rounded-lg text-[#F5F5F5] hover:text-[#FD5A1E] text-sm font-medium transition-colors"
+                        className="px-3 py-2 rounded-lg text-[#F5F5F5] hover:text-[#FD5A1E] text-md font-medium transition-colors"
                       >
                         {item.name}
                       </Link>

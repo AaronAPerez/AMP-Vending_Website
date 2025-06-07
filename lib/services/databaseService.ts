@@ -14,15 +14,7 @@ export class DatabaseService {
         email: data.email,
         phone: data.phone || null,
         company_name: data.companyName,
-        job_title: data.jobTitle || null,
-        employee_count: data.employeeCount,
-        street_address: data.streetAddress,
-        city: data.city,
-        state: data.state,
-        zip_code: data.zipCode,
-        interested_machine: data.interestedMachine,
         message: data.message || null,
-        preferred_contact: data.preferredContact
       };
       
       // Insert data into the database

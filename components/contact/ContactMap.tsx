@@ -23,7 +23,7 @@ interface ContactMapProps {
 export default function ContactMap({ apiKey }: ContactMapProps) {
   // Define state and hooks at the top level
   const [, setIsLoaded] = useState(false);
-  
+
   // Move all hooks to the top level of the component
   const onLoad = useCallback(() => {
     console.log('Map loaded successfully');
@@ -37,7 +37,7 @@ export default function ContactMap({ apiKey }: ContactMapProps) {
   // Conditional rendering with regular if statement is fine
   if (!apiKey) {
     return (
-      <div 
+      <div
         className="bg-[#4d4d4d] w-full h-[400px] flex items-center justify-center border border-[#a4acac]"
       >
         <div className="text-center text-[#A5ACAF]">
@@ -81,7 +81,7 @@ export default function ContactMap({ apiKey }: ContactMapProps) {
             { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#515c6d" }] },
             { featureType: "water", elementType: "labels.text.stroke", stylers: [{ color: "#17263c" }] }
           ]
-        }} apiKey={''}      />
+        }} apiKey={''} />
       {/* Use a basic marker to avoid issues with google.maps reference */}
       {/* If you want to render a marker, do it inside GoogleMapComponent or extend its props */}
     </LoadScript>

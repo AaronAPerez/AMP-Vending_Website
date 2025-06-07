@@ -51,3 +51,41 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+
+docs/deployment/secrets/
+docs/deployment/production-config/
+docs/business-requirements/internal/
+docs/project-planning/budget/
+docs/project-planning/timeline-internal/
+
+docs/deployment/secrets/
+docs/deployment/production-config/
+docs/business-requirements/internal/
+docs/project-planning/budget/
+docs/project-planning/timeline-internal/
+
+*.log
+node_modules/
+.next/
+dist/
+build/
+
+# Deployment and CI secrets
+.vercel/
+.netlify/
+.aws/
+deployment-keys/
+
+# IDE and OS files
+.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Testing artifacts that might contain sensitive data
+coverage/
+playwright-report/
+test-results/
+screenshots/
+videos/

@@ -136,24 +136,10 @@ PERSONAL INFORMATION
 Name: ${data.firstName} ${data.lastName}
 Email: ${data.email}
 Phone: ${data.phone || 'Not provided'}
-Preferred Contact Method: ${data.preferredContact}
 
 COMPANY INFORMATION
 -----------------
 Company Name: ${data.companyName}
-Job Title: ${data.jobTitle || 'Not provided'}
-Employee Count: ${data.employeeCount}
-
-WORKPLACE ADDRESS
---------------
-Street Address: ${data.streetAddress}
-City: ${data.city}
-State: ${data.state}
-ZIP Code: ${data.zipCode}
-
-VENDING MACHINE INTEREST
----------------------
-Interested Machine: ${data.interestedMachine}
 
 MESSAGE
 ------
@@ -168,21 +154,9 @@ ${data.message || 'No additional message provided.'}
 <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
 <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
 <p><strong>Phone:</strong> ${data.phone ? `<a href="tel:${data.phone}">${data.phone}</a>` : 'Not provided'}</p>
-<p><strong>Preferred Contact Method:</strong> ${data.preferredContact}</p>
 
 <h2>Company Information</h2>
 <p><strong>Company Name:</strong> ${data.companyName}</p>
-<p><strong>Job Title:</strong> ${data.jobTitle || 'Not provided'}</p>
-<p><strong>Employee Count:</strong> ${data.employeeCount}</p>
-
-<h2>Workplace Address</h2>
-<p><strong>Street Address:</strong> ${data.streetAddress}</p>
-<p><strong>City:</strong> ${data.city}</p>
-<p><strong>State:</strong> ${data.state}</p>
-<p><strong>ZIP Code:</strong> ${data.zipCode}</p>
-
-<h2>Vending Machine Interest</h2>
-<p><strong>Interested Machine:</strong> ${data.interestedMachine}</p>
 
 <h2>Message</h2>
 <p>${data.message ? data.message.replace(/\n/g, '<br>') : 'No additional message provided.'}</p>
@@ -209,7 +183,7 @@ Here's a summary of what you shared with us:
 ${data.message ? `- Your message: "${data.message}"` : ''}
 
 What happens next?
-Our team will contact you within 1-2 business days using your preferred contact method (${data.preferredContact}). We'll discuss your specific workplace needs and provide more information about how our zero-cost, maintenance-free vending solutions can benefit your business.
+Our team will contact you within 1-2 business days to discuss your specific workplace needs and provide more information about how our maintenance-free vending solutions can benefit your business.
 
 In the meantime, you can learn more about our vending solutions by visiting our website at https://www.ampvendingmachines.com/vending-machines
 
@@ -310,7 +284,7 @@ ampdesignandconsulting@gmail.com
       </div>
       
       <h3>What happens next?</h3>
-      <p>Our team will contact you within 1-2 business days using your preferred contact method (${data.preferredContact}). We'll discuss your specific workplace needs and provide more information about how our zero-cost, maintenance-free vending solutions can benefit your business.</p>
+      <p>Our team will contact you within 1-2 business days to discuss your specific workplace needs and provide more information about how our maintenance-free vending solutions can benefit your business.</p>
       
       <div style="text-align: center;">
         <a href="https://www.ampvendingmachines.com/vending-machines" class="cta-button">View Our Vending Machines</a>

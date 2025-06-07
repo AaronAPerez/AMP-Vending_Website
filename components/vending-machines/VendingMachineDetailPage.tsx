@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { MachineData } from "@/lib/data/vendingMachineData";
 import CTASection from "../landing/CTASection";
+import BreadcrumbSchema, { VendingMachineBreadcrumbs } from "../seo/BreadcrumbSchema";
 
 
 interface VendingMachineDetailPageProps {
@@ -37,11 +38,12 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
   }, []);
 
   return (
-    <div className="min-h-screen pt-4 bg-[#000000] text-[rgb(245,245,245)]">
+    <div className="min-h-screen pt-16 bg-[#000000] text-[rgb(245,245,245)]">
       {/* Product Header with Horizontal Tabs */}
       <section className="sticky top-0 z-30 bg-[#000000] border-b border-[#4d4d4d] shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between py-4">
+            <VendingMachineBreadcrumbs machineName={""} machineId={""}/>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-[#F5F5F5]">{machine.name}</h1>
               {/* <p className="text-[#FD5A1E] text-lg">Model: {machine.model}</p> */}
@@ -68,8 +70,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
             <button
               onClick={() => setActiveTab('overview')}
               className={`py-3 px-5 font-medium text-sm whitespace-nowrap focus:outline-none transition-colors border-b-2 ${activeTab === 'overview'
-                  ? "text-[#FD5A1E] border-[#FD5A1E]"
-                  : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
+                ? "text-[#FD5A1E] border-[#FD5A1E]"
+                : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
                 }`}
               aria-selected={activeTab === 'overview'}
               role="tab"
@@ -79,8 +81,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
             <button
               onClick={() => setActiveTab('features')}
               className={`py-3 px-5 font-medium text-sm whitespace-nowrap focus:outline-none transition-colors border-b-2 ${activeTab === 'features'
-                  ? "text-[#FD5A1E] border-[#FD5A1E]"
-                  : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
+                ? "text-[#FD5A1E] border-[#FD5A1E]"
+                : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
                 }`}
               aria-selected={activeTab === 'features'}
               role="tab"
@@ -90,8 +92,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
             <button
               onClick={() => setActiveTab('specs')}
               className={`py-3 px-5 font-medium text-sm whitespace-nowrap focus:outline-none transition-colors border-b-2 ${activeTab === 'specs'
-                  ? "text-[#FD5A1E] border-[#FD5A1E]"
-                  : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
+                ? "text-[#FD5A1E] border-[#FD5A1E]"
+                : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
                 }`}
               aria-selected={activeTab === 'specs'}
               role="tab"
@@ -101,8 +103,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
             <button
               onClick={() => setActiveTab('products')}
               className={`py-3 px-5 font-medium text-sm whitespace-nowrap focus:outline-none transition-colors border-b-2 ${activeTab === 'products'
-                  ? "text-[#FD5A1E] border-[#FD5A1E]"
-                  : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
+                ? "text-[#FD5A1E] border-[#FD5A1E]"
+                : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
                 }`}
               aria-selected={activeTab === 'products'}
               role="tab"
@@ -112,8 +114,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
             <button
               onClick={() => setActiveTab('locations')}
               className={`py-3 px-5 font-medium text-sm whitespace-nowrap focus:outline-none transition-colors border-b-2 ${activeTab === 'locations'
-                  ? "text-[#FD5A1E] border-[#FD5A1E]"
-                  : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
+                ? "text-[#FD5A1E] border-[#FD5A1E]"
+                : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
                 }`}
               aria-selected={activeTab === 'locations'}
               role="tab"
@@ -123,8 +125,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
             <button
               onClick={() => setActiveTab('related')}
               className={`py-3 px-5 font-medium text-sm whitespace-nowrap focus:outline-none transition-colors border-b-2 ${activeTab === 'related'
-                  ? "text-[#FD5A1E] border-[#FD5A1E]"
-                  : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
+                ? "text-[#FD5A1E] border-[#FD5A1E]"
+                : "text-[#A5ACAF] border-transparent hover:text-white hover:border-[#a4acac]"
                 }`}
               aria-selected={activeTab === 'related'}
               role="tab"
@@ -191,21 +193,21 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                       ) : (
                         <> */}
                       </div>
-                          <div className="absolute inset-0 flex items-center justify-center bg-[#000000]/80 text-[#A5ACAF] z-0">
-                            {machine.images[activeImage].alt}
-                          </div>
-                          <Image
-                            src={machine.images[activeImage].src}
-                            alt={machine.images[activeImage].alt}
-                            quality={100}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 60vw"
-                            className="object-contain z-10
+                      <div className="absolute inset-0 flex items-center justify-center bg-[#000000]/80 text-[#A5ACAF] z-0">
+                        {machine.images[activeImage].alt}
+                      </div>
+                      <Image
+                        src={machine.images[activeImage].src}
+                        alt={machine.images[activeImage].alt}
+                        quality={100}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 60vw"
+                        className="object-contain z-10
                             bg-black"
-                            priority
-                          />
-                        {/* </> */}
-            
+                        priority
+                      />
+                      {/* </> */}
+
 
                       {/* Previous/Next Buttons */}
                       {/* <button
@@ -235,8 +237,8 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
                           key={image.id}
                           onClick={() => setActiveImage(index)}
                           className={`relative flex-shrink-0 w-28 h-20 rounded-md overflow-hidden transition-all duration-200 ${index === activeImage
-                              ? 'border-2 border-[#FD5A1E] shadow-lg shadow-[#FD5A1E]/20 scale-105'
-                              : 'border-2 border-[#a4acac] hover:border-[#FD5A1E]/70'
+                            ? 'border-2 border-[#FD5A1E] shadow-lg shadow-[#FD5A1E]/20 scale-105'
+                            : 'border-2 border-[#a4acac] hover:border-[#FD5A1E]/70'
                             }`}
                           aria-label={`View ${image.alt}`}
                           aria-current={index === activeImage}
@@ -687,7 +689,7 @@ const VendingMachineDetailPage = ({ machine }: VendingMachineDetailPageProps) =>
 
       {/* CTA Section */}
       <section className="py-12">
-        <CTASection/>
+        <CTASection />
       </section>
     </div>
   );

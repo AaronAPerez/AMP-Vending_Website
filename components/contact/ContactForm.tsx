@@ -1,35 +1,15 @@
 'use client';
 
-import Card from '@/components/ui/core/Card';
-import Text from '@/components/ui/shared/Text';
 import { useState, FormEvent } from 'react';
 import { toast } from 'sonner';
+import Card from '../ui/core/Card';
+import Text from '../ui/Text';
 
-
-
-/**
- * Interface for form validation errors from server
- */
-interface ZodFieldError {
-  _errors: string[];
-}
-
-/**
- * Props for ContactForm component
- */
 interface ContactFormProps {
   className?: string;
 }
 
-/**
- * Contact Form Component
- * 
- * A responsive, accessible form for the homepage that sends data to the server
- * and triggers an automatic email reply. Updated to remove any "zero-cost" or
- * "free" messaging and focus on premium technology benefits.
- */
 const ContactForm = ({ className = '' }: ContactFormProps) => {
-  // Form state
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -39,57 +19,27 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
     message: '',
   });
 
-  // Form validation errors
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  // Loading state for form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Form submission handler
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Clear previous errors
     setErrors({});
 
-    // Basic validation
-    let hasErrors = false;
-    const newErrors: Record<string, string> = {};
+    // Validate form data using the validateForm function
+    const newErrors = validateForm(formData);
 
-    if (!formData.firstName) {
-      newErrors.firstName = 'First name is required';
-      hasErrors = true;
-    }
-
-    if (!formData.lastName) {
-      newErrors.lastName = 'Last name is required';
-      hasErrors = true;
-    }
-
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-      hasErrors = true;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Invalid email address';
-      hasErrors = true;
-    }
-
-    if (!formData.companyName) {
-      newErrors.companyName = 'Company name is required';
-      hasErrors = true;
-    }
-
-    if (hasErrors) {
+    if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       toast.error('Please fill in all required fields');
       return;
     }
 
-    // Start submission
     setIsSubmitting(true);
 
     try {
-      // Prepare the data to match the expected format in your API route
       const submissionData = {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -97,20 +47,18 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
         phone: formData.phone || '',
         companyName: formData.companyName,
         jobTitle: '',
-        employeeCount: '1-10', // Default value for simplified form
-        streetAddress: '4120 Dale Rd', // Default address for simplified form
-        city: 'Modesto', // Default city for simplified form
-        state: 'CA', // Default state for simplified form
-        zipCode: '95354', // Default ZIP for simplified form
-        interestedMachine: 'unsure', // Default to "not sure" option
+        employeeCount: '1-10',
+        streetAddress: '4120 Dale Rd',
+        city: 'Modesto',
+        state: 'CA',
+        zipCode: '95354',
+        interestedMachine: 'unsure',
         message: formData.message || '',
-        preferredContact: 'email', // Default to email
+        preferredContact: 'email',
       };
 
-      // Show loading toast
       const loadingToast = toast.loading('Sending your message...');
 
-      // Send data to the API route
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -119,33 +67,19 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
         body: JSON.stringify(submissionData),
       });
 
-      // Parse the response
       const result = await response.json();
-
-      // Dismiss the loading toast
       toast.dismiss(loadingToast);
 
       if (!response.ok) {
-        // Show error message
         toast.error(result.error || 'Failed to send message. Please try again.');
 
         if (result.details) {
-          // Set validation errors from the server response
-          const serverErrors: Record<string, string> = {};
-          Object.entries(result.details).forEach(([key, value]: [string, unknown]) => {
-            // Type assertion to tell TypeScript what structure to expect
-            const fieldError = value as ZodFieldError;
-            if (fieldError && fieldError._errors && fieldError._errors[0]) {
-              serverErrors[key] = fieldError._errors[0];
-            }
-          });
+          const serverErrors = parseServerErrors(result.details);
           setErrors(serverErrors);
         }
       } else {
-        // Show success message
         toast.success('Thank you! Your message has been sent. Check your email for confirmation.');
 
-        // Reset form
         setFormData({
           firstName: '',
           lastName: '',
@@ -163,12 +97,10 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
     }
   };
 
-  // Input change handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 
-    // Clear error when field is edited
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
@@ -194,7 +126,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
           </Text>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
-            {/* Responsive form grid */}
+            {/* Form fields remain the same */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* First Name */}
               <div>
@@ -275,7 +207,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               )}
             </div>
 
-            {/* Phone (Optional) */}
+            {/* Phone */}
             <div>
               <label htmlFor="phone" className="block text-white text-sm font-medium mb-1 text-left">
                 Phone Number <span className="text-[#A5ACAF]">(Optional)</span>
@@ -321,7 +253,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               )}
             </div>
 
-            {/* Message (Optional) */}
+            {/* Message */}
             <div>
               <label htmlFor="message" className="block text-white text-sm font-medium mb-1 text-left">
                 Message <span className="text-[#A5ACAF]">(Optional)</span>
@@ -341,7 +273,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               </p>
             </div>
 
-            {/* Submit Button - Responsive width */}
+            {/* Submit Button */}
             <div className="text-left">
               <button
                 type="submit"
@@ -361,13 +293,12 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
 
         {/* Contact Info Column */}
         <div className="w-full md:w-1/2 bg-gradient-to-br from-[#FD5A1E]/20 to-black relative p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center text-left">
-          {/* Contact content */}
           <Text variant="h3" className="mb-8 text-left">
             Contact Information
           </Text>
 
           <div className="space-y-6">
-            {/* Contact items with responsive text */}
+            {/* Contact items */}
             <div className="flex items-start">
               <div className="flex-shrink-0 p-2 bg-[#FD5A1E]/10 rounded-full text-[#FD5A1E] mr-4">
                 <svg 
@@ -388,8 +319,8 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               </div>
               <div>
                 <Text variant="body-sm" color="default" className="font-medium">Phone</Text>
-                <a
-                  href="tel:+12094035450"
+                
+                <a href="tel:+12094035450"
                   className="text-[#A5ACAF] hover:text-[#FD5A1E] text-sm sm:text-base transition-colors focus:outline-none focus:text-[#FD5A1E]"
                   aria-label="Call us at (209) 403-5450"
                 >
@@ -486,4 +417,47 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
   );
 };
 
+// Define the ZodFieldError type for server-side validation error parsing
+type ZodFieldError = {
+  _errors: string[];
+};
+
+// Parse server-side validation errors into a flat object for the form
+function parseServerErrors(details: Record<string, ZodFieldError>): Record<string, string> {
+  const errors: Record<string, string> = {};
+  for (const key in details) {
+    if (details[key]?._errors?.length) {
+      errors[key] = details[key]._errors[0];
+    }
+  }
+  return errors;
+}
+
+// Validate form fields
+function validateForm(formData: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  companyName: string;
+  message: string;
+}) {
+  const errors: Record<string, string> = {};
+  if (!formData.firstName.trim()) {
+    errors.firstName = 'First name is required';
+  }
+  if (!formData.lastName.trim()) {
+    errors.lastName = 'Last name is required';
+  }
+  if (!formData.email.trim()) {
+    errors.email = 'Email is required';
+  }
+  if (!formData.companyName.trim()) {
+    errors.companyName = 'Company name is required';
+  }
+  // Phone and message are optional
+  return errors;
+}
+
 export default ContactForm;
+

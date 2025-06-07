@@ -7,7 +7,7 @@ import { Inter } from 'next/font/google';
 
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import Footer from "@/components/layout/Footer";
-import FeedbackWidget from "@/components/features/feedback/FeedbackWidget";
+import FeedbackWidget from "@/components/feedback/FeedbackWidget";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -37,7 +37,7 @@ export default function RootLayout({
           <ResizableNavbar/>
         </div>
         
-        <main>
+        <main className="mt-4">
           <StyledComponentsRegistry>
             {children}
             <Analytics />

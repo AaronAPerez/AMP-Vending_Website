@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '../core/Container';
-import Text from './Text';
+import Text from '../Text';
 
 export interface SectionProps {
   children: React.ReactNode;
@@ -52,7 +52,7 @@ const Section = ({
   };
 
   return (
-    <section 
+    <section
       id={id}
       className={`relative ${bgClasses[background]} ${spacingClasses[spacing]} ${className}`}
     >
@@ -60,17 +60,17 @@ const Section = ({
         {(title || subtitle) && (
           <div className="text-center mb-8 sm:mb-12">
             {title && (
-              <Text 
-                variant="h2" 
+              <Text
+                variant="h2"
                 className={titleClassName}
               >
                 {title}
               </Text>
             )}
             {subtitle && (
-              <Text 
-                variant="body" 
-                color="muted" 
+              <Text
+                variant="body"
+                color="muted"
                 className={`mt-4 max-w-3xl mx-auto ${subtitleClassName}`}
               >
                 {subtitle}

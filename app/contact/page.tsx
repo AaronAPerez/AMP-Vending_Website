@@ -4,9 +4,10 @@ import React from 'react';
 import Script from 'next/script';
 // import { Metadata } from 'next';
 import GoogleMapComponent from '@/components/GoogleMapComponent';
-import ContactForm from '@/components/features/contact/ContactForm';
+import ContactForm from '@/components/contact/ContactForm';
 import { motion } from 'framer-motion';
 import { Link, HelpCircle, CreditCard, Search, Zap } from 'lucide-react';
+import { ContactBreadcrumbs } from '@/components/seo/BreadcrumbSchema';
 
 
 
@@ -118,7 +119,7 @@ export default function ContactPage() {
 
       <div className="bg-[#000000] min-h-screen">
         {/* Hero Section */}
-        <div className="relative py-16 md:py-24 overflow-hidden">
+        <div className="relative py-10 mt-16 overflow-hidden">
           <div className="absolute inset-0 opacity-20">
             {/* Background Pattern */}
             <div className="absolute inset-0">
@@ -135,6 +136,7 @@ export default function ContactPage() {
           </div>
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <ContactBreadcrumbs/>
             <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
               Get In Touch
             </span>
@@ -160,9 +162,13 @@ export default function ContactPage() {
           </div>
         </div> */}
 
-        {/* Additional Contact Information */}
-        <div className="bg-[#4d4d4d] py-16 border-t border-[#a4acac]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           {/* Additional Resources Section */}
+      <div className="bg-[#4d4d4d]/20 py-16 border-t border-[#a4acac]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">
+            Additional Ways to Contact Us
+          </h2>
+
             <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
               <div className="bg-[#000000] p-6 rounded-lg border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
                 <div className="flex items-center justify-center md:justify-start mb-4">
@@ -196,10 +202,10 @@ export default function ContactPage() {
                     <br></br>
                     ampdesignandconsulting@gmail.com
                   </a>
-                  <a 
+                  <a
                     href="mailto:ampdesignandconsulting@gmail.com" className="text-[#FD5A1E] hover:underline">
                     {/* contact@aaronaperez.dev */}
-                  </a> 
+                  </a>
                   <br />
                   Phone: <a href="tel:+12094035450" className="text-[#FD5A1E] hover:underline">
                     <br></br>
@@ -227,7 +233,10 @@ export default function ContactPage() {
         </div>
 
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">
+          Frequently Asked Questions
+        </h2>
           {/* FAQ Grid */}
           <motion.div
             className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto my-12"
@@ -328,7 +337,7 @@ export default function ContactPage() {
         </div> */}
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-[#000000] to-[#4d4d4d] py-16 border-t border-[#a4acac]">
+        {/* <div className="bg-gradient-to-r from-[#000000] to-[#4d4d4d] py-16 border-t border-[#a4acac]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-[#F5F5F5] mb-4">Ready to transform your workplace?</h2>
             <p className="text-xl text-[#A5ACAF] max-w-3xl mx-auto mb-8">
@@ -346,10 +355,10 @@ export default function ContactPage() {
                 className="px-6 py-3 bg-transparent border border-[#A5ACAF] text-[#F5F5F5] rounded-lg font-medium hover:bg-[#4d4d4d] transition-colors"
               >
                 Call Us Now
-              </a> */}
+              </a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

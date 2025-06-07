@@ -5,7 +5,7 @@ import { getVendingMachineById, MachineData } from '@/lib/data/vendingMachineDat
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Script from 'next/script';
-import VendingMachineDetailPage from '@/components/features/vending-machines/VendingMachineDetailPage';
+import VendingMachineDetailPage from '@/components/vending-machines/VendingMachineDetailPage';
 import { Loading } from '@/components/ui/core/Loading';
 
 /**
@@ -48,7 +48,7 @@ const DynamicMachineDetailPage = () => {
         "features": ["21.5\" touchscreen interface", "Advanced payment systems", "50+ product options", "Maintenance-free operation"]
       })
     }
-  }
+    }
   />
 
   // Fetch the machine data when the component mounts

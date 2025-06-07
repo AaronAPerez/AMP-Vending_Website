@@ -15,18 +15,18 @@ const HomeContactSection = () => {
       {/* Background decoration elements */}
       <div className="absolute inset-0 z-0">
         {/* Abstract dots pattern */}
-        <div className="absolute inset-0 opacity-10" 
+        <div className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1' fill='%23FD5A1E' fill-opacity='0.8'/%3E%3C/svg%3E")`,
             backgroundSize: '20px 20px'
           }}
         ></div>
-        
+
         {/* Gradient accents */}
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-[#FD5A1E]/20 to-transparent rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-[#FD5A1E]/10 to-transparent rounded-full blur-3xl"></div>
       </div>
-      
+
       {/* Content area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -48,7 +48,7 @@ const HomeContactSection = () => {
             Fill out the form below and our team will get back to you soon.
           </p>
         </motion.div> */}
-        
+
         {/* Quick Contact Options */}
         {/* <motion.div 
           className="flex flex-wrap justify-center gap-4 mb-12"
@@ -84,7 +84,7 @@ const HomeContactSection = () => {
             Mon-Fri: 9AM-5PM
           </div>
         </motion.div> */}
-        
+
         {/* Card that wraps the contact form */}
         <motion.div
           className="relative rounded-2xl overflow-hidden border border-[#333333] shadow-2xl bg-[#0a0a0a]"
@@ -94,18 +94,18 @@ const HomeContactSection = () => {
         >
           {/* Subtle gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#111111] to-[#0a0a0a] z-0"></div>
-          
+
           {/* Enhanced contact form content */}
           <div className="relative z-10">
             <ContactForm />
           </div>
-          
+
           {/* Decorative corner accent */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-b from-[#FD5A1E]/10 to-transparent rounded-full blur-2xl -mr-32 -mt-32 pointer-events-none"></div>
         </motion.div>
-        
+
         {/* Commitment Banner */}
-        <motion.div 
+        <motion.div
           className="mt-16 bg-[#111111] rounded-xl overflow-hidden border border-[#333333]"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,10 +116,10 @@ const HomeContactSection = () => {
               Our Commitment to You
             </h3>
             <p className="text-[#A5ACAF] max-w-3xl mx-auto">
-              When you reach out to AMP Vending, you can expect a prompt response within 24 hours. 
+              When you reach out to AMP Vending, you can expect a prompt response within 24 hours.
               We&apos;re dedicated to providing exceptional service from the first contact through ongoing support.
             </p>
-            
+
             {/* Feature badges */}
             <div className="flex flex-wrap justify-center gap-4 mt-6">
               <div className="bg-[#0a0a0a] px-4 py-2 rounded-full border border-[#FD5A1E]/30 text-[#F5F5F5] text-sm">
@@ -134,9 +134,9 @@ const HomeContactSection = () => {
             </div>
           </div>
         </motion.div>
-        
+
         {/* Privacy Notice */}
-        <motion.div 
+        <motion.div
           className="mt-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
