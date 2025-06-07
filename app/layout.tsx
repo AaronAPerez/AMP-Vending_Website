@@ -14,7 +14,13 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 export const metadata: Metadata = {
   title: "AMP Vending Machine Website",
   description: "Premium vending machine solutions for workplaces",
+    other: {
+    'referrer': 'same-origin', // This helps with referrer policy
+  },
+  // Add CSP if needed
+  // 'headers' property is not supported in Next.js Metadata
 };
+
 
 export default function RootLayout({
   children,

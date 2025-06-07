@@ -92,9 +92,15 @@ export default function FeedbackPage() {
               </div>
               <p className="text-[#A5ACAF] text-center md:text-left">
                 For direct assistance, email our customer support team at:
+                <br/>
                 <a
                   href="mailto:ampdesignandconsulting@gmail.com"
-                  className="block text-[#FD5A1E] hover:underline mt-2"
+                  className="text-[#FD5A1E] hover:underline"
+                  style={{
+                    wordBreak: 'break-all',      // CSS property for aggressive breaking
+                    overflowWrap: 'break-word',  // More intelligent word breaking
+                    hyphens: 'auto'              // Add hyphens where appropriate
+                  }}
                 >
                   ampdesignandconsulting@gmail.com
                 </a>
@@ -112,8 +118,8 @@ export default function FeedbackPage() {
               </div>
               <p className="text-[#A5ACAF] text-center md:text-left">
                 For immediate assistance, please call our support team at:
-                <a 
-                  href="tel:+12094035450" 
+                <a
+                  href="tel:+12094035450"
                   className="block text-[#FD5A1E] hover:underline mt-2"
                 >
                   (209) 403-5450

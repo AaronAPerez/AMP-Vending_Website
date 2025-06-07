@@ -10,18 +10,13 @@ export default function FeedbackWidget() {
       {/* Feedback Button */}
       <Link
         href="/feedback"    
-        className="flex items-center justify-center bg-[#FD5A1E] text-white p-2 rounded-full shadow-lg hover:bg-[#FD5A1E]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2"
+        className="flex-1 p-2 bg-[#FD5A1E] text-[#000000] font-medium rounded-full text-center shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors active:bg-[#FD5A1E]/80 duration-300 flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black touch-manipulation"
         role="button"
         aria-label="Share Feedback"
         title="Share Feedback"
       >
-        <MessageCircleQuestion width={28} height={28} />
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" 
-          />
+        <MessageCircleQuestion width={28} height={28} className='shadow-md' />
+       
       </Link>
     </div>
   );

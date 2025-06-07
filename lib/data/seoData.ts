@@ -135,6 +135,37 @@ export const PAGE_METADATA = {
     },
   } satisfies Metadata,
 
+
+  
+// ABOUT: {
+//   title: 'About AMP Vending | Professional Vending Solutions in Central California',
+//   description: 'Learn about AMP Vending\'s commitment to providing premium workplace vending solutions. Serving Central California with professional installation, maintenance, and 24/7 support.',
+//   keywords: 'about AMP Vending, vending machine company, Central California vending, professional vending services, workplace solutions, Modesto vending, Andrew Perez founder',
+//   alternates: {
+//     canonical: `${SEO_CONSTANTS.BASE_URL}/about`,
+//   },
+//   openGraph: {
+//     title: 'About AMP Vending - Your Trusted Vending Partner',
+//     description: 'Professional vending solutions with a commitment to excellence. Serving workplaces across Central California with premium machines and comprehensive service.',
+//     url: `${SEO_CONSTANTS.BASE_URL}/about`,
+//     siteName: SEO_CONSTANTS.SITE_NAME,
+//     images: [{
+//       url: `${SEO_CONSTANTS.BASE_URL}/images/about/amp-vending-about.jpg`,
+//       width: SEO_CONSTANTS.OG_IMAGE_WIDTH,
+//       height: SEO_CONSTANTS.OG_IMAGE_HEIGHT,
+//       alt: 'AMP Vending professional team and premium vending solutions',
+//     }],
+//     locale: 'en_US',
+//     type: 'website',
+//   },
+//   twitter: {
+//     card: 'summary_large_image',
+//     title: 'About AMP Vending - Professional Vending Solutions',
+//     description: 'Learn about our commitment to excellence in workplace vending solutions across Central California.',
+//     images: [`${SEO_CONSTANTS.BASE_URL}/images/about/amp-vending-about.jpg`],
+//   },
+// } satisfies Metadata,
+
   CONTACT: {
     title: 'Contact AMP Vending | Professional Vending Machine Consultation',
     description: 'Contact AMP Vending for consultation on premium vending machines. Professional installation, maintenance-free operation, and 24/7 support in Central California.',
@@ -356,6 +387,106 @@ export function generateBreadcrumbStructuredData(
   };
 }
 
+
+/**
+ * Generate About page structured data
+ * Includes organization, founder, and service area information
+ */
+export function generateAboutPageStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About AMP Vending',
+    description: 'Learn about AMP Vending\'s commitment to providing premium workplace vending solutions in Central California.',
+    url: `${SEO_CONSTANTS.BASE_URL}/about`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SEO_CONSTANTS.BASE_URL}/about`
+    },
+    about: {
+      '@type': 'Organization',
+      '@id': `${SEO_CONSTANTS.BASE_URL}/#organization`,
+      name: SEO_CONSTANTS.BUSINESS_NAME,
+      legalName: SEO_CONSTANTS.BUSINESS_LEGAL_NAME,
+      description: 'Professional vending machine solutions for workplaces across Central California',
+      foundingDate: '2019',
+      founders: [
+        {
+          '@type': 'Person',
+          name: 'Andrew Perez',
+          jobTitle: 'Founder & CEO',
+          worksFor: {
+            '@type': 'Organization',
+            name: SEO_CONSTANTS.BUSINESS_NAME
+          }
+        }
+      ],
+      areaServed: {
+        '@type': 'Place',
+        name: SEO_CONSTANTS.SERVICE_AREA,
+        geo: {
+          '@type': 'GeoCircle',
+          geoMidpoint: {
+            '@type': 'GeoCoordinates',
+            latitude: SEO_CONSTANTS.ADDRESS.COORDINATES.LAT,
+            longitude: SEO_CONSTANTS.ADDRESS.COORDINATES.LNG,
+          },
+          geoRadius: '50 miles',
+        },
+      },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: SEO_CONSTANTS.ADDRESS.STREET,
+        addressLocality: SEO_CONSTANTS.ADDRESS.CITY,
+        addressRegion: SEO_CONSTANTS.ADDRESS.STATE,
+        postalCode: SEO_CONSTANTS.ADDRESS.ZIP,
+        addressCountry: SEO_CONSTANTS.ADDRESS.COUNTRY,
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: SEO_CONSTANTS.PHONE,
+        contactType: 'customer service',
+        email: SEO_CONSTANTS.EMAIL,
+        areaServed: SEO_CONSTANTS.ADDRESS.COUNTRY,
+        availableLanguage: 'English',
+      },
+      specialty: [
+        'Workplace vending solutions',
+        'Touchscreen vending machines',
+        'Professional installation',
+        'Maintenance services',
+        '24/7 customer support'
+      ],
+      slogan: 'Premium Vending Solutions for Modern Workplaces',
+      url: SEO_CONSTANTS.BASE_URL,
+      logo: SEO_CONSTANTS.LOGO_FULL_URL,
+      image: `${SEO_CONSTANTS.BASE_URL}/images/about/amp-vending-about.jpg`,
+      sameAs: [
+        // Add social media URLs when available
+        // 'https://www.facebook.com/ampvending',
+        // 'https://www.linkedin.com/company/amp-vending',
+      ]
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: SEO_CONSTANTS.BASE_URL
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'About',
+          item: `${SEO_CONSTANTS.BASE_URL}/about`
+        }
+      ]
+    }
+  };
+}
+
 /**
  * Generate website search action structured data
  * Enables search box in Google search results
@@ -404,6 +535,40 @@ export const SERVICE_AREA_SCHEMA = {
   },
 } as const;
 
+export const STATIC_PAGES = [
+  {
+    url: SEO_CONSTANTS.BASE_URL,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 1.0,
+  },
+  {
+    url: `${SEO_CONSTANTS.BASE_URL}/about`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  },
+  {
+    url: `${SEO_CONSTANTS.BASE_URL}/vending-machines`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  },
+  {
+    url: `${SEO_CONSTANTS.BASE_URL}/contact`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  },
+  {
+    url: `${SEO_CONSTANTS.BASE_URL}/feedback`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  },
+  // ... other static pages
+] as const;
+
 /**
  * Default robots meta content for different page types
  */
@@ -444,7 +609,9 @@ export default {
   SERVICE_AREA_SCHEMA,
   OPERATING_HOURS_SCHEMA,
   ROBOTS_CONFIG,
+  STATIC_PAGES,
   generateMachineMetadata,
   generateMachineStructuredData,
   generateBreadcrumbStructuredData,
+  generateAboutPageStructuredData,
 };

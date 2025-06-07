@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
             email: feedbackData.email,
             category: feedbackData.category,
             location_name: feedbackData.locationName || null,
-            machine_id: feedbackData.machineId || null,
+            // machine_id: feedbackData.machineId || null,
             message: feedbackData.message,
             contact_consent: feedbackData.contactConsent,
             status: 'new', // Initial status for all feedback

@@ -224,7 +224,7 @@ const ProcessSection = () => {
       >
         <Link
           href="/contact"
-          className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-[#FD5A1E] text-white font-medium rounded-full shadow-lg hover:bg-[#FD5A1E]/90 hover:shadow-xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
+          className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-[#FD5A1E] text-[#000000] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors hover:shadow-xl hover:scale-105 duration-300 focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
           aria-label="Schedule your consultation for vending machine installation"
         >
           <span className="text-sm sm:text-base">Schedule Your Consultation</span>

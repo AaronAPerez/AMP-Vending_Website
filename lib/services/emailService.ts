@@ -1,418 +1,352 @@
-import { Resend } from 'resend';
-import { ContactFormData } from '../schema/contactFormSchema';
-import type { FeedbackFormData } from '../schema/feedbackFormSchema';
+/**
+ * Email Service for AMP Vending
+ * 
+ * Handles email sending with fallbacks for development and production environments.
+ * Supports multiple email providers and degradation.
+ */
 
-// Common email parameters
-interface EmailParams {
-  to: string | string[];
+interface EmailConfig {
+  to: string;
   subject: string;
   html: string;
-  text?: string;
-  replyTo?: string;
   from?: string;
 }
 
+interface EmailResponse {
+  success: boolean;
+  messageId?: string;
+  error?: string;
+}
+
+/**
+ * Email Service Class
+ * Provides abstraction over different email providers
+ */
 export class EmailService {
-  private resend: Resend;
+  private static instance: EmailService;
   
-  constructor() {
-    this.resend = new Resend(process.env.RESEND_API_KEY);
-  }
-
-  /**
-   * Generic method to send emails with any parameters
-   */
-  async sendEmail(params: EmailParams): Promise<boolean> {
-    try {
-      // Handle to field - could be string or array of strings
-      const toEmails = typeof params.to === 'string' 
-        ? params.to.split(',').map(email => email.trim())
-        : params.to;
-      
-      // Send the email using Resend
-      const result = await this.resend.emails.send({
-        from: params.from || `AMP Vending <${process.env.FROM_EMAIL || 'contact@ampvendingmachines.com'}>`,
-        to: toEmails,
-        subject: params.subject,
-        html: params.html,
-        text: params.text,
-        replyTo: params.replyTo
-      });
-      
-      console.log('Email sent successfully:', result);
-      return true;
-    } catch (error) {
-      console.error('Error sending email:', error);
-      throw new Error('Failed to send email');
-    }
-  }
+  private constructor() {}
   
   /**
-   * Send an email for contact form submissions
-   * Sends both admin notification and user confirmation
+   * Singleton pattern for email service
    */
-  async sendContactFormEmail(data: ContactFormData): Promise<boolean> {
-    try {
-      // Format the email content for admin
-      const adminEmailContent = this.formatContactEmail(data);
-      
-      // Format the confirmation email for user
-      const userEmailContent = this.formatContactConfirmationEmail(data);
-      
-      // Split multiple recipient emails if present
-      const toEmails = (process.env.TO_EMAIL || 'contact@ampvendingmachines.com').split(',').map(email => email.trim());
-      
-      // Send notification to admin
-      const adminEmailSent = await this.sendEmail({
-        to: toEmails,
-        subject: `New Contact Form Submission from ${data.firstName} ${data.lastName}`,
-        html: adminEmailContent.html,
-        text: adminEmailContent.text,
-        replyTo: data.email
-      });
-      
-      // Send confirmation to user
-      await this.sendEmail({
-        to: data.email,
-        subject: 'Thank you for contacting AMP Vending',
-        html: userEmailContent.html,
-        text: userEmailContent.text
-      });
-      
-      return adminEmailSent;
-    } catch (error) {
-      console.error('Error sending contact form email:', error);
-      throw new Error('Failed to send contact form email');
+  public static getInstance(): EmailService {
+    if (!EmailService.instance) {
+      EmailService.instance = new EmailService();
     }
+    return EmailService.instance;
   }
 
   /**
-   * Send an email for feedback form submissions
-   */
-  async sendFeedbackEmail(data: FeedbackFormData): Promise<boolean> {
-    try {
-      // Format the email content
-      const emailContent = this.formatFeedbackEmail(data);
-      
-      // Split multiple recipient emails if present
-      const toEmails = (process.env.TO_EMAIL || 'contact@ampvendingmachines.com').split(',').map(email => email.trim());
-      
-      // Send email to admin
-      const adminEmailSent = await this.sendEmail({
-        to: toEmails,
-        subject: `New Feedback: ${data.category} from ${data.name}`,
-        html: emailContent.adminHtml,
-        text: emailContent.adminText,
-        replyTo: data.email
-      });
-      
-      // Send confirmation email to user if they've consented
-      if (data.contactConsent) {
-        await this.sendEmail({
-          to: data.email,
-          subject: 'Thank you for your feedback - AMP Vending',
-          html: emailContent.userHtml || '',
-          text: emailContent.userText
-        });
-      }
-      
-      return adminEmailSent;
-    } catch (error) {
-      console.error('Error sending feedback email:', error);
-      throw new Error('Failed to send feedback email');
-    }
-  }
-  
-  /**
-   * Format contact form data into email content for admin notification
-   */
-  private formatContactEmail(data: ContactFormData): { text: string; html: string } {
-    // Plain text version
-    const text = `
-New Contact Form Submission
-
-PERSONAL INFORMATION
-------------------
-Name: ${data.firstName} ${data.lastName}
-Email: ${data.email}
-Phone: ${data.phone || 'Not provided'}
-
-COMPANY INFORMATION
------------------
-Company Name: ${data.companyName}
-
-MESSAGE
-------
-${data.message || 'No additional message provided.'}
-    `;
-    
-    // HTML version
-    const html = `
-<h1>New Contact Form Submission</h1>
-
-<h2>Personal Information</h2>
-<p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
-<p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
-<p><strong>Phone:</strong> ${data.phone ? `<a href="tel:${data.phone}">${data.phone}</a>` : 'Not provided'}</p>
-
-<h2>Company Information</h2>
-<p><strong>Company Name:</strong> ${data.companyName}</p>
-
-<h2>Message</h2>
-<p>${data.message ? data.message.replace(/\n/g, '<br>') : 'No additional message provided.'}</p>
-    `;
-    
-    return { text, html };
-  }
-
-  /**
-   * Format confirmation email for contact form submissions
-   */
-  private formatContactConfirmationEmail(data: ContactFormData): { text: string; html: string } {
-
-    // Plain text version
-    const text = `
-Thank You for Contacting AMP Vending
-
-Dear ${data.firstName} ${data.lastName},
-
-Thank you for your interest in AMP Vending's premium vending machine solutions. We've received your request and our team will review your information promptly.
-
-Here's a summary of what you shared with us:
-- Company: ${data.companyName}
-${data.message ? `- Your message: "${data.message}"` : ''}
-
-What happens next?
-Our team will contact you within 1-2 business days to discuss your specific workplace needs and provide more information about how our maintenance-free vending solutions can benefit your business.
-
-In the meantime, you can learn more about our vending solutions by visiting our website at https://www.ampvendingmachines.com/vending-machines
-
-If you have any urgent questions, please contact us at:
-- Phone: (209) 403-5450
-- Email: ampdesignandconsulting@gmail.com
-
-Thank you for considering AMP Vending for your workplace refreshment needs. We look forward to speaking with you soon!
-
-Best regards,
-
-Andrew Perez
-AMP Vending
-(209) 403-5450
-ampdesignandconsulting@gmail.com
-    `;
-    
-    // HTML version
-    const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Thank You for Contacting AMP Vending</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      color: #333333;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .header {
-      background-color: #000000;
-      padding: 20px;
-      text-align: center;
-    }
-    .header h1 {
-      color: #F5F5F5;
-      margin: 0;
-    }
-    .content {
-      padding: 20px;
-      background-color: #F5F5F5;
-    }
-    .footer {
-      background-color: #4d4d4d;
-      color: #F5F5F5;
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-    }
-    .cta-button {
-      display: inline-block;
-      background-color: #FD5A1E;
-      color: #F5F5F5;
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 50px;
-      margin: 20px 0;
-      font-weight: bold;
-    }
-    .summary-box {
-      background-color: #F5F5F5;
-      border-left: 4px solid #FD5A1E;
-      padding: 15px;
-      margin: 20px 0;
-    }
-    .contact-info {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #F5F5F5;
-      border-radius: 5px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>Thank You for Contacting AMP Vending</h1>
-    </div>
-    
-    <div class="content">
-      <p>Dear ${data.firstName} ${data.lastName},</p>
-      
-      <p>Thank you for your interest in AMP Vending's premium vending solutions. We've received your request and our team will review your information promptly.</p>
-      
-      <div class="summary-box">
-        <h3>Here's a summary of what you shared with us:</h3>
-        <p><strong>Company:</strong> ${data.companyName}</p>
-        ${data.message ? `<p><strong>Your message:</strong> "${data.message}"</p>` : ''}
-      </div>
-      
-      <h3>What happens next?</h3>
-      <p>Our team will contact you within 1-2 business days to discuss your specific workplace needs and provide more information about how our maintenance-free vending solutions can benefit your business.</p>
-      
-      <div style="text-align: center;">
-        <a href="https://www.ampvendingmachines.com/vending-machines" class="cta-button">View Our Vending Machines</a>
-      </div>
-      
-      <div class="contact-info">
-        <h3>Have urgent questions?</h3>
-        <p>Please contact us at:</p>
-        <p><strong>Phone:</strong> <a href="tel:+12094035450">(209) 403-5450</a></p>
-        <p><strong>Email:</strong> <a href="mailto:ampdesignandconsulting@gmail.com">ampdesignandconsulting@gmail.com</a></p>
-      </div>
-      
-      <p>Thank you for considering AMP Vending for your workplace refreshment needs. We look forward to speaking with you soon!</p>
-      
-      <p>Best regards,</p>
-      <p>
-        <strong>Andrew Perez</strong><br>
-        AMP Vending<br>
-        (209) 403-5450<br>
-        <a href="mailto:ampdesignandconsulting@gmail.com">ampdesignandconsulting@gmail.com</a>
-      </p>
-    </div>
-    
-    <div class="footer">
-      <p>© ${new Date().getFullYear()} AMP Vending Solutions. All rights reserved.</p>
-    </div>
-  </div>
-</body>
-</html>
-    `;
-    
-    return { text, html };
-  }
-  
-  /**
-   * Format feedback form data into email content for admin and user
-   */
-  private formatFeedbackEmail(data: FeedbackFormData): { 
-    adminHtml: string; 
-    adminText: string;
-    userHtml?: string;
-    userText?: string;
-  } {
-
-    // Admin plain text version
-    const adminText = `
-New Feedback Submission
-
-FEEDBACK DETAILS
---------------
-Category: ${data.category}
-From: ${data.name} (${data.email})
-${data.locationName ? `Location: ${data.locationName}` : ''}
-${data.machineId ? `Machine ID: ${data.machineId}` : ''}
-Contact Consent: ${data.contactConsent ? 'Yes' : 'No'}
-
-MESSAGE
-------
-${data.message}
-
-Submitted on ${new Date().toLocaleString()}
-    `;
-    
-    // Admin HTML version
-    const adminHtml = `
-<h2>New Feedback Submission</h2>
-<p><strong>Category:</strong> ${data.category}</p>
-<p><strong>From:</strong> ${data.name} (<a href="mailto:${data.email}">${data.email}</a>)</p>
-${data.locationName ? `<p><strong>Location:</strong> ${data.locationName}</p>` : ''}
-${data.machineId ? `<p><strong>Machine ID:</strong> ${data.machineId}</p>` : ''}
-<p><strong>Message:</strong></p>
-<p style="background-color: #f5f5f5; padding: 12px; border-radius: 4px;">${data.message.replace(/\n/g, '<br>')}</p>
-<p><strong>Contact Consent:</strong> ${data.contactConsent ? 'Yes' : 'No'}</p>
-<p><em>Submitted on ${new Date().toLocaleString()}</em></p>
-    `;
-
-    // Only create user email content if they've consented to contact
-    if (data.contactConsent) {
-      // User plain text version
-      const userText = `
-Thank you for your feedback
-
-Dear ${data.name},
-
-We've received your ${data.category.toLowerCase()} about our vending machine service. Your input is valuable to us, and we appreciate you taking the time to share your thoughts.
-
-Here's a copy of your message:
-
-${data.message}
-
-Our team will review your feedback and get back to you if necessary.
-
-Thank you for helping us improve our vending machine services!
-
-Best regards,
-AMP Vending Team
-      `;
-      
-      // User HTML version
-      const userHtml = `
-<h2>Thank you for your feedback</h2>
-<p>Dear ${data.name},</p>
-<p>We've received your ${data.category.toLowerCase()} about our vending machine service. Your input is valuable to us, and we appreciate you taking the time to share your thoughts.</p>
-<p>Here's a copy of your message:</p>
-<p style="background-color: #f5f5f5; padding: 12px; border-radius: 4px; font-style: italic;">${data.message.replace(/\n/g, '<br>')}</p>
-<p>Our team will review your feedback and get back to you if necessary.</p>
-<p>Thank you for helping us improve our vending machine services!</p>
-<p>Best regards,<br>AMP Vending Team</p>
-      `;
-      
-      return { adminHtml, adminText, userHtml, userText };
-    }
-    
-    return { adminHtml, adminText };
-  }
-  
-  /**
-   * Verify the email connection
+   * Verify email service connection
+   * Returns true if email service is properly configured
    */
   async verifyConnection(): Promise<boolean> {
     try {
-      // With Resend, check if the API key is present
-      return !!process.env.RESEND_API_KEY;
+      // In development, always return true (we'll use console logging)
+      if (process.env.NODE_ENV === 'development') {
+        console.log('📧 Email Service: Development mode - using console logging');
+        return true;
+      }
+
+      // Check if any email service is configured
+      const hasNodemailer = process.env.EMAIL_HOST && process.env.EMAIL_USER;
+      const hasResend = process.env.RESEND_API_KEY;
+      
+      if (!hasNodemailer && !hasResend) {
+        console.warn('⚠️ No email service configured. Using fallback mode.');
+        return false;
+      }
+
+      return true;
     } catch (error) {
-      console.error('Email Connection Error:', error);
+      console.error('Email service verification failed:', error);
       return false;
     }
   }
+
+  /**
+   * Send email using the configured provider
+   */
+  async sendEmail(config: EmailConfig): Promise<EmailResponse> {
+    try {
+      // Development mode - log to console
+      if (process.env.NODE_ENV === 'development') {
+        return this.sendEmailDevelopment(config);
+      }
+
+      // Production mode - try different providers
+      if (process.env.RESEND_API_KEY) {
+        return await this.sendEmailResend(config);
+      } else if (process.env.EMAIL_HOST) {
+        return await this.sendEmailNodemailer(config);
+      } else {
+        return this.sendEmailFallback(config);
+      }
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown email error'
+      };
+    }
+  }
+
+  /**
+   * Development email handler - logs to console
+   */
+  private sendEmailDevelopment(config: EmailConfig): EmailResponse {
+    console.log('\n📧 =====================================');
+    console.log('📧 EMAIL SENT (DEVELOPMENT MODE)');
+    console.log('📧 =====================================');
+    console.log('📧 To:', config.to);
+    console.log('📧 Subject:', config.subject);
+    console.log('📧 HTML Content:');
+    console.log(config.html);
+    console.log('📧 =====================================\n');
+    
+    return {
+      success: true,
+      messageId: `dev-${Date.now()}`
+    };
+  }
+
+  /**
+   * Resend email provider (recommended for production)
+   */
+  private async sendEmailResend(config: EmailConfig): Promise<EmailResponse> {
+    try {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: config.from || 'AMP Vending <noreply@ampvendingmachines.com>',
+          to: [config.to],
+          subject: config.subject,
+          html: config.html,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Resend API error');
+      }
+
+      return {
+        success: true,
+        messageId: result.id
+      };
+    } catch (error) {
+      console.error('Resend email failed:', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Resend email failed'
+      };
+    }
+  }
+
+
+  /**
+   * Nodemailer email provider (SMTP)
+   */
+  private async sendEmailNodemailer(config: EmailConfig): Promise<EmailResponse> {
+    try {
+      // Note: You'll need to install nodemailer for this to work
+      // npm install nodemailer @types/nodemailer
+      const nodemailer = require('nodemailer');
+
+      const transporter = nodemailer.createTransporter({
+        host: process.env.EMAIL_HOST,
+        port: parseInt(process.env.EMAIL_PORT || '587'),
+        secure: process.env.EMAIL_SECURE === 'true',
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: config.from || process.env.EMAIL_FROM || 'noreply@ampvendingmachines.com',
+        to: config.to,
+        subject: config.subject,
+        html: config.html,
+      });
+
+      return {
+        success: true,
+        messageId: info.messageId
+      };
+    } catch (error) {
+      console.error('Nodemailer email failed:', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'SMTP email failed'
+      };
+    }
+  }
+
+  /**
+   * Fallback when no email service is configured
+   */
+  private sendEmailFallback(config: EmailConfig): EmailResponse {
+    console.log('\n⚠️ =====================================');
+    console.log('⚠️ EMAIL FALLBACK MODE (NO SERVICE CONFIGURED)');
+    console.log('⚠️ =====================================');
+    console.log('⚠️ To:', config.to);
+    console.log('⚠️ Subject:', config.subject);
+    console.log('⚠️ Configure an email service for production!');
+    console.log('⚠️ =====================================\n');
+    
+    return {
+      success: true,
+      messageId: `fallback-${Date.now()}`
+    };
+  }
+
+  /**
+   * Send contact form email
+   */
+  async sendContactFormEmail(data: any): Promise<EmailResponse> {
+    const html = this.generateContactFormHTML(data);
+    
+    return this.sendEmail({
+      to: 'ampdesignandconsulting@gmail.com',
+      subject: `New Contact Form Submission from ${data.firstName} ${data.lastName}`,
+      html,
+    });
+  }
+
+  /**
+   * Send feedback form email
+   */
+  async sendFeedbackEmail(data: any): Promise<EmailResponse> {
+    const html = this.generateFeedbackHTML(data);
+    
+    return this.sendEmail({
+      to: 'ampdesignandconsulting@gmail.com',
+      subject: `New Feedback: ${data.category} from ${data.name}`,
+      html,
+    });
+  }
+
+  /**
+   * Generate HTML for contact form emails
+   */
+  private generateContactFormHTML(data: any): string {
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Contact Form Submission</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background-color: #FD5A1E; color: white; padding: 20px; text-align: center; }
+          .content { background-color: #f9f9f9; padding: 20px; }
+          .field { margin-bottom: 15px; }
+          .label { font-weight: bold; color: #FD5A1E; }
+          .footer { background-color: #333; color: white; padding: 15px; text-align: center; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>New Contact Form Submission</h1>
+            <p>AMP Vending Website</p>
+          </div>
+          
+          <div class="content">
+            <div class="field">
+              <span class="label">Name:</span> ${data.firstName} ${data.lastName}
+            </div>
+            <div class="field">
+              <span class="label">Email:</span> ${data.email}
+            </div>
+            ${data.phone ? `<div class="field"><span class="label">Phone:</span> ${data.phone}</div>` : ''}
+            <div class="field">
+              <span class="label">Company:</span> ${data.companyName}
+            </div>
+            ${data.message ? `
+              <div class="field">
+                <span class="label">Message:</span><br>
+                <p style="background: white; padding: 15px; border-left: 4px solid #FD5A1E; margin: 10px 0;">${data.message}</p>
+              </div>
+            ` : ''}
+          </div>
+          
+          <div class="footer">
+            <p>Submitted from AMP Vending website on ${new Date().toLocaleString()}</p>
+            <p>AMP Vending | 4120 Dale Rd ste j8 1005, Modesto, CA 95354</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+  }
+
+  /**
+   * Generate HTML for feedback emails
+   */
+  private generateFeedbackHTML(data: any): string {
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Feedback Submission</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background-color: #FD5A1E; color: white; padding: 20px; text-align: center; }
+          .content { background-color: #f9f9f9; padding: 20px; }
+          .field { margin-bottom: 15px; }
+          .label { font-weight: bold; color: #FD5A1E; }
+          .category { background-color: #FD5A1E; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; }
+          .footer { background-color: #333; color: white; padding: 15px; text-align: center; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>New Feedback Received</h1>
+            <span class="category">${data.category}</span>
+          </div>
+          
+          <div class="content">
+            <div class="field">
+              <span class="label">Name:</span> ${data.name}
+            </div>
+            <div class="field">
+              <span class="label">Email:</span> ${data.email}
+            </div>
+            <div class="field">
+              <span class="label">Category:</span> ${data.category}
+            </div>
+            ${data.locationName ? `<div class="field"><span class="label">Location:</span> ${data.locationName}</div>` : ''}
+            
+            <div class="field">
+              <span class="label">Message:</span><br>
+              <p style="background: white; padding: 15px; border-left: 4px solid #FD5A1E; margin: 10px 0; white-space: pre-line;">${data.message}</p>
+            </div>
+          </div>
+          
+          <div class="footer">
+            <p>Feedback submitted from AMP Vending website on ${new Date().toLocaleString()}</p>
+            <p>Contact consent: ${data.contactConsent ? 'Yes' : 'No'}</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+  }
 }
 
-export const emailService = new EmailService();
+// Export singleton instance
+export const emailService = EmailService.getInstance();

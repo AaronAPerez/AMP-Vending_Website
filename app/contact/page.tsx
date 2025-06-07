@@ -136,7 +136,7 @@ export default function ContactPage() {
           </div>
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <ContactBreadcrumbs/>
+            <ContactBreadcrumbs />
             <span className="inline-block px-3 py-1 bg-[#FD5A1E] text-[#F5F5F5] text-sm font-medium rounded-full mb-4">
               Get In Touch
             </span>
@@ -162,12 +162,12 @@ export default function ContactPage() {
           </div>
         </div> */}
 
-           {/* Additional Resources Section */}
-      <div className="bg-[#4d4d4d]/20 py-16 border-t border-[#a4acac]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">
-            Additional Ways to Contact Us
-          </h2>
+        {/* Additional Resources Section */}
+        <div className="bg-[#4d4d4d]/20 py-16 border-t border-[#a4acac]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">
+              Additional Ways to Contact Us
+            </h2>
 
             <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
               <div className="bg-[#000000] p-6 rounded-lg border border-[#a4acac] hover:border-[#FD5A1E] transition-colors">
@@ -197,19 +197,25 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold text-[#F5F5F5] ml-4">Contact Info</h3>
                 </div>
                 <p className="text-[#A5ACAF]">
-                  Email:<a href="mailto:contact@ampvendingmachines.com" className="text-[#FD5A1E] hover:underline"
+                  Email:
+                  <br />
+                  <a
+                    href="mailto:ampdesignandconsulting@gmail.com"
+                    className="text-[#FD5A1E] hover:underline"
+                    style={{
+                      wordBreak: 'break-all',      // CSS property for aggressive breaking
+                      overflowWrap: 'break-word',  // More intelligent word breaking
+                      hyphens: 'auto'              // Add hyphens where appropriate
+                    }}
                   >
-                    <br></br>
                     ampdesignandconsulting@gmail.com
                   </a>
-                  <a
-                    href="mailto:ampdesignandconsulting@gmail.com" className="text-[#FD5A1E] hover:underline">
-                    {/* contact@aaronaperez.dev */}
-                  </a>
                   <br />
-                  Phone: <a href="tel:+12094035450" className="text-[#FD5A1E] hover:underline">
-                    <br></br>
-                    (209) 403-5450</a>
+                  Phone:
+                  <br />
+                  <a href="tel:+12094035450" className="text-[#FD5A1E] hover:underline">
+                    (209) 403-5450
+                  </a>
                 </p>
               </div>
 
@@ -233,10 +239,10 @@ export default function ContactPage() {
         </div>
 
 
-      <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">
-          Frequently Asked Questions
-        </h2>
+        <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-[#F5F5F5] mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
           {/* FAQ Grid */}
           <motion.div
             className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto my-12"

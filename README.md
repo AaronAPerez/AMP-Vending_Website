@@ -305,3 +305,4 @@ npm run export  # For static export (if configured)
 
 
 *Built with ❤️ using Next.js, TypeScript, and Tailwind CSS*
+

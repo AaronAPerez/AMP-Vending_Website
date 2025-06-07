@@ -46,15 +46,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
         email: formData.email,
         phone: formData.phone || '',
         companyName: formData.companyName,
-        jobTitle: '',
-        employeeCount: '1-10',
-        streetAddress: '4120 Dale Rd',
-        city: 'Modesto',
-        state: 'CA',
-        zipCode: '95354',
-        interestedMachine: 'unsure',
         message: formData.message || '',
-        preferredContact: 'email',
       };
 
       const loadingToast = toast.loading('Sending your message...');
@@ -278,7 +270,7 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto px-6 py-3 bg-[#FD5A1E] text-white font-medium rounded-lg hover:bg-[#FD5A1E]/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
+                className="w-full sm:w-auto px-6 py-3 bg-[#FD5A1E] text-[#000000] font-medium rounded-xl shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
                 aria-busy={isSubmitting}
                 aria-describedby="submit-help"
               >
@@ -349,13 +341,18 @@ const ContactForm = ({ className = '' }: ContactFormProps) => {
               </div>
               <div>
                 <Text variant="body-sm" color="default" className="font-medium">Email</Text>
-                <a 
-                  href="mailto:ampdesignandconsulting@gmail.com" 
-                  className="text-[#A5ACAF] hover:text-[#FD5A1E] text-sm sm:text-base transition-colors focus:outline-none focus:text-[#FD5A1E]"
-                  aria-label="Email us at ampdesignandconsulting@gmail.com"
-                >
-                  ampdesignandconsulting@gmail.com
-                </a>
+                  {/* Email with overflow-wrap for better breaking */}
+                  <a 
+                    href="mailto:ampdesignandconsulting@gmail.com"
+                    className="block hover:text-[#FD5A1E] transition-colors text-[#A5ACAF]"
+                    style={{
+                      wordBreak: 'break-all',      // CSS property for aggressive breaking
+                      overflowWrap: 'break-word',  // More intelligent word breaking
+                      hyphens: 'auto'              // Add hyphens where appropriate
+                    }}
+                  >
+                    ampdesignandconsulting@gmail.com
+                  </a>
               </div>
             </div>
 

@@ -1,137 +1,134 @@
-import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import React from 'react';
+import ContactEmailLink from '../contact/ContactEmailLink';
+import FooterEmailLink from '../contact/FooterEmailLink';
 
-/* Footer includes navigation links, contact information, and copyright */
+/**
+ * Complete Footer Component with Text Wrapping Fixes
+ */
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  // Footer navigation links
-  const footerLinks = [
-    {
-      title: 'Vending Solutions',
-      links: [
-        { label: 'All Machines', href: '/vending-machines' },
-        // { label: 'Compact Refrigerated', href: '/vending-machines/km-vmr-30-b' },
-        { label: 'Standard Refrigerated', href: '/vending-machines/km-vmr-40-b' },
-        { label: 'Non-Refrigerated Snack Machine', href: '/vending-machines/km-vmnt-50-b' },
-        // { label: 'Premium Refrigerated Machine', href: '/vending-machines/km-vmrt-50-b' },
-      ]
-    },
-    {
-      title: 'Company',
-      links: [
-        { label: 'About Us', href: '/about' },
-        // { label: 'Our Clients', href: '/about#clients' },
-        { label: 'Contact', href: '/contact' },
-      ]
-    },
-    {
-      title: 'Resources',
-      links: [
-        // { label: 'Profit Calculator', href: '/#profit-calculator' },
-        // { label: 'Location Finder', href: '/contact#locations' },
-        // { label: 'Product Catalog', href: '/vending-machines#products' },
-        { label: 'FAQ', href: '/about#faq' },
-      ]
-    }
-  ];
-
   return (
-    <footer className="bg-[#000000] border-t border-[#4d4d4d] text-[#A5ACAF]" aria-labelledby="footer-heading">
-      <h2 id="footer-heading" className="sr-only">Footer</h2>
+    <footer className="bg-[#111111] border-t border-[#333333]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-
-
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          {/* Company info */}
-          <div className="space-y-8 xl:col-span-1">
-            <div className="flex items-center space-x-2">
-              <Link href="/" className="flex items-center space-x-2" aria-label="AMP Vending - Home">
-                <Image
-                  src="/images/logo/AMP_logo.png"
-                  alt="AMP Vending Logo"
-                  width={80}
-                  height={40}
-                  className="w-26 min-w-12 max-w-26 h-auto"
-                />
-                {/* <AMPVendingLogo variant="horizontal" size="lg" /> */}
-              </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          {/* Company Info */}
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <Image
+                src="/images/logo/AMP_logo.png" 
+                alt="AMP Vending Logo"
+                width={40}
+                height={60} 
+                className="h-8 w-auto"
+              />
             </div>
+            <p className="text-[#A5ACAF] text-sm leading-relaxed max-w-xs">
+              Premium vending solutions with zero-cost installation 
+              and maintenance-free operation for modern workplaces.
+            </p>
           </div>
 
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-[#F5F5F5]">
+              Quick Links
+            </h3>
+            <nav className="space-y-2">
+              <a href="/" className="block text-[#A5ACAF] text-sm hover:text-[#FD5A1E] transition-colors">
+                Home
+              </a>
+              <a href="/vending-machines" className="block text-[#A5ACAF] text-sm hover:text-[#FD5A1E] transition-colors">
+                Vending Machines
+              </a>
+              <a href="/contact" className="block text-[#A5ACAF] text-sm hover:text-[#FD5A1E] transition-colors">
+                Contact Us
+              </a>
+              <a href="/feedback" className="block text-[#A5ACAF] text-sm hover:text-[#FD5A1E] transition-colors">
+                Feedback
+              </a>
+            </nav>
+          </div>
 
+          {/* Our Services */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-[#F5F5F5]">
+              Our Services
+            </h3>
+            <nav className="space-y-2">
+              <span className="block text-[#A5ACAF] text-sm">Zero-Cost Installation</span>
+              <span className="block text-[#A5ACAF] text-sm">Maintenance-Free Operation</span>
+              <span className="block text-[#A5ACAF] text-sm">Product Restocking</span>
+              <span className="block text-[#A5ACAF] text-sm">24/7 Customer Support</span>
+            </nav>
+          </div>
 
-          {/* Footer link sections */}
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              {footerLinks.slice(0, 2).map((section) => (
-                <div key={section.title} className="mt-12 md:mt-0">
-                  <h3 className="text-sm font-semibold text-[#F5F5F5] tracking-wider uppercase mb-4">
-                    {section.title}
-                  </h3>
-                  <ul role="list" className="space-y-4">
-                    {section.links.map((item) => (
-                      <li key={item.label}>
-                        <Link href={item.href} className="text-sm text-[#A5ACAF] hover:text-[#FD5A1E] transition-colors">
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+          {/* Contact Info - FIXED VERSION */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-[#F5F5F5]">
+              Contact Info
+            </h3>
+            
+            <div className="text-[#A5ACAF] text-sm space-y-3">
+              {/* Address */}
+              <div>
+                <p>4120 Dale Rd ste j8 1005</p>
+                <p>Modesto, CA 95354</p>
+              </div>
+              
+              {/* Phone */}
+              <div>
+                <a 
+                  href="tel:+12094035450"
+                  className="hover:text-[#FD5A1E] transition-colors focus:outline-none focus:text-[#FD5A1E]"
+                  aria-label="Call us at (209) 403-5450"
+                >
+                  (209) 403-5450
+                </a>
+              </div>
+              
+              {/* Email */}
+              <div className="min-w-0"> {/* Prevents flex item from growing beyond container */}
+                  {/* Email with overflow-wrap for better breaking */}
 
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              {footerLinks.slice(2).map((section) => (
-                <div key={section.title} className="mt-12 md:mt-0">
-                  <h3 className="text-sm font-semibold text-[#F5F5F5] tracking-wider uppercase mb-4">
-                    {section.title}
-                  </h3>
-                  <ul role="list" className="space-y-4">
-                    {section.links.map((item) => (
-                      <li key={item.label}>
-                        <Link href={item.href} className="text-sm text-[#A5ACAF] hover:text-[#FD5A1E] transition-colors">
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-
-              {/* Contact info */}
-              <div className="mt-12 md:mt-0">
-                <h3 className="text-sm font-semibold text-[#F5F5F5] tracking-wider uppercase mb-4">
-                  Contact Us
-                </h3>
-                <div className="space-y-3">
-                  <p className="text-sm text-[#A5ACAF]">
-                    <a href="tel:2094035450" className="hover:text-[#FD5A1E] transition-colors">
-                      (209) 403-5450
-                    </a>
-                  </p>
-                  <p className="text-sm text-[#A5ACAF]">
-                    <a href="mailto:ampdesignandconsulting@gmail.com" className="hover:text-[rgb(253,90,30)] transition-colors ">
-                      ampdesignandconsulting<br></br>@gmail.com
-                    </a>
-                  </p>
-                  <p className="text-sm text-[#A5ACAF]">
-                    Serving Central California
-                  </p>
-                </div>
+              <FooterEmailLink/>
+   
               </div>
             </div>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-12 pt-8 border-t border-[#4d4d4d] text-sm text-[#A5ACAF]">
-          <p className="text-center">
-            &copy; {currentYear} AMP Vending Solutions. All rights reserved.
-          </p>
+        {/* Bottom Footer */}
+        <div className="mt-12 pt-8 border-t border-[#333333]">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            
+            {/* Copyright */}
+            <div className="text-[#A5ACAF] text-sm">
+              © 2025 AMP Design and Consulting LLC. All rights reserved.
+            </div>
+            
+            {/* Legal Links */}
+            <nav className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6 text-sm">
+              <a 
+                href="/privacy-policy" 
+                className="text-[#A5ACAF] hover:text-[#FD5A1E] transition-colors focus:outline-none focus:text-[#FD5A1E]"
+              >
+                Privacy Policy
+              </a>
+              <a 
+                href="/terms-of-service" 
+                className="text-[#A5ACAF] hover:text-[#FD5A1E] transition-colors focus:outline-none focus:text-[#FD5A1E]"
+              >
+                Terms of Service
+              </a>
+              <a 
+                href="/accessibility" 
+                className="text-[#A5ACAF] hover:text-[#FD5A1E] transition-colors focus:outline-none focus:text-[#FD5A1E]"
+              >
+                Accessibility
+              </a>
+            </nav>
+          </div>
         </div>
       </div>
     </footer>

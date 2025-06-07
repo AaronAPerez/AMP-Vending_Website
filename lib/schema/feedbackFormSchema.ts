@@ -16,7 +16,7 @@ export const feedbackFormSchema = z.object({
   email: z.string().email('Invalid email address'),
   category: z.enum(FEEDBACK_CATEGORIES),
   locationName: z.string().optional(),
-  machineId: z.string().optional(),
+  // machineId: z.string().optional(),
   message: z.string().min(10, 'Message must be at least 10 characters'),
   contactConsent: z.boolean().refine(val => val === true, {
     message: 'You must consent to be contacted'

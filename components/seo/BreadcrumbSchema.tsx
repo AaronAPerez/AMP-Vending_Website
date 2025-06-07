@@ -197,6 +197,39 @@ export const VendingMachineBreadcrumbs = ({
   />
 );
 
+// export const AboutBreadcrumbs: React.FC = () => {
+//   return (
+//     <nav 
+//       aria-label="Breadcrumb navigation for About page" 
+//       className="sr-only" // Hidden visually but available to screen readers
+//     >
+//       <ol className="flex items-center space-x-2 text-sm">
+//         <li>
+//           <a 
+//             href="/" 
+//             className="text-[#A5ACAF] hover:text-[#FD5A1E] transition-colors"
+//             aria-label="Navigate to homepage"
+//           >
+//             Home
+//           </a>
+//         </li>
+//         <li aria-hidden="true" className="text-[#4d4d4d]">/</li>
+//         <li>
+//           <span 
+//             className="text-[#F5F5F5]" 
+//             aria-current="page"
+//             aria-label="Current page: About AMP Vending"
+//           >
+//             About
+//           </span>
+//         </li>
+//       </ol>
+//     </nav>
+//   );
+// };
+
+
+
 /**
  * Contact Page Breadcrumbs
  */

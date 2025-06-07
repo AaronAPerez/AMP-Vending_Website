@@ -175,7 +175,7 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
           {primaryCta && (
             <Link
               href={primaryCta.href}
-              className="px-8 py-4 bg-[#FD5A1E] text-[#F5F5F5] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
+              className="px-8 py-4 bg-[#FD5A1E] text-[#000000] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
               aria-label={primaryCta.text}
             >
               {primaryCta.text}

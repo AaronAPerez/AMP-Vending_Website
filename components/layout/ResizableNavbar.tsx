@@ -85,9 +85,8 @@ const ResizableNavbar = () => {
   // Navigation items
   const navItems: NavItem[] = [
     { name: 'Home', path: '/' },
-    {
-      name: 'Vending Machines',
-      path: '/vending-machines'
+    // { name: 'About', path: '/about' },
+    { name: 'Vending Machines', path: '/vending-machines' },
       //,
       // children: [
       //   { name: 'All Machines', path: '/vending-machines' },
@@ -96,7 +95,7 @@ const ResizableNavbar = () => {
       //   { name: 'Non-Refrigerated Snack', path: '/vending-machines/km-vmnt-50-b' },
       //   { name: 'Premium Refrigerated', path: '/vending-machines/km-vmrt-50-b' },
       // ]
-    },
+
     { name: 'Feedback', path: '/feedback' },
     { name: 'Contact', path: '/contact' }
   ];
@@ -223,7 +222,7 @@ const ResizableNavbar = () => {
                   className={`hidden md:inline-block ${isScrolled ?
                     'px-4 py-2 text-sm' :
                     'px-5 py-2.5 text-base'
-                    } bg-[#FD5A1E] text-[#F5F5F5] rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] transition-all duration-300 font-medium`}
+                    } bg-[#FD5A1E] text-[#000000] rounded-full hover:bg-[#F5F5F5] hover:text-[#000000] transition-all duration-300 font-medium`}
                 >
                   Free Consultation
                 </Link>

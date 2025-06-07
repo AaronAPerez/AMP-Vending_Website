@@ -307,7 +307,7 @@ const ServiceAreaSection = () => {
         
         <Link 
           href="/contact" 
-          className="inline-flex items-center px-8 py-4 bg-[#FD5A1E] text-white font-medium rounded-full shadow-lg hover:bg-[#FD5A1E]/90 transition-colors"
+          className="inline-flex items-center px-8 py-4 bg-[#FD5A1E] text-[#000000] font-medium rounded-full shadow-lg hover:bg-[#F5F5F5] hover:text-[#000000] transition-colors"
         >
           Check Service Availability
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
