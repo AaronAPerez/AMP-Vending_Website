@@ -395,7 +395,7 @@ export const MachineCard = ({
             }`}>
               <StarIcon 
                 size={variant === 'compact' ? 14 : 16} 
-                className="text-[#FD5A1E] mr-2" 
+                className="text-[#fdf61e] mr-2" 
                 aria-hidden="true"
               />
               Key Features
@@ -431,7 +431,7 @@ export const MachineCard = ({
 
         {/* Specifications Grid - Hidden for compact variant */}
         {variant !== 'compact' && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 mb-6">
             <div className="bg-[#000000]/50 p-3 rounded-lg border border-[#333333]">
               <div className="text-[#A5ACAF] text-xs mb-1 uppercase tracking-wide">
                 Dimensions
@@ -446,7 +446,7 @@ export const MachineCard = ({
               <div className="text-[#A5ACAF] text-xs mb-1 uppercase tracking-wide">
                 Best For
               </div>
-              <div className={`text-[#F5F5F5] leading-tight line-clamp-2 ${
+              <div className={`text-[#F5F5F5] leading-tight ${
                 variant === 'related' ? 'text-xs' : 'text-sm'
               }`}>
                 {getBestForDisplay()}
@@ -521,7 +521,7 @@ export const MachineGrid = ({
   const getGridClasses = (): string => {
     switch (variant) {
       case 'showcase':
-        return 'grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12';
+        return 'grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-12';
       case 'related':
         return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
       default:
