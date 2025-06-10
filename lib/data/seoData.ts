@@ -5,8 +5,8 @@ import { Metadata } from "next";
 // lib/data/seoData.ts
 export const SEO_CONSTANTS = {
   // Website Identity
-  SITE_NAME: 'AMP Vending',
-  SITE_TITLE: 'AMP Vending | Premium Vending Solutions for Workplaces',
+  SITE_NAME: 'AMP Vending Machines',
+  SITE_TITLE: 'AMP Vending Machines | Premium Vending Machines for Workplaces',
   SITE_DESCRIPTION: 'AMP Vending provides professional, maintenance-free vending machines with 21.5" touchscreen interfaces and 50+ customizable product options for workplaces in Central California.',
   
   // URLs and Domains
@@ -14,7 +14,7 @@ export const SEO_CONSTANTS = {
   DOMAIN: 'ampvendingmachines.com',
   
   // Business Information
-  BUSINESS_NAME: 'AMP Vending Solutions',
+  BUSINESS_NAME: 'AMP Vending Machines',
   BUSINESS_LEGAL_NAME: 'AMP Design and Consulting LLC',
   
   // Contact Information
@@ -51,8 +51,12 @@ export const SEO_CONSTANTS = {
     'touchscreen vending',
     'maintenance-free vending',
     'employee satisfaction',
-    'custom vending solutions',
+    'custom vending Machines',
     'Modesto vending machines',
+    'vending machines near me',
+    'Modesto vending machines',
+    'vending machines modesto',
+    'vending central vally',
     'Central California vending',
   ],
 
@@ -91,7 +95,7 @@ export const PAGE_METADATA = {
       canonical: SEO_CONSTANTS.BASE_URL,
     },
     openGraph: {
-      title: 'Premium Vending Solutions for Modern Workplaces | AMP Vending',
+      title: 'Premium Vending Machines for Modern Workplaces | AMP Vending',
       description: 'Enhance your workplace with advanced vending technology featuring 21.5" touchscreen interfaces and 50+ customizable product options.',
       url: SEO_CONSTANTS.BASE_URL,
       siteName: SEO_CONSTANTS.SITE_NAME,
@@ -106,7 +110,7 @@ export const PAGE_METADATA = {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Premium Vending Solutions for Modern Workplaces | AMP Vending',
+      title: 'Premium Vending Machines for Modern Workplaces | AMP Vending',
       description: 'Professional vending machines with touchscreen technology for enhanced workplace satisfaction.',
       images: [SEO_CONSTANTS.DEFAULT_OG_IMAGE_FULL],
     },
@@ -115,13 +119,13 @@ export const PAGE_METADATA = {
   VENDING_MACHINES: {
     title: 'Premium Vending Machines | Touchscreen Technology | AMP Vending',
     description: 'Explore our premium vending machines featuring 21.5" touchscreen interfaces, tap-to-pay technology, and customizable product selections. Professional installation available.',
-    keywords: 'premium vending machines, touchscreen vending, workplace vending solutions, professional vending machines, Modesto',
+    keywords: 'premium vending machines, touchscreen vending, workplace vending Machines, professional vending machines, Modesto',
     alternates: {
       canonical: `${SEO_CONSTANTS.BASE_URL}/vending-machines`,
     },
     openGraph: {
       title: 'Premium Vending Machines | AMP Vending',
-      description: 'Professional vending solutions with touchscreen technology and 50+ customizable product options.',
+      description: 'Professional vending Machines with touchscreen technology and 50+ customizable product options.',
       url: `${SEO_CONSTANTS.BASE_URL}/vending-machines`,
       siteName: SEO_CONSTANTS.SITE_NAME,
       images: [{
@@ -138,30 +142,30 @@ export const PAGE_METADATA = {
 
   
 // ABOUT: {
-//   title: 'About AMP Vending | Professional Vending Solutions in Central California',
-//   description: 'Learn about AMP Vending\'s commitment to providing premium workplace vending solutions. Serving Central California with professional installation, maintenance, and 24/7 support.',
-//   keywords: 'about AMP Vending, vending machine company, Central California vending, professional vending services, workplace solutions, Modesto vending, Andrew Perez founder',
+//   title: 'About AMP Vending | Professional Vending Machines in Central California',
+//   description: 'Learn about AMP Vending\'s commitment to providing premium workplace vending Machines. Serving Central California with professional installation, maintenance, and 24/7 support.',
+//   keywords: 'about AMP Vending, vending machine company, Central California vending, professional vending services, workplace Machines, Modesto vending, Andrew Perez founder',
 //   alternates: {
 //     canonical: `${SEO_CONSTANTS.BASE_URL}/about`,
 //   },
 //   openGraph: {
 //     title: 'About AMP Vending - Your Trusted Vending Partner',
-//     description: 'Professional vending solutions with a commitment to excellence. Serving workplaces across Central California with premium machines and comprehensive service.',
+//     description: 'Professional vending Machines with a commitment to excellence. Serving workplaces across Central California with premium machines and comprehensive service.',
 //     url: `${SEO_CONSTANTS.BASE_URL}/about`,
 //     siteName: SEO_CONSTANTS.SITE_NAME,
 //     images: [{
 //       url: `${SEO_CONSTANTS.BASE_URL}/images/about/amp-vending-about.jpg`,
 //       width: SEO_CONSTANTS.OG_IMAGE_WIDTH,
 //       height: SEO_CONSTANTS.OG_IMAGE_HEIGHT,
-//       alt: 'AMP Vending professional team and premium vending solutions',
+//       alt: 'AMP Vending professional team and premium vending Machines',
 //     }],
 //     locale: 'en_US',
 //     type: 'website',
 //   },
 //   twitter: {
 //     card: 'summary_large_image',
-//     title: 'About AMP Vending - Professional Vending Solutions',
-//     description: 'Learn about our commitment to excellence in workplace vending solutions across Central California.',
+//     title: 'About AMP Vending - Professional Vending Machines',
+//     description: 'Learn about our commitment to excellence in workplace vending Machines across Central California.',
 //     images: [`${SEO_CONSTANTS.BASE_URL}/images/about/amp-vending-about.jpg`],
 //   },
 // } satisfies Metadata,
@@ -175,14 +179,14 @@ export const PAGE_METADATA = {
     },
     openGraph: {
       title: 'Contact AMP Vending - Professional Consultation',
-      description: 'Get in touch for professional vending machine consultation and premium workplace solutions.',
+      description: 'Get in touch for professional vending machine consultation and premium workplace Machines.',
       url: `${SEO_CONSTANTS.BASE_URL}/contact`,
       siteName: SEO_CONSTANTS.SITE_NAME,
       images: [{
         url: `${SEO_CONSTANTS.BASE_URL}/images/og/contact.jpg`,
         width: SEO_CONSTANTS.OG_IMAGE_WIDTH,
         height: SEO_CONSTANTS.OG_IMAGE_HEIGHT,
-        alt: 'Contact AMP Vending for workplace solutions',
+        alt: 'Contact AMP Vending for workplace Machines',
       }],
       locale: 'en_US',
       type: 'website',
@@ -397,7 +401,7 @@ export function generateAboutPageStructuredData() {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     name: 'About AMP Vending',
-    description: 'Learn about AMP Vending\'s commitment to providing premium workplace vending solutions in Central California.',
+    description: 'Learn about AMP Vending\'s commitment to providing premium workplace vending Machines in Central California.',
     url: `${SEO_CONSTANTS.BASE_URL}/about`,
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -408,7 +412,7 @@ export function generateAboutPageStructuredData() {
       '@id': `${SEO_CONSTANTS.BASE_URL}/#organization`,
       name: SEO_CONSTANTS.BUSINESS_NAME,
       legalName: SEO_CONSTANTS.BUSINESS_LEGAL_NAME,
-      description: 'Professional vending machine solutions for workplaces across Central California',
+      description: 'Professional vending machine Machines for workplaces across Central California',
       foundingDate: '2019',
       founders: [
         {
@@ -451,13 +455,13 @@ export function generateAboutPageStructuredData() {
         availableLanguage: 'English',
       },
       specialty: [
-        'Workplace vending solutions',
+        'Workplace vending Machines',
         'Touchscreen vending machines',
         'Professional installation',
         'Maintenance services',
         '24/7 customer support'
       ],
-      slogan: 'Premium Vending Solutions for Modern Workplaces',
+      slogan: 'Premium Vending Machines for Modern Workplaces',
       url: SEO_CONSTANTS.BASE_URL,
       logo: SEO_CONSTANTS.LOGO_FULL_URL,
       image: `${SEO_CONSTANTS.BASE_URL}/images/about/amp-vending-about.jpg`,

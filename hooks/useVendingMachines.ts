@@ -1,12 +1,8 @@
 'use client';
 
+import { getAllVendingMachines, getVendingMachineById, getVendingMachinesByCategory, MachineData } from '@/lib/data/vendingMachineData';
 import { useState, useCallback } from 'react';
-import vendingMachineData, { 
-  MachineData, 
-  getAllVendingMachines, 
-  getVendingMachineById,
-  getVendingMachinesByCategory 
-} from '@/lib/data/vendingMachineData';
+
 
 /* Re-export the MachineData interface */
 export type { MachineData };

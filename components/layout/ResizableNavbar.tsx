@@ -97,7 +97,7 @@ const ResizableNavbar = () => {
       // ]
 
     { name: 'Feedback', path: '/feedback' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Contact', path: '/contact' },
   ];
 
   // Toggle submenu function

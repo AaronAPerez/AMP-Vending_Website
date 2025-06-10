@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-// import "../styles/globals.css";
 import StyledComponentsRegistry from '../lib/registry';
 import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
-
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import Footer from "@/components/layout/Footer";
 import FeedbackWidget from "@/components/feedback/FeedbackWidget";

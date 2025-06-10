@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
@@ -96,7 +97,7 @@ const VendingMachineCard = () => {
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold text-[#F5F5F5]">
-            Premium Refrigerated Machine
+            Premium Vending Machines
           </h3>
           {/* <div className="text-[#FD5A1E] text-sm font-semibold">
             Model: KM-VMR-40-B

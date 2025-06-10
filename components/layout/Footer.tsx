@@ -18,9 +18,9 @@ const Footer = () => {
               <Image
                 src="/images/logo/AMP_logo.png" 
                 alt="AMP Vending Logo"
-                width={40}
-                height={60} 
-                className="h-8 w-auto"
+                width={100}
+                height={100} 
+                className="h-14 w-auto"
               />
             </div>
             <p className="text-[#A5ACAF] text-sm leading-relaxed max-w-xs">

@@ -106,7 +106,7 @@ const HomePage = () => {
               <div className="min-h-screen bg-black flex items-center justify-center">
                 <div className="text-center px-4">
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6">
-                    Premium Vending Solutions
+                    Premium Vending Machines
                     <br />for <span className="text-[#FD5A1E]">Modern Workplaces</span>
                   </h1>
                   <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 max-w-3xl mx-auto">
@@ -119,7 +119,7 @@ const HomePage = () => {
             <ResponsiveHero
               title={
                 <>
-                  Premium Vending Solutions
+                  Premium Vending Machines
                   <br />for <span className="text-[#FD5A1E] hero-accent">Modern Workplaces</span>
                 </>
               }
