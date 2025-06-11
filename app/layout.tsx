@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import "./globals.css";
 import StyledComponentsRegistry from '../lib/registry';
 import { Analytics } from "@vercel/analytics/react"
@@ -44,6 +45,7 @@ export default function RootLayout({
         <main className="mt-4">
           <StyledComponentsRegistry>
             {children}
+             <SpeedInsights />
             <Analytics />
           </StyledComponentsRegistry>
         </main>
