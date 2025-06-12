@@ -45,6 +45,7 @@
     "resend": "^4.5.1",
     "sonner": "^2.0.3",
     "styled-components": "^6.1.18",
+    "typescript": "^5.0.0",
     "zod": "^3.25.32"
   },
   "devDependencies": {
