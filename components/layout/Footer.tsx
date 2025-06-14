@@ -91,11 +91,11 @@ const Footer = () => {
                 {/* Email with overflow-wrap for better breaking */}
                 <FooterEmailLink />
               </div>
-              <nav className="space-y-2">
+              {/* <nav className="space-y-2">
                 <a href="/business-card" className="block text-[#A5ACAF] text-sm hover:text-[#FD5A1E] transition-colors">
                   Buisness Card
                 </a>
-              </nav>
+              </nav> */}
             </div>
           </div>
         </div>
