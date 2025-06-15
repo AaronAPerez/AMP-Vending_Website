@@ -32,6 +32,7 @@ import {
 import { MachineGrid } from '@/components/MachineCard';
 
 
+
 /**
  * Props interface for the MachineDetailSection component
  */

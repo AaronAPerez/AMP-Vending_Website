@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import { toast } from 'sonner';
 import Card from '../ui/core/Card';
 import Text from '../ui/Text';
-
+import { trackContactSubmission, trackEvent } from '@/lib/analytics/googleAnalytics';
 interface ContactFormProps {
   className?: string;
 }

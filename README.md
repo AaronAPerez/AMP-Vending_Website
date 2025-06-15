@@ -306,3 +306,361 @@ npm run export  # For static export (if configured)
 
 *Built with ❤️ using Next.js, TypeScript, and Tailwind CSS*
 
+
+```
+AMP-Vending-Machines-Website
+├─ .eslintrc.json
+├─ app
+│  ├─ accessibility
+│  │  └─ page.tsx
+│  ├─ api
+│  │  ├─ contact
+│  │  │  └─ route.ts
+│  │  ├─ feedback
+│  │  │  └─ route.ts
+│  │  └─ placeholder
+│  │     └─ route.ts
+│  ├─ business-card
+│  │  └─ page.tsx
+│  ├─ contact
+│  │  ├─ Loading.tsx
+│  │  └─ page.tsx
+│  ├─ error.tsx
+│  ├─ favicon.ico
+│  ├─ feedback
+│  │  ├─ layout.tsx
+│  │  └─ page.tsx
+│  ├─ global-error.tsx
+│  ├─ globals.css
+│  ├─ layout.tsx
+│  ├─ manifest.ts
+│  ├─ not-found.tsx
+│  ├─ page.tsx
+│  ├─ privacy-policy
+│  │  └─ page.tsx
+│  ├─ robots.txt
+│  │  └─ route.ts
+│  ├─ sitemap.xml
+│  │  └─ route.ts
+│  ├─ terms-of-service
+│  │  └─ page.tsx
+│  └─ vending-machines
+│     ├─ page.tsx
+│     └─ [id]
+│        └─ page.tsx
+├─ components
+│  ├─ about
+│  │  ├─ AboutPage.tsx
+│  │  ├─ CompanyStats.tsx
+│  │  ├─ CompanyValues.tsx
+│  │  ├─ OurStory.tsx
+│  │  ├─ ServiceArea.tsx
+│  │  └─ TeamSection.tsx
+│  ├─ business-card
+│  │  ├─ BusinessCard.tsx
+│  │  ├─ BusinessCardControls.tsx
+│  │  ├─ BusinessCardInstructions.tsx
+│  │  ├─ BusinessCardSelector.tsx
+│  │  └─ BusinessCardTheme.tsx
+│  ├─ contact
+│  │  ├─ ContactEmailLink.tsx
+│  │  ├─ ContactForm.tsx
+│  │  ├─ ContactInfoSection.tsx
+│  │  ├─ ContactMap.tsx
+│  │  ├─ EmailLink.tsx
+│  │  └─ FooterEmailLink.tsx
+│  ├─ dev
+│  │  └─ ResponsiveDebugger.tsx
+│  ├─ feedback
+│  │  ├─ FeedbackForm.tsx
+│  │  ├─ FeedbackWidget.tsx
+│  │  └─ import { render, screen } from '@testing.tsx
+│  ├─ GoogleMapComponent.tsx
+│  ├─ hero
+│  │  └─ ResponsiveHero.tsx
+│  ├─ landing
+│  │  ├─ CTASection.tsx
+│  │  ├─ FAQSection.tsx
+│  │  ├─ GoogleMapComponent.tsx
+│  │  ├─ HomeContactSection.tsx
+│  │  ├─ HomePage.tsx
+│  │  ├─ MachineShowcase.tsx
+│  │  ├─ ProcessSection.tsx
+│  │  ├─ ProductSection.tsx
+│  │  ├─ ServiceAreaMapPreview.tsx
+│  │  ├─ ServiceAreaSection.tsx
+│  │  ├─ ShowcaseLensEffect.tsx
+│  │  ├─ VendingMachineShowcase.tsx
+│  │  └─ WorkplaceTransformSection.tsx
+│  ├─ layout
+│  │  ├─ Container.tsx
+│  │  ├─ Footer.tsx
+│  │  ├─ PageLayout.tsx
+│  │  ├─ ResizableNavbar.tsx
+│  │  ├─ ResponsiveGrid.tsx
+│  │  ├─ Section.tsx
+│  │  └─ Text.tsx
+│  ├─ MachineCard.tsx
+│  ├─ performance
+│  │  └─ LazySection.tsx
+│  ├─ previews
+│  │  └─ ServiceAreaMapPreview.tsx
+│  ├─ seo
+│  │  ├─ AboutBreadcrumbs.tsx
+│  │  ├─ BreadcrumbSchema.tsx
+│  │  └─ MetaTags.tsx
+│  ├─ ui
+│  │  ├─ AnimatedComponent.tsx
+│  │  ├─ core
+│  │  │  ├─ Button.tsx
+│  │  │  ├─ Card.tsx
+│  │  │  ├─ Container.tsx
+│  │  │  └─ Loading.tsx
+│  │  ├─ effects
+│  │  │  ├─ FlipWords.tsx
+│  │  │  ├─ glare-card.tsx
+│  │  │  └─ TypewriterEffect.tsx
+│  │  ├─ forms
+│  │  │  ├─ Input.tsx
+│  │  │  ├─ Select.tsx
+│  │  │  └─ Textarea.tsx
+│  │  ├─ multi-step-loader.tsx
+│  │  ├─ shared
+│  │  │  ├─ ClientOnly.tsx
+│  │  │  ├─ HydrationSafeImage.tsx
+│  │  │  ├─ Section.tsx
+│  │  │  └─ SectionHeading.tsx
+│  │  ├─ sonner.tsx
+│  │  └─ Text.tsx
+│  ├─ vending-machines
+│  │  ├─ FeatureTabs.tsx
+│  │  ├─ RelatedMachines.tsx
+│  │  ├─ VendingMachineDetailPage.tsx
+│  │  └─ VendingMachinesPage.tsx
+│  └─ VendingMachineFooter.tsx
+├─ components.json
+├─ docs
+│  ├─ API.md
+│  ├─ ARCHITECTURE.md
+│  ├─ CHANGELOG.md
+│  ├─ CONTRIBUTING.md
+│  ├─ deployment
+│  │  ├─ ci-cd.md
+│  │  ├─ environment-vars.md
+│  │  └─ vercel.md
+│  ├─ DEPLOYMENT.md
+│  ├─ development
+│  │  ├─ coding-standards.md
+│  │  ├─ component-library.md
+│  │  ├─ performance.md
+│  │  └─ setup.md
+│  ├─ examples
+│  │  ├─ api-examples.md
+│  │  ├─ component-examples.md
+│  │  └─ testing-examples.md
+│  ├─ README.md
+│  ├─ testing
+│  │  ├─ accessibility.md
+│  │  ├─ e2e-testing.md
+│  │  └─ unit-testing.md
+│  ├─ TESTING.md
+│  └─ TROUBLESHOOTING.md
+├─ e2e
+│  └─ example.spec.ts
+├─ eslint.config.mjs
+├─ header-auth.tsx
+├─ hooks
+│  ├─ use-outside-click.ts
+│  ├─ useEmail.ts
+│  ├─ useHeroHighlight.ts
+│  ├─ useHeroParallax.ts
+│  ├─ useIntersectionObserver.ts
+│  ├─ useKeyboardNavigation.ts
+│  ├─ useMediaQuery.ts
+│  ├─ useMouseEnter.ts
+│  ├─ useResponsiveLayout.ts
+│  ├─ useSafeAnimation.tsx
+│  ├─ useUserInteractions.ts
+│  └─ useVendingMachines.ts
+├─ lib
+│  ├─ business-card-utils.ts
+│  ├─ config
+│  │  └─ toast-config.tsx
+│  ├─ createPlaceholderImage.ts
+│  ├─ data
+│  │  ├─ seoData.ts
+│  │  ├─ serviceAreas.ts
+│  │  └─ vendingMachineData.ts
+│  ├─ registry.tsx
+│  ├─ resend.ts
+│  ├─ schema
+│  │  ├─ contactFormSchema.ts
+│  │  └─ feedbackFormSchema.ts
+│  ├─ services
+│  │  ├─ analyticsService.ts
+│  │  ├─ databaseService.ts
+│  │  └─ emailService.ts
+│  ├─ supabase-client.ts
+│  ├─ supabase.ts
+│  ├─ types.ts
+│  ├─ utils
+│  │  ├─ AnimationConfig.tsx
+│  │  ├─ imageOptimization.ts
+│  │  ├─ seo.ts
+│  │  └─ typeGuards.ts
+│  └─ utils.ts
+├─ next.config.ts
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.js
+├─ public
+│  ├─ .well-known
+│  │  └─ appspecific
+│  │     └─ com.chrome.devtools.json
+│  ├─ file.svg
+│  ├─ globe.svg
+│  ├─ icons
+│  │  ├─ apple-touch-icon.png
+│  │  ├─ icon-192.png
+│  │  └─ icon-512.png
+│  ├─ images
+│  │  ├─ beverages
+│  │  │  ├─ coke.jpg
+│  │  │  ├─ drpepper.jpg
+│  │  │  ├─ gatorade.jpg
+│  │  │  ├─ justwater.jpg
+│  │  │  ├─ monster.jpg
+│  │  │  └─ RedBull.jpg
+│  │  ├─ central-california-map.jpg
+│  │  ├─ logo
+│  │  │  ├─ AMP-QR-Code.jpg
+│  │  │  ├─ AMP_logo.png
+│  │  │  └─ logo-gray.jpg
+│  │  ├─ machines
+│  │  │  ├─ amp-premium-non-refrigerated-vending-machine-front-bg.jpg
+│  │  │  ├─ amp-premium-non-refrigerated-vending-machine-front-screen.png
+│  │  │  ├─ amp-premium-non-refrigerated-vending-machine.jpg
+│  │  │  ├─ amp-standard-refrigerated-vending-machine-front-bg.jpg
+│  │  │  ├─ amp-standard-refrigerated-vending-machine.jpg
+│  │  │  ├─ amp-standard-refrigerated-vending-machine.png
+│  │  │  ├─ amp-vending-machines.jpg
+│  │  │  ├─ compact-refrigerated-vending-machine.jpg
+│  │  │  ├─ compact-vending-machine.jpg
+│  │  │  └─ standard-non-refrigerated.jpg
+│  │  ├─ og
+│  │  │  ├─ default-og-image.png
+│  │  │  └─ logo-full.png
+│  │  ├─ placeholder.jpg
+│  │  ├─ preview
+│  │  │  ├─ contact-form-preview.jpg
+│  │  │  ├─ hero-section-preview.jpg
+│  │  │  ├─ machines-showcase-preview.jpg
+│  │  │  └─ products-section-preview.jpg
+│  │  ├─ products
+│  │  │  ├─ candy.jpg
+│  │  │  ├─ cheetos.jpg
+│  │  │  ├─ cocacolazero.jpg
+│  │  │  ├─ coke.jpg
+│  │  │  ├─ dietcoke.jpg
+│  │  │  ├─ doritos-cool-ranch.jpg
+│  │  │  ├─ doritos-nacho-cheese.jpg
+│  │  │  ├─ doritos.jpg
+│  │  │  ├─ drpepper.jpg
+│  │  │  ├─ fanta.jpg
+│  │  │  ├─ gatorade.jpg
+│  │  │  ├─ justwater.jpg
+│  │  │  ├─ kitkat.jpg
+│  │  │  ├─ lays-bbq.jpg
+│  │  │  ├─ lays.jpg
+│  │  │  ├─ layssourcream.jpg
+│  │  │  ├─ layssourcream.png
+│  │  │  ├─ mms.jpg
+│  │  │  ├─ monster.jpg
+│  │  │  ├─ mountaindew.jpg
+│  │  │  ├─ orange-crush.jpg
+│  │  │  ├─ orangecrush.jpg
+│  │  │  ├─ oreo.jpg
+│  │  │  ├─ Pepsi.jpg
+│  │  │  ├─ placeholder.jpg
+│  │  │  ├─ placeholder.svg
+│  │  │  ├─ planters.jpg
+│  │  │  ├─ poptarts.jpg
+│  │  │  ├─ redbull-blue.jpg
+│  │  │  ├─ redbull-purple.jpg
+│  │  │  ├─ redbull-red.jpg
+│  │  │  ├─ redbull-sf.jpg
+│  │  │  ├─ redbull-yellow.jpg
+│  │  │  ├─ redbull.jpg
+│  │  │  ├─ ritz.jpg
+│  │  │  ├─ rockstar-fruit-punch.jpg
+│  │  │  ├─ root-beer (10).jpg
+│  │  │  ├─ root-beer (12).jpg
+│  │  │  ├─ root-beer (13).jpg
+│  │  │  ├─ root-beer (14).jpg
+│  │  │  ├─ root-beer (15).jpg
+│  │  │  ├─ root-beer (2).jpg
+│  │  │  ├─ root-beer (3).jpg
+│  │  │  ├─ root-beer (4).jpg
+│  │  │  ├─ root-beer (6).jpg
+│  │  │  ├─ root-beer (7).jpg
+│  │  │  ├─ root-beer (8).jpg
+│  │  │  ├─ root-beer (9).jpg
+│  │  │  ├─ root-beer.jpg
+│  │  │  ├─ skittles.jpg
+│  │  │  ├─ snickers.jpg
+│  │  │  ├─ sour-patch-eneygy.jpg
+│  │  │  ├─ Sprite.jpg
+│  │  │  ├─ starburst.jpg
+│  │  │  └─ threemusketeers.jpg
+│  │  └─ ui
+│  │     └─ central-california-map.jpg
+│  ├─ manifest.json
+│  ├─ map-marker.svg
+│  ├─ next.svg
+│  ├─ robots.txt
+│  ├─ sitemap.xml
+│  ├─ sw.js
+│  ├─ vercel.svg
+│  └─ window.svg
+├─ README.md
+├─ scripts
+│  └─ generate-placeholders.ts
+├─ supabase
+│  ├─ .temp
+│  │  ├─ cli-latest
+│  │  ├─ gotrue-version
+│  │  ├─ pooler-url
+│  │  ├─ postgres-version
+│  │  ├─ project-ref
+│  │  ├─ rest-version
+│  │  └─ storage-version
+│  └─ migrations
+│     ├─ 20250417190308_new-migration.sql
+│     └─ 20250418050658_new-migration.sql
+├─ tailwind.config.ts
+├─ tests
+│  ├─ e2e
+│  │  ├─ accessibility.spec.ts
+│  │  ├─ contact-flow.spec.ts
+│  │  └─ homepage.spec.ts
+│  ├─ jest.config.js
+│  ├─ jest.setup.js
+│  ├─ playwright.config.ts
+│  ├─ responsiveChecklist.md
+│  ├─ setup.tsx
+│  ├─ unit
+│  │  └─ components
+│  │     └─ ContactForm.test.tsx
+│  ├─ __mocks__
+│  │  └─ fileMock.js
+│  └─ __tests__
+│     └─ components
+│        └─ ContactForm.test.tsx
+├─ tsconfig.json
+├─ types
+│  ├─ google-maps.d.ts
+│  ├─ hero-parallax.ts
+│  └─ index.ts
+└─ vercel.json
+
+```
