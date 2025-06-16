@@ -51,7 +51,7 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
 }) => {
   // Images for product grid background
   const productImages = [
-    '/images/products/lays.jpg',
+   '/images/products/lays.jpg',
     '/images/products/doritos.jpg',
     '/images/products/snickers.jpg',
     '/images/products/kitkat.jpg',
@@ -60,17 +60,9 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
     '/images/products/redbull.jpg',
     '/images/products/gatorade.jpg',
     '/images/products/starburst.jpg',
-    '/images/beverages/justwater.jpg',
     '/images/products/cheetos.jpg',
     '/images/products/mms.jpg',
     '/images/products/orangecrush.jpg',
-    '/images/products/mountaindew.jpg',
-    '/images/products/threemusketeers.jpg',
-    '/images/products/fanta.jpg',
-    '/images/products/skittles.jpg',
-    '/images/beverages/drpepper.jpg',
-    '/images/products/poptarts.jpg',
-    '/images/products/layssourcream.jpg',
   ];
   
   // State to manage parallax effect
@@ -87,53 +79,33 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
   }, []);
   
   return (
-    <div 
-      className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}
-      aria-labelledby="hero-heading"
-    >
-      {/* Product grid background with parallax effect */}
+  <div className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}>
+      {/* Simplified grid: 3x4 instead of 5x4 */}
       <div 
-        className="absolute inset-0 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-2 p-2 z-10"
+        className="absolute inset-0 grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 z-10"
         aria-hidden="true"
       >
-        {productImages.map((src, index) => {
-          // Calculate parallax offset based on index and scroll position
-          const offset = Math.min(scrollY * 0.1 * (index % 6 + 1) * 0.2, 100);
-          const opacity = Math.max(0.3, 1 - (scrollY * 0.001));
-          
-          return (
-            <div
-              key={index}
-              className="relative rounded-lg overflow-hidden w-full h-50"
-              style={{
-                transform: `translateY(${offset}px)`,
-                transition: 'transform 0.3s ease-out',
-                opacity
-              }}
-            >
-              {/* Product background image */}
-              <div className="absolute inset-0 z-0">
-                <Image
-                  src={src}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 33vw, (max-width: 1200px) 25vw, 16vw"
-                  className="object-cover"
-                  priority={index < 5}
-                  onError={(e) => {
-                    // Fallback if image doesn't load
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
-              
-              {/* Subtle gradient overlay */}
-              <div 
-                className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/50"
-              ></div>
-            </div>
-          );
-        })}
+        {productImages.map((src, index) => (
+          <div
+            key={index}
+            className="relative rounded-lg overflow-hidden w-full h-50"
+            style={{
+              transform: `translateY(${Math.min(scrollY * 0.1 * (index % 4 + 1) * 0.2, 100)}px)`,
+              opacity: Math.max(0.3, 1 - (scrollY * 0.001))
+            }}
+          >
+            <Image
+              src={src}
+              alt=""
+              fill
+              sizes="(max-width: 768px) 25vw, 20vw"
+              className="object-cover"
+              priority={index < 4}
+              quality={60} // Further reduced for background images
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/50" />
+          </div>
+        ))}
       </div>
       
       {/* Dark overlay */}
@@ -193,44 +165,6 @@ const ResponsiveHero: React.FC<ResponsiveHeroProps> = ({
           )}
         </motion.div>
       </motion.div>
-      
-       {/* Scroll Indicator */}
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.5, duration: 0.6 }}
-        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 hidden lg:block"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="text-white/60 cursor-pointer text-center hover:text-white/80 transition-colors"
-          onClick={() => {
-            const nextSection = document.querySelector('main section:nth-child(2)');
-            nextSection?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          role="button"
-          tabIndex={0}
-          aria-label="Scroll to explore"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              const nextSection = document.querySelector('main section:nth-child(2)');
-              nextSection?.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-        >
-          <div className="flex flex-col items-center">
-            <span className="text-sm mb-3 font-medium">Scroll to explore</span>
-            <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
-              <motion.div
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1 h-3 bg-white/60 rounded-full mt-2"
-              />
-            </div>
-          </div>
-        </motion.div> */}
-      {/* </motion.div> */}
     </div>
   );
 };

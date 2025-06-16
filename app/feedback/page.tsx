@@ -3,6 +3,8 @@ import FeedbackForm from "@/components/feedback/FeedbackForm";
 import Link from "next/link";
 import { FeedbackBreadcrumbs } from "@/components/seo/BreadcrumbSchema";
 
+
+
 // Define metadata for SEO
 export const metadata: Metadata = {
   title: 'Share Your Feedback | AMP Vending',
