@@ -3,7 +3,7 @@
 /**
  * Contact Information Section with Text Wrapping Fix
  */
-const ContactInfoSection = () => (
+export const ContactInfoSection = () => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold text-[#F5F5F5] mb-4">
       Contact Info
@@ -47,7 +47,7 @@ const ContactInfoSection = () => (
 /**
  * Alternative approach with word-break CSS
  */
-const ContactInfoAlternative = () => (
+export const ContactInfoAlternative = () => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold text-[#F5F5F5] mb-4">
       Contact Info
