@@ -1,479 +1,552 @@
 'use client';
 
-import React, { memo } from 'react';
+import React from 'react';
+import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { 
-  ArrowRightIcon, 
-  MonitorIcon, 
-  CreditCardIcon, 
+import {
+  MonitorIcon,
+  CreditCardIcon,
   WifiIcon,
-  ZapIcon,
-  StarIcon,
-  CheckCircleIcon 
+  CheckCircleIcon,
+  ArrowRightIcon,
+  StarIcon
 } from 'lucide-react';
 
 /**
- * Enhanced Machine Data Interface
- * Supports both old and new data structures for backward compatibility
+ * Interface for vending machine data
+ * Supports both string and object feature formats for flexibility
  */
-export interface MachineCardProps {
+interface VendingMachine {
   id: string;
   name: string;
+  // model: string;
   image: string;
-  shortDescription?: string;
-  description?: string;
+  features?: Array<{ title: string; description?: string }> | string[];
+  dimensions: string;
+  bestFor: string | string[];
+  description: string;
   category: 'refrigerated' | 'non-refrigerated';
-  dimensions?: string | Array<{ label: string; value: string }>;
-  highlights?: string[];
-  bestFor?: string | string[];
-  model?: string;
-  features?: Array<{
-    title: string;
-    description: string;
-    icon?: string;
-  }>;
-  // SEO-enhanced fields
-  keywords?: string[];
-  localKeywords?: string[];
-  businessKeywords?: string[];
+  highlights: string[];
+  shortDescription?: string;
 }
 
 /**
- * Supported card variants for different display contexts
+ * Props for MachineCard component
+ * Supports multiple variants for different use cases across the site
  */
-export type MachineCardVariant = 'grid' | 'showcase' | 'related' | 'compact' | 'feature';
-
-/**
- * Props for individual machine cards
- */
-interface MachineCardComponentProps {
-  machine: MachineCardProps;
-  variant?: MachineCardVariant;
-  priority?: boolean;
+export interface MachineCardProps {
+  /** Machine data to display */
+  machine: VendingMachine;
+  /** Index for staggered animations */
+  index: number;
+  /** Whether this card is currently active/hovered */
+  isActive?: boolean;
+  /** Hover handler for parent state management */
+  onHover?: (index: number | null) => void;
+  /** Layout variant for different use cases */
+  variant?: 'showcase' | 'grid' | 'related' | 'compact' | 'feature';
+  /** Custom className for additional styling */
   className?: string;
+  /** Whether to show all highlights or limit them */
+  showAllHighlights?: boolean;
+  /** Whether to show technology indicators */
   showTechIndicators?: boolean;
-}
-
-/**
- * Props for machine grid component
- */
-interface MachineGridProps {
-  machines: MachineCardProps[];
-  variant?: MachineCardVariant;
-  className?: string;
+  /** Custom animation delay */
+  animationDelay?: number;
+  /** Whether to show action buttons */
+  showActions?: boolean;
+  /** Custom aria label for accessibility */
   ariaLabel?: string;
-  showTechIndicators?: boolean;
 }
 
 /**
- * Optimized image properties generator with enhanced variant support
+ * Reusable MachineCard Component
  * 
- * @param src - Image source URL
- * @param alt - Alt text for accessibility
- * @param variant - Card variant to optimize sizing for
- * @param priority - Whether to prioritize loading this image
- * @returns Optimized image properties for Next.js Image component
- */
-function getOptimizedImageProps(
-  src: string, 
-  alt: string, 
-  variant: MachineCardVariant = 'grid', 
-  priority = false
-) {
-  // Define responsive sizes based on variant for optimal loading
-  const sizesByVariant = {
-    grid: '(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw',
-    showcase: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw',
-    related: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
-    compact: '(max-width: 768px) 100vw, 50vw',
-    feature: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-  };
-
-  return {
-    src,
-    alt,
-    fill: true,
-    sizes: sizesByVariant[variant],
-    className: 'object-cover transition-transform duration-300 group-hover:scale-105',
-    priority,
-    quality: priority ? 90 : 75, // Higher quality for priority images
-  };
-}
-
-/**
- * Technology indicators component for displaying machine capabilities
- */
-const TechIndicators = memo(({ features, variant }: { 
-  features: MachineCardProps['features'], 
-  variant: MachineCardVariant 
-}) => {
-  if (!features || variant === 'compact') return null;
-
-  // Extract technology indicators from features
-  const indicators = [
-    { 
-      icon: MonitorIcon, 
-      label: 'Touchscreen', 
-      present: features.some(f => f.title.toLowerCase().includes('touchscreen')) 
-    },
-    { 
-      icon: CreditCardIcon, 
-      label: 'Mobile Pay', 
-      present: features.some(f => f.title.toLowerCase().includes('payment')) 
-    },
-    { 
-      icon: WifiIcon, 
-      label: 'Smart', 
-      present: features.some(f => f.title.toLowerCase().includes('monitoring') || f.title.toLowerCase().includes('inventory')) 
-    },
-    { 
-      icon: ZapIcon, 
-      label: 'Efficient', 
-      present: features.some(f => f.title.toLowerCase().includes('energy')) 
-    }
-  ].filter(indicator => indicator.present);
-
-  if (indicators.length === 0) return null;
-
-  return (
-    <div className="flex flex-wrap gap-1 mt-2">
-      {indicators.slice(0, variant === 'related' ? 2 : 4).map((indicator, index) => (
-        <div
-          key={index}
-          className="flex items-center px-2 py-1 bg-[#FD5A1E]/10 rounded-full text-xs"
-          title={indicator.label}
-        >
-          <indicator.icon size={12} className="text-[#FD5A1E] mr-1" aria-hidden="true" />
-          <span className="text-[#FD5A1E] font-medium">{indicator.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-});
-
-TechIndicators.displayName = 'TechIndicators';
-
-/**
- * Enhanced Machine Card Component
+ * A comprehensive, accessible machine card component that adapts to different
+ * layout needs across the application. Supports multiple variants, animations,
+ * and accessibility features.
  * 
- * Reusable card component with multiple variants for different display contexts.
- * Features accessibility improvements, SEO optimization, and performance enhancements.
- * 
- * Build Process Documentation:
- * 1. Optimized image loading with responsive sizing
- * 2. Semantic HTML structure for accessibility
- * 3. SEO-friendly internal linking
- * 4. Performance-optimized animations
- * 5. Comprehensive ARIA labels and descriptions
+ * Features:
+ * - Multiple layout variants (showcase, grid, related, compact, feature)
+ * - Responsive design with mobile-first approach
+ * - Full accessibility support with ARIA labels and keyboard navigation
+ * - Smooth animations and hover states
+ * - Customizable content display based on variant
+ * - Touch-friendly interactive elements
  */
-const MachineCard = memo(({ 
-  machine, 
-  variant = 'grid', 
-  priority = false, 
+export const MachineCard = ({
+  machine,
+  index,
+  isActive = false,
+  onHover,
+  variant = 'grid',
   className = '',
-  showTechIndicators = false 
-}: MachineCardComponentProps) => {
-  // Determine card dimensions and layout based on variant
-  const getVariantClasses = () => {
+  showAllHighlights = false,
+  showTechIndicators = true,
+  animationDelay,
+  showActions = true,
+  ariaLabel
+}: MachineCardProps) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // Calculate animation delay
+  const delay = animationDelay ?? index * 0.2;
+
+  /**
+   * Navigate to machine detail page
+   * Handles both click and keyboard interaction
+   */
+  const handleNavigateToDetail = () => {
+    window.location.href = `/vending-machines/${machine.id}`;
+  };
+
+  /**
+   * Handle keyboard navigation for accessibility
+   */
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleNavigateToDetail();
+    }
+  };
+
+  /**
+   * Get responsive height classes based on variant
+   */
+  const getImageHeightClasses = (): string => {
     switch (variant) {
       case 'showcase':
-        return {
-          container: 'group relative bg-[#111111] rounded-2xl overflow-hidden border border-[#333333] hover:border-[#FD5A1E]/50 transition-all duration-300 shadow-lg hover:shadow-2xl',
-          imageContainer: 'relative aspect-[4/3] overflow-hidden',
-          content: 'p-6'
-        };
-      case 'related':
-        return {
-          container: 'group relative bg-[#111111] rounded-xl overflow-hidden border border-[#333333] hover:border-[#FD5A1E]/30 transition-all duration-300',
-          imageContainer: 'relative aspect-[5/4] overflow-hidden',
-          content: 'p-4'
-        };
-      case 'compact':
-        return {
-          container: 'group relative bg-[#111111] rounded-lg overflow-hidden border border-[#333333] hover:border-[#FD5A1E]/30 transition-all duration-300',
-          imageContainer: 'relative aspect-[3/2] overflow-hidden',
-          content: 'p-3'
-        };
+        return 'h-80 md:h-96 lg:h-[400px]';
       case 'feature':
-        return {
-          container: 'group relative bg-[#111111] rounded-2xl overflow-hidden border border-[#333333] hover:border-[#FD5A1E]/50 transition-all duration-300 shadow-xl hover:shadow-2xl',
-          imageContainer: 'relative aspect-[4/3] overflow-hidden',
-          content: 'p-8'
-        };
-      default: // 'grid'
-        return {
-          container: 'group relative bg-[#111111] rounded-xl overflow-hidden border border-[#333333] hover:border-[#FD5A1E]/30 transition-all duration-300 shadow-lg hover:shadow-xl',
-          imageContainer: 'relative aspect-[4/3] overflow-hidden',
-          content: 'p-6'
-        };
+        return 'h-64 md:h-72 lg:h-80';
+      case 'grid':
+        return 'h-60 sm:h-64 md:h-72';
+      case 'related':
+        return 'h-48 sm:h-56 md:h-64';
+      case 'compact':
+        return 'h-40 sm:h-48';
+      default:
+        return 'h-60 sm:h-64 md:h-72';
     }
   };
 
-  const variantClasses = getVariantClasses();
-  
-  // Generate optimized image properties
-  const imageProps = getOptimizedImageProps(
-    machine.image,
-    `${machine.name} commercial vending machine`,
-    variant,
-    priority
-  );
+  /**
+   * Get card padding based on variant
+   */
+  const getCardSpacing = (): string => {
+    switch (variant) {
+      case 'showcase':
+        return 'p-6 sm:p-8 lg:p-10';
+      case 'feature':
+        return 'p-6 sm:p-8';
+      case 'compact':
+        return 'p-4';
+      case 'related':
+        return 'p-4 sm:p-5';
+      default:
+        return 'p-5 sm:p-6';
+    }
+  };
 
-  // SEO-optimized card title and description
-  const cardTitle = `${machine.name} - Commercial ${machine.category === 'refrigerated' ? 'Refrigerated' : 'Snack'} Vending Machine`;
-  const cardDescription = machine.shortDescription || machine.description || `Professional ${machine.category} vending machine for your business needs`;
+  /**
+   * Get highlights to display based on variant and settings
+   */
+  const getDisplayHighlights = (): string[] => {
+    if (showAllHighlights) return machine.highlights;
+    
+    switch (variant) {
+      case 'showcase':
+      case 'feature':
+        return machine.highlights;
+      case 'compact':
+        return machine.highlights.slice(0, 2);
+      case 'related':
+        return machine.highlights.slice(0, 2);
+      default:
+        return machine.highlights.slice(0, 3);
+    }
+  };
+
+  /**
+   * Get title size classes based on variant
+   */
+  const getTitleClasses = (): string => {
+    switch (variant) {
+      case 'showcase':
+        return 'text-2xl sm:text-3xl lg:text-4xl';
+      case 'feature':
+        return 'text-xl sm:text-2xl lg:text-3xl';
+      case 'compact':
+        return 'text-lg sm:text-xl';
+      case 'related':
+        return 'text-lg sm:text-xl';
+      default:
+        return 'text-xl sm:text-2xl';
+    }
+  };
+
+  /**
+   * Get text size classes for descriptions
+   */
+  const getTextClasses = (): string => {
+    switch (variant) {
+      case 'showcase':
+        return 'text-base sm:text-lg';
+      case 'compact':
+        return 'text-xs sm:text-sm';
+      default:
+        return 'text-sm sm:text-base';
+    }
+  };
+
+  /**
+   * Get button size classes
+   */
+  const getButtonClasses = (): string => {
+    switch (variant) {
+      case 'showcase':
+        return 'py-4 px-6 text-base';
+      case 'compact':
+        return 'py-2 px-4 text-xs';
+      case 'related':
+        return 'py-2 px-4 text-sm';
+      default:
+        return 'py-3 px-5 text-sm';
+    }
+  };
+
+  /**
+   * Normalize bestFor to string format for display
+   */
+  const getBestForDisplay = (): string => {
+    if (Array.isArray(machine.bestFor)) {
+      return machine.bestFor.slice(0, 2).join(', ');
+    }
+    return machine.bestFor;
+  };
+
+  const displayHighlights = getDisplayHighlights();
+  const accessibilityLabel = ariaLabel || `${machine.name} vending machine card`;
+
+  
 
   return (
     <motion.article
-      className={`${variantClasses.container} ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      role="article"
-      aria-labelledby={`machine-${machine.id}-title`}
-      aria-describedby={`machine-${machine.id}-description`}
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay }}
+      className={`group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-500 ${
+        isActive
+          ? 'bg-[#111111] ring-2 ring-[#FD5A1E] shadow-2xl shadow-[#FD5A1E]/20 transform scale-[1.02]'
+          : 'bg-[#0d0d0d] ring-1 ring-[#333333] hover:bg-[#111111] hover:ring-[#FD5A1E]/50'
+      } ${className}`}
+      onMouseEnter={() => onHover?.(index)}
+      onMouseLeave={() => onHover?.(null)}
+      aria-label={accessibilityLabel}
     >
-      <Link
-        href={`/vending-machines/${machine.id}`}
-        className="block focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
-        aria-label={`View details for ${cardTitle}`}
+      {/* Interactive Machine Image Section */}
+      <div
+        className={`relative ${getImageHeightClasses()} overflow-hidden cursor-pointer transform transition-transform duration-300 hover:scale-[1.02] focus-within:scale-[1.02]`}
+        onClick={handleNavigateToDetail}
+        onKeyDown={handleKeyPress}
+        tabIndex={0}
+        role="button"
+        aria-label={`View details for ${machine.name}`}
+        aria-describedby={`machine-description-${machine.id}`}
       >
-        {/* Machine Image with Category Badge */}
-        <div className={variantClasses.imageContainer}>
-          <Image {...imageProps} />
-          
-          {/* Category Badge */}
-          <div className="absolute top-3 left-3">
-            <span className={`px-3 py-1 rounded-full text-xs font-semibold text-white shadow-lg ${
+        {/* Category Badge */}
+        <motion.div
+          className="absolute top-3 left-3 z-20 pointer-events-none"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: delay + 0.3 }}
+        >
+          <span 
+            className={`px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-lg ${
               machine.category === 'refrigerated' ? 'bg-blue-600' : 'bg-green-600'
-            }`}>
-              {machine.category === 'refrigerated' ? 'Refrigerated' : 'Non-Refrigerated'}
-            </span>
+            }`}
+            aria-label={`${machine.category} vending machine`}
+          >
+            {machine.category === 'refrigerated' ? 'Refrigerated' : 'Non-Refrigerated'}
+          </span>
+        </motion.div>
+
+        {/* Service Badge */}
+        <motion.div
+          className="absolute top-3 right-3 z-20 pointer-events-none"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: delay + 0.4 }}
+        >
+          <span 
+            className="bg-[#FD5A1E] text-[#000000] px-3 py-1.5 rounded-full font-medium text-xs shadow-lg flex items-center"
+            aria-label="Full service installation and maintenance included"
+          >
+            <CheckCircleIcon size={12} className="mr-1" aria-hidden="true" />
+            Full Service
+          </span>
+        </motion.div>
+
+        {/* Hover/Focus Interaction Overlay */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-[#000000]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <div className="bg-[#FD5A1E]/90 backdrop-blur-sm px-4 py-2 rounded-full text-[#000000] font-bold text-sm transform translate-y-4 group-hover:translate-y-0 focus-within:translate-y-0 transition-transform duration-300 flex items-center">
+            <MonitorIcon size={14} className="mr-2" aria-hidden="true" />
+            View Details
+            <ArrowRightIcon size={14} className="ml-2" aria-hidden="true" />
           </div>
-
-          {/* Professional Service Badge for feature variant */}
-          {variant === 'feature' && (
-            <div className="absolute top-3 right-3">
-              <span className="bg-[#FD5A1E] text-[#000000] px-3 py-1 rounded-full font-semibold text-xs shadow-lg flex items-center">
-                <CheckCircleIcon size={12} className="mr-1" />
-                Professional Service
-              </span>
-            </div>
-          )}
-
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" aria-hidden="true" />
         </div>
 
-        {/* Card Content */}
-        <div className={variantClasses.content}>
-          {/* Machine Name and Model */}
-          <div className="mb-3">
-            <h3 
-              id={`machine-${machine.id}-title`}
-              className={`font-bold text-[#F5F5F5] group-hover:text-[#FD5A1E] transition-colors ${
-                variant === 'feature' ? 'text-xl mb-2' : 
-                variant === 'compact' ? 'text-base' : 'text-lg'
-              }`}
+        {/* Machine Image */}
+        <div className="relative z-0 h-full w-full bg-gradient-to-r from-[#FD5A1E]/5 to-transparent">
+          <Image
+            src={machine.image}
+            alt={`${machine.name} 
+              
+               vending machine`}
+            fill
+            sizes={
+              variant === 'showcase' 
+                ? "(max-width: 768px) 100vw, 50vw"
+                : "(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+            }
+            className={`object-contain p-4 transition-all duration-700 ${
+              isActive ? 'scale-105' : 'scale-100'
+            } group-hover:scale-105 focus-within:scale-105`}
+            priority={index === 0}
+            onError={(e) => {
+              console.warn(`Failed to load image for ${machine.name}:`, machine.image);
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+            }}
+          />
+        </div>
+
+        {/* Technology Indicators */}
+        {showTechIndicators && (
+          <motion.div
+            className="absolute bottom-3 left-3 flex space-x-2 pointer-events-none"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: delay + 0.5 }}
+            aria-label="Technology features"
+          >
+            {[
+              { Icon: MonitorIcon, label: 'Touchscreen interface' },
+              { Icon: CreditCardIcon, label: 'Multiple payment options' },
+              { Icon: WifiIcon, label: 'Smart connectivity' }
+            ].map(({ Icon, label }, iconIndex) => (
+              <div
+                key={iconIndex}
+                className="w-8 h-8 bg-[#000000]/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-[#FD5A1E]/30"
+                title={label}
+                aria-label={label}
+              >
+                <Icon size={14} className="text-[#FD5A1E]" aria-hidden="true" />
+              </div>
+            ))}
+          </motion.div>
+        )}
+
+        {/* Accessibility Focus Ring */}
+        <div 
+          className="absolute inset-0 ring-2 ring-[#FD5A1E] ring-offset-2 ring-offset-[#000000] opacity-0 focus-within:opacity-100 transition-opacity duration-200 rounded-2xl pointer-events-none"
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Content Section */}
+      <div className={`${getCardSpacing()} flex-1 flex flex-col`}>
+        {/* Machine Header */}
+        <div className="mb-4">
+          <Link
+            href={`/vending-machines/${machine.id}`}
+            className="group/title"
+            aria-label={`View ${machine.name} detailed specifications`}
+          >
+            <h2 
+              className={`${getTitleClasses()} font-bold text-[#F5F5F5] mb-2 group-hover/title:text-[#FD5A1E] transition-colors cursor-pointer line-clamp-2`}
             >
               {machine.name}
-            </h3>
-            
-            {machine.model && variant !== 'compact' && (
-              <p className="text-[#A5ACAF] text-sm font-medium">
-                Model: {machine.model}
-              </p>
-            )}
-          </div>
-
-          {/* Description */}
-          {cardDescription && variant !== 'compact' && (
-            <p 
-              id={`machine-${machine.id}-description`}
-              className={`text-[#A5ACAF] leading-relaxed mb-4 ${
-                variant === 'feature' ? 'text-base' : 'text-sm'
-              }`}
-            >
-              {cardDescription.length > (variant === 'related' ? 120 : 180) 
-                ? `${cardDescription.substring(0, variant === 'related' ? 120 : 180)}...`
-                : cardDescription
-              }
-            </p>
-          )}
-
-          {/* Key Features/Highlights */}
-          {machine.highlights && variant !== 'compact' && variant !== 'related' && (
-            <div className="mb-4">
-              <ul className="space-y-1" role="list">
-                {machine.highlights.slice(0, variant === 'feature' ? 4 : 3).map((highlight, index) => (
-                  <li key={index} className="flex items-center text-xs text-[#F5F5F5]">
-                    <CheckCircleIcon size={12} className="text-[#FD5A1E] mr-2 flex-shrink-0" aria-hidden="true" />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Technology Indicators */}
-          {showTechIndicators && (
-            <TechIndicators features={machine.features} variant={variant} />
-          )}
-
-          {/* Dimensions (for grid and feature variants) */}
-          {machine.dimensions && (variant === 'grid' || variant === 'feature') && (
-            <div className="mt-3 pt-3 border-t border-[#333333]">
-              <p className="text-[#A5ACAF] text-xs">
-                <span className="font-medium">Dimensions:</span> {' '}
-                {typeof machine.dimensions === 'string' 
-                  ? machine.dimensions 
-                  : machine.dimensions.map(d => `${d.label}: ${d.value}`).join(', ')
-                }
-              </p>
-            </div>
-          )}
-
-          {/* CTA Section */}
-          <div className={`flex items-center justify-between mt-4 ${variant === 'feature' ? 'mt-6' : ''}`}>
-            <span className="text-[#FD5A1E] font-semibold text-sm group-hover:text-[#F5F5F5] transition-colors">
-              {variant === 'feature' ? 'Learn More & Get Quote' : 'View Details'}
-            </span>
-            <ArrowRightIcon 
-              size={variant === 'feature' ? 20 : 16} 
-              className="text-[#FD5A1E] group-hover:translate-x-1 transition-transform" 
-              aria-hidden="true" 
-            />
-          </div>
-
-          {/* Star Rating for feature variant */}
-          {variant === 'feature' && (
-            <div className="flex items-center mt-3 pt-3 border-t border-[#333333]">
-              <div className="flex items-center">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <StarIcon
-                    key={star}
-                    size={14}
-                    className="text-yellow-400 fill-current"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <span className="text-[#A5ACAF] text-xs ml-2">
-                Professional Installation Included
-              </span>
-            </div>
+            </h2>
+          </Link>
+          {variant !== 'compact' && (
+            <p className="text-[#FD5A1E] text-sm font-medium"></p>
           )}
         </div>
-      </Link>
+
+        {/* Description */}
+        <div id={`machine-description-${machine.id}`} className="mb-4">
+          <p className={`${getTextClasses()} text-[#A5ACAF] leading-relaxed line-clamp-3`}>
+            {machine.shortDescription || machine.description}
+          </p>
+        </div>
+
+        {/* Key Highlights */}
+        {displayHighlights.length > 0 && (
+          <div className="mb-4 flex-1">
+            <h3 className={`text-[#F5F5F5] font-bold flex items-center mb-3 ${
+              variant === 'compact' ? 'text-sm' : 'text-base'
+            }`}>
+              <StarIcon 
+                size={variant === 'compact' ? 14 : 16} 
+                className="text-[#fdf61e] mr-2" 
+                aria-hidden="true"
+              />
+              Key Features
+            </h3>
+            <ul className={`grid gap-2 ${
+              variant === 'related' || variant === 'compact' 
+                ? 'grid-cols-1' 
+                : 'grid-cols-1 sm:grid-cols-2'
+            }`}>
+              {displayHighlights.map((highlight, idx) => (
+                <motion.li
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: delay + 0.6 + (idx * 0.1) }}
+                  className="flex items-start"
+                >
+                  <CheckCircleIcon 
+                    size={variant === 'compact' ? 12 : 14} 
+                    className="text-[#FD5A1E] mr-2 flex-shrink-0 mt-0.5" 
+                    aria-hidden="true"
+                  />
+                  <span className={`text-[#F5F5F5] ${
+                    variant === 'compact' ? 'text-xs' : 'text-sm'
+                  }`}>
+                    {highlight}
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Specifications Grid - Hidden for compact variant */}
+        {variant !== 'compact' && (
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 mb-6">
+            <div className="bg-[#000000]/50 p-3 rounded-lg border border-[#333333]">
+              <div className="text-[#A5ACAF] text-xs mb-1 uppercase tracking-wide">
+                Dimensions
+              </div>
+              <div className={`text-[#F5F5F5] font-medium ${
+                variant === 'related' ? 'text-xs' : 'text-sm'
+              }`}>
+                {machine.dimensions}
+              </div>
+            </div>
+            <div className="bg-[#000000]/50 p-3 rounded-lg border border-[#333333]">
+              <div className="text-[#A5ACAF] text-xs mb-1 uppercase tracking-wide">
+                Best For
+              </div>
+              <div className={`text-[#F5F5F5] leading-tight ${
+                variant === 'related' ? 'text-xs' : 'text-sm'
+              }`}>
+                {getBestForDisplay()}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        {showActions && (
+          <div className={`flex gap-3 mt-auto ${
+            variant === 'compact' ? 'flex-col' : 'flex-col sm:flex-row'
+          }`}>
+            <Link
+              href={`/vending-machines/${machine.id}`}
+              className={`flex-1 ${getButtonClasses()} bg-[#FD5A1E] text-[#000000] font-medium rounded-full text-center hover:bg-[#FD5A1E]/90 active:bg-[#FD5A1E]/80 transition-all duration-300 flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black touch-manipulation`}
+              aria-label={`View detailed specifications for ${machine.name}`}
+            >
+              <span>View Details</span>
+              <ArrowRightIcon 
+                size={variant === 'compact' ? 12 : 14} 
+                className="ml-2 group-hover:translate-x-1 transition-transform" 
+                aria-hidden="true"
+              />
+            </Link>
+            
+            {variant !== 'compact' && (
+              <Link
+                href="/contact"
+                className={`flex-1 ${getButtonClasses()} bg-transparent text-[#F5F5F5] border border-[#333333] rounded-full text-center hover:bg-[#333333] hover:border-[#FD5A1E] active:bg-[#444444] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 focus:ring-offset-black touch-manipulation`}
+                aria-label={`Request consultation for ${machine.name} installation`}
+              >
+                Get Consultation
+              </Link>
+            )}
+          </div>
+        )}
+      </div>
     </motion.article>
   );
-});
+};
 
-MachineCard.displayName = 'MachineCard';
 
 /**
- * Machine Grid Component
+ * MachineGrid Component
  * 
- * Responsive grid layout for displaying multiple machine cards.
- * Supports different variants and accessibility features.
- * 
- * Build Process Documentation:
- * 1. Responsive grid system with CSS Grid
- * 2. Accessibility-compliant ARIA labels
- * 3. Performance-optimized rendering with priority loading
- * 4. SEO-friendly semantic structure
+ * Displays a responsive grid of machine cards with proper spacing
+ * and accessibility features. Handles hover states and animations.
  */
-export const MachineGrid = memo(({ 
+export interface MachineGridProps {
+  machines: VendingMachine[];
+  variant?: 'showcase' | 'grid' | 'related';
+  className?: string;
+  maxItems?: number;
+  showTechIndicators?: boolean;
+  ariaLabel?: string;
+}
+
+export const MachineGrid = ({ 
   machines, 
   variant = 'grid', 
   className = '',
-  ariaLabel = 'Commercial vending machines collection',
-  showTechIndicators = false 
+  maxItems,
+  showTechIndicators = true,
+  ariaLabel = "Vending machines collection"
 }: MachineGridProps) => {
-  // Define grid classes based on variant
-  const getGridClasses = () => {
+  const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+  
+  const displayMachines = maxItems ? machines.slice(0, maxItems) : machines;
+  
+  // Get responsive grid classes based on variant
+  const getGridClasses = (): string => {
     switch (variant) {
       case 'showcase':
-        return 'grid grid-cols-1 md:grid-cols-2 gap-8';
+        return 'grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-12';
       case 'related':
         return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
-      case 'compact':
-        return 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4';
-      case 'feature':
-        return 'grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12';
-      default: // 'grid'
-        return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8';
+      default:
+        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8';
     }
   };
 
-  if (!machines || machines.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-[#A5ACAF] text-lg">No vending machines available at this time.</p>
-      </div>
-    );
-  }
-
   return (
-    <section
+    <section 
       className={`${getGridClasses()} ${className}`}
       aria-label={ariaLabel}
-      role="region"
     >
-      {machines.map((machine, index) => (
+      {displayMachines.map((machine, index) => (
         <MachineCard
           key={machine.id}
           machine={machine}
+          index={index}
+          isActive={activeIndex === index}
+          onHover={setActiveIndex}
           variant={variant}
-          priority={index < 2} // Prioritize first two images for LCP optimization
           showTechIndicators={showTechIndicators}
         />
       ))}
     </section>
   );
-});
+};
 
-MachineGrid.displayName = 'MachineGrid';
-
-// Default export for convenience
 export default MachineCard;
-
-/**
- * Additional utility function for machine card data normalization
- * Helps maintain backward compatibility with different data structures
- */
-export const normalizeMachineCardData = (machine: any): MachineCardProps => {
-  return {
-    id: machine.id || '',
-    name: machine.name || 'Commercial Vending Machine',
-    image: machine.image || '/images/vending-machines/placeholder.jpg',
-    shortDescription: machine.shortDescription || machine.description,
-    description: machine.description,
-    category: machine.category || 'non-refrigerated',
-    dimensions: machine.dimensions,
-    highlights: machine.highlights || [],
-    bestFor: machine.bestFor,
-    model: machine.model,
-    features: machine.features || [],
-    keywords: machine.keywords,
-    localKeywords: machine.localKeywords,
-    businessKeywords: machine.businessKeywords,
-  };
-};
-
-/**
- * Hook for machine card animations
- * Provides consistent animation timing across all card variants
- */
-export const useMachineCardAnimation = (index: number) => {
-  return {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { 
-      duration: 0.5, 
-      delay: Math.min(index * 0.1, 0.5) // Cap delay at 0.5s for performance
-    }
-  };
-};

@@ -1,26 +1,10 @@
 import type { NextConfig } from "next";
 
-/**
- * Next.js Configuration with Lighthouse Performance Optimizations
- * 
- * Build Process Documentation:
- * 1. Enhanced image optimization with WebP/AVIF support
- * 2. Improved caching strategies for static assets
- * 3. Bundle optimization with code splitting
- * 4. Security headers for best practices compliance
- * 5. Performance monitoring and optimization features
- */
 const nextConfig: NextConfig = {
-  // Performance Optimizations
-  compiler: {
-    // Remove console statements in production for smaller bundles
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-
-  // Experimental features for enhanced performance
+  /* config options here */
+   // Enable experimental features if needed
   experimental: {
-    // Optimize package imports to reduce bundle size
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    // Add any experimental features here
   },
 
   // Environment variables
@@ -28,43 +12,9 @@ const nextConfig: NextConfig = {
     CUSTOM_KEY: 'my-value',
   },
 
-  // Enhanced headers configuration for performance and security
+  // Headers configuration for CORS and security
   async headers() {
     return [
-      {
-        // Static asset caching - Critical for Lighthouse performance score
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        // Image caching optimization
-        source: '/images/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-          {
-            key: 'Vary',
-            value: 'Accept',
-          },
-        ],
-      },
-      {
-        // Font caching
-        source: '/_next/static/media/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
       {
         // Apply headers to API routes
         source: '/api/:path*',
@@ -102,7 +52,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Enhanced security headers for all routes - Addresses Lighthouse Best Practices
+        // Apply security headers to all routes
         source: '/(.*)',
         headers: [
           {
@@ -121,28 +71,6 @@ const nextConfig: NextConfig = {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
           },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
-          },
-          // Content Security Policy for enhanced security
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://va.vercel-scripts.com",
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https:",
-              "font-src 'self' data:",
-              "connect-src 'self' https://vitals.vercel-analytics.com https://vercel.live",
-              "media-src 'self'",
-              "object-src 'none'",
-              "base-uri 'self'",
-              "form-action 'self'",
-              "frame-ancestors 'none'",
-              "upgrade-insecure-requests"
-            ].join('; '),
-          },
         ],
       },
     ];
@@ -151,25 +79,19 @@ const nextConfig: NextConfig = {
   // Redirects configuration
   async redirects() {
     return [
-      // SEO-friendly redirects for old machine URLs
-      {
-        source: '/machines/:slug',
-        destination: '/vending-machines/:slug',
-        permanent: true,
-      },
-      // Trailing slash consistency
-      {
-        source: '/vending-machines/',
-        destination: '/vending-machines',
-        permanent: true,
-      },
+      // Add any redirects here
+      // {
+      //   source: '/old-path',
+      //   destination: '/new-path',
+      //   permanent: true,
+      // },
     ];
   },
 
   // Rewrites configuration
   async rewrites() {
     return [
-      // API proxy for external services if needed
+      // Add any rewrites here
       // {
       //   source: '/api/proxy/:path*',
       //   destination: 'https://external-api.com/:path*',
@@ -177,93 +99,68 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Enhanced image optimization - Critical for Lighthouse performance
+  // Image optimization
   images: {
-    // Configure image domains for external images
+    // Configure image domains if using external images
     domains: [
-      // Add domains if using external images
+      // 'example.com',
     ],
-    // Modern image formats for better compression
+    // Configure image formats
     formats: ['image/webp', 'image/avif'],
-    // Responsive breakpoints optimized for vending machine website
+    // Configure image sizes
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Extended cache time for better performance
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
-    // Enable image optimization for better Core Web Vitals
-    dangerouslyAllowSVG: false,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Webpack optimization for bundle size reduction
-  webpack: (config, { isServer, dev }) => {
-    // Production optimizations
-    if (!dev && !isServer) {
-      // Enhanced code splitting
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          // Vendor chunk for third-party libraries
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-            priority: 10,
-          },
-          // Common chunk for shared components
-          common: {
-            name: 'common',
-            minChunks: 2,
-            chunks: 'all',
-            priority: 5,
-          },
-          // Separate chunks for large libraries
-          react: {
-            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-            name: 'react',
-            chunks: 'all',
-            priority: 20,
-          },
-          framerMotion: {
-            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-            name: 'framer-motion',
-            chunks: 'all',
-            priority: 15,
-          },
-        },
-      };
-
-      // Tree shaking optimization
-      config.optimization.usedExports = true;
-      config.optimization.sideEffects = false;
-    }
-
-    // SVG handling optimization
+  // Webpack configuration
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Custom webpack config
+    
+    // Example: Add support for importing SVG as React components
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
+      use: ['@svgr/webpack']
     });
 
     return config;
   },
 
-  // TypeScript configuration
+  // Standalone output for Docker deployment (optional)
+  output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
+
+  // Enable React strict mode
+  reactStrictMode: true,
+
+  // Enable SWC minification
+  // swcMinify: true,
+
+  // Configure trailing slash behavior
+  trailingSlash: false,
+
+  // Configure compression
+  compress: true,
+
+  // Configure powered by header
+  poweredByHeader: false,
+
+  // Configure build directory
+  distDir: '.next',
+
+  // Configure TypeScript
   typescript: {
-    // Type checking during build (recommended to keep true)
+    // Dangerously allow production builds to successfully complete even if
+    // your project has TypeScript errors.
     ignoreBuildErrors: false,
   },
 
-  // ESLint configuration
+  // Configure ESLint
   eslint: {
-    // ESLint during builds (recommended to keep false for faster builds)
+    // Dangerously allow production builds to successfully complete even if
+    // your project has ESLint errors.
     ignoreDuringBuilds: false,
   },
-
-  // Powered by header removal for security
-  poweredByHeader: false,
-
-  // Generate ETags for better caching
-  generateEtags: true,
 };
 
+
 module.exports = nextConfig;
+// export default nextConfig;
