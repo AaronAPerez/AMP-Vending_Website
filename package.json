@@ -85,6 +85,7 @@
     "@types/styled-components": "^5.1.34",
     "@types/testing-library__react": "^10.0.1",
     "autoprefixer": "^10.4.0",
+    "critters": "^0.0.23",
     "eslint": "^9.28.0",
     "eslint-config-next": "^15.3.3",
     "identity-obj-proxy": "^3.0.0",

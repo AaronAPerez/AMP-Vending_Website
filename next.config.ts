@@ -1,15 +1,34 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-   // Enable experimental features if needed
+  /* config options here */  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+   // Enable experimental features 
   experimental: {
-    // Add any experimental features here
+    optimizePackageImports: ['lucide-react'],
+      optimizeCss: true,
+    optimizeServerReact: true,
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      };
+    }
+    return config;
   },
 
   // Environment variables
   env: {
-    CUSTOM_KEY: 'my-value',
+    CUSTOM_KEY: '',
   },
 
   // Headers configuration for CORS and security
@@ -73,6 +92,24 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+        {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ];
   },
 
@@ -106,24 +143,12 @@ const nextConfig: NextConfig = {
       // 'example.com',
     ],
     // Configure image formats
-    formats: ['image/webp', 'image/avif'],
-    // Configure image sizes
+     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
 
-  // Webpack configuration
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Custom webpack config
-    
-    // Example: Add support for importing SVG as React components
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack']
-    });
-
-    return config;
-  },
 
   // Standalone output for Docker deployment (optional)
   output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,

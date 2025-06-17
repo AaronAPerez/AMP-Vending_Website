@@ -27,18 +27,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body 
-       className={`${inter.variable} antialiased`}
-      >
-        {/* Skip to main content link for accessibility */}
-        <a href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-orange-600 focus:text-white"
+ <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} antialiased`}>
+        {/* Enhanced skip link with proper focus styles */}
+        <a 
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-orange-600 focus:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-orange-600 focus:text-lg focus:font-semibold"
         >
           Skip to main content
         </a>
         
-        <div className="">
+        <div>
           <ResizableNavbar/>
         </div>
         

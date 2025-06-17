@@ -523,9 +523,9 @@ export const MachineGrid = ({
       case 'showcase':
         return 'grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-12';
       case 'related':
-        return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
+        return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6';
       default:
-        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8';
+        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8';
     }
   };
 

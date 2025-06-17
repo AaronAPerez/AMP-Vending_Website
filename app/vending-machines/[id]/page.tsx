@@ -6,9 +6,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
 import { motion, useInView } from 'framer-motion';
-import { 
-  ArrowLeftIcon, 
-  CheckCircleIcon, 
+import {
+  ArrowLeftIcon,
+  CheckCircleIcon,
   StarIcon,
   PhoneIcon,
   MailIcon,
@@ -23,11 +23,11 @@ import {
 // Import reusable components and utilities
 import { Loading } from '@/components/ui/core/Loading';
 import CTASection from '@/components/landing/CTASection';
-import { 
-  getVendingMachineById, 
+import {
+  getVendingMachineById,
   getAllVendingMachines,
   normalizeMachineData,
-  type MachineData 
+  type MachineData
 } from '@/lib/data/vendingMachineData';
 import { MachineGrid } from '@/components/MachineCard';
 
@@ -44,11 +44,11 @@ interface MachineDetailSectionProps {
 /**
  * Reusable section component for machine details with consistent styling and animations
  */
-const MachineDetailSection = ({ 
-  title, 
-  children, 
-  className = '', 
-  delay = 0 
+const MachineDetailSection = ({
+  title,
+  children,
+  className = '',
+  delay = 0
 }: MachineDetailSectionProps) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -62,7 +62,7 @@ const MachineDetailSection = ({
       className={`mb-12 ${className}`}
       aria-labelledby={`${title.toLowerCase().replace(/\s+/g, '-')}-heading`}
     >
-      <h2 
+      <h2
         id={`${title.toLowerCase().replace(/\s+/g, '-')}-heading`}
         className="text-2xl sm:text-3xl font-bold text-[#F5F5F5] mb-6 flex items-center"
       >
@@ -102,14 +102,14 @@ const SpecificationGroup = ({ specification, index }: SpecificationGroupProps) =
       role="region"
       aria-labelledby={`spec-${specification.category.toLowerCase().replace(/\s+/g, '-')}`}
     >
-      <h3 
+      <h3
         id={`spec-${specification.category.toLowerCase().replace(/\s+/g, '-')}`}
         className="text-lg font-bold text-[#F5F5F5] mb-4 flex items-center"
       >
         <ZapIcon size={20} className="text-[#FD5A1E] mr-2" aria-hidden="true" />
         {specification.category}
       </h3>
-      
+
       <dl className="space-y-3">
         {specification.items.map((item, itemIndex) => (
           <div key={itemIndex} className="flex flex-col sm:flex-row sm:justify-between">
@@ -298,13 +298,13 @@ const DynamicMachineDetailPage = () => {
                 "value": "Professional installation included"
               },
               {
-                "@type": "PropertyValue", 
+                "@type": "PropertyValue",
                 "name": "Maintenance",
                 "value": "Complete maintenance service included"
               },
               {
                 "@type": "PropertyValue",
-                "name": "Payment Options", 
+                "name": "Payment Options",
                 "value": "Credit/Debit cards, Mobile payments, Cash"
               }
             ]
@@ -376,7 +376,7 @@ const DynamicMachineDetailPage = () => {
       <div className="min-h-screen bg-[#000000]">
         {/* Enhanced Breadcrumb Navigation */}
         <nav className="bg-[#000000]/50 border-b border-[#4d4d4d]" aria-label="Breadcrumb">
-          <div className="max-w-10xl mx-auto px-4 pt-6 py-2 mt-16">
+          <div className="max-w-7xl mx-auto px-4 pt-6 py-2 mt-16">
             <ol className="flex items-center text-sm text-[#A5ACAF] space-x-2">
               <li>
                 <Link
@@ -403,7 +403,7 @@ const DynamicMachineDetailPage = () => {
           </div>
         </nav>
 
-        <main className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
           {/* Hero Section with Machine Overview */}
           <motion.section
             className="mb-2"
@@ -413,24 +413,23 @@ const DynamicMachineDetailPage = () => {
             aria-labelledby="machine-overview"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-              
+
               {/* Machine Image Gallery */}
               <div className="space-y-4">
-                <div className="relative aspect-[5/4] rounded-2xl overflow-hidden border border-[#333333] bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#333333] bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
                   <Image
                     src={machineData.images[selectedImageIndex]?.src || machineData.images[0].src}
                     alt={machineData.images[selectedImageIndex]?.alt || `${machineData.name} commercial vending machine`}
                     fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="(max-width: 800px) 100vw, 50vw"
                     className="object-contain"
                     priority
                   />
 
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className={`px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg ${
-                      machineData.category === 'refrigerated' ? 'bg-blue-600' : 'bg-green-600'
-                    }`}>
+                    <span className={`px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg ${machineData.category === 'refrigerated' ? 'bg-blue-600' : 'bg-green-600'
+                      }`}>
                       {machineData.category === 'refrigerated' ? 'Refrigerated' : 'Non-Refrigerated'}
                     </span>
                   </div>
@@ -452,11 +451,10 @@ const DynamicMachineDetailPage = () => {
                         key={index}
                         onClick={() => setSelectedImageIndex(index)}
                         onKeyDown={(e) => handleImageKeyPress(e, index)}
-                        className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] ${
-                          selectedImageIndex === index
+                        className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] ${selectedImageIndex === index
                             ? 'border-[#FD5A1E] ring-2 ring-[#FD5A1E]/30'
                             : 'border-[#333333] hover:border-[#FD5A1E]/50'
-                        }`}
+                          }`}
                         aria-label={`View image ${index + 1}: ${image.alt}`}
                       >
                         <Image
@@ -481,12 +479,12 @@ const DynamicMachineDetailPage = () => {
                   >
                     {machineData.name}
                   </h1>
-                  
+
                   {/* SEO-friendly subtitle using keywords */}
                   <p className="text-xl sm:text-2xl text-[#FD5A1E] font-semibold mb-4">
                     Commercial {machineData.category === 'refrigerated' ? 'Refrigerated' : 'Snack'} Vending Machine
                   </p>
-                  
+
                   <p className="text-lg text-[#A5ACAF] leading-relaxed">
                     {machineData.shortDescription}
                   </p>
@@ -495,24 +493,24 @@ const DynamicMachineDetailPage = () => {
                 {/* Technology Indicators - Enhanced for SEO */}
                 <div className="flex flex-wrap gap-4">
                   {[
-                    { 
-                      icon: MonitorIcon, 
-                      label: 'HD Touchscreen', 
+                    {
+                      icon: MonitorIcon,
+                      label: 'HD Touchscreen',
                       available: machineData.features.some(f => f.title.toLowerCase().includes('touchscreen'))
                     },
-                    { 
-                      icon: CreditCardIcon, 
-                      label: 'Mobile Payments', 
+                    {
+                      icon: CreditCardIcon,
+                      label: 'Mobile Payments',
                       available: machineData.features.some(f => f.title.toLowerCase().includes('payment'))
                     },
-                    { 
-                      icon: WifiIcon, 
-                      label: 'Smart Monitoring', 
+                    {
+                      icon: WifiIcon,
+                      label: 'Smart Monitoring',
                       available: machineData.features.some(f => f.title.toLowerCase().includes('monitoring') || f.title.toLowerCase().includes('inventory'))
                     },
-                    { 
-                      icon: ZapIcon, 
-                      label: 'Energy Efficient', 
+                    {
+                      icon: ZapIcon,
+                      label: 'Energy Efficient',
                       available: machineData.features.some(f => f.title.toLowerCase().includes('energy'))
                     }
                   ].filter(tech => tech.available).map((tech, index) => (
@@ -534,9 +532,9 @@ const DynamicMachineDetailPage = () => {
                   </h2>
                   <ul className="space-y-3" role="list">
                     {(machineData.highlights || [
-                      'Professional Installation Included', 
-                      'Complete Maintenance Service', 
-                      'Advanced Payment Technology', 
+                      'Professional Installation Included',
+                      'Complete Maintenance Service',
+                      'Advanced Payment Technology',
                       'Smart Inventory Management'
                     ]).map((benefit, index) => (
                       <li key={index} className="flex items-center">
@@ -572,7 +570,7 @@ const DynamicMachineDetailPage = () => {
               <p className="text-[#A5ACAF] text-lg leading-relaxed">
                 {machineData.description}
               </p>
-              
+
               {/* SEO Keywords section */}
               {(machineData.keywords || machineData.localKeywords || machineData.businessKeywords) && (
                 <div className="mt-6 pt-6 border-t border-[#333333]">

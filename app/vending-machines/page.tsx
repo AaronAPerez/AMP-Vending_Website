@@ -215,7 +215,7 @@ const VendingMachinesPage = () => {
 
       {/* Enhanced Breadcrumb Navigation */}
       <div className="bg-[#000000]/50 border-b border-[#4d4d4d]">
-        <div className="max-w-10xl mx-auto px-4 py-3 flex items-center text-sm text-[#A5ACAF]">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center text-sm text-[#A5ACAF]">
           <Link
             href="/"
             className="hover:text-[#FD5A1E] transition-colors focus:outline-none focus:text-[#FD5A1E]"
@@ -230,7 +230,7 @@ const VendingMachinesPage = () => {
 
       {/* SEO-Enhanced Hero Header Section */}
       <section className="pt-12 pb-8 bg-gradient-to-b from-[#000000] to-[#000000]/80">
-        <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -307,7 +307,7 @@ const VendingMachinesPage = () => {
 
       {/* Main Content Section */}
       <section className="py-8 pb-16">
-        <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Loading State */}
           {isLoading && (
             <div className="flex justify-center items-center py-12">
@@ -387,7 +387,7 @@ const VendingMachinesPage = () => {
 
       {/* Enhanced Value Proposition Section with SEO Content */}
       <section className="py-16 bg-[#4d4d4d]/20 border-t border-[#4d4d4d]">
-        <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-[#F5F5F5] mb-4">
               Why Choose AMP Vending for Your Business?
