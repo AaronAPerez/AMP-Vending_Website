@@ -3,13 +3,19 @@ import "./globals.css";
 import StyledComponentsRegistry from '../lib/registry';
 import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
-
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import Footer from "@/components/layout/Footer";
 import FeedbackWidget from "@/components/feedback/FeedbackWidget";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({ 
+  subsets: ['latin'], 
+  variable: '--font-inter',
+  display: 'swap', // Critical for LCP
+  preload: true,
+  fallback: ['system-ui', 'arial'], // Fallback fonts
+});
+
 
 /**
  * Enhanced Metadata Configuration for AMP Vending

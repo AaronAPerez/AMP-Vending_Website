@@ -5,7 +5,9 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
     optimizeCss: true,
-    optimizeServerReact: true,
+    optimizeServerReact: true,    
+    // Note: inlineCss is not a valid experimental option in Next.js 14+
+    // inlineCss: true, // Removed - not supported
   },
 
   // Enhanced webpack configuration for performance optimization
@@ -17,12 +19,22 @@ const nextConfig: NextConfig = {
         minSize: 20000,
         maxSize: 240000,
         cacheGroups: {
+          // Separate styles into their own chunk
+          styles: {
+            name: 'styles',
+            test: /\.(css|scss|sass)$/,
+            chunks: 'all',
+            enforce: true,
+            priority: 20,
+          },
+          // Vendor libraries
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
             priority: 10,
           },
+          // Common code between pages
           common: {
             name: 'common',
             minChunks: 2,
