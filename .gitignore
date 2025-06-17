@@ -32,7 +32,13 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# Environment files
+.env.local
+.env.production
+.env*.local
 
+# Keep .env (non-sensitive defaults)
+!.env
 # vercel
 .vercel
 
