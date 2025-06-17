@@ -42,13 +42,13 @@ jobs:
         run: npm run test:ci
         
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           file: ./coverage/lcov.info
           flags: unit-tests
           
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: unit-test-results
@@ -86,7 +86,7 @@ jobs:
           PLAYWRIGHT_WORKERS: 2
           
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: playwright-report-${{ matrix.browser }}
@@ -114,7 +114,7 @@ jobs:
         run: npm run test:accessibility
         
       - name: Upload accessibility results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: accessibility-results
@@ -145,7 +145,7 @@ jobs:
         run: npm run test:performance
         
       - name: Upload performance results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: performance-results
@@ -173,7 +173,7 @@ jobs:
         run: npm run test:visual
         
       - name: Upload visual test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: visual-regression-results
