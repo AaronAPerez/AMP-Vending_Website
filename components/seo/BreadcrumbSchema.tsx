@@ -38,10 +38,6 @@ const BREADCRUMB_MAPPINGS: Record<string, string> = {
   'about': 'About Us',
   'proposal': 'Proposal',
   // Vending machine specific mappings
-  'km-vmnt-50-b': 'Non-Refrigerated Snack Machine',
-  'km-vmr-40-b': 'Standard Refrigerated Machine',
-  'km-vmr-30-b': 'Compact Refrigerated Machine',
-  'km-vmrt-50-b': 'Premium Refrigerated Machine',
 } as const;
 
 /**

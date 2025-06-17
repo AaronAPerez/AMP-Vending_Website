@@ -110,7 +110,7 @@ const HomePage = () => {
                 <br />for <span className="text-[#FD5A1E] hero-accent">Modern Workplaces</span>
               </>
             }
-            subtitle="Enhance your workplace with state-of-the-art vending machines featuring 21.5&quots; touchscreen technology, contactless payments, and 50+ customizable options."
+            subtitle="Enhance your workplace with state-of-the-art vending machines featuring 21.5&quot; touchscreen technology, contactless payments, and 50+ customizable options."
           primaryCta={{ text: "View Machines", href: "/vending-machines" }}
           secondaryCta={{ text: "Contact Us", href: "/contact" }}
         />
