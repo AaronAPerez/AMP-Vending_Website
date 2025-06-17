@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
+import React, { useEffect, useState } from 'react';
+import { ResponsiveHero } from '../hero/ResponsiveHero';
+import { ClientOnly } from '../ui/shared/ClientOnly';
 import Section from '../ui/shared/Section';
 import WorkplaceTransformSection from './WorkplaceTransformSection';
-
+import VendingMachineShowcase from './VendingMachineShowcase';
 import ProductSection from './ProductSection';
 import ProcessSection from './ProcessSection';
 import ServiceAreaSection from './ServiceAreaSection';
@@ -12,9 +14,7 @@ import FAQSection from './FAQSection';
 import HomeContactSection from './HomeContactSection';
 import CTASection from './CTASection';
 
-import { ClientOnly } from '../ui/shared/ClientOnly';
-import VendingMachineShowcase from './VendingMachineShowcase';
-import { ResponsiveHero } from '../hero/ResponsiveHero';
+
 
 const HomePage = () => {
   const [, setIsClient] = useState(false);
@@ -36,7 +36,7 @@ const HomePage = () => {
             "name": "AMP Vending",
             "url": "https://www.ampvendingmachines.com",
             "logo": "https://www.ampvendingmachines.com/images/logo/AMP_logo.png",
-            "description": "Professional vending machine solutions with 21.5-inch touchscreen technology and comprehensive service packages for workplaces in Central California.",
+            "description": "Professional vending machine solutions with 21.5-inch touchscreen technology, zero-cost installation service for workplaces in Central California.",
             "areaServed": "Central California",
             "address": {
               "@type": "PostalAddress",
@@ -94,15 +94,14 @@ const HomePage = () => {
         }}
       />
 
-      {/* Main Content Flow */}
-      <main className="flex flex-col min-h-screen overflow-hidden bg-black/90">
+
+  
         {/* Hero Section - Optimized for LCP */}
         <Section
           id="hero"
           className="relative min-h-screen bg-black/90"
           aria-labelledby="hero-heading"
         >
-          {/* Remove ClientOnly wrapper for hero content */}
           <ResponsiveHero
             title={
               <>
@@ -272,7 +271,7 @@ const HomePage = () => {
             <CTASection />
           </div>
         </ClientOnly>
-      </main>
+  
     </>
   );
 };

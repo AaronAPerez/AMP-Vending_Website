@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import StyledComponentsRegistry from '../lib/registry';
-import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import Footer from "@/components/layout/Footer";
 import FeedbackWidget from "@/components/feedback/FeedbackWidget";
+import StyledComponentsRegistry from '../lib/registry';
+import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-const inter = Inter({ 
-  subsets: ['latin'], 
+const inter = Inter({
+  subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap', // Critical for LCP
   preload: true,
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     template: '%s | AMP Vending - Premium Workplace Vending Solutions',
     default: 'AMP Vending - Premium Workplace Vending Solutions | Central California'
   },
-  description: 'Professional vending machine solutions with 21.5" touchscreen technology, contactless payments, and complete maintenance service for businesses in Central California. Zero-cost installation and premium workplace refreshment options.',
-  
+  description: 'Professional vending machine solutions with 21.5" touchscreen technology, contactless payments, and complete maintenance service for businesses in Central California. Zero-cost installation, premium workplace refreshment options.',
+
   // Enhanced keywords for local SEO
   keywords: [
     'commercial vending machines',
@@ -47,18 +47,18 @@ export const metadata: Metadata = {
     'Central California vending service',
     'professional vending installation'
   ],
-  
+
   // Author and creator information
   authors: [{ name: 'AMP Vending' }],
   creator: 'AMP Vending',
   publisher: 'AMP Vending',
-  
+
   // Canonical URL and alternates
   metadataBase: new URL('https://www.ampvendingmachines.com'),
   alternates: {
     canonical: '/',
   },
-  
+
   // Open Graph metadata for social sharing
   openGraph: {
     type: 'website',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
       }
     ],
   },
-  
+
   // Twitter Card metadata
   twitter: {
     card: 'summary_large_image',
@@ -85,11 +85,11 @@ export const metadata: Metadata = {
     images: ['/images/logo/AMP_logo.png'],
     creator: '@ampvending', // Add your Twitter handle if available
   },
-  
+
   // Additional metadata for SEO
   category: 'Business Services',
   classification: 'Vending Machine Services',
-  
+
   // Robots configuration
   robots: {
     index: true,
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
+
   // Additional verification and configuration
   verification: {
     // Add verification codes when available
@@ -112,7 +112,7 @@ export const metadata: Metadata = {
     // yandex: 'your-yandex-verification-code',
     // yahoo: 'your-yahoo-verification-code',
   },
-  
+
   // Enhanced other metadata
   other: {
     'referrer': 'same-origin',
@@ -135,8 +135,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body 
-       className={`${inter.variable} antialiased`}
+      <body
+        className={`${inter.variable} antialiased`}
       >
         {/* Skip to main content link for accessibility */}
         <a href="#main"
@@ -144,21 +144,23 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        
-        <div className="">
-          <ResizableNavbar/>
-        </div>
-        
-        <main id="main" className="mt-4">
+
+        <header>
+          <ResizableNavbar />
+        </header>
+
+        <main id="main" className="bg-black/90 mt-4">
           <StyledComponentsRegistry>
             {children}
-             <SpeedInsights />
+            <SpeedInsights />
             <Analytics />
-        </StyledComponentsRegistry>
+          </StyledComponentsRegistry>
         </main>
-        
-        <FeedbackWidget/>
-        <Footer/>
+
+        <FeedbackWidget />
+        <footer>
+          <Footer />
+        </footer>
       </body>
     </html>
   );

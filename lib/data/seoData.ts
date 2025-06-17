@@ -5,8 +5,8 @@ import { Metadata } from "next";
 // lib/data/seoData.ts
 export const SEO_CONSTANTS = {
   // Website Identity
-  SITE_NAME: 'AMP Vending Machines',
-  SITE_TITLE: 'AMP Vending Machines | Premium Vending Machines for Workplaces',
+  SITE_NAME: 'AMP Vending',
+  SITE_TITLE: 'AMP Vending | Premium Vending Machines for Workplaces',
   SITE_DESCRIPTION: 'AMP Vending provides professional, maintenance-free vending machines with 21.5" touchscreen interfaces and 50+ customizable product options for workplaces in Central California.',
   
   // URLs and Domains
@@ -14,7 +14,7 @@ export const SEO_CONSTANTS = {
   DOMAIN: 'ampvendingmachines.com',
   
   // Business Information
-  BUSINESS_NAME: 'AMP Vending Machines',
+  BUSINESS_NAME: 'AMP Vending',
   BUSINESS_LEGAL_NAME: 'AMP Design and Consulting LLC',
   
   // Contact Information
@@ -46,9 +46,13 @@ export const SEO_CONSTANTS = {
   // Industry Keywords
   PRIMARY_KEYWORDS: [
     'vending machines',
+    'amp vending',
+    'amp vending machines',
+    'premium vending machines',
     'professional vending',
     'workplace vending',
     'touchscreen vending',
+    'touchscreen vending machines',
     'maintenance-free vending',
     'employee satisfaction',
     'custom vending Machines',
@@ -56,6 +60,7 @@ export const SEO_CONSTANTS = {
     'vending machines near me',
     'Modesto vending machines',
     'vending machines modesto',
+    'vending machines ca',
     'vending central vally',
     'Central California vending',
   ],
