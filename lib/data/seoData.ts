@@ -46,6 +46,7 @@ export const SEO_CONSTANTS = {
   // Industry Keywords
   PRIMARY_KEYWORDS: [
     'vending machines',
+    'vending machines supplier',
     'amp vending',
     'amp vending machines',
     'premium vending machines',
@@ -239,6 +240,8 @@ export function generateMachineMetadata(machine: MachineData): Metadata {
       description: machineDescription,
       images: [machineImageUrl],
     },
+    robots: ENHANCED_ROBOTS_CONFIG.PRODUCT_PAGE,
+
   };
 }
 
@@ -587,6 +590,12 @@ export const ROBOTS_CONFIG = {
   INDEX_NOFOLLOW: 'index, nofollow',
   NOINDEX_FOLLOW: 'noindex, follow',
 } as const;
+
+export const ENHANCED_ROBOTS_CONFIG = {
+  PRODUCT_PAGE: 'index, follow, max-image-preview:large, max-snippet:-1',
+};
+
+
 
 /**
  * Export all SEO-related utilities and configurations
