@@ -36,7 +36,7 @@ const HomePage = () => {
             "name": "AMP Vending",
             "url": "https://www.ampvendingmachines.com",
             "logo": "https://www.ampvendingmachines.com/images/logo/AMP_logo.png",
-            "description": "Professional vending machine solutions with 21.5-inch touchscreen technology, zero-cost installation service for workplaces in Central California.",
+            "description": "Professional vending machines with 21.5\" touchscreen technology and 50+ product options for Central California workplaces. Installation included.",
             "areaServed": "Central California",
             "address": {
               "@type": "PostalAddress",

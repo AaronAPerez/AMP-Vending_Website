@@ -86,7 +86,7 @@ export default function RootLayout({
           <ResizableNavbar />
         </div>
         
-        <main id="main" className="mt-4">
+        <main id="main" className="bg-black/90 mt-4">
           <StyledComponentsRegistry>
 
             {children}

@@ -1,9 +1,8 @@
 'use client';
 
 import ResponsiveGrid from '@/components/layout/ResponsiveGrid';
-
-import Image from 'next/image';
-import {useEffect, useState} from 'react';
+import { SEOOptimizedImage } from '@/lib/utils/SEOOptimizedImage';
+import { useEffect, useState } from 'react';
 
 
 /**
@@ -12,10 +11,11 @@ import {useEffect, useState} from 'react';
 const BackgroundOverlayCard = ({ product }: { product: Product }) => {
 
   return (
-      <div className="relative group h-full sm:h-72 overflow-hidden rounded-xl shadow-xl">
+    <div className="relative group h-full sm:h-72 overflow-hidden rounded-xl shadow-xl">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <Image
+        <SEOOptimizedImage
+          isAboveFold={false}
           src={product.image}
           alt={product.name}
           width={400}
@@ -30,8 +30,8 @@ const BackgroundOverlayCard = ({ product }: { product: Product }) => {
       </div>
 
       {/* Gradient Overlay - Ensure visibility on all screens */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"
         aria-hidden="true"
       />
 
@@ -52,15 +52,15 @@ const BackgroundOverlayCard = ({ product }: { product: Product }) => {
       {/* Content - Adjusted for better visibility on small screens */}
       <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4 text-white">
         <h3 className="text-base sm:text-lg font-bold mb-0.5 sm:mb-1">{product.name}</h3>
-        
+
         {product.details && (
           <p className="text-xs text-gray-300 italic mb-1 sm:mb-2 line-clamp-2">{product.details}</p>
         )}
-        
+
         {/* Bottom section with category */}
         <div className="relative mt-1 sm:mt-2">
-          <div 
-            className="h-px w-full bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-2" 
+          <div
+            className="h-px w-full bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-2"
             aria-hidden="true"
           />
           <div className="flex justify-between items-center">
@@ -70,8 +70,8 @@ const BackgroundOverlayCard = ({ product }: { product: Product }) => {
       </div>
 
       {/* Hover Effect Glow */}
-      <div 
-        className="absolute -inset-0.5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" 
+      <div
+        className="absolute -inset-0.5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"
         aria-hidden="true"
       >
         <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#FD5A1E]/20 to-transparent blur-md" />

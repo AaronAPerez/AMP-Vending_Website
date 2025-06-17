@@ -238,8 +238,6 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Standalone output for Docker deployment (optional)
-  output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
 
   // Enable React strict mode for better development
   reactStrictMode: true,
