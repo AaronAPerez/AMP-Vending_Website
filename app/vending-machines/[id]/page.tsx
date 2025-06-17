@@ -551,7 +551,7 @@ const DynamicMachineDetailPage = () => {
                     href="/contact"
                     className="flex-1 py-4 px-6 bg-[#FD5A1E] text-[#000000] font-bold rounded-xl text-center hover:bg-[#FD5A1E]/90 transition-all shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
                   >
-                    Get Free Commercial Vending Consultation
+                    Get Free {machineData.name} Vending Consultation
                   </Link>
                   <a
                     href="tel:+12094035450"

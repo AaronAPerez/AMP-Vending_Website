@@ -254,7 +254,7 @@ export const MachineCard = ({
         onKeyDown={handleKeyPress}
         tabIndex={0}
         role="button"
-        aria-label={`View details for ${machine.name}`}
+        aria-label={`View details for ${machine.name} vending machine`}
         aria-describedby={`machine-description-${machine.id}`}
       >
         {/* Category Badge */}
@@ -463,7 +463,7 @@ export const MachineCard = ({
             <Link
               href={`/vending-machines/${machine.id}`}
               className={`flex-1 ${getButtonClasses()} bg-[#FD5A1E] text-[#000000] font-medium rounded-full text-center hover:bg-[#FD5A1E]/90 active:bg-[#FD5A1E]/80 transition-all duration-300 flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black touch-manipulation`}
-              aria-label={`View detailed specifications for ${machine.name}`}
+              aria-label={`View detailed specifications for ${machine.name} vending machine`}
             >
               <span>View Details</span>
               <ArrowRightIcon 
