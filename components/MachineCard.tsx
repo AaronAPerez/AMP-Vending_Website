@@ -307,9 +307,9 @@ export const MachineCard = ({
           <Image
             src={machine.image}
             alt={`${machine.name} 
-              
                vending machine`}
-            fill
+            width={400}
+            height={600}
             sizes={
               variant === 'showcase' 
                 ? "(max-width: 768px) 100vw, 50vw"

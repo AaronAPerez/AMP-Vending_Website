@@ -12,15 +12,16 @@ import {useEffect, useState} from 'react';
 const BackgroundOverlayCard = ({ product }: { product: Product }) => {
 
   return (
-      <div className="relative group h-60 sm:h-72 overflow-hidden rounded-xl shadow-xl">
+      <div className="relative group h-full sm:h-72 overflow-hidden rounded-xl shadow-xl">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
           src={product.image}
           alt={product.name}
-          fill
+          width={400}
+          height={600}
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-cover h-full transition-transform duration-500 group-hover:scale-110"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = '/images/products/placeholder.jpg';

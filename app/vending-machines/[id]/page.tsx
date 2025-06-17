@@ -460,8 +460,8 @@ const DynamicMachineDetailPage = () => {
                         <Image
                           src={image.src}
                           alt={image.alt}
-                          width={100}
-                          height={100}
+                          width={400}
+                          height={600}
                           className="w-full h-full object-cover"
                         />
                       </button>
