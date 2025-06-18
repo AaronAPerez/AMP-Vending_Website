@@ -134,7 +134,7 @@ const VendingMachineCard = () => {
 
         {/* Action button with hover effect */}
         <Link
-          href="/vending-machines/km-vmnt-50-b">
+          href="/vending-machines">
         <motion.div
           animate={{
             backgroundColor: isHovered ? '#FD5A1E' : 'transparent'
