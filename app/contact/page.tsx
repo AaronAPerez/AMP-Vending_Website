@@ -369,4 +369,3 @@ export default function ContactPage() {
     </>
   );
 }
-

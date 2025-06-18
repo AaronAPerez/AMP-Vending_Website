@@ -104,4 +104,3 @@ export const ResponsiveHero = ({
 const LazyBackgroundImages = React.lazy(() => 
   import('./BackgroundImages').then(module => ({ default: module.BackgroundImages }))
 );
-

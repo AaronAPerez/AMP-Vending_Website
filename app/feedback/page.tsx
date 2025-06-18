@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import FeedbackForm from "@/components/feedback/FeedbackForm";
 import Link from "next/link";
 import { FeedbackBreadcrumbs } from "@/components/seo/BreadcrumbSchema";
+import FeedbackForm from "@/components/feedback/FeedbackForm";
 
 // Define metadata for SEO
 export const metadata: Metadata = {

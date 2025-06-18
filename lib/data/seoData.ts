@@ -554,12 +554,12 @@ export const STATIC_PAGES = [
     changeFrequency: 'weekly' as const,
     priority: 1.0,
   },
-  // {
-  //   url: `${SEO_CONSTANTS.BASE_URL}/about`,
-  //   lastModified: new Date(),
-  //   changeFrequency: 'monthly' as const,
-  //   priority: 0.8,
-  // },
+  {
+    url: `${SEO_CONSTANTS.BASE_URL}/about`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  },
   {
     url: `${SEO_CONSTANTS.BASE_URL}/vending-machines`,
     lastModified: new Date(),
@@ -631,5 +631,5 @@ export default {
   generateMachineMetadata,
   generateMachineStructuredData,
   generateBreadcrumbStructuredData,
-  // generateAboutPageStructuredData,
+  generateAboutPageStructuredData,
 };

@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SEOOptimizedImage } from '@/lib/utils/SEOOptimizedImage';
 
 /**
  * VendingMachineCard Component
@@ -38,8 +37,7 @@ const VendingMachineCard = () => {
     >
       {/* Machine Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
-        <SEOOptimizedImage
-          isAboveFold={false}
+        <Image
           src="/images/machines/amp-vending-machines.jpg"
           alt="AMP Premium Vending Machine with 21.5 inch touchscreen interface"
           fill
@@ -50,10 +48,10 @@ const VendingMachineCard = () => {
           }}
           priority
         />
-
+        
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 to-transparent opacity-60" />
-
+        
         {/* Technology badges */}
         <div className="absolute top-4 left-4 right-4 flex justify-between">
           <span className="bg-[#FD5A1E] text-[#000000] px-3 py-1 rounded-full text-xs font-bold flex items-center">
@@ -107,7 +105,7 @@ const VendingMachineCard = () => {
         </div>
 
         <p className="text-[#A5ACAF] text-sm mb-6 leading-relaxed">
-          Advanced vending solution featuring 21.5&quot; touchscreen technology,
+          Advanced vending solution featuring 21.5&quot; touchscreen technology, 
           multiple payment options, and customizable product selection.
         </p>
 
@@ -137,16 +135,16 @@ const VendingMachineCard = () => {
         {/* Action button with hover effect */}
         <Link
           href="/vending-machines/km-vmnt-50-b">
-          <motion.div
-            animate={{
-              backgroundColor: isHovered ? '#FD5A1E' : 'transparent'
-            }}
-            className="w-full py-3 px-4 border border-[#FD5A1E] rounded-lg text-center font-medium transition-colors cursor-pointer"
-          >
-            <span className={`transition-colors ${isHovered ? 'text-[#000000]' : 'text-[#FD5A1E]'}`}>
-              Learn More
-            </span>
-          </motion.div>
+        <motion.div
+          animate={{
+            backgroundColor: isHovered ? '#FD5A1E' : 'transparent'
+          }}
+          className="w-full py-3 px-4 border border-[#FD5A1E] rounded-lg text-center font-medium transition-colors cursor-pointer"
+        >
+          <span className={`transition-colors ${isHovered ? 'text-[#000000]' : 'text-[#FD5A1E]'}`}>
+            Learn More
+          </span>
+        </motion.div>
         </Link>
       </div>
     </motion.div>
@@ -267,7 +265,7 @@ const WorkplaceTransformSection = ({
   }, []);
 
   return (
-    <section
+    <section 
       className={`max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
       aria-labelledby={renderHeading ? "transform-heading" : undefined}
     >
@@ -310,7 +308,7 @@ const WorkplaceTransformSection = ({
           {/* Vending Machine Card Display */}
           <div className="order-2 lg:order-1">
             <VendingMachineCard />
-
+            
             {/* Additional Machine Stats */}
             <div className="mt-6 grid grid-cols-3 gap-4">
               <div className="text-center p-4 bg-[#111111] rounded-lg border border-[#333333]">
