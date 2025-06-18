@@ -7,6 +7,7 @@ import Footer from "@/components/contact/ContactInfoSection";
 import FeedbackWidget from "@/components/feedback/FeedbackWidget";
 import ResizableNavbar from "@/components/layout/ResizableNavbar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import WebVitalsReporter from "@/components/analytics/WebVitalsReporter";
 
 const inter = Inter({ 
   subsets: ['latin'], 

@@ -1,6 +1,7 @@
+'use client';
+
 import React from 'react';
 import Script from 'next/script';
-import { Metadata } from 'next';
 import ContactForm from '@/components/contact/ContactForm';
 import { motion } from 'framer-motion';
 import { HelpCircle, CreditCard, Search, Zap } from 'lucide-react';
@@ -8,29 +9,29 @@ import { ContactBreadcrumbs } from '@/components/seo/BreadcrumbSchema';
 
 
 
-export const metadata: Metadata = {
-  title: 'Contact Us | AMP Vending',
-  description: 'Get in touch with AMP Vending for personalized vending machine solutions for your workplace.',
-  alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/contact`,
-  },
-  openGraph: {
-    title: 'Contact AMP Vending',
-    description: 'Reach out to our team for custom vending machine solutions for your business.',
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/contact`,
-    siteName: 'AMP Vending',
-    images: [
-      {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/images/contact-og.jpg`,
-        width: 1200,
-        height: 630,
-        alt: 'Contact AMP Vending',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-};
+// export const metadata: Metadata = {
+//   title: 'Contact Us | AMP Vending',
+//   description: 'Get in touch with AMP Vending for personalized vending machine solutions for your workplace.',
+//   alternates: {
+//     canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/contact`,
+//   },
+//   openGraph: {
+//     title: 'Contact AMP Vending',
+//     description: 'Reach out to our team for custom vending machine solutions for your business.',
+//     url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/contact`,
+//     siteName: 'AMP Vending',
+//     images: [
+//       {
+//         url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://amp-vending-website.vercel.app'}/images/contact-og.jpg`,
+//         width: 1200,
+//         height: 630,
+//         alt: 'Contact AMP Vending',
+//       },
+//     ],
+//     locale: 'en_US',
+//     type: 'website',
+//   },
+// };
 
 export default function ContactPage() {
   // FAQ data structure with categories - updated content
