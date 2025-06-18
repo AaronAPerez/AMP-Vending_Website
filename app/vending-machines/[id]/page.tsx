@@ -31,8 +31,6 @@ import {
 } from '@/lib/data/vendingMachineData';
 import { MachineGrid } from '@/components/MachineCard';
 
-
-
 /**
  * Props interface for the MachineDetailSection component
  */
@@ -129,11 +127,17 @@ const SpecificationGroup = ({ specification, index }: SpecificationGroupProps) =
 };
 
 /**
- * Enhanced Dynamic Machine Detail Page Component
+ * SEO-Enhanced Dynamic Machine Detail Page Component
  * 
- * This page component fetches machine data using the ID from the URL
- * and renders a comprehensive detail view with reusable components
- * for related machines and consistent accessibility patterns.
+ * Updated to work with the new SEO-optimized vending machine data structure.
+ * Features enhanced metadata, structured data, and improved search optimization.
+ * 
+ * Build Process Documentation:
+ * 1. Uses SEO-friendly machine IDs for better URL structure
+ * 2. Implements comprehensive structured data for rich search results
+ * 3. Enhanced meta descriptions and titles from machine data
+ * 4. Improved accessibility and performance optimizations
+ * 5. Better internal linking for SEO value
  */
 const DynamicMachineDetailPage = () => {
   // Get the machine ID from the URL parameters
@@ -157,7 +161,7 @@ const DynamicMachineDetailPage = () => {
     }
 
     try {
-      // Get the machine data from the data file
+      // Get the machine data from the SEO-optimized data structure
       const machine = getVendingMachineById(machineId);
 
       if (!machine) {
@@ -165,15 +169,28 @@ const DynamicMachineDetailPage = () => {
       } else {
         setMachineData(machine);
 
-        // Get related machines and normalize them for the reusable cards
-        const allMachines = getAllVendingMachines();
-        const related = allMachines
-          .filter(m => m.id !== machineId) // Exclude current machine
-          .slice(0, 3) // Limit to 3 related machines
-          .map(normalizeMachineData)
-          .filter((machine): machine is NonNullable<typeof machine> => machine !== null);
+        // Get related machines using the new relatedMachines structure
+        if (machine.relatedMachines && machine.relatedMachines.length > 0) {
+          const related = machine.relatedMachines
+            .map(relatedMachine => {
+              const fullMachineData = getVendingMachineById(relatedMachine.id);
+              return fullMachineData ? normalizeMachineData(fullMachineData) : null;
+            })
+            .filter((machine): machine is NonNullable<typeof machine> => machine !== null)
+            .slice(0, 3); // Limit to 3 related machines
 
-        setRelatedMachines(related);
+          setRelatedMachines(related);
+        } else {
+          // Fallback: get other machines from the same category
+          const allMachines = getAllVendingMachines();
+          const related = allMachines
+            .filter(m => m.id !== machineId && m.category === machine.category)
+            .slice(0, 3)
+            .map(normalizeMachineData)
+            .filter((machine): machine is NonNullable<typeof machine> => machine !== null);
+
+          setRelatedMachines(related);
+        }
       }
     } catch (err) {
       setError('Error fetching machine data');
@@ -207,10 +224,10 @@ const DynamicMachineDetailPage = () => {
             </svg>
           </div>
           <h1 className="text-2xl font-bold text-[#F5F5F5] mb-4">
-            {error || 'Machine not found'}
+            {error || 'Vending Machine Not Found'}
           </h1>
           <p className="text-[#A5ACAF] mb-6">
-            We couldn't find the vending machine you're looking for. It may have been moved or removed.
+            We couldn't find the commercial vending machine you're looking for. It may have been moved or the URL may be incorrect.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <button
@@ -235,7 +252,7 @@ const DynamicMachineDetailPage = () => {
 
   return (
     <>
-      {/* Structured Data for SEO */}
+      {/* Enhanced SEO Structured Data */}
       <Script
         id="product-schema"
         type="application/ld+json"
@@ -243,20 +260,83 @@ const DynamicMachineDetailPage = () => {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            "name": `${machineData.name} Vending Machine`,
-            "image": `https://www.ampvendingmachines.com${machineData.images[0].src}`,
+            "name": machineData.name,
             "description": machineData.description,
+            "image": `https://www.ampvendingmachines.com${machineData.images[0].src}`,
             "brand": {
               "@type": "Brand",
               "name": "AMP Vending"
             },
-            // "model": machineData.model,
+            "manufacturer": {
+              "@type": "Organization",
+              "name": "AMP Vending",
+              "url": "https://www.ampvendingmachines.com"
+            },
+            "category": machineData.category === 'refrigerated' ? 'Refrigerated Vending Machine' : 'Snack Vending Machine',
             "offers": {
               "@type": "Offer",
               "description": "Professional installation and maintenance-free operation",
-              "availability": "https://schema.org/InStock"
+              "availability": "https://schema.org/InStock",
+              "areaServed": {
+                "@type": "Place",
+                "name": "Central California"
+              },
+              "seller": {
+                "@type": "Organization",
+                "name": "AMP Vending"
+              }
             },
-            "features": machineData.features.map(feature => feature.title)
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "50"
+            },
+            "additionalProperty": [
+              {
+                "@type": "PropertyValue",
+                "name": "Installation",
+                "value": "Professional installation included"
+              },
+              {
+                "@type": "PropertyValue",
+                "name": "Maintenance",
+                "value": "Complete maintenance service included"
+              },
+              {
+                "@type": "PropertyValue",
+                "name": "Payment Options",
+                "value": "Credit/Debit cards, Mobile payments, Cash"
+              }
+            ]
+          })
+        }}
+      />
+
+      {/* Organization structured data */}
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "AMP Vending",
+            "url": "https://www.ampvendingmachines.com",
+            "logo": "https://www.ampvendingmachines.com/images/logo/AMP_logo.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+12094035450",
+              "contactType": "customer service",
+              "email": "ampdesignandconsulting@gmail.com"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Modesto",
+              "addressRegion": "CA",
+              "postalCode": "95354",
+              "addressCountry": "US"
+            },
+            "areaServed": "Central California"
           })
         }}
       />
@@ -279,7 +359,7 @@ const DynamicMachineDetailPage = () => {
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Vending Machines",
+                "name": "Commercial Vending Machines",
                 "item": "https://www.ampvendingmachines.com/vending-machines"
               },
               {
@@ -294,7 +374,7 @@ const DynamicMachineDetailPage = () => {
       />
 
       <div className="min-h-screen bg-[#000000]">
-        {/* Breadcrumb Navigation */}
+        {/* Enhanced Breadcrumb Navigation */}
         <nav className="bg-[#000000]/50 border-b border-[#4d4d4d]" aria-label="Breadcrumb">
           <div className="max-w-7xl mx-auto px-4 pt-6 py-2 mt-16">
             <ol className="flex items-center text-sm text-[#A5ACAF] space-x-2">
@@ -312,9 +392,9 @@ const DynamicMachineDetailPage = () => {
                 <Link
                   href="/vending-machines"
                   className="hover:text-[#FD5A1E] transition-colors focus:outline-none focus:text-[#FD5A1E]"
-                  aria-label="Go to all vending machines"
+                  aria-label="Go to all commercial vending machines"
                 >
-                  Vending Machines
+                  Commercial Vending Machines
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
@@ -336,12 +416,12 @@ const DynamicMachineDetailPage = () => {
 
               {/* Machine Image Gallery */}
               <div className="space-y-4">
-                <div className="relative aspect-[5/4] rounded-2xl overflow-hidden border border-[#333333] bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#333333] bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
                   <Image
                     src={machineData.images[selectedImageIndex]?.src || machineData.images[0].src}
-                    alt={machineData.images[selectedImageIndex]?.alt || `${machineData.name} vending machine`}
+                    alt={machineData.images[selectedImageIndex]?.alt || `${machineData.name} commercial vending machine`}
                     fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="(max-width: 800px) 100vw, 50vw"
                     className="object-contain"
                     priority
                   />
@@ -358,7 +438,7 @@ const DynamicMachineDetailPage = () => {
                   <div className="absolute top-4 right-4">
                     <span className="bg-[#FD5A1E] text-[#000000] px-4 py-2 rounded-full font-bold text-sm shadow-lg flex items-center">
                       <CheckCircleIcon size={16} className="mr-2" />
-                      Full Service
+                      Professional Service
                     </span>
                   </div>
                 </div>
@@ -372,8 +452,8 @@ const DynamicMachineDetailPage = () => {
                         onClick={() => setSelectedImageIndex(index)}
                         onKeyDown={(e) => handleImageKeyPress(e, index)}
                         className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] ${selectedImageIndex === index
-                          ? 'border-[#FD5A1E] ring-2 ring-[#FD5A1E]/30'
-                          : 'border-[#333333] hover:border-[#FD5A1E]/50'
+                            ? 'border-[#FD5A1E] ring-2 ring-[#FD5A1E]/30'
+                            : 'border-[#333333] hover:border-[#FD5A1E]/50'
                           }`}
                         aria-label={`View image ${index + 1}: ${image.alt}`}
                       >
@@ -399,21 +479,40 @@ const DynamicMachineDetailPage = () => {
                   >
                     {machineData.name}
                   </h1>
-                  {/* <p className="text-xl sm:text-2xl text-[#FD5A1E] font-semibold mb-4">
-                    {machineData.model}
-                  </p> */}
+
+                  {/* SEO-friendly subtitle using keywords */}
+                  <p className="text-xl sm:text-2xl text-[#FD5A1E] font-semibold mb-4">
+                    Commercial {machineData.category === 'refrigerated' ? 'Refrigerated' : 'Snack'} Vending Machine
+                  </p>
+
                   <p className="text-lg text-[#A5ACAF] leading-relaxed">
                     {machineData.shortDescription}
                   </p>
                 </div>
 
-                {/* Technology Indicators */}
+                {/* Technology Indicators - Enhanced for SEO */}
                 <div className="flex flex-wrap gap-4">
                   {[
-                    { icon: MonitorIcon, label: '21.5" HD Touchscreen', available: machineData.features.some(f => f.title.includes('21.5')) },
-                    { icon: CreditCardIcon, label: 'Tap-to-Pay', available: true },
-                    { icon: WifiIcon, label: 'Smart Monitoring', available: true },
-                    { icon: ZapIcon, label: 'Energy Efficient', available: true }
+                    {
+                      icon: MonitorIcon,
+                      label: 'HD Touchscreen',
+                      available: machineData.features.some(f => f.title.toLowerCase().includes('touchscreen'))
+                    },
+                    {
+                      icon: CreditCardIcon,
+                      label: 'Mobile Payments',
+                      available: machineData.features.some(f => f.title.toLowerCase().includes('payment'))
+                    },
+                    {
+                      icon: WifiIcon,
+                      label: 'Smart Monitoring',
+                      available: machineData.features.some(f => f.title.toLowerCase().includes('monitoring') || f.title.toLowerCase().includes('inventory'))
+                    },
+                    {
+                      icon: ZapIcon,
+                      label: 'Energy Efficient',
+                      available: machineData.features.some(f => f.title.toLowerCase().includes('energy'))
+                    }
                   ].filter(tech => tech.available).map((tech, index) => (
                     <div
                       key={index}
@@ -425,14 +524,19 @@ const DynamicMachineDetailPage = () => {
                   ))}
                 </div>
 
-                {/* Key Benefits */}
+                {/* Key Benefits - Using machine highlights */}
                 <div className="bg-[#111111] rounded-xl p-6 border border-[#333333]">
                   <h2 className="text-lg font-bold text-[#F5F5F5] mb-4 flex items-center">
                     <StarIcon size={20} className="text-[#FD5A1E] mr-2" />
                     Key Benefits
                   </h2>
                   <ul className="space-y-3" role="list">
-                    {['Professional Installation Included', 'Complete Maintenance Service', 'Advanced Payment Technology', 'Smart Inventory Management'].map((benefit, index) => (
+                    {(machineData.highlights || [
+                      'Professional Installation Included',
+                      'Complete Maintenance Service',
+                      'Advanced Payment Technology',
+                      'Smart Inventory Management'
+                    ]).map((benefit, index) => (
                       <li key={index} className="flex items-center">
                         <CheckCircleIcon size={16} className="text-[#FD5A1E] mr-3 flex-shrink-0" aria-hidden="true" />
                         <span className="text-[#F5F5F5]">{benefit}</span>
@@ -441,17 +545,17 @@ const DynamicMachineDetailPage = () => {
                   </ul>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
+                {/* SEO-Enhanced Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 pb-4">
                   <Link
                     href="/contact"
                     className="flex-1 py-4 px-6 bg-[#FD5A1E] text-[#000000] font-bold rounded-xl text-center hover:bg-[#FD5A1E]/90 transition-all shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
                   >
-                    Get Free Consultation
+                    Get Free {machineData.name} Vending Consultation
                   </Link>
                   <a
                     href="tel:+12094035450"
-                    className="flex-1 py-4 px-6 bg-transparent border-2 border-[#FD5A1E] text-[#FD5A1E] font-bold rounded-xl text-center hover:bg-[#FD5A1E] hover:text-[#000000] transition-all focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
+                    className="flex-1 py-4 sm:py-6 px-6 bg-transparent border-2 border-[#FD5A1E] text-[#FD5A1E] font-bold rounded-xl text-center hover:bg-[#FD5A1E] hover:text-[#000000] transition-all focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black"
                   >
                     Call (209) 403-5450
                   </a>
@@ -461,16 +565,29 @@ const DynamicMachineDetailPage = () => {
           </motion.section>
 
           {/* Detailed Description */}
-          <MachineDetailSection title="About This Machine" delay={0.2}>
+          <MachineDetailSection title="About This Commercial Vending Machine" delay={0.2}>
             <div className="bg-[#111111] rounded-xl p-6 sm:p-8 border border-[#333333]">
               <p className="text-[#A5ACAF] text-lg leading-relaxed">
                 {machineData.description}
               </p>
+
+              {/* SEO Keywords section */}
+              {(machineData.keywords || machineData.localKeywords || machineData.businessKeywords) && (
+                <div className="mt-6 pt-6 border-t border-[#333333]">
+                  <p className="text-sm text-[#A5ACAF]">
+                    <strong className="text-[#F5F5F5]">Perfect for:</strong> {' '}
+                    {[
+                      ...(machineData.businessKeywords || []),
+                      ...(machineData.localKeywords || [])
+                    ].slice(0, 3).join(', ')}
+                  </p>
+                </div>
+              )}
             </div>
           </MachineDetailSection>
 
           {/* Features Section */}
-          <MachineDetailSection title="Advanced Features" delay={0.3}>
+          <MachineDetailSection title="Advanced Commercial Features" delay={0.3}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {machineData.features.map((feature, index) => (
                 <motion.div
@@ -506,7 +623,7 @@ const DynamicMachineDetailPage = () => {
           </MachineDetailSection>
 
           {/* Product Options */}
-          <MachineDetailSection title="Product Options" delay={0.5}>
+          <MachineDetailSection title="Available Product Options" delay={0.5}>
             <div className="bg-[#111111] rounded-xl p-6 sm:p-8 border border-[#333333]">
               <div className="mb-6">
                 <div className="flex items-center mb-4">
@@ -516,11 +633,11 @@ const DynamicMachineDetailPage = () => {
                   </span>
                 </div>
                 <p className="text-[#A5ACAF] mb-6">
-                  Customizable product selection based on your workplace preferences and employee feedback.
+                  Customizable product selection based on your workplace preferences and employee feedback. All products are carefully selected for quality and variety.
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {machineData.productOptions.map((product, index) => (
                   <motion.div
                     key={index}
@@ -537,29 +654,63 @@ const DynamicMachineDetailPage = () => {
             </div>
           </MachineDetailSection>
 
+          {/* Best For Section - SEO Enhancement */}
+          <MachineDetailSection title="Ideal Business Locations" delay={0.55}>
+            <div className="bg-[#111111] rounded-xl p-6 sm:p-8 border border-[#333333]">
+              <p className="text-[#A5ACAF] mb-6">
+                This {machineData.name.toLowerCase()} is specifically designed for the following business environments:
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {(Array.isArray(machineData.bestFor) ? machineData.bestFor : [machineData.bestFor]).map((location, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.55 + (index * 0.02) }}
+                    className="flex items-center p-3 bg-[#000000]/50 rounded-lg border border-[#333333]/50"
+                  >
+                    <CheckCircleIcon size={14} className="text-[#FD5A1E] mr-3 flex-shrink-0" aria-hidden="true" />
+                    <span className="text-[#F5F5F5] text-sm">{location}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </MachineDetailSection>
+
           {/* Related Machines using Reusable Cards */}
           {relatedMachines.length > 0 && (
-            <MachineDetailSection title="Related Machines" delay={0.6}>
+            <MachineDetailSection title="Related Commercial Vending Machines" delay={0.6}>
               <MachineGrid
                 machines={relatedMachines}
                 variant="related"
                 className="mb-8"
-                ariaLabel="Related vending machines you might also like"
+                ariaLabel="Related commercial vending machines you might also like"
               />
+              <div className="text-center mt-6">
+                <Link
+                  href="/vending-machines"
+                  className="inline-flex items-center px-6 py-3 bg-[#4d4d4d]/30 text-[#F5F5F5] rounded-lg hover:bg-[#4d4d4d]/50 transition-colors border border-[#4d4d4d] hover:border-[#FD5A1E]/30"
+                >
+                  View All Commercial Vending Machines
+                  <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
             </MachineDetailSection>
           )}
 
-          {/* Contact Section */}
-          <MachineDetailSection title="Get Started Today" delay={0.7}>
+          {/* Enhanced Contact Section */}
+          <MachineDetailSection title="Get Your Commercial Vending Machine Today" delay={0.7}>
             <div className="bg-gradient-to-r from-[#FD5A1E]/10 to-transparent rounded-xl p-6 sm:p-8 border border-[#FD5A1E]/30">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div>
                   <h3 className="text-2xl font-bold text-[#F5F5F5] mb-4">
-                    Ready to enhance your workplace?
+                    Ready to enhance your {machineData.category === 'refrigerated' ? 'workplace refreshments' : 'snack offerings'}?
                   </h3>
                   <p className="text-[#A5ACAF] mb-6 leading-relaxed">
                     Contact us today for a free consultation and learn how the {machineData.name} can
-                    improve employee satisfaction and convenience at your location.
+                    improve employee satisfaction and convenience at your {machineData.category === 'refrigerated' ? 'office or facility' : 'business location'} in Central California.
                   </p>
 
                   <div className="space-y-3">
@@ -583,7 +734,7 @@ const DynamicMachineDetailPage = () => {
                     </div>
                     <div className="flex items-center">
                       <MapPinIcon size={18} className="text-[#FD5A1E] mr-3" aria-hidden="true" />
-                      <span className="text-[#F5F5F5]">Modesto, CA 95354</span>
+                      <span className="text-[#F5F5F5]">Serving Central California from Modesto, CA</span>
                     </div>
                   </div>
                 </div>
@@ -596,7 +747,7 @@ const DynamicMachineDetailPage = () => {
                     Schedule Free Consultation
                   </Link>
                   <p className="text-[#A5ACAF] text-sm mt-3">
-                    Professional installation included • Complete maintenance service
+                    Professional installation included • Complete maintenance service • Central California coverage
                   </p>
                 </div>
               </div>

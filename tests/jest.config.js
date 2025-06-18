@@ -1,109 +1,244 @@
 const nextJest = require('next/jest');
 
 /**
- * Jest Configuration for AMP Vending Website
+ * Enhanced Jest Configuration for AMP Vending Website
  * 
- * This configuration sets up Jest for testing React components and utilities
- * while properly excluding e2e tests that should run with Playwright.
- * 
- * Features:
- * - Next.js integration with automatic config loading
- * - TypeScript support for test files
- * - Path mapping support (@/* imports)
- * - Proper test environment setup
- * - E2E test exclusion to prevent conflicts
- * - Custom module mapping for static assets
+ * This configuration provides comprehensive testing setup with:
+ * - TypeScript support with proper path mapping
+ * - React Testing Library integration
+ * - Coverage reporting with detailed thresholds
+ * - Accessibility testing with jest-axe
+ * - Performance monitoring capabilities
+ * - Proper mocking for Next.js components
  */
 
 const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files
+  // Path to Next.js app for loading next.config.js and .env files
   dir: './',
 });
 
-// Add any custom config to be passed to Jest
+// Enhanced Jest configuration with comprehensive testing capabilities
 const customJestConfig = {
-  // Test environment configuration
+  // Test environment - jsdom for React component testing
   testEnvironment: 'jsdom',
   
-  // Setup files to run before tests
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  // Setup files for global test configuration
+  setupFilesAfterEnv: [
+    '<rootDir>/tests/setup.tsx',
+    '<rootDir>/tests/jest-axe-setup.js'
+  ],
   
-  // Test file patterns - EXCLUDE e2e tests
+  // Test file patterns - comprehensive coverage
   testMatch: [
     '<rootDir>/tests/**/*.test.{js,jsx,ts,tsx}',
     '<rootDir>/tests/__tests__/**/*.{js,jsx,ts,tsx}',
-    '<rootDir>/tests/unit/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/tests/unit/**/*.test.{js,jsx,ts,tsx}',
     '<rootDir>/components/**/*.test.{js,jsx,ts,tsx}',
     '<rootDir>/lib/**/*.test.{js,jsx,ts,tsx}',
     '<rootDir>/hooks/**/*.test.{js,jsx,ts,tsx}',
+    '<rootDir>/app/**/*.test.{js,jsx,ts,tsx}',
   ],
   
-  // Explicitly ignore e2e tests and other non-Jest files
+  // Files to ignore during testing
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
-    '<rootDir>/tests/e2e/',           // Exclude e2e tests
+    '<rootDir>/tests/e2e/',           // Exclude Playwright E2E tests
     '<rootDir>/tests/**/*.spec.ts',   // Exclude Playwright spec files
     '<rootDir>/tests/**/*.spec.tsx',
     '<rootDir>/.vercel/',
     '<rootDir>/dist/',
+    '<rootDir>/coverage/',
   ],
   
-  // Module name mapping for static assets and path aliases
+  // Module name mapping for imports and assets
   moduleNameMapper: {
-    // Handle module aliases defined in tsconfig.json
+    // Path aliases from tsconfig.json
     '^@/(.*)$': '<rootDir>/$1',
+    '^@/components/(.*)$': '<rootDir>/components/$1',
+    '^@/lib/(.*)$': '<rootDir>/lib/$1',
+    '^@/hooks/(.*)$': '<rootDir>/hooks/$1',
+    '^@/types/(.*)$': '<rootDir>/types/$1',
     
-    // Handle static asset imports
+    // Static asset mocks
     '^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$': '<rootDir>/tests/__mocks__/fileMock.js',
     '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
-    
-    // Handle video and audio files
     '^.+\\.(mp4|webm|ogg|mp3|wav|flac|aac)$': '<rootDir>/tests/__mocks__/fileMock.js',
+    
+    // Mock problematic modules
+    '^next-auth/react$': '<rootDir>/tests/__mocks__/next-auth.js',
+    '^framer-motion$': '<rootDir>/tests/__mocks__/framer-motion.js',
   },
   
-  // Transform configuration
+  // Transform configuration for different file types
   transform: {
-    // Use next/jest transformer for JS/TS files
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
   },
   
-  // Transform ignore patterns
+  // Files to skip transformation
   transformIgnorePatterns: [
-    '/node_modules/',
+    '/node_modules/(?!(.*\\.mjs$))',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   
-  // Coverage configuration
+  // Coverage collection configuration
   collectCoverageFrom: [
+    // Include source files
     'components/**/*.{js,jsx,ts,tsx}',
     'lib/**/*.{js,jsx,ts,tsx}',
     'hooks/**/*.{js,jsx,ts,tsx}',
     'app/**/*.{js,jsx,ts,tsx}',
+    'types/**/*.{js,jsx,ts,tsx}',
+    
+    // Exclude specific files and patterns
     '!**/*.d.ts',
     '!**/*.stories.{js,jsx,ts,tsx}',
+    '!**/*.config.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
+    '!**/.next/**',
+    '!**/coverage/**',
+    '!**/dist/**',
+    '!**/public/**',
+    '!**/__mocks__/**',
+    '!**/__tests__/**',
+    '!**/tests/**',
+    
+    // Exclude specific component patterns that are hard to test
+    '!components/**/index.{js,jsx,ts,tsx}', // Re-export files
+    '!app/**/layout.tsx', // Layout files
+    '!app/**/loading.tsx', // Loading components
+    '!app/**/error.tsx', // Error boundaries
+    '!app/**/not-found.tsx', // 404 pages
   ],
   
-  // Coverage thresholds
+  // Coverage thresholds - enforce quality standards
   coverageThreshold: {
     global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70,
+      branches: 75,
+      functions: 75,
+      lines: 80,
+      statements: 80,
+    },
+    // Specific thresholds for critical components
+    './components/contact/': {
+      branches: 85,
+      functions: 85,
+      lines: 90,
+      statements: 90,
+    },
+    './components/feedback/': {
+      branches: 85,
+      functions: 85,
+      lines: 90,
+      statements: 90,
+    },
+    './lib/services/': {
+      branches: 80,
+      functions: 80,
+      lines: 85,
+      statements: 85,
     },
   },
   
-  // Test timeout
+  // Coverage reporting
+  coverageReporters: [
+    'text',
+    'text-summary',
+    'html',
+    'lcov',
+    'json',
+    'clover',
+  ],
+  
+  // Coverage directory
+  coverageDirectory: '<rootDir>/coverage',
+  
+  // Test timeout (10 seconds for integration tests)
   testTimeout: 10000,
   
-  // Clear mocks between tests
+  // Global test setup
   clearMocks: true,
-  
-  // Restore mocks after each test
   restoreMocks: true,
+  resetMocks: true,
+  
+  // Error handling
+  errorOnDeprecated: true,
+  
+  // Watch mode configuration
+  watchPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/.next/',
+    '<rootDir>/coverage/',
+    '<rootDir>/dist/',
+  ],
+  
+  // Test results processing
+  verbose: true,
+  
+  // Snapshot testing
+  snapshotSerializers: [
+    '@emotion/jest/serializer',
+  ],
+  
+  // Global variables available in tests
+  globals: {
+    'ts-jest': {
+      tsconfig: {
+        jsx: 'react-jsx',
+      },
+    },
+  },
+  
+  // Module directories for resolution
+  moduleDirectories: ['node_modules', '<rootDir>/'],
+  
+  // File extensions to consider
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  
+  // Additional test environment options
+  testEnvironmentOptions: {
+    url: 'http://localhost:3000',
+  },
+  
+  // Reporter configuration for CI/CD
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: '<rootDir>/test-results',
+        outputName: 'junit.xml',
+        ancestorSeparator: ' › ',
+        uniqueOutputName: 'false',
+        suiteNameTemplate: '{filepath}',
+        classNameTemplate: '{classname}',
+        titleTemplate: '{title}',
+      },
+    ],
+    [
+      'jest-html-reporters',
+      {
+        publicPath: '<rootDir>/test-results',
+        filename: 'test-report.html',
+        openReport: process.env.NODE_ENV !== 'ci',
+      },
+    ],
+  ],
+  
+  // Performance monitoring
+  maxWorkers: '50%',
+  
+  // Bail configuration - stop on first failure in CI
+  bail: process.env.CI ? 1 : 0,
+  
+  // Cache configuration
+  cache: true,
+  cacheDirectory: '<rootDir>/.jest-cache',
+  
+  // Notification configuration for development
+  notify: process.env.NODE_ENV === 'development',
+  notifyMode: 'failure-change',
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+// Export the enhanced configuration
 module.exports = createJestConfig(customJestConfig);

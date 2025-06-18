@@ -134,7 +134,7 @@ const VendingMachineCard = () => {
 
         {/* Action button with hover effect */}
         <Link
-          href="/vending-machines/km-vmnt-50-b">
+          href="/vending-machines">
         <motion.div
           animate={{
             backgroundColor: isHovered ? '#FD5A1E' : 'transparent'
@@ -142,7 +142,8 @@ const VendingMachineCard = () => {
           className="w-full py-3 px-4 border border-[#FD5A1E] rounded-lg text-center font-medium transition-colors cursor-pointer"
         >
           <span className={`transition-colors ${isHovered ? 'text-[#000000]' : 'text-[#FD5A1E]'}`}>
-            Learn More
+            View Machine Details
+            <ArrowRightIcon size={16} className="inline-block ml-2 transition-transform" aria-hidden="true" />  
           </span>
         </motion.div>
         </Link>
@@ -266,7 +267,7 @@ const WorkplaceTransformSection = ({
 
   return (
     <section 
-      className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
+      className={`max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
       aria-labelledby={renderHeading ? "transform-heading" : undefined}
     >
       {/* Section Header - Only rendered if renderHeading is true */}
@@ -301,31 +302,7 @@ const WorkplaceTransformSection = ({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
-        {/* Premium Header */}
-        <div className="relative rounded-2xl overflow-hidden border border-[#FD5A1E]/30 bg-[#111111] shadow-2xl mb-8">
-          <div className="relative z-10 p-6 sm:p-8 border-b border-[#FD5A1E]/30 bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#F5F5F5] mb-2">
-                  The AMP Technology Advantage
-                </h3>
-                <p className="text-sm sm:text-base lg:text-lg text-[#A5ACAF]">
-                  Experience the difference advanced technology makes
-                </p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="bg-[#FD5A1E] text-[#000000] px-4 py-2 rounded-full text-xs font-bold flex items-center">
-                  <CheckCircleIcon size={14} className="mr-1" aria-hidden="true" />
-                  Latest Tech
-                </div>
-                <div className="bg-green-600 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center">
-                  <CheckCircleIcon size={14} className="mr-1" aria-hidden="true" />
-                  Full Service
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
         {/* Enhanced Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

@@ -254,7 +254,7 @@ export const MachineCard = ({
         onKeyDown={handleKeyPress}
         tabIndex={0}
         role="button"
-        aria-label={`View details for ${machine.name}`}
+        aria-label={`View details for ${machine.name} vending machine`}
         aria-describedby={`machine-description-${machine.id}`}
       >
         {/* Category Badge */}
@@ -463,7 +463,7 @@ export const MachineCard = ({
             <Link
               href={`/vending-machines/${machine.id}`}
               className={`flex-1 ${getButtonClasses()} bg-[#FD5A1E] text-[#000000] font-medium rounded-full text-center hover:bg-[#FD5A1E]/90 active:bg-[#FD5A1E]/80 transition-all duration-300 flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-[#FD5A1E] focus:ring-offset-2 focus:ring-offset-black touch-manipulation`}
-              aria-label={`View detailed specifications for ${machine.name}`}
+              aria-label={`View detailed specifications for ${machine.name} vending machine`}
             >
               <span>View Details</span>
               <ArrowRightIcon 
@@ -523,9 +523,9 @@ export const MachineGrid = ({
       case 'showcase':
         return 'grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-12';
       case 'related':
-        return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
+        return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6';
       default:
-        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8';
+        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8';
     }
   };
 

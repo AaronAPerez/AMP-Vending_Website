@@ -9,6 +9,10 @@ import { HelpCircle, Search, Zap, CreditCard } from 'lucide-react';
  * Updated to remove cost references and focus on service benefits
  */
 const FAQSection = () => {
+  
+
+
+
   // FAQ data structure with categories - updated content
   const faqItems = [
     {

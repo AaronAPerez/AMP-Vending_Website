@@ -112,6 +112,22 @@ const SEO_CONSTANTS = {
   },
 } as const;
 
+
+export function generateFAQSchema(faqs: Array<{ question: string; answer: string }>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
 /**
  * MetaTags Component
  * 
@@ -238,6 +254,8 @@ export default function MetaTags({
       <meta name="geo.placename" content="Modesto, California" />
       <meta name="geo.position" content="37.6390972;-120.9968782" />
       <meta name="ICBM" content="37.6390972, -120.9968782" />
+
+      
       
       {/* Structured Data JSON-LD */}
       <script
@@ -246,6 +264,10 @@ export default function MetaTags({
           __html: JSON.stringify(generateJsonLd()),
         }}
       />
+      <script type="application/ld+json">
+        {JSON.stringify(generateFAQSchema)}
+      </script>
+
     </Head>
   );
 }
