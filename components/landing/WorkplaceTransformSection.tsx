@@ -142,7 +142,8 @@ const VendingMachineCard = () => {
           className="w-full py-3 px-4 border border-[#FD5A1E] rounded-lg text-center font-medium transition-colors cursor-pointer"
         >
           <span className={`transition-colors ${isHovered ? 'text-[#000000]' : 'text-[#FD5A1E]'}`}>
-            Learn More
+            View Machine Details
+            <ArrowRightIcon size={16} className="inline-block ml-2 transition-transform" aria-hidden="true" />  
           </span>
         </motion.div>
         </Link>
