@@ -480,6 +480,10 @@ export class AccessibilityValidator {
     const getLuminance = (color: string): number => {
       // Convert hex to RGB
       const hex = color.replace('#', '');
+      if (!/^[0-9a-fA-F]{6}$/.test(hex)) {
+        // Invalid hex color, return luminance of 1 (white) to avoid errors
+        return 1;
+      }
       const r = parseInt(hex.substr(0, 2), 16) / 255;
       const g = parseInt(hex.substr(2, 2), 16) / 255;
       const b = parseInt(hex.substr(4, 2), 16) / 255;
@@ -489,7 +493,7 @@ export class AccessibilityValidator {
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });
       
-      return 0.2126 * sRGB[0] + 0.7152 * sRGB[1] + 0.0722 * sRGB[2];
+      return 0.2126 * (sRGB[0] ?? 0) + 0.7152 * (sRGB[1] ?? 0) + 0.0722 * (sRGB[2] ?? 0);
     };
     
     const bgLum = getLuminance(bg);

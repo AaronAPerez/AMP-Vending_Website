@@ -72,7 +72,12 @@ export const SafeAnimatedDiv = ({
   enabled,
   ...props
 }: SafeAnimatedDivProps) => {
-  const animationStyles = useSafeAnimation({ duration, delay, easing, enabled });
+  const animationStyles = useSafeAnimation({
+    duration: duration ?? 300,
+    delay: delay ?? 0,
+    easing: easing ?? 'ease-out',
+    enabled: enabled ?? true,
+  });
   
   return (
     <div

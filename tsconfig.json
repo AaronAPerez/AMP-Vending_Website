@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "es6"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,9 +21,9 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "target": "ES2017",
+    "target": "es2017",
+    "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": false,
     "exactOptionalPropertyTypes": false
@@ -38,6 +38,7 @@
     "node_modules",
     ".next",
     "out",
+    "build",
     "dist"
   ]
 }

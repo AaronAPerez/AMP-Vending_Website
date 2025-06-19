@@ -31,7 +31,7 @@ export const TypewriterEffect: React.FC<TypewriterProps> = ({
   // Whether we're currently deleting characters
   const [isDeleting, setIsDeleting] = useState(false);
   // The current word being processed
-  const currentWord = words[currentWordIndex].text;
+  const currentWord = words[currentWordIndex]?.text ?? "";
 
   useEffect(() => {
     // Timer for typing effect

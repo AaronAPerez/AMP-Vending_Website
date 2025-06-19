@@ -10,7 +10,7 @@ test.describe('Performance Testing', () => {
         new PerformanceObserver((list) => {
           const entries = list.getEntries();
           const lastEntry = entries[entries.length - 1];
-          resolve(lastEntry.startTime);
+          resolve(lastEntry?.startTime);
         }).observe({ entryTypes: ['largest-contentful-paint'] });
         
         // Fallback timeout

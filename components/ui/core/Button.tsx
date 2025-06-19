@@ -100,14 +100,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // If href is provided, render a link instead of a button
     if (href) {
       return (
-        <Link 
-          href={href}
-          className={baseStyles}
-          // Use a type assertion that preserves the type safety
-          // while still allowing for HTML attributes used on links
-          {...(props as React.HTMLAttributes<HTMLAnchorElement>)}
-        >
-          {content}
+        <Link href={href} legacyBehavior passHref>
+          <a
+            className={baseStyles}
+            aria-disabled={isLoading || props.disabled}
+            tabIndex={isLoading || props.disabled ? -1 : 0}
+            {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+          >
+            {content}
+          </a>
         </Link>
       );
     }

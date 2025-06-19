@@ -297,7 +297,7 @@ export function getFormattedBusinessHours(): Record<string, string> {
   const { hours } = AMP_VENDING_BUSINESS_INFO;
   const formatTime = (time: string) => {
     const [hour, minute] = time.split(':');
-    const hourNum = parseInt(hour);
+    const hourNum = parseInt(hour || '0');
     const ampm = hourNum >= 12 ? 'PM' : 'AM';
     const hour12 = hourNum % 12 || 12;
     return `${hour12}:${minute} ${ampm}`;

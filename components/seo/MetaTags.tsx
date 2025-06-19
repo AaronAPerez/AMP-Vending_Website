@@ -34,13 +34,13 @@ interface OpenGraphData {
  * Twitter Card specific meta data
  */
 interface TwitterCardData {
-  card?: 'summary' | 'summary_large_image' | 'app' | 'player';
-  title?: string;
-  description?: string;
-  image?: string;
-  imageAlt?: string;
-  creator?: string;
-  site?: string;
+  card?: 'summary' | 'summary_large_image' | 'app' | 'player' | undefined;
+  title?: string | undefined;
+  description?: string | undefined;
+  image?: string | undefined;
+  imageAlt?: string | undefined;
+  creator?: string | undefined;
+  site?: string | undefined;
 }
 
 /**

@@ -423,7 +423,7 @@ const MachineShowcase = ({
                       ? 'bg-[#FD5A1E] scale-125' 
                       : 'bg-[#333333] hover:bg-[#FD5A1E]/50'
                   }`}
-                  aria-label={`View ${machines[index].name}`}
+                  aria-label={`View ${machines[index]?.name}`}
                 />
               ))}
             </div>

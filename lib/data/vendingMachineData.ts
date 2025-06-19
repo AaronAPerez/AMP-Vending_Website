@@ -61,15 +61,77 @@ export interface MachineData {
 }
 
 /**
- * Normalize machine data for the MachineCard component
- * Handles undefined values and different data formats safely
- * Enhanced with SEO data processing
- * 
+ * Get long-tail keywords for content optimization - FIXED TypeScript compatibility
+ * @returns Array of long-tail keywords
+ */
+export function getLongTailKeywords(): string[] {
+  return [
+    "commercial vending machine installation Modesto CA",
+    "office break room vending solutions Central California",
+    "touchscreen snack vending machines for businesses",
+    "refrigerated beverage vending machines with contactless payment",
+    "professional vending machine service Stockton Fresno",
+    "workplace refreshment solutions employee satisfaction",
+    "commercial vending equipment supplier Central Valley",
+    "business vending machine consultation free estimate",
+  ];
+}
+
+/**
+ * Search vending machines by keywords for SEO optimization - FIXED
+ * @param searchTerm Search term to match against machine data
+ * @returns Array of machines matching the search term
+ */
+export const searchVendingMachines = (searchTerm: string): MachineData[] => {
+  const term = searchTerm.toLowerCase();
+  return Object.values(vendingMachineData).filter(machine => {
+    // Fixed: Handle both string and array types safely
+    const bestForArray = Array.isArray(machine.bestFor) 
+      ? machine.bestFor 
+      : [machine.bestFor];
+    
+    const searchableText = [
+      machine.name,
+      machine.shortDescription,
+      machine.description,
+      ...(machine.keywords || []),
+      ...(machine.localKeywords || []),
+      ...(machine.businessKeywords || []),
+      ...bestForArray, // Now safely spread as array
+      ...machine.productOptions,
+    ].join(' ').toLowerCase();
+    
+    return searchableText.includes(term);
+  });
+};
+
+/**
+ * Get machines by business type for targeted SEO - FIXED
+ * @param businessType Business type (e.g., "office", "school", "hospital")
+ * @returns Array of machines suitable for the business type
+ */
+export const getMachinesByBusinessType = (businessType: string): MachineData[] => {
+  const businessTerm = businessType.toLowerCase();
+  return Object.values(vendingMachineData).filter(machine => {
+    const businessKeywords = machine.businessKeywords || [];
+    
+    // Fixed: Handle both string and array types safely
+    const bestForText = Array.isArray(machine.bestFor) 
+      ? machine.bestFor.join(' ').toLowerCase()
+      : machine.bestFor.toLowerCase();
+    
+    return businessKeywords.some(keyword => 
+      keyword.toLowerCase().includes(businessTerm)
+    ) || bestForText.includes(businessTerm);
+  });
+};
+
+/**
+ * Normalize machine data for the MachineCard component - FIXED
  * @param machine - Raw machine data from the database/file
  * @returns Normalized machine data or null if invalid
  */
 export const normalizeMachineData = (machine: MachineData | undefined) => {
-  // Return null for undefined machines - we'll filter these out
   if (!machine) {
     console.warn("Machine data is undefined, skipping normalization");
     return null;
@@ -90,7 +152,7 @@ export const normalizeMachineData = (machine: MachineData | undefined) => {
     dimensions = "Professional vending machine dimensions available";
   }
 
-  // Safely handle bestFor conversion with SEO-friendly language
+  // Fixed: Safely handle bestFor conversion with proper type checking
   let bestFor: string;
   if (typeof machine.bestFor === "string") {
     bestFor = machine.bestFor;
@@ -122,6 +184,82 @@ export const normalizeMachineData = (machine: MachineData | undefined) => {
     bestFor,
     highlights,
   };
+};
+
+/**
+ * Utility functions for accessing vending machine data
+ * Enhanced with SEO considerations for search optimization
+ */
+
+/**
+ * Get all vending machines
+ * @returns Array of all vending machine data with SEO optimization
+ */
+export const getAllVendingMachines = (): MachineData[] => {
+  return Object.values(vendingMachineData);
+};
+
+/**
+ * Get a specific vending machine by SEO-friendly ID
+ * @param id SEO-friendly machine ID (e.g., "refrigerated-touchscreen-vending-machine")
+ * @returns Machine data or undefined if not found
+ */
+export const getVendingMachineById = (id: string): MachineData | undefined => {
+  return vendingMachineData[id];
+};
+
+/**
+ * Get vending machines by category with SEO-optimized results
+ * @param category Machine category ('refrigerated' or 'non-refrigerated')
+ * @returns Array of matching vending machines
+ */
+export const getVendingMachinesByCategory = (
+  category: 'refrigerated' | 'non-refrigerated'
+): MachineData[] => {
+  return Object.values(vendingMachineData).filter(
+    machine => machine.category === category
+  );
+};
+
+/**
+ * Get featured vending machines for SEO landing pages
+ * @param count Number of featured machines to return
+ * @returns Array of featured vending machines optimized for search visibility
+ */
+export const getFeaturedVendingMachines = (count: number = 2): MachineData[] => {
+  // Featured machines prioritized for SEO and business value
+  const featuredIds = [
+    'premium-snack-vending-machine-touchscreen',
+    'refrigerated-touchscreen-vending-machine'
+  ];
+  return featuredIds
+    .map(id => vendingMachineData[id])
+    .filter(machine => machine !== undefined)
+    .slice(0, count);
+};
+
+
+/**
+ * Get SEO-optimized machine URLs for sitemap generation
+ * @returns Array of SEO-friendly URLs for all machines
+ */
+export const getMachineUrls = (): string[] => {
+  return Object.keys(vendingMachineData).map(id => `/vending-machines/${id}`);
+};
+
+/**
+ * Get machines by location-based keywords for local SEO
+ * @param location Location term (e.g., "Modesto", "Central California")
+ * @returns Array of machines optimized for local search
+ */
+export const getMachinesByLocation = (location: string): MachineData[] => {
+  const locationTerm = location.toLowerCase();
+  return Object.values(vendingMachineData).filter(machine => {
+    const localKeywords = machine.localKeywords || [];
+    return localKeywords.some(keyword => 
+      keyword.toLowerCase().includes(locationTerm)
+    );
+  });
 };
 
 /**
@@ -271,7 +409,7 @@ const vendingMachineData: Record<string, MachineData> = {
       {
         id: "premium-snack-vending-machine-touchscreen",
         name: "Premium Snack Vending Machine with Touchscreen",
-        image: "/images/machines/amp-premium-touchscreen-vending-machine.png",
+        image: "",
       },
       {
         id: "compact-office-refrigerated-vending-machine",
@@ -850,123 +988,6 @@ const vendingMachineData: Record<string, MachineData> = {
       "workplace convenience vending"
     ],
   },
-};
-
-/**
- * Utility functions for accessing vending machine data
- * Enhanced with SEO considerations for search optimization
- */
-
-/**
- * Get all vending machines
- * @returns Array of all vending machine data with SEO optimization
- */
-export const getAllVendingMachines = (): MachineData[] => {
-  return Object.values(vendingMachineData);
-};
-
-/**
- * Get a specific vending machine by SEO-friendly ID
- * @param id SEO-friendly machine ID (e.g., "refrigerated-touchscreen-vending-machine")
- * @returns Machine data or undefined if not found
- */
-export const getVendingMachineById = (id: string): MachineData | undefined => {
-  return vendingMachineData[id];
-};
-
-/**
- * Get vending machines by category with SEO-optimized results
- * @param category Machine category ('refrigerated' or 'non-refrigerated')
- * @returns Array of matching vending machines
- */
-export const getVendingMachinesByCategory = (
-  category: 'refrigerated' | 'non-refrigerated'
-): MachineData[] => {
-  return Object.values(vendingMachineData).filter(
-    machine => machine.category === category
-  );
-};
-
-/**
- * Get featured vending machines for SEO landing pages
- * @param count Number of featured machines to return
- * @returns Array of featured vending machines optimized for search visibility
- */
-export const getFeaturedVendingMachines = (count: number = 2): MachineData[] => {
-  // Featured machines prioritized for SEO and business value
-  const featuredIds = [
-    'premium-snack-vending-machine-touchscreen',
-    'refrigerated-touchscreen-vending-machine'
-  ];
-  return featuredIds
-    .map(id => vendingMachineData[id])
-    .filter(machine => machine !== undefined)
-    .slice(0, count);
-};
-
-/**
- * Search vending machines by keywords for SEO optimization
- * @param searchTerm Search term to match against machine data
- * @returns Array of machines matching the search term
- */
-export const searchVendingMachines = (searchTerm: string): MachineData[] => {
-  const term = searchTerm.toLowerCase();
-  return Object.values(vendingMachineData).filter(machine => {
-    const searchableText = [
-      machine.name,
-      machine.shortDescription,
-      machine.description,
-      ...(machine.keywords || []),
-      ...(machine.localKeywords || []),
-      ...(machine.businessKeywords || []),
-      ...machine.bestFor,
-      ...machine.productOptions,
-    ].join(' ').toLowerCase();
-    
-    return searchableText.includes(term);
-  });
-};
-
-/**
- * Get SEO-optimized machine URLs for sitemap generation
- * @returns Array of SEO-friendly URLs for all machines
- */
-export const getMachineUrls = (): string[] => {
-  return Object.keys(vendingMachineData).map(id => `/vending-machines/${id}`);
-};
-
-/**
- * Get machines by location-based keywords for local SEO
- * @param location Location term (e.g., "Modesto", "Central California")
- * @returns Array of machines optimized for local search
- */
-export const getMachinesByLocation = (location: string): MachineData[] => {
-  const locationTerm = location.toLowerCase();
-  return Object.values(vendingMachineData).filter(machine => {
-    const localKeywords = machine.localKeywords || [];
-    return localKeywords.some(keyword => 
-      keyword.toLowerCase().includes(locationTerm)
-    );
-  });
-};
-
-/**
- * Get machines by business type for targeted SEO
- * @param businessType Business type (e.g., "office", "school", "hospital")
- * @returns Array of machines suitable for the business type
- */
-export const getMachinesByBusinessType = (businessType: string): MachineData[] => {
-  const businessTerm = businessType.toLowerCase();
-  return Object.values(vendingMachineData).filter(machine => {
-    const businessKeywords = machine.businessKeywords || [];
-    const bestForText = Array.isArray(machine.bestFor) 
-      ? machine.bestFor.join(' ').toLowerCase()
-      : machine.bestFor.toLowerCase();
-    
-    return businessKeywords.some(keyword => 
-      keyword.toLowerCase().includes(businessTerm)
-    ) || bestForText.includes(businessTerm);
-  });
 };
 
 export default vendingMachineData;

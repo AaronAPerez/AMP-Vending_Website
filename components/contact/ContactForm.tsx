@@ -424,7 +424,7 @@ function parseServerErrors(details: Record<string, ZodFieldError>): Record<strin
   const errors: Record<string, string> = {};
   for (const key in details) {
     if (details[key]?._errors?.length) {
-      errors[key] = details[key]._errors[0];
+      errors[key] = details[key]._errors[0] ?? '';
     }
   }
   return errors;

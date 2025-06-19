@@ -122,3 +122,458 @@
   font-display: swap;
   text-rendering: optimizeSpeed;
 }
+
+/* Add these styles to your existing globals.css file */
+
+/**
+ * Admin-specific styles for AMP Vending Admin Dashboard
+ * 
+ * These styles replace the styled-jsx implementation to avoid
+ * client-only import issues in Next.js 15+
+ */
+
+/* Admin-specific utility classes */
+.admin-sensitive {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.admin-focus:focus {
+  outline: 2px solid #FD5A1E;
+  outline-offset: 2px;
+}
+
+.admin-no-cache {
+  cache-control: no-cache, no-store, must-revalidate;
+  pragma: no-cache;
+  expires: 0;
+}
+
+/* Custom scrollbar styles for admin interface */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-\[--admin-scrollbar-thumb\] {
+  --admin-scrollbar-thumb: #4d4d4d;
+}
+
+.scrollbar-track-\[--admin-scrollbar-track\] {
+  --admin-scrollbar-track: #111111;
+}
+
+.hover\:scrollbar-thumb-\[--admin-scrollbar-hover\]:hover {
+  --admin-scrollbar-hover: #FD5A1E;
+}
+
+/* Webkit scrollbar styles for better browser support */
+.admin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-track {
+  background: #111111;
+  border-radius: 2px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-thumb {
+  background: #4d4d4d;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.admin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #FD5A1E;
+}
+
+.admin-scrollbar::-webkit-scrollbar-corner {
+  background: #111111;
+}
+
+/* Admin dashboard specific animations */
+@keyframes admin-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.admin-pulse {
+  animation: admin-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Admin loading states */
+.admin-loading-skeleton {
+  background: linear-gradient(90deg, 
+    rgba(77, 77, 77, 0.1) 25%, 
+    rgba(77, 77, 77, 0.3) 50%, 
+    rgba(77, 77, 77, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Admin card hover effects */
+.admin-card {
+  transition: all 0.2s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(253, 90, 30, 0.1);
+}
+
+/* Admin button styles */
+.admin-btn-primary {
+  background-color: #FD5A1E;
+  color: #000000;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-btn-primary:hover {
+  background-color: rgba(253, 90, 30, 0.9);
+  transform: translateY(-1px);
+}
+
+.admin-btn-primary:focus {
+  outline: 2px solid #FD5A1E;
+  outline-offset: 2px;
+}
+
+.admin-btn-primary:active {
+  transform: translateY(0);
+}
+
+.admin-btn-secondary {
+  background-color: #111111;
+  color: #F5F5F5;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #333333;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.admin-btn-secondary:hover {
+  background-color: #4d4d4d;
+  border-color: #FD5A1E;
+}
+
+/* Admin form styles */
+.admin-input {
+  background-color: #111111;
+  border: 1px solid #333333;
+  color: #F5F5F5;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.admin-input:focus {
+  outline: none;
+  border-color: #FD5A1E;
+  box-shadow: 0 0 0 1px #FD5A1E;
+}
+
+.admin-input::placeholder {
+  color: #A5ACAF;
+}
+
+.admin-textarea {
+  background-color: #111111;
+  border: 1px solid #333333;
+  color: #F5F5F5;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.admin-textarea:focus {
+  outline: none;
+  border-color: #FD5A1E;
+  box-shadow: 0 0 0 1px #FD5A1E;
+}
+
+/* Admin status indicators */
+.admin-status-online {
+  color: #10B981;
+}
+
+.admin-status-warning {
+  color: #F59E0B;
+}
+
+.admin-status-error {
+  color: #EF4444;
+}
+
+.admin-status-offline {
+  color: #6B7280;
+}
+
+/* Admin notification styles */
+.admin-notification {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid;
+}
+
+.admin-notification-success {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-left-color: #10B981;
+  color: #10B981;
+}
+
+.admin-notification-warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-left-color: #F59E0B;
+  color: #F59E0B;
+}
+
+.admin-notification-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-left-color: #EF4444;
+  color: #EF4444;
+}
+
+.admin-notification-info {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-left-color: #3B82F6;
+  color: #3B82F6;
+}
+
+/* Admin grid layouts */
+.admin-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.admin-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.admin-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.admin-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+/* Responsive admin grid */
+@media (max-width: 768px) {
+  .admin-grid-2,
+  .admin-grid-3,
+  .admin-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .admin-grid-3,
+  .admin-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Admin table styles */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #111111;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.admin-table th {
+  background-color: #000000;
+  color: #F5F5F5;
+  font-weight: 600;
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #333333;
+}
+
+.admin-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #333333;
+  color: #F5F5F5;
+}
+
+.admin-table tr:hover {
+  background-color: rgba(77, 77, 77, 0.1);
+}
+
+/* Admin modal styles */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.admin-modal-content {
+  background-color: #111111;
+  border: 1px solid #333333;
+  border-radius: 0.75rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Admin tooltip styles */
+.admin-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.admin-tooltip .admin-tooltip-text {
+  visibility: hidden;
+  background-color: #000000;
+  color: #F5F5F5;
+  text-align: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.875rem;
+  border: 1px solid #333333;
+}
+
+.admin-tooltip:hover .admin-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Admin progress bar */
+.admin-progress-bar {
+  width: 100%;
+  height: 0.5rem;
+  background-color: #333333;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.admin-progress-fill {
+  height: 100%;
+  background-color: #FD5A1E;
+  transition: width 0.3s ease;
+}
+
+/* Admin badge styles */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.admin-badge-primary {
+  background-color: rgba(253, 90, 30, 0.1);
+  color: #FD5A1E;
+}
+
+.admin-badge-success {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+}
+
+.admin-badge-warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #F59E0B;
+}
+
+.admin-badge-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+
+.admin-badge-secondary {
+  background-color: rgba(77, 77, 77, 0.3);
+  color: #A5ACAF;
+}
+
+/* Admin accessibility improvements */
+.admin-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.admin-focus-visible:focus-visible {
+  outline: 2px solid #FD5A1E;
+  outline-offset: 2px;
+}
+
+/* Admin dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .admin-auto-dark {
+    background-color: #000000;
+    color: #F5F5F5;
+  }
+}
+
+/* Admin print styles */
+@media print {
+  .admin-no-print {
+    display: none !important;
+  }
+  
+  .admin-print-only {
+    display: block !important;
+  }
+}

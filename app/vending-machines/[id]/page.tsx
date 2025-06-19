@@ -262,7 +262,7 @@ const DynamicMachineDetailPage = () => {
             "@type": "Product",
             "name": machineData.name,
             "description": machineData.description,
-            "image": `https://www.ampvendingmachines.com${machineData.images[0].src}`,
+            "image": `https://www.ampvendingmachines.com${machineData.images[0]?.src ?? ''}`,
             "brand": {
               "@type": "Brand",
               "name": "AMP Vending"
@@ -418,7 +418,7 @@ const DynamicMachineDetailPage = () => {
               <div className="space-y-4">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#333333] bg-gradient-to-r from-[#FD5A1E]/10 to-transparent backdrop-blur-sm">
                   <Image
-                    src={machineData.images[selectedImageIndex]?.src || machineData.images[0].src}
+                    src={machineData.images[selectedImageIndex]?.src ?? machineData.images[0]?.src ?? '/images/placeholder.png'}
                     alt={machineData.images[selectedImageIndex]?.alt || `${machineData.name} commercial vending machine`}
                     fill
                     sizes="(max-width: 800px) 100vw, 50vw"

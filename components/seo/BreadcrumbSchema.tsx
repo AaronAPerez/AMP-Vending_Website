@@ -12,7 +12,7 @@ interface BreadcrumbItem {
   /** URL path for the breadcrumb */
   href: string;
   /** Optional position override (auto-calculated if not provided) */
-  position?: number;
+  position?: number | undefined;
 }
 
 /**

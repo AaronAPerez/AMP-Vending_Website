@@ -204,7 +204,9 @@ export function generateMachineMetadata(machine: MachineData): Metadata {
   const machineTitle = `${machine.name} | Professional Installation | AMP Vending`;
   const machineDescription = `${machine.shortDescription} Features 21.5" touchscreen, tap-to-pay technology, and maintenance-free operation for enhanced workplace satisfaction.`;
   const machineUrl = `${SEO_CONSTANTS.BASE_URL}/vending-machines/${machine.id}`;
-  const machineImageUrl = `${SEO_CONSTANTS.BASE_URL}${machine.images[0].src}`;
+  const machineImageUrl = machine.images && machine.images[0]
+    ? `${SEO_CONSTANTS.BASE_URL}${machine.images[0].src}`
+    : SEO_CONSTANTS.DEFAULT_OG_IMAGE_FULL;
 
   return {
     title: machineTitle,
@@ -251,7 +253,9 @@ export function generateMachineStructuredData(machine: MachineData) {
     '@type': 'Product',
     name: `${machine.name} Vending Machine`,
     description: machine.description,
-    image: `${SEO_CONSTANTS.BASE_URL}${machine.images[0].src}`,
+    image: machine.images?.[0]
+      ? `${SEO_CONSTANTS.BASE_URL}${machine.images[0].src}`
+      : undefined,
     brand: {
       '@type': 'Brand',
       name: SEO_CONSTANTS.SITE_NAME,
