@@ -253,7 +253,7 @@ const HomePage = () => {
               <div className="min-h-screen bg-black flex items-center justify-center">
                 <div className="text-center px-4">
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6">
-                    Premium Commercial Vending Solutions
+                    Premium Vending Solutions
                     <br />for <span className="text-[#FD5A1E]">Modern Workplaces</span>
                   </h1>
                   <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 max-w-3xl mx-auto">
@@ -266,11 +266,12 @@ const HomePage = () => {
             <ResponsiveHero
               title={
                 <>
-                  Premium Commercial Vending Solutions
+                  Premium Vending Solutions
                   <br />for <span className="text-[#FD5A1E] hero-accent">Modern Workplaces</span>
                 </>
               }
-              subtitle={`Enhance your workplace with state-of-the-art vending machines featuring 21.5" touchscreen technology, contactless payments, and 50+ customizable options. Serving ${serviceAreas.slice(0, 3).join(", ")} with professional installation and maintenance.`}
+              subtitle={"Upgrade your workplace with state-of-the-art vending machines featuring 21.5 touchscreen technology, contactless payments, and 50+ customizable options"}
+                          //  Serving ${serviceAreas.slice(0, 2).join(", ")} with professional installation and maintenance.
               primaryCta={{ text: "View Machines", href: "/vending-machines" }}
               secondaryCta={{ text: "Free Consultation", href: "/contact" }}
             />

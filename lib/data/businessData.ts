@@ -86,7 +86,7 @@ export const AMP_VENDING_BUSINESS_INFO = {
   slogan: "Premium Vending Solutions for Modern Workplaces",
   
   // SEO-Optimized Business Description for Google Business Profile
-  description: `Professional commercial vending machine solutions for offices, schools, and businesses throughout Central California. AMP Vending provides state-of-the-art touchscreen vending machines with complete installation, maintenance, and restocking services. Serving Modesto, Stockton, Fresno, and surrounding areas with refrigerated and snack vending machines featuring contactless payment technology. Contact us for free consultations on workplace vending solutions that enhance employee satisfaction and convenience.`,
+  description: `Professional commercial vending machine solutions for offices, schools, and businesses throughout Central California. AMP Vending provides state-of-the-art touchscreen vending machines with complete installation, maintenance, and restocking services. Serving Modesto, Stockton, Turlock, and surrounding areas with refrigerated and snack vending machines featuring contactless payment technology. Contact us for free consultations on workplace vending solutions that enhance employee satisfaction and convenience.`,
   
   // Short description for citations and directories
   shortDescription: `Commercial vending machines with professional installation and maintenance service throughout Central California. Touchscreen technology, contactless payments, 50+ product options.`,
@@ -128,7 +128,8 @@ export const AMP_VENDING_BUSINESS_INFO = {
     primary: "Modesto, CA",
     secondary: [
       "Stockton, CA",
-      "Fresno, CA", 
+      "Lodi, CA",
+      "Ripon, CA",
       "Merced, CA",
       "Turlock, CA",
       "Ceres, CA",
@@ -139,8 +140,6 @@ export const AMP_VENDING_BUSINESS_INFO = {
       "Tracy, CA",
       "Lathrop, CA",
       "Riverbank, CA",
-      "Waterford, CA",
-      "Hughson, CA",
     ],
     radius: 60, // miles from Modesto
   } as ServiceArea,
@@ -347,7 +346,7 @@ export function getLongTailKeywords(): string[] {
     "office break room vending solutions Central California",
     "touchscreen snack vending machines for businesses",
     "refrigerated beverage vending machines with contactless payment",
-    "professional vending machine service Stockton Fresno",
+    "professional vending machine service Stockton Turlock",
     "workplace refreshment solutions employee satisfaction",
     "commercial vending equipment supplier Central Valley",
     "business vending machine consultation free estimate",
