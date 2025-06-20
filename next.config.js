@@ -47,14 +47,14 @@ const nextConfig = {
     // Enable CSS optimization
     optimizeCss: true,
     // Other experimental features available in Next.js 15
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
+    // turbo: {
+    //   rules: {
+    //     '*.svg': {
+    //       loaders: ['@svgr/webpack'],
+    //       as: '*.js',
+    //     },
+    //   },
+    // },
   },
 
   // Webpack configuration for build optimization

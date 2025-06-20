@@ -16,6 +16,14 @@
     "lint:fix": "next lint --fix --quiet",
     "build:safe": "npm run type-check && npm run lint:check && npm run build",
     "check-circular": "madge --circular --extensions ts,tsx ./app ./components",
+
+
+    "request-indexing": "tsx scripts/request-indexing.ts",
+    "request-indexing:all": "tsx scripts/request-indexing.ts all",
+    "submit-sitemap": "tsx scripts/request-indexing.ts sitemap",
+    "seo:check": "npm run build && npm run lighthouse",
+    "seo:test": "npm run test:e2e:seo",
+    "indexing:monitor": "tsx scripts/monitor-indexing.ts",
     "docs:dev": "cd docs && npm run dev",
     "docs:build": "cd docs && npm run build",
     "docs:lint": "markdownlint docs/**/*.md",

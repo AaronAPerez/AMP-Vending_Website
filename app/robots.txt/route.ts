@@ -1,113 +1,145 @@
-
 /**
- * Dynamic Robots.txt Route Handler
+ * Enhanced Dynamic Robots.txt Route Handler for Google Indexing
  * 
- * Generates robots.txt file dynamically for AMP Vending website
- * following SEO best practices and Next.js App Router conventions.
- * 
- * Features:
- * - Environment-aware configuration (production vs development)
- * - Proper sitemap references
- * - Crawl delay optimization
- * - Security through selective blocking
- * - Performance optimization directives
+ * Build Process Documentation:
+ * 1. Optimized robots.txt for maximum Google indexing coverage
+ * 2. Environment-aware configuration with production focus
+ * 3. Proper sitemap references for crawler discovery
+ * 4. Strategic crawl delay optimization for different bots
+ * 5. AI crawler management for content protection
+ * 6. Performance-oriented caching headers
+ * 7. Comprehensive path blocking for security
+ * 8. Search engine specific optimizations
  */
 
 /**
- * GET handler for robots.txt
- * Returns robots.txt content as plain text with proper headers
+ * GET handler for enhanced robots.txt generation
+ * Optimized specifically for Google indexing and Search Console
  */
 export async function GET(): Promise<Response> {
-  // Get environment and base URL
-  const isProduction = process.env.NODE_ENV === 'production';
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ampvendingmachines.com';
-  
-  // Generate robots.txt content based on environment
-  const robotsContent = generateRobotsContent(isProduction, baseUrl);
-  
-  return new Response(robotsContent, {
-    headers: {
-      'Content-Type': 'text/plain',
-      'Cache-Control': 'public, max-age=86400, s-maxage=86400', // Cache for 24 hours
-    },
-  });
+  try {
+    // Environment and URL detection
+    const isProduction = process.env.NODE_ENV === 'production';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ampvendingmachines.com';
+    
+    // Generate optimized robots.txt content
+    const robotsContent = generateEnhancedRobotsContent(isProduction, baseUrl);
+    
+    return new Response(robotsContent, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=3600',
+        'X-Robots-Tag': 'noindex, nofollow', // Don't index robots.txt itself
+        'Vary': 'User-Agent',
+      },
+    });
+  } catch (error) {
+    console.error('Error generating robots.txt:', error);
+    
+    // Fallback robots.txt for errors
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ampvendingmachines.com';
+    const fallbackRobots = `User-agent: *
+Allow: /
+Sitemap: ${baseUrl}/sitemap.xml`;
+    
+    return new Response(fallbackRobots, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache',
+      },
+    });
+  }
 }
 
 /**
- * Generate robots.txt content
- * @param isProduction - Whether the app is running in production
+ * Generate enhanced robots.txt content optimized for Google indexing
+ * @param isProduction - Whether running in production environment
  * @param baseUrl - Base URL of the website
- * @returns Formatted robots.txt content
+ * @returns Optimized robots.txt content
  */
-function generateRobotsContent(isProduction: boolean, baseUrl: string): string {
+function generateEnhancedRobotsContent(isProduction: boolean, baseUrl: string): string {
+  const currentDate = new Date().toISOString().split('T')[0];
+  
   if (!isProduction) {
-    // Development/staging environment - block all crawlers
+    // Development/staging environment - selective blocking
     return `# AMP Vending - Development Environment
-# This is a development/staging site - blocking all crawlers
+# Last updated: ${currentDate}
+# Environment: Development/Staging
 
+# Block all crawlers from development environment
 User-agent: *
 Disallow: /
 
-# Block common development paths
+# Allow specific testing crawlers if needed
+User-agent: GooglebotDevelopment
+Allow: /test/
+
+# Block all development-specific paths
 Disallow: /_next/
 Disallow: /api/
-Disallow: /.env
+Disallow: /.env*
 Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /build/
+Disallow: /temp/
+Disallow: /logs/
 
-# Development sitemap (if needed)
+# Development sitemap for testing
 # Sitemap: ${baseUrl}/sitemap.xml
+
+# Contact for development issues
+# Contact: ampdesignandconsulting@gmail.com
 `;
   }
 
-  // Production environment - allow crawling with optimizations
+  // Production environment - optimized for maximum Google visibility
   return `# AMP Vending - Premium Workplace Vending Solutions
 # Website: ${baseUrl}
+# Business: Commercial vending machines with touchscreen technology
+# Service Area: Central California (Modesto, Stockton, Fresno, Merced)
 # Contact: ampdesignandconsulting@gmail.com
+# Phone: (209) 403-5450
+# Last updated: ${currentDate}
 
-# Allow all search engines to crawl public content
-User-agent: *
-Allow: /
+# ============================================================================
+# PRIORITY SECTION: Allow all major search engines full access
+# ============================================================================
 
-# Block sensitive or non-public directories
-Disallow: /api/
-Disallow: /_next/
-Disallow: /admin/
-Disallow: /.well-known/
-Disallow: /private/
-Disallow: /temp/
-Disallow: /backup/
-
-# Block common non-content files
-Disallow: /*.json$
-Disallow: /*.xml$ 
-Disallow: /*.txt$
-Disallow: /*.log$
-
-# Block query parameters that don't affect content
-Disallow: /*?utm_*
-Disallow: /*?ref=*
-Disallow: /*?source=*
-Disallow: /*?campaign=*
-
-# Allow specific important files
-Allow: /sitemap.xml
-Allow: /robots.txt
-Allow: /manifest.json
-Allow: /favicon.ico
-
-# Optimize crawling for different search engines
-
-# Google - Allow aggressive crawling for business-critical pages
+# Google - Maximum crawling allowed for business-critical content
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
-# Bing - Standard crawling
+# Google specific crawlers
+User-agent: Googlebot-Image
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+# Bing - Full access with moderate crawling
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 2
 
-# Allow social media crawlers for better sharing
+# DuckDuckGo - Full access
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 2
+
+# Yandex - Full access
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 3
+
+# ============================================================================
+# SOCIAL MEDIA CRAWLERS: Essential for social sharing and business visibility
+# ============================================================================
+
 User-agent: facebookexternalhit
 Allow: /
 
@@ -120,23 +152,49 @@ Allow: /
 User-agent: WhatsApp
 Allow: /
 
-# Block resource-intensive crawlers during business hours
+User-agent: TelegramBot
+Allow: /
+
+User-agent: SkypeUriPreview
+Allow: /
+
+User-agent: SlackBot
+Allow: /
+
+User-agent: DiscordBot
+Allow: /
+
+# ============================================================================
+# BUSINESS/SEO TOOLS: Controlled access for legitimate business tools
+# ============================================================================
+
+# Allow essential SEO and business tools with rate limiting
 User-agent: AhrefsBot
+Allow: /
 Crawl-delay: 30
 
 User-agent: SemrushBot
+Allow: /
 Crawl-delay: 30
 
 User-agent: MJ12bot
+Allow: /
 Crawl-delay: 30
 
-# Block potentially problematic crawlers
-User-agent: SiteAuditBot
-Disallow: /
+User-agent: DotBot
+Allow: /
+Crawl-delay: 30
 
-User-agent: CCBot
-Disallow: /
+# Screaming Frog (common SEO tool)
+User-agent: Screaming Frog SEO Spider
+Allow: /
+Crawl-delay: 10
 
+# ============================================================================
+# AI TRAINING CRAWLERS: Selective blocking to protect business content
+# ============================================================================
+
+# Block AI training crawlers (protect proprietary business content)
 User-agent: GPTBot
 Disallow: /
 
@@ -152,43 +210,216 @@ Disallow: /
 User-agent: Claude-Web
 Disallow: /
 
-# Block AI training crawlers (optional - remove if you want AI to learn from your content)
-User-agent: ChatGPT-User
+User-agent: Bard
 Disallow: /
 
-User-agent: CCBot
+User-agent: PaLM
 Disallow: /
 
-User-agent: anthropic-ai
+# Block other AI/ML crawlers
+User-agent: PerplexityBot
 Disallow: /
 
-User-agent: Claude-Web
+User-agent: YouBot
 Disallow: /
 
-# Sitemap location
+# ============================================================================
+# PROBLEMATIC CRAWLERS: Block resource-intensive or malicious bots
+# ============================================================================
+
+User-agent: SiteAuditBot
+Disallow: /
+
+User-agent: SeekportBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: MegaIndex
+Disallow: /
+
+User-agent: JobboerseBot
+Disallow: /
+
+User-agent: SpiderBot
+Disallow: /
+
+User-agent: VoilaBot
+Disallow: /
+
+# ============================================================================
+# GENERAL RULES: Default rules for all other crawlers
+# ============================================================================
+
+# Default rule for all other crawlers
+User-agent: *
+Allow: /
+
+# ============================================================================
+# BLOCKED PATHS: Protect sensitive and non-public content
+# ============================================================================
+
+# API endpoints and backend functionality
+Disallow: /api/
+Disallow: /_next/
+Disallow: /.next/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /backend/
+
+# Configuration and environment files
+Disallow: /.env*
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /package*.json
+Disallow: /tsconfig*.json
+Disallow: /next.config.*
+Disallow: /tailwind.config.*
+
+# Build and deployment files
+Disallow: /dist/
+Disallow: /build/
+Disallow: /out/
+Disallow: /temp/
+Disallow: /tmp/
+Disallow: /cache/
+Disallow: /logs/
+Disallow: /backup/
+
+# Private and internal directories
+Disallow: /private/
+Disallow: /internal/
+Disallow: /.well-known/
+Disallow: /test/
+Disallow: /testing/
+Disallow: /dev/
+Disallow: /development/
+
+# File types that shouldn't be indexed
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+Disallow: /*.log$
+Disallow: /*.sql$
+Disallow: /*.bak$
+Disallow: /*.old$
+
+# ============================================================================
+# QUERY PARAMETERS: Block tracking and non-content parameters
+# ============================================================================
+
+# Marketing and tracking parameters
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?source=*
+Disallow: /*?campaign=*
+Disallow: /*?medium=*
+Disallow: /*?content=*
+Disallow: /*?term=*
+Disallow: /*?gclid=*
+Disallow: /*?fbclid=*
+Disallow: /*?msclkid=*
+
+# Session and user tracking
+Disallow: /*?sessionid=*
+Disallow: /*?userid=*
+Disallow: /*?token=*
+Disallow: /*?auth=*
+
+# Pagination and sorting that doesn't change content significantly
+Disallow: /*?sort=*
+Disallow: /*?order=*
+Disallow: /*?page=*
+Disallow: /*?limit=*
+
+# ============================================================================
+# EXPLICITLY ALLOWED PATHS: Important files for SEO and functionality
+# ============================================================================
+
+# Essential SEO and technical files
+Allow: /sitemap*.xml
+Allow: /robots.txt
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /manifest.webmanifest
+
+# Important images and assets for business
+Allow: /images/
+Allow: /logo*
+Allow: /brand*
+
+# Critical business pages
+Allow: /vending-machines/
+Allow: /contact
+Allow: /feedback
+Allow: /about
+
+# ============================================================================
+# SITEMAPS: Help crawlers discover all important content
+# ============================================================================
+
+# Main sitemap
 Sitemap: ${baseUrl}/sitemap.xml
 
-# Additional sitemaps (if you create them)
-# Sitemap: ${baseUrl}/sitemap-products.xml
+# Specialized sitemaps (uncomment when created)
 # Sitemap: ${baseUrl}/sitemap-machines.xml
 # Sitemap: ${baseUrl}/sitemap-images.xml
+# Sitemap: ${baseUrl}/sitemap-service-areas.xml
+# Sitemap: ${baseUrl}/sitemap-blog.xml
 
-# Host directive (helps with domain consolidation)
-Host: ${baseUrl.replace('https://', '')}
+# ============================================================================
+# ADDITIONAL SEO DIRECTIVES
+# ============================================================================
 
-# Last updated
-# Generated: ${new Date().toISOString()}
+# Host directive for domain consolidation
+Host: ${baseUrl.replace(/^https?:\/\//, '')}
+
+# Request rate (overall crawl budget optimization)
+Request-rate: 1/10s
+
+# Visit time (hours when crawling is preferred - PST business hours)
+Visit-time: 0900-1700
+
+# ============================================================================
+# BUSINESS INFORMATION FOR REFERENCE
+# ============================================================================
+
+# Business: AMP Vending
+# Industry: Commercial Vending Machine Solutions
+# Primary Keywords: vending machines, office vending, touchscreen vending, Central California
+# Service Areas: Modesto, Stockton, Fresno, Merced, Turlock, Tracy, Manteca
+# Contact: ampdesignandconsulting@gmail.com
+# Phone: (209) 403-5450
+# Address: 4120 Dale Rd ste j8 1005, Modesto, CA 95354
+
+# ============================================================================
+# CHANGE LOG
+# ============================================================================
+
+# ${currentDate}: Enhanced robots.txt for improved Google indexing
+# - Added comprehensive crawler management
+# - Optimized for Google Search Console compliance
+# - Added business-specific path allowances
+# - Implemented AI crawler content protection
+# - Enhanced sitemap references for better discovery
+
+# For questions about this robots.txt file:
+# Email: ampdesignandconsulting@gmail.com
+# Subject: Robots.txt Configuration - AMP Vending Website
 `;
 }
 
 /**
- * Alternative: Static robots.txt using Next.js MetadataRoute.robots
+ * Alternative: Generate robots.txt using Next.js MetadataRoute.robots
  * 
- * You can also create a robots.ts file in the app directory for static robots.txt:
+ * Create this as app/robots.ts for static generation:
+ * 
+ * import { MetadataRoute } from 'next';
  * 
  * export default function robots(): MetadataRoute.Robots {
- *   const isProduction = process.env.NODE_ENV === 'production';
  *   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ampvendingmachines.com';
+ *   const isProduction = process.env.NODE_ENV === 'production';
  * 
  *   if (!isProduction) {
  *     return {
@@ -202,21 +433,32 @@ Host: ${baseUrl.replace('https://', '')}
  *   return {
  *     rules: [
  *       {
+ *         userAgent: 'Googlebot',
+ *         allow: '/',
+ *         crawlDelay: 1,
+ *       },
+ *       {
+ *         userAgent: 'Bingbot',
+ *         allow: '/',
+ *         crawlDelay: 2,
+ *       },
+ *       {
  *         userAgent: '*',
  *         allow: '/',
- *         disallow: ['/api/', '/_next/', '/admin/'],
+ *         disallow: ['/api/', '/_next/', '/admin/', '/private/'],
  *       },
  *       {
- *         userAgent: 'AhrefsBot',
- *         crawlDelay: 30,
+ *         userAgent: ['GPTBot', 'ChatGPT-User', 'CCBot', 'anthropic-ai'],
+ *         disallow: '/',
  *       },
  *       {
- *         userAgent: 'SemrushBot',
+ *         userAgent: ['AhrefsBot', 'SemrushBot', 'MJ12bot'],
+ *         allow: '/',
  *         crawlDelay: 30,
  *       },
  *     ],
- *     sitemap: `${baseUrl}/sitemap.xml`,
- *     host: baseUrl,
+ *     sitemap: [`${baseUrl}/sitemap.xml`],
+ *     host: baseUrl.replace(/^https?:\/\//, ''),
  *   };
  * }
  */
