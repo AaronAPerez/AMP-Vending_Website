@@ -16,8 +16,6 @@
     "lint:fix": "next lint --fix --quiet",
     "build:safe": "npm run type-check && npm run lint:check && npm run build",
     "check-circular": "madge --circular --extensions ts,tsx ./app ./components",
-
-
     "request-indexing": "tsx scripts/request-indexing.ts",
     "request-indexing:all": "tsx scripts/request-indexing.ts all",
     "submit-sitemap": "tsx scripts/request-indexing.ts sitemap",
@@ -73,6 +71,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
     "framer-motion": "^12.18.1",
+    "google-auth-library": "^10.1.0",
     "intersection-observer": "^0.12.2",
     "lucide-react": "^0.468.0",
     "next": "^15.3.4",

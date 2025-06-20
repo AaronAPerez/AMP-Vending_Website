@@ -13,6 +13,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
+
 /**
  * Interface for indexing request body
  */
@@ -411,3 +412,9 @@ function delay(ms: number): Promise<void> {
  * Export the handlers
  */
 // Removed redundant export statement to avoid redeclaration errors
+
+// Add to your API route
+export const REQUESTS_PER_MINUTE = 200; // Google's limit
+export const requests = new Map();
+
+// (Removed duplicate checkRateLimit function. The async checkRateLimit(request: NextRequest) is used above.)

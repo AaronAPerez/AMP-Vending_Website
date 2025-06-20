@@ -1,0 +1,20 @@
+name: Request Google Indexing
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Every Monday at 9 AM
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  request-indexing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npm run request-indexing
+        env:
+          NEXT_PUBLIC_BASE_URL: https://www.ampvendingmachines.com
+          GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}

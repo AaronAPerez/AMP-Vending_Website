@@ -96,3 +96,8 @@ playwright-report/
 test-results/
 screenshots/
 videos/
+
+# Google Service Account
+*service-account*.json
+.env.local
+.env

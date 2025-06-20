@@ -174,7 +174,8 @@ export const metadata: Metadata = {
     'msapplication-navbutton-color': '#000000',
 
     // Search engine verification codes (add when available)
-    // 'google-site-verification': 'YOUR_GOOGLE_VERIFICATION_CODE',
+    'google-site-verification': 'GOOGLE_VERIFICATION_CODE',
+    // 'google-site-verification': 'GOOGLE_VERIFICATION_CODE',
     // 'msvalidate.01': 'YOUR_BING_VERIFICATION_CODE',
     // 'yandex-verification': 'YOUR_YANDEX_VERIFICATION_CODE',
 
