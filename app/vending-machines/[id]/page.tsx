@@ -29,7 +29,7 @@ import {
   normalizeMachineData,
   type MachineData
 } from '@/lib/data/vendingMachineData';
-import { MachineGrid } from '@/components/MachineCard';
+import { MachineGrid } from '@/components/machines/MachineCard';
 
 /**
  * Props interface for the MachineDetailSection component

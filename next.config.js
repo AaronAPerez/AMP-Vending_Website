@@ -1,60 +1,74 @@
 /**
- * Next.js Configuration - Fixed for Next.js 15.3.4
+ * Performance-Optimized Next.js Configuration
  * 
  * Build Process Documentation:
- * 1. Fixes configuration options that are invalid in Next.js 15+
- * 2. Removes deprecated options and uses correct syntax
- * 3. Implements proper build optimization
- * 4. Adds proper TypeScript and ESLint configurations
- * 5. Includes performance optimizations
+ * 1. Implements aggressive bundle splitting for better caching
+ * 2. Configures tree shaking and dead code elimination
+ * 3. Optimizes vendor chunk splitting to reduce main bundle size
+ * 4. Implements dynamic imports and code splitting strategies
+ * 5. Configures production optimizations for minimal bundle sizes
  */
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* Core Configuration - Fixed for Next.js 15+ */
-  
-  // Enable React strict mode for better development experience
-  reactStrictMode: true, // This should be at root level, not in compiler
-  
+  /* Core Configuration */
+  reactStrictMode: true,
+
   // Configure TypeScript build behavior
   typescript: {
-    // Set to true only if you want to skip type checking during build (not recommended)
     ignoreBuildErrors: false,
   },
 
   // Configure ESLint behavior during build
   eslint: {
-    // Set to true only if you want to skip ESLint during build (not recommended)
     ignoreDuringBuilds: false,
-    // Specify directories to run ESLint on during build
     dirs: ['pages', 'components', 'lib', 'src', 'app'],
   },
 
-  // Compiler optimizations (Fixed syntax)
+  // Compiler optimizations for production
   compiler: {
     // Remove console.log statements in production
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+    
     // Remove React properties in production
     reactRemoveProperties: process.env.NODE_ENV === 'production' ? { 
-      properties: ['^data-testid$'] 
+      properties: ['^data-testid$', '^data-test-.*$'] 
     } : false,
+    
+    // Remove debugging code
+    removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Experimental features for optimization (Updated for Next.js 15+)
+  // Experimental features for performance
   experimental: {
     // Optimize package imports for better tree shaking
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      '@radix-ui/react-checkbox',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-label',
+      '@radix-ui/react-slot',
+      'react-hook-form',
+      'zod',
+    ],
+    
     // Enable CSS optimization
     optimizeCss: true,
-    // Other experimental features available in Next.js 15
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
+    
+    // Optimize server-side React
+    optimizeServerReact: true,
+    
+    // Enable modern compilation
+    esmExternals: true,
+    
+    // Optimize fonts
+    optimizeFonts: true,
+    
+    // Enable SWC plugins for better optimization
+    swcPlugins: [],
   },
 
   // Webpack configuration for build optimization

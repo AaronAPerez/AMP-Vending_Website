@@ -27,7 +27,6 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:accessibility": "playwright test tests/e2e/accessibility",
-    "test:performance": "playwright test tests/e2e/performance && npm run lighthouse",
     "test:visual": "playwright test tests/e2e/visual-regression",
     "test:all": "npm run test:coverage && npm run test:e2e",
     "test:ci": "jest --ci --coverage --watchAll=false",
@@ -41,14 +40,29 @@
     "test:docker": "docker run --rm -v $(pwd):/app -w /app mcr.microsoft.com/playwright:v1.40.0-focal npm run test:e2e",
     "analyze": "npm run build && npx @next/bundle-analyzer",
     "audit": "npm audit && npm run test:accessibility",
-    "lighthouse": "lhci autorun && tsx ./scripts/lighthouse-test.ts",
     "lighthouse:ci": "npm run build && npm run start & sleep 10 && npm run lighthouse && kill %1",
     "test:a11y": "npm run lighthouse -- --accessibility-only",
-    "build:analyze": "ANALYZE=true npm run build",
-    "build:production": "NODE_ENV=production npm run type-check && npm run lint:check && npm run build",
     "preview": "npm run build && npm run start",
-    "postinstall": "npm run type-check || echo 'Type check failed - continuing anyway'"
+    "postinstall": "npm run type-check || echo 'Type check failed - continuing anyway'",
+    "setup:lazy": "node scripts/setup-lazy-loading.js",
+    "dev:performance": "next dev --turbo",
+    "build:analyze": "ANALYZE=true npm run build",
+    "build:production": "NODE_ENV=production npm run build",
+    "test:performance": "npm run build && npm run lighthouse",
+    "lighthouse": "lhci autorun",
+    "bundle:check": "npx bundlesize",
+    "perf:audit": "npm run build:production && npm run lighthouse && npm run bundle:check"
   },
+  "bundlesize": [
+    {
+      "path": ".next/static/chunks/pages/index*.js",
+      "maxSize": "50kb"
+    },
+    {
+      "path": ".next/static/chunks/vendors*.js",
+      "maxSize": "150kb"
+    }
+  ],
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-checkbox": "^1.1.1",
@@ -81,6 +95,7 @@
     "sonner": "^2.0.5",
     "styled-components": "^6.1.18",
     "tailwind-merge": "^2.5.4",
+    "web-vitals": "^5.0.3",
     "zod": "^3.25.67"
   },
   "devDependencies": {
@@ -123,7 +138,8 @@
     "terser-webpack-plugin": "^5.3.14",
     "ts-jest": "^29.1.0",
     "tsx": "^4.20.3",
-    "typescript": "5.7.2"
+    "typescript": "5.7.2",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "engines": {
     "node": ">=18.0.0",

@@ -13,7 +13,7 @@ import {
 } from '@/lib/data/vendingMachineData';
 import { Loading } from '@/components/ui/core/Loading';
 import CTASection from '@/components/landing/CTASection';
-import { MachineGrid } from '@/components/MachineCard';
+import { MachineGrid } from '@/components/machines/MachineCard';
 
 /**
  * Filter option interface for better type safety

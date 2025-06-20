@@ -3,7 +3,7 @@
 import { getAllVendingMachines, normalizeMachineData } from '@/lib/data/vendingMachineData';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { MachineGrid } from '../MachineCard';
+import { MachineGrid } from '../machines/MachineCard';
 
 
 
