@@ -9,15 +9,27 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "project": "./tsconfig.json"
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "react",
+    "react-hooks"
   ],
   "rules": {
+    // Next.js specific rules
     "@next/next/no-img-element": "off",
     "@next/next/no-ssr-import": "error",
+    
+    // React rules
     "react/no-unescaped-entities": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    
+    // TypeScript rules
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -28,10 +40,24 @@
     ],
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
-    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "@typescript-eslint/no-inferrable-types": "off",
+    
+    // General JavaScript rules
     "prefer-const": "warn",
     "no-console": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off", // Use TypeScript version instead
+    "no-undef": "off", // TypeScript handles this
+    
+    // Code style
+    "indent": "off", // Let Prettier handle this
+    "quotes": "off", // Let Prettier handle this
+    "semi": "off" // Let Prettier handle this
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   },
   "ignorePatterns": [
     "node_modules/",
@@ -40,11 +66,23 @@
     "build/",
     "dist/",
     "*.config.js",
-    "*.config.ts"
+    "*.config.ts",
+    "*.config.mjs",
+    ".eslintrc.js"
   ],
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
-  }
+    "node": true,
+    "jest": true
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+  ]
 }

@@ -87,7 +87,7 @@ const Footer = () => {
                 </a>
               </div>
               {/* Email */}
-              <div className="min-w-0"> {/* Prevents flex item from growing beyond container */}
+              <div className="min-w-0 flex justify-start"> {/* Prevents flex item from growing beyond container */}
                 {/* Email with overflow-wrap for better breaking */}
                 <FooterEmailLink />
               </div>

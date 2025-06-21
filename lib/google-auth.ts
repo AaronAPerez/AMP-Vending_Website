@@ -269,7 +269,8 @@ export class GoogleAuthManager {
         .replace(/\s/g, '');
     }
 
-    return Buffer.from(pemContents, 'base64').buffer;
+    const buf = Buffer.from(pemContents, 'base64');
+    return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength).slice().buffer as ArrayBuffer;
   }
 
   /**
