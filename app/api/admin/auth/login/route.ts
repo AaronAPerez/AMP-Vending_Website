@@ -1,43 +1,24 @@
-// app/api/admin/auth/login/route.ts
+// app/api/admin/auth/verify/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { email, password } = body;
+    const token = request.cookies.get('amp-admin-token');
 
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password required' }, { status: 400 });
-    }
-
-    // Simple authentication check against environment variables
-    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-      const response = NextResponse.json({
-        success: true,
-        user: { 
-          email, 
+    if (token && token.value === 'authenticated') {
+      return NextResponse.json({
+        user: {
+          email: process.env.ADMIN_EMAIL,
           role: 'admin',
           name: 'AMP Vending Administrator'
         }
       });
-
-      // Set authentication cookie
-      response.cookies.set('amp-admin-token', 'authenticated', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60, // 1 hour
-        path: '/admin',
-      });
-
-      return response;
     }
 
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   } catch (error) {
-    console.error('Login error:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Verification failed' }, { status: 500 });
   }
 }

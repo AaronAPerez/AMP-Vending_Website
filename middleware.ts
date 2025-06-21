@@ -1,3 +1,12 @@
+/**
+ * Essential Files for Immediate Implementation
+ * Start with these files to get admin login working quickly
+ */
+
+// ===================================
+// 1. MIDDLEWARE.TS (Root Level)
+// ===================================
+
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
 
