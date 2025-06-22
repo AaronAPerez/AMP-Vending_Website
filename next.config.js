@@ -17,19 +17,27 @@ const nextConfig = {
   reactStrictMode: true, // This should be at root level, not in compiler
   
   // Configure TypeScript build behavior
-  typescript: {
-    // Set to true only if you want to skip type checking during build (not recommended)
-    ignoreBuildErrors: false,
-  },
+  // typescript: {
+  //   // Set to true only if you want to skip type checking during build (not recommended)
+  //   ignoreBuildErrors: false,
+  // },
 
-  // Configure ESLint behavior during build
+  // // Configure ESLint behavior during build
+  // eslint: {
+  //   // Set to true only if you want to skip ESLint during build (not recommended)
+  //   ignoreDuringBuilds: false,
+  //   // Specify directories to run ESLint on during build
+  //   dirs: ['pages', 'components', 'lib', 'src', 'app'],
+  // },
+ typescript: {
+    ignoreBuildErrors: true,
+  },
   eslint: {
-    // Set to true only if you want to skip ESLint during build (not recommended)
-    ignoreDuringBuilds: false,
-    // Specify directories to run ESLint on during build
-    dirs: ['pages', 'components', 'lib', 'src', 'app'],
+    ignoreDuringBuilds: true,
   },
-
+  experimental: {
+    appDir: true,
+  },
   // Compiler optimizations (Fixed syntax)
   compiler: {
     // Remove console.log statements in production

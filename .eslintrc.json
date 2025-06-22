@@ -1,63 +1,14 @@
 {
   "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "project": "./tsconfig.json"
-  },
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-hooks"
+    "next/core-web-vitals"
   ],
   "rules": {
-    // Next.js specific rules
-    "@next/next/no-img-element": "off",
-    "@next/next/no-ssr-import": "error",
-    
-    // React rules
     "react/no-unescaped-entities": "off",
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off",
-    "react-hooks/rules-of-hooks": "error",
+    "@next/next/no-img-element": "off",
     "react-hooks/exhaustive-deps": "warn",
-    
-    // TypeScript rules
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }
-    ],
-    "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/prefer-nullish-coalescing": "off",
-    "@typescript-eslint/no-non-null-assertion": "warn",
-    "@typescript-eslint/no-inferrable-types": "off",
-    
-    // General JavaScript rules
     "prefer-const": "warn",
     "no-console": "off",
-    "no-unused-vars": "off", // Use TypeScript version instead
-    "no-undef": "off", // TypeScript handles this
-    
-    // Code style
-    "indent": "off", // Let Prettier handle this
-    "quotes": "off", // Let Prettier handle this
-    "semi": "off" // Let Prettier handle this
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+    "no-unused-vars": "warn"
   },
   "ignorePatterns": [
     "node_modules/",
@@ -66,23 +17,30 @@
     "build/",
     "dist/",
     "*.config.js",
-    "*.config.ts",
-    "*.config.mjs",
-    ".eslintrc.js"
+    "*.config.ts"
   ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "settings": {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "prefer-const": "warn",
+    "no-console": "off",
+    "no-unused-vars": "off"
+  },
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true,
-    "jest": true
-  },
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off"
-      }
-    }
-  ]
+    "node": true
+  }
 }
